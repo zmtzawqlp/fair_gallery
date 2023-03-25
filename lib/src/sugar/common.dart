@@ -73,10 +73,10 @@ class SugarCommon {
 
   static Function() voidCallBack({
     required Function function,
-    dynamic value,
+    required List<dynamic> values,
   }) {
     return () {
-      function.call(value);
+      Function.apply(function, values);
     };
   }
 
@@ -116,7 +116,15 @@ class SugarCommon {
   }
 
   static LoadingMoreItemBuilder loadingMoreItemBuilder(
-      LoadingMoreItemBuilder loadingMoreItemBuilder) {
+      Widget Function(
+    BuildContext context,
+    dynamic loadingMoreItem,
+    int loadingMoreIndex,
+  )
+          loadingMoreItemBuilder) {
     return loadingMoreItemBuilder;
   }
+
+  static dynamic nullOrDefault(dynamic value, dynamic defaultValue) =>
+      value ?? defaultValue;
 }

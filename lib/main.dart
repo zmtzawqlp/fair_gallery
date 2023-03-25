@@ -26,6 +26,7 @@ import 'packages.dart';
   'package:fair_gallery/src/sugar/dart_core.dart',
   'package:fair_gallery/src/sugar/extension.dart',
   'package:fair_gallery/assets.dart',
+  'package:fair_gallery/src/widget/extended_fair_widget.dart',
   'package:fair_gallery/src/widget/share_data_widget.dart',
   'package:fair_gallery/src/widget/hero_widget.dart',
   'package:fair_gallery/src/widget/image_grid.dart',

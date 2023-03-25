@@ -6,10 +6,10 @@ import 'pound_key_text.dart';
 import 'emoji_text.dart';
 
 class MySpecialTextSpanBuilder extends SpecialTextSpanBuilder {
-  MySpecialTextSpanBuilder({this.showAtBackground = false});
-
-  /// whether show background for @somebody
-  final bool showAtBackground;
+  factory MySpecialTextSpanBuilder() => _mySpecialTextSpanBuilder;
+  MySpecialTextSpanBuilder._();
+  static final MySpecialTextSpanBuilder _mySpecialTextSpanBuilder =
+      MySpecialTextSpanBuilder._();
 
   @override
   SpecialText? createSpecialText(String flag,
@@ -26,7 +26,7 @@ class MySpecialTextSpanBuilder extends SpecialTextSpanBuilder {
         textStyle!,
         onTap,
         start: index! - (AtText.flag.length - 1),
-        showAtBackground: showAtBackground,
+        showAtBackground: false,
       );
     } else if (isStart(flag, EmojiText.flag)) {
       return EmojiText(textStyle!, start: index! - (EmojiText.flag.length - 1));

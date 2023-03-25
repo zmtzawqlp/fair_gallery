@@ -86,14 +86,13 @@ class _ExtendedFairWidgetState extends State<ExtendedFairWidget> {
     Widget child;
     bool serviceEnableFair = false;
     var fairProps = widget.fairProps;
+    fairProps = fairProps?['fairProps'] ?? fairProps;
     if (serviceEnableFair || ExtendedFairWidget.enable) {
       child = FairWidget(
         name: widget.name,
         path: serviceEnableFair ? 'your bin path' : widget.name.fairBundle,
         data: fairProps != null
-            ? <String, dynamic>{
-                'fairProps': jsonEncode(fairProps['fairProps'] ?? fairProps)
-              }
+            ? <String, dynamic>{'fairProps': jsonEncode(fairProps)}
             : null,
         holder: widget.holder,
         wantKeepAlive: widget.wantKeepAlive,
@@ -101,10 +100,13 @@ class _ExtendedFairWidgetState extends State<ExtendedFairWidget> {
     } else {
       child = widget.builder(context);
     }
-    return ShareDataWidget(
+
+    child = ShareDataWidget(
       child: child,
-      data: fairProps?['fairProps'] ?? fairProps,
+      data: fairProps,
       index: widget.index,
     );
+
+    return child;
   }
 }

@@ -6,11 +6,23 @@
 
 class Assets {
   const Assets._();
+  static const String assets_fair_lib_src_page_list_builder_fair_bin =
+      'assets/fair/lib_src_page_list_builder.fair.bin';
+
+  static const String assets_fair_lib_src_page_list_builder_fair_js =
+      'assets/fair/lib_src_page_list_builder.fair.js';
+
   static const String assets_fair_lib_src_page_photo_gallery_fair_bin =
       'assets/fair/lib_src_page_photo_gallery.fair.bin';
 
   static const String assets_fair_lib_src_page_photo_gallery_fair_js =
       'assets/fair/lib_src_page_photo_gallery.fair.js';
+
+  static const String assets_fair_lib_src_page_photo_gallery1_fair_bin =
+      'assets/fair/lib_src_page_photo_gallery1.fair.bin';
+
+  static const String assets_fair_lib_src_page_photo_gallery1_fair_js =
+      'assets/fair/lib_src_page_photo_gallery1.fair.js';
 
   static const String assets_fair_lib_src_page_photo_gallery_item_fair_bin =
       'assets/fair/lib_src_page_photo_gallery_item.fair.bin';
@@ -33,6 +45,9 @@ class Assets {
   /// {@macro assets_generator.assets_image_fluttercandies_grey_png.preview}
   static const String assets_image_fluttercandies_grey_png =
       'assets/image/flutterCandies_grey.png';
+
+  /// {@macro assets_generator.assets_image_loading_gif.preview}
+  static const String assets_image_loading_gif = 'assets/image/loading.gif';
 
   /// {@macro assets_generator.assets_image_love_png.preview}
   static const String assets_image_love_png = 'assets/image/love.png';

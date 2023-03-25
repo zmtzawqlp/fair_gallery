@@ -23,6 +23,11 @@ class FairDelegateBase extends FairDelegate {
       Map<String, dynamic>? data,
     ) =>
         PhotoGalleryDelegate(data),
+    Routes.photoGalleryPage1.name: (
+      BuildContext context,
+      Map<String, dynamic>? data,
+    ) =>
+        PhotoGalleryDelegate(data),
     Routes.photoGalleryItem.name: (
       BuildContext context,
       Map<String, dynamic>? data,

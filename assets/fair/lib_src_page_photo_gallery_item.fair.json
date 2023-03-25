@@ -67,15 +67,41 @@
                 {
                   "className": "Text",
                   "pa": [
-                    "%(_getTitle)"
+                    "%(_getSiteTitle)"
                   ],
                   "na": {
                     "maxLines": 1,
-                    "overflow": "#(TextOverflow.ellipsis)",
                     "style": {
                       "className": "TextStyle",
                       "na": {
                         "fontSize": 17
+                      }
+                    }
+                  }
+                },
+                {
+                  "className": "SizedBox",
+                  "na": {
+                    "width": 11
+                  }
+                },
+                {
+                  "className": "Expanded",
+                  "na": {
+                    "child": {
+                      "className": "Text",
+                      "pa": [
+                        "%(_getSiteDescription)"
+                      ],
+                      "na": {
+                        "maxLines": 1,
+                        "overflow": "#(TextOverflow.ellipsis)",
+                        "style": {
+                          "className": "TextStyle",
+                          "na": {
+                            "fontSize": 17
+                          }
+                        }
                       }
                     }
                   }
@@ -350,7 +376,9 @@
                           "className": "SugarCommon.voidCallBack",
                           "na": {
                             "function": "@(_onImageTap)",
-                            "value": 0
+                            "values": [
+                              0
+                            ]
                           }
                         },
                         "child": {
@@ -465,7 +493,9 @@
                                   "className": "SugarCommon.voidCallBack",
                                   "na": {
                                     "function": "@(_onImageTap)",
-                                    "value": "^(index)"
+                                    "values": [
+                                      "^(index)"
+                                    ]
                                   }
                                 },
                                 "child": {
@@ -558,7 +588,9 @@
                         "className": "SugarCommon.voidCallBack",
                         "na": {
                           "function": "@(_onImageTap)",
-                          "value": "^(index)"
+                          "values": [
+                            "^(index)"
+                          ]
                         }
                       },
                       "child": {

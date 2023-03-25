@@ -14,6 +14,7 @@ const List<String> routeNames = <String>[
   'MainPage',
   'PhotoGalleryItem',
   'PhotoGalleryPage',
+  'PhotoGalleryPage1',
   'PhotoSwiper',
 ];
 
@@ -55,6 +56,17 @@ class Routes {
   ///
   /// [exts] : {ExtendedFairWidget.tag: true, 'ffRouteFileImport': 'package:fair_gallery/src/page/photo_gallery.dart'}
   static const _PhotoGalleryPage photoGalleryPage = _PhotoGalleryPage();
+
+  /// '展示如何使用Fair创建一个列表1'
+  ///
+  /// [name] : 'PhotoGalleryPage1'
+  ///
+  /// [routeName] : '照片库列表1'
+  ///
+  /// [description] : '展示如何使用Fair创建一个列表1'
+  ///
+  /// [exts] : {ExtendedFairWidget.tag: true, 'ffRouteFileImport': 'package:fair_gallery/src/page/photo_gallery1.dart'}
+  static const _PhotoGalleryPage1 photoGalleryPage1 = _PhotoGalleryPage1();
 
   /// '图片预览页面'
   ///
@@ -112,6 +124,22 @@ class _PhotoGalleryPage {
   const _PhotoGalleryPage();
 
   String get name => 'PhotoGalleryPage';
+
+  Map<String, dynamic> d({
+    Key? key,
+  }) =>
+      <String, dynamic>{
+        'key': key,
+      };
+
+  @override
+  String toString() => name;
+}
+
+class _PhotoGalleryPage1 {
+  const _PhotoGalleryPage1();
+
+  String get name => 'PhotoGalleryPage1';
 
   Map<String, dynamic> d({
     Key? key,

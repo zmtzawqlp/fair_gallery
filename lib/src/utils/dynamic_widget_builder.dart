@@ -67,7 +67,18 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
       return builder;
     } else if (name == 'SugarCommon.loadingMoreItemBuilder') {
       LoadingMoreItemBuilder builder = (context, item, index) {
-        return Container();
+        dynamic source = pa0(map);
+        assert(source is Map);
+        return convert(
+          context,
+          source,
+          methodMap,
+          domain: LoadingMoreItemBuilderDomain(
+            context: context,
+            item: item,
+            index: index,
+          ),
+        );
       };
       return builder;
     }
@@ -103,12 +114,48 @@ class LoadingMoreItemBuilderDomain extends Domain {
   final BuildContext context;
 
   @override
-  bool match(exp) {
-    return super.match(exp);
+  bool match(dynamic exp) {
+    return source != null &&
+        exp is String &&
+        ((RegExp('#\\(.+\\)', multiLine: true).hasMatch(exp) &&
+                (exp.contains('\$loadingMoreItem') ||
+                    exp.contains('\$loadingMoreIndex'))) ||
+            exp == 'loadingMoreItem' ||
+            exp == 'loadingMoreIndex' ||
+            exp.startsWith("\$(loadingMoreItem") ||
+            exp.startsWith("\$(loadingMoreIndex") ||
+            exp.startsWith("#(\${loadingMoreIndex") ||
+            exp.startsWith("#(\${loadingMoreItem") ||
+            exp.startsWith('^(loadingMoreIndex)') ||
+            exp.startsWith('^(loadingMoreItem)'));
   }
 
   @override
-  bindValue(String exp) {
-    return super.bindValue(exp);
+  dynamic bindValue(String exp) {
+    if (exp == 'loadingMoreItem') {
+      return exp.replaceAll('loadingMoreItem', '$item');
+    } else if (exp == 'loadingMoreIndex') {
+      return exp.replaceAll('loadingMoreIndex', '$index');
+    }
+    // Carrying ”#(“ indicates value conversion to a string
+
+    dynamic processed = exp.substring(2, exp.length - 1);
+    if (processed.startsWith("\${")) {
+      processed = processed.substring(2, processed.length - 1);
+    }
+
+    // ^(item)
+    if (processed == 'loadingMoreItem') {
+      return item;
+    }
+    // ^(index)
+    else if (processed == 'loadingMoreIndex') {
+      return index;
+    }
+
+    processed = processed.replaceAll('\$loadingMoreItem', '$item');
+    processed = processed.replaceAll('\$loadingMoreIndex', '$index');
+
+    return processed;
   }
 }

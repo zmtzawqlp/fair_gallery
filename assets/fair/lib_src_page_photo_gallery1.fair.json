@@ -1,0 +1,989 @@
+{
+  "className": "Scaffold",
+  "na": {
+    "appBar": {
+      "className": "AppBar",
+      "na": {
+        "title": {
+          "className": "Text",
+          "pa": [
+            "PhotoGallery"
+          ]
+        }
+      }
+    },
+    "body": {
+      "className": "PullToRefreshNotification",
+      "na": {
+        "pullBackOnRefresh": false,
+        "maxDragOffset": 90,
+        "armedDragUpCancel": false,
+        "onRefresh": "@(_onRefresh)",
+        "child": {
+          "className": "Column",
+          "na": {
+            "children": [
+              {
+                "className": "ShareDataWidget",
+                "na": {
+                  "data": "^(_repository)",
+                  "child": {
+                    "className": "PullToRefreshContainer",
+                    "pa": [
+                      {
+                        "className": "SugarCommon.pullToRefreshContainerBuilder"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "className": "Expanded",
+                "na": {
+                  "child": {
+                    "className": "SizeCacheWidget",
+                    "na": {
+                      "child": {
+                        "className": "ExtendedTextSelectionPointerHandler",
+                        "na": {
+                          "child": {
+                            "className": "LoadingMoreList",
+                            "pa": [
+                              {
+                                "className": "ListConfig",
+                                "na": {
+                                  "itemBuilder": {
+                                    "className": "SugarCommon.loadingMoreItemBuilder",
+                                    "pa": [
+                                      {
+                                        "className": "FrameSeparateWidget",
+                                        "na": {
+                                          "index": "^(loadingMoreIndex)",
+                                          "placeHolder": {
+                                            "className": "Container",
+                                            "na": {
+                                              "height": 200
+                                            }
+                                          },
+                                          "child": {
+                                            "className": "Column",
+                                            "na": {
+                                              "mainAxisAlignment": "#(MainAxisAlignment.start)",
+                                              "crossAxisAlignment": "#(CrossAxisAlignment.start)",
+                                              "children": [
+                                                {
+                                                  "className": "Padding",
+                                                  "na": {
+                                                    "padding": {
+                                                      "className": "EdgeInsets.all",
+                                                      "pa": [
+                                                        11
+                                                      ]
+                                                    },
+                                                    "child": {
+                                                      "className": "Row",
+                                                      "na": {
+                                                        "children": [
+                                                          {
+                                                            "className": "ExtendedImage.network",
+                                                            "pa": [
+                                                              "%(_getAvatarUrl(^(loadingMoreItem)))"
+                                                            ],
+                                                            "na": {
+                                                              "width": 40.0,
+                                                              "height": 40.0,
+                                                              "shape": "#(BoxShape.circle)",
+                                                              "border": {
+                                                                "className": "Border.all",
+                                                                "na": {
+                                                                  "color": {
+                                                                    "className": "Sugar.colorsWithOpacity",
+                                                                    "pa": [
+                                                                      "#(Colors.grey)",
+                                                                      0.4
+                                                                    ]
+                                                                  },
+                                                                  "width": 1.0
+                                                                }
+                                                              },
+                                                              "loadStateChanged": {
+                                                                "className": "SugarCommon.onImageStateChanged",
+                                                                "na": {
+                                                                  "loadingWidget": {
+                                                                    "className": "ExtendedImage.asset",
+                                                                    "pa": [
+                                                                      "#(Assets.assets_image_avatar_jpg)"
+                                                                    ]
+                                                                  },
+                                                                  "failedWidget": {
+                                                                    "className": "ExtendedImage.asset",
+                                                                    "pa": [
+                                                                      "#(Assets.assets_image_avatar_jpg)"
+                                                                    ]
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "className": "SizedBox",
+                                                            "na": {
+                                                              "width": 11
+                                                            }
+                                                          },
+                                                          {
+                                                            "className": "Text",
+                                                            "pa": [
+                                                              "%(_getSiteTitle(^(loadingMoreItem)))"
+                                                            ],
+                                                            "na": {
+                                                              "maxLines": 1,
+                                                              "style": {
+                                                                "className": "TextStyle",
+                                                                "na": {
+                                                                  "fontSize": 17
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "className": "SizedBox",
+                                                            "na": {
+                                                              "width": 11
+                                                            }
+                                                          },
+                                                          {
+                                                            "className": "Expanded",
+                                                            "na": {
+                                                              "child": {
+                                                                "className": "Text",
+                                                                "pa": [
+                                                                  "%(_getSiteDescription(^(loadingMoreItem)))"
+                                                                ],
+                                                                "na": {
+                                                                  "maxLines": 1,
+                                                                  "overflow": "#(TextOverflow.ellipsis)",
+                                                                  "style": {
+                                                                    "className": "TextStyle",
+                                                                    "na": {
+                                                                      "fontSize": 17
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "className": "Padding",
+                                                  "na": {
+                                                    "child": {
+                                                      "className": "ExtendedText",
+                                                      "pa": [
+                                                        "%(_getContent(^(loadingMoreItem)))"
+                                                      ],
+                                                      "na": {
+                                                        "onSpecialTextTap": "@(_onSpecialTextTap)",
+                                                        "specialTextSpanBuilder": {
+                                                          "className": "MySpecialTextSpanBuilder"
+                                                        },
+                                                        "style": {
+                                                          "className": "TextStyle",
+                                                          "na": {
+                                                            "fontSize": 14,
+                                                            "color": "#(Colors.grey)"
+                                                          }
+                                                        },
+                                                        "maxLines": 5,
+                                                        "overflowWidget": {
+                                                          "className": "TextOverflowWidget",
+                                                          "na": {
+                                                            "child": {
+                                                              "className": "Row",
+                                                              "na": {
+                                                                "mainAxisSize": "#(MainAxisSize.min)",
+                                                                "children": [
+                                                                  {
+                                                                    "className": "Text",
+                                                                    "pa": [
+                                                                      "… "
+                                                                    ],
+                                                                    "na": {
+                                                                      "style": {
+                                                                        "className": "TextStyle",
+                                                                        "na": {
+                                                                          "fontSize": 14,
+                                                                          "height": 1.2
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "className": "GestureDetector",
+                                                                    "na": {
+                                                                      "child": {
+                                                                        "className": "Text",
+                                                                        "pa": [
+                                                                          "更多"
+                                                                        ],
+                                                                        "na": {
+                                                                          "style": {
+                                                                            "className": "TextStyle",
+                                                                            "na": {
+                                                                              "fontSize": 14,
+                                                                              "height": 1.2
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "onTap": "@(_onTextMoreTap)"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        "selectionEnabled": true,
+                                                        "selectionControls": {
+                                                          "className": "MyTextSelectionControls"
+                                                        }
+                                                      }
+                                                    },
+                                                    "padding": {
+                                                      "className": "EdgeInsets.only",
+                                                      "na": {
+                                                        "left": 11,
+                                                        "right": 11,
+                                                        "bottom": 11
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "className": "Padding",
+                                                  "na": {
+                                                    "padding": {
+                                                      "className": "EdgeInsets.only",
+                                                      "na": {
+                                                        "left": 11,
+                                                        "right": 11,
+                                                        "bottom": 11
+                                                      }
+                                                    },
+                                                    "child": {
+                                                      "className": "Wrap",
+                                                      "na": {
+                                                        "runSpacing": 5.0,
+                                                        "spacing": 5.0,
+                                                        "children": {
+                                                          "className": "Sugar.mapEach",
+                                                          "pa": [
+                                                            {
+                                                              "className": "SugarIterable.toList",
+                                                              "pa": [
+                                                                {
+                                                                  "className": "SugarIterable.take",
+                                                                  "pa": [
+                                                                    {
+                                                                      "className": "SugarMap.get",
+                                                                      "pa": [
+                                                                        "^(loadingMoreItem)",
+                                                                        "tags"
+                                                                      ]
+                                                                    },
+                                                                    6
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "className": "Container",
+                                                              "na": {
+                                                                "padding": {
+                                                                  "className": "EdgeInsets.all",
+                                                                  "pa": [
+                                                                    3.0
+                                                                  ]
+                                                                },
+                                                                "decoration": {
+                                                                  "className": "BoxDecoration",
+                                                                  "na": {
+                                                                    "color": {
+                                                                      "className": "SugarCommon.getRandomColor",
+                                                                      "pa": [
+                                                                        "^(index)"
+                                                                      ]
+                                                                    },
+                                                                    "border": {
+                                                                      "className": "Border.all",
+                                                                      "na": {
+                                                                        "color": {
+                                                                          "className": "Sugar.colorsWithOpacity",
+                                                                          "pa": [
+                                                                            "#(Colors.grey)",
+                                                                            0.4
+                                                                          ]
+                                                                        },
+                                                                        "width": 1.0
+                                                                      }
+                                                                    },
+                                                                    "borderRadius": {
+                                                                      "className": "BorderRadius.all",
+                                                                      "pa": [
+                                                                        {
+                                                                          "className": "Radius.circular",
+                                                                          "pa": [
+                                                                            5.0
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "child": {
+                                                                  "className": "Text",
+                                                                  "pa": [
+                                                                    "#($item)"
+                                                                  ],
+                                                                  "na": {
+                                                                    "textAlign": "#(TextAlign.start)",
+                                                                    "style": {
+                                                                      "className": "TextStyle",
+                                                                      "na": {
+                                                                        "fontSize": 12,
+                                                                        "color": {
+                                                                          "className": "SugarCommon.getLuminanceColor",
+                                                                          "pa": [
+                                                                            {
+                                                                              "className": "SugarCommon.colorComputeLuminance",
+                                                                              "pa": [
+                                                                                {
+                                                                                  "className": "SugarCommon.getRandomColor",
+                                                                                  "pa": [
+                                                                                    "^(index)"
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "className": "Sugar.switchCase",
+                                                  "pa": [
+                                                    {
+                                                      "className": "SugarList.length",
+                                                      "pa": [
+                                                        {
+                                                          "className": "SugarMap.get",
+                                                          "pa": [
+                                                            "^(loadingMoreItem)",
+                                                            "images"
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    [
+                                                      {
+                                                        "className": "SugarSwitchCaseObj",
+                                                        "na": {
+                                                          "sugarCase": 0,
+                                                          "reValue": {
+                                                            "className": "Container"
+                                                          }
+                                                        }
+                                                      },
+                                                      {
+                                                        "className": "SugarSwitchCaseObj",
+                                                        "na": {
+                                                          "sugarCase": 1,
+                                                          "reValue": {
+                                                            "className": "Padding",
+                                                            "na": {
+                                                              "padding": {
+                                                                "className": "EdgeInsets.only",
+                                                                "na": {
+                                                                  "left": 11,
+                                                                  "right": 11,
+                                                                  "bottom": 11
+                                                                }
+                                                              },
+                                                              "child": {
+                                                                "className": "GestureDetector",
+                                                                "na": {
+                                                                  "onTap": {
+                                                                    "className": "SugarCommon.voidCallBack",
+                                                                    "na": {
+                                                                      "function": "@(_onImageTap)",
+                                                                      "values": [
+                                                                        0,
+                                                                        "^(loadingMoreItem)"
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  "child": {
+                                                                    "className": "Hero",
+                                                                    "na": {
+                                                                      "tag": "%(_getImageUrl(0,{className: SugarMap.get, pa: [^(loadingMoreItem), images]}))",
+                                                                      "child": {
+                                                                        "className": "ExtendedImage.network",
+                                                                        "pa": [
+                                                                          "%(_getImageUrl(0,{className: SugarMap.get, pa: [^(loadingMoreItem), images]}))"
+                                                                        ],
+                                                                        "na": {
+                                                                          "height": "%(_getImageWidthOrHeight(0,0,{className: SugarMap.get, pa: [^(loadingMoreItem), images]}))",
+                                                                          "width": "%(_getImageWidthOrHeight(0,1,{className: SugarMap.get, pa: [^(loadingMoreItem), images]}))",
+                                                                          "fit": "#(BoxFit.fill)",
+                                                                          "loadStateChanged": {
+                                                                            "className": "SugarCommon.onImageStateChanged",
+                                                                            "na": {
+                                                                              "loadingWidget": {
+                                                                                "className": "ColoredBox",
+                                                                                "na": {
+                                                                                  "color": {
+                                                                                    "className": "Sugar.colorsWithOpacity",
+                                                                                    "pa": [
+                                                                                      "#(Colors.grey)",
+                                                                                      0.2
+                                                                                    ]
+                                                                                  }
+                                                                                }
+                                                                              },
+                                                                              "failedWidget": {
+                                                                                "className": "ColoredBox",
+                                                                                "na": {
+                                                                                  "color": {
+                                                                                    "className": "Sugar.colorsWithOpacity",
+                                                                                    "pa": [
+                                                                                      "#(Colors.grey)",
+                                                                                      0.2
+                                                                                    ]
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      {
+                                                        "className": "SugarSwitchCaseObj",
+                                                        "na": {
+                                                          "sugarCase": 4,
+                                                          "reValue": {
+                                                            "className": "SizedBox",
+                                                            "na": {
+                                                              "width": {
+                                                                "className": "SugarDouble.multiplies",
+                                                                "pa": [
+                                                                  {
+                                                                    "className": "SugarDouble.divides",
+                                                                    "pa": [
+                                                                      {
+                                                                        "className": "Sugar.width",
+                                                                        "pa": [
+                                                                          "^(context)"
+                                                                        ]
+                                                                      },
+                                                                      3
+                                                                    ]
+                                                                  },
+                                                                  2
+                                                                ]
+                                                              },
+                                                              "child": {
+                                                                "className": "GridView",
+                                                                "na": {
+                                                                  "padding": {
+                                                                    "className": "EdgeInsets.only",
+                                                                    "na": {
+                                                                      "left": 11,
+                                                                      "right": 11,
+                                                                      "bottom": 11
+                                                                    }
+                                                                  },
+                                                                  "shrinkWrap": true,
+                                                                  "gridDelegate": {
+                                                                    "className": "SliverGridDelegateWithFixedCrossAxisCount",
+                                                                    "na": {
+                                                                      "crossAxisCount": 2,
+                                                                      "mainAxisSpacing": 10.0,
+                                                                      "crossAxisSpacing": 10.0,
+                                                                      "childAspectRatio": 1.0
+                                                                    }
+                                                                  },
+                                                                  "physics": {
+                                                                    "className": "NeverScrollableScrollPhysics"
+                                                                  },
+                                                                  "children": {
+                                                                    "className": "Sugar.mapEach",
+                                                                    "pa": [
+                                                                      "%(_getImageUrls(4,{className: SugarMap.get, pa: [^(loadingMoreItem), images]}))",
+                                                                      {
+                                                                        "className": "GestureDetector",
+                                                                        "na": {
+                                                                          "onTap": {
+                                                                            "className": "SugarCommon.voidCallBack",
+                                                                            "na": {
+                                                                              "function": "@(_onImageTap)",
+                                                                              "values": [
+                                                                                "^(index)",
+                                                                                "^(loadingMoreItem)"
+                                                                              ]
+                                                                            }
+                                                                          },
+                                                                          "child": {
+                                                                            "className": "Hero",
+                                                                            "na": {
+                                                                              "tag": "#($item)",
+                                                                              "child": {
+                                                                                "className": "ExtendedImage.network",
+                                                                                "pa": [
+                                                                                  "#($item)"
+                                                                                ],
+                                                                                "na": {
+                                                                                  "fit": "#(BoxFit.cover)",
+                                                                                  "loadStateChanged": {
+                                                                                    "className": "SugarCommon.onImageStateChanged",
+                                                                                    "na": {
+                                                                                      "loadingWidget": {
+                                                                                        "className": "ColoredBox",
+                                                                                        "na": {
+                                                                                          "color": {
+                                                                                            "className": "Sugar.colorsWithOpacity",
+                                                                                            "pa": [
+                                                                                              "#(Colors.grey)",
+                                                                                              0.2
+                                                                                            ]
+                                                                                          }
+                                                                                        }
+                                                                                      },
+                                                                                      "failedWidget": {
+                                                                                        "className": "ColoredBox",
+                                                                                        "na": {
+                                                                                          "color": {
+                                                                                            "className": "Sugar.colorsWithOpacity",
+                                                                                            "pa": [
+                                                                                              "#(Colors.grey)",
+                                                                                              0.2
+                                                                                            ]
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    ],
+                                                    {
+                                                      "className": "GridView",
+                                                      "na": {
+                                                        "padding": {
+                                                          "className": "EdgeInsets.only",
+                                                          "na": {
+                                                            "left": 11,
+                                                            "right": 11,
+                                                            "bottom": 11
+                                                          }
+                                                        },
+                                                        "shrinkWrap": true,
+                                                        "gridDelegate": {
+                                                          "className": "SliverGridDelegateWithFixedCrossAxisCount",
+                                                          "na": {
+                                                            "crossAxisCount": 3,
+                                                            "mainAxisSpacing": 10.0,
+                                                            "crossAxisSpacing": 10.0,
+                                                            "childAspectRatio": 1.0
+                                                          }
+                                                        },
+                                                        "physics": {
+                                                          "className": "NeverScrollableScrollPhysics"
+                                                        },
+                                                        "children": {
+                                                          "className": "Sugar.mapEach",
+                                                          "pa": [
+                                                            "%(_getImageUrls(9,{className: SugarMap.get, pa: [^(loadingMoreItem), images]}))",
+                                                            {
+                                                              "className": "GestureDetector",
+                                                              "na": {
+                                                                "onTap": {
+                                                                  "className": "SugarCommon.voidCallBack",
+                                                                  "na": {
+                                                                    "function": "@(_onImageTap)",
+                                                                    "values": [
+                                                                      "^(index)",
+                                                                      "^(loadingMoreItem)"
+                                                                    ]
+                                                                  }
+                                                                },
+                                                                "child": {
+                                                                  "className": "Sugar.ifEqualBool",
+                                                                  "pa": [
+                                                                    {
+                                                                      "className": "SugarBool.and",
+                                                                      "pa": [
+                                                                        {
+                                                                          "className": "SugarNum.greaterThan",
+                                                                          "pa": [
+                                                                            {
+                                                                              "className": "SugarList.length",
+                                                                              "pa": [
+                                                                                {
+                                                                                  "className": "SugarMap.get",
+                                                                                  "pa": [
+                                                                                    "^(loadingMoreItem)",
+                                                                                    "images"
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            9
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "className": "SugarNum.equalTo",
+                                                                          "pa": [
+                                                                            "^(index)",
+                                                                            8
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ],
+                                                                  "na": {
+                                                                    "trueValue": {
+                                                                      "className": "Stack",
+                                                                      "na": {
+                                                                        "children": [
+                                                                          {
+                                                                            "className": "Positioned.fill",
+                                                                            "na": {
+                                                                              "child": {
+                                                                                "className": "Hero",
+                                                                                "na": {
+                                                                                  "tag": "#($item)",
+                                                                                  "child": {
+                                                                                    "className": "ExtendedImage.network",
+                                                                                    "pa": [
+                                                                                      "#($item)"
+                                                                                    ],
+                                                                                    "na": {
+                                                                                      "fit": "#(BoxFit.cover)",
+                                                                                      "loadStateChanged": {
+                                                                                        "className": "SugarCommon.onImageStateChanged",
+                                                                                        "na": {
+                                                                                          "loadingWidget": {
+                                                                                            "className": "Container"
+                                                                                          },
+                                                                                          "failedWidget": {
+                                                                                            "className": "ColoredBox",
+                                                                                            "na": {
+                                                                                              "color": {
+                                                                                                "className": "Sugar.colorsWithOpacity",
+                                                                                                "pa": [
+                                                                                                  "#(Colors.grey)",
+                                                                                                  0.2
+                                                                                                ]
+                                                                                              }
+                                                                                            }
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          {
+                                                                            "className": "Container",
+                                                                            "na": {
+                                                                              "color": {
+                                                                                "className": "Sugar.colorsWithOpacity",
+                                                                                "pa": [
+                                                                                  "#(Colors.grey)",
+                                                                                  0.2
+                                                                                ]
+                                                                              },
+                                                                              "alignment": "#(Alignment.center)",
+                                                                              "child": {
+                                                                                "className": "Text",
+                                                                                "pa": [
+                                                                                  {
+                                                                                    "className": "SugarString.concatenates",
+                                                                                    "pa": [
+                                                                                      "+",
+                                                                                      {
+                                                                                        "className": "SugarNum.numToString",
+                                                                                        "pa": [
+                                                                                          {
+                                                                                            "className": "SugarNum.subtracts",
+                                                                                            "pa": [
+                                                                                              {
+                                                                                                "className": "SugarList.length",
+                                                                                                "pa": [
+                                                                                                  {
+                                                                                                    "className": "SugarMap.get",
+                                                                                                    "pa": [
+                                                                                                      "^(loadingMoreItem)",
+                                                                                                      "images"
+                                                                                                    ]
+                                                                                                  }
+                                                                                                ]
+                                                                                              },
+                                                                                              9
+                                                                                            ]
+                                                                                          }
+                                                                                        ]
+                                                                                      }
+                                                                                    ]
+                                                                                  }
+                                                                                ],
+                                                                                "na": {
+                                                                                  "style": {
+                                                                                    "className": "TextStyle",
+                                                                                    "na": {
+                                                                                      "fontSize": 18.0,
+                                                                                      "color": "#(Colors.white)"
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    },
+                                                                    "falseValue": {
+                                                                      "className": "Hero",
+                                                                      "na": {
+                                                                        "tag": "#($item)",
+                                                                        "child": {
+                                                                          "className": "ExtendedImage.network",
+                                                                          "pa": [
+                                                                            "#($item)"
+                                                                          ],
+                                                                          "na": {
+                                                                            "fit": "#(BoxFit.cover)",
+                                                                            "loadStateChanged": {
+                                                                              "className": "SugarCommon.onImageStateChanged",
+                                                                              "na": {
+                                                                                "loadingWidget": {
+                                                                                  "className": "ColoredBox",
+                                                                                  "na": {
+                                                                                    "color": {
+                                                                                      "className": "Sugar.colorsWithOpacity",
+                                                                                      "pa": [
+                                                                                        "#(Colors.grey)",
+                                                                                        0.2
+                                                                                      ]
+                                                                                    }
+                                                                                  }
+                                                                                },
+                                                                                "failedWidget": {
+                                                                                  "className": "ColoredBox",
+                                                                                  "na": {
+                                                                                    "color": {
+                                                                                      "className": "Sugar.colorsWithOpacity",
+                                                                                      "pa": [
+                                                                                        "#(Colors.grey)",
+                                                                                        0.2
+                                                                                      ]
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "className": "Container",
+                                                  "na": {
+                                                    "margin": {
+                                                      "className": "EdgeInsets.symmetric",
+                                                      "na": {
+                                                        "vertical": 11
+                                                      }
+                                                    },
+                                                    "color": {
+                                                      "className": "Sugar.colorsWithOpacity",
+                                                      "pa": [
+                                                        "#(Colors.grey)",
+                                                        0.2
+                                                      ]
+                                                    },
+                                                    "height": 11
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "sourceList": {
+                                    "className": "LoadingMoreRepository.onLoadData",
+                                    "pa": [
+                                      "^(_repository)",
+                                      "@(_onLoadData)"
+                                    ],
+                                    "na": {
+                                      "maxLength": 300
+                                    }
+                                  },
+                                  "cacheExtent": {
+                                    "className": "SugarNum.toDouble",
+                                    "pa": [
+                                      {
+                                        "className": "SugarNum.multiplies",
+                                        "pa": [
+                                          {
+                                            "className": "Sugar.height",
+                                            "pa": [
+                                              "^(context)"
+                                            ]
+                                          },
+                                          2
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "physics": {
+                                    "className": "BouncingScrollPhysics"
+                                  },
+                                  "indicatorBuilder": {
+                                    "className": "SugarCommon.loadingMoreIndicatorBuilder",
+                                    "pa": [
+                                      [
+                                        {
+                                          "className": "SugarSwitchCaseObj",
+                                          "na": {
+                                            "sugarCase": "#(IndicatorStatus.fullScreenBusying)",
+                                            "reValue": {
+                                              "className": "Align",
+                                              "na": {
+                                                "alignment": "#(Alignment.center)",
+                                                "child": {
+                                                  "className": "Text",
+                                                  "pa": [
+                                                    "不要着急，正在加载中..."
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "className": "SugarSwitchCaseObj",
+                                          "na": {
+                                            "sugarCase": "#(IndicatorStatus.loadingMoreBusying)",
+                                            "reValue": {
+                                              "className": "Container",
+                                              "na": {
+                                                "height": 35.0,
+                                                "alignment": "#(Alignment.center)",
+                                                "child": {
+                                                  "className": "Text",
+                                                  "pa": [
+                                                    "不要拖了，正在加载更多..."
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "className": "SugarSwitchCaseObj",
+                                          "na": {
+                                            "sugarCase": "#(IndicatorStatus.noMoreLoad)",
+                                            "reValue": {
+                                              "className": "Container",
+                                              "na": {
+                                                "height": 35.0,
+                                                "alignment": "#(Alignment.center)",
+                                                "child": {
+                                                  "className": "Text",
+                                                  "pa": [
+                                                    "拖不动了，没有更多了！"
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    ],
+                                    "na": {
+                                      "isSliver": false
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "methodMap": {
+    "_onRefresh": {
+      "className": "_repository.refresh"
+    }
+  }
+}

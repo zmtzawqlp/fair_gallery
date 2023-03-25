@@ -37,6 +37,7 @@ import 'package:fair_gallery/src/sugar/common.dart';
 import 'package:fair_gallery/src/sugar/dart_core.dart';
 import 'package:fair_gallery/src/sugar/extension.dart';
 import 'package:fair_gallery/assets.dart';
+import 'package:fair_gallery/src/widget/extended_fair_widget.dart';
 import 'package:fair_gallery/src/widget/share_data_widget.dart';
 import 'package:fair_gallery/src/widget/hero_widget.dart';
 import 'package:fair_gallery/src/widget/image_grid.dart';
@@ -97,6 +98,9 @@ import 'package:fair/fair.dart';
 import 'package:fair_gallery/src/widget/push_to_refresh_header.dart';
 import 'package:flutter/material.dart';
 import 'package:fair_gallery/src/extension/string.dart';
+import 'dart:convert';
+import 'package:fair_gallery/src/utils/asset_buldes.dart';
+import 'package:ff_annotation_route_library/ff_annotation_route_library.dart';
 import 'dart:async';
 import 'package:fair_gallery/src/plugin/completer.dart';
 import 'package:flutter/rendering.dart';
@@ -314,10 +318,18 @@ class AppGeneratedModule extends GeneratedModule {
             builder: props['builder'],
           ),
       'Assets': {
+        'assets_fair_lib_src_page_list_builder_fair_bin':
+            Assets.assets_fair_lib_src_page_list_builder_fair_bin,
+        'assets_fair_lib_src_page_list_builder_fair_js':
+            Assets.assets_fair_lib_src_page_list_builder_fair_js,
         'assets_fair_lib_src_page_photo_gallery_fair_bin':
             Assets.assets_fair_lib_src_page_photo_gallery_fair_bin,
         'assets_fair_lib_src_page_photo_gallery_fair_js':
             Assets.assets_fair_lib_src_page_photo_gallery_fair_js,
+        'assets_fair_lib_src_page_photo_gallery1_fair_bin':
+            Assets.assets_fair_lib_src_page_photo_gallery1_fair_bin,
+        'assets_fair_lib_src_page_photo_gallery1_fair_js':
+            Assets.assets_fair_lib_src_page_photo_gallery1_fair_js,
         'assets_fair_lib_src_page_photo_gallery_item_fair_bin':
             Assets.assets_fair_lib_src_page_photo_gallery_item_fair_bin,
         'assets_fair_lib_src_page_photo_gallery_item_fair_js':
@@ -330,6 +342,7 @@ class AppGeneratedModule extends GeneratedModule {
         'assets_image_avatar_jpg': Assets.assets_image_avatar_jpg,
         'assets_image_fluttercandies_grey_png':
             Assets.assets_image_fluttercandies_grey_png,
+        'assets_image_loading_gif': Assets.assets_image_loading_gif,
         'assets_image_love_png': Assets.assets_image_love_png,
         'assets_image_sun_glasses_png': Assets.assets_image_sun_glasses_png,
         'assets_plugin_fair_common_plugin_js':
@@ -1166,7 +1179,7 @@ class AppGeneratedModule extends GeneratedModule {
           ),
       'SugarCommon.voidCallBack': (props) => SugarCommon.voidCallBack(
             function: props['function'],
-            value: props['value'],
+            values: as(props['values']) ?? const [],
           ),
       'SugarCommon.onSlidingPage': (props) => SugarCommon.onSlidingPage(
             props['pa'][0],
@@ -1184,7 +1197,25 @@ class AppGeneratedModule extends GeneratedModule {
           SugarCommon.loadingMoreItemBuilder(
             props['pa'][0],
           ),
+      'SugarCommon.nullOrDefault': (props) => SugarCommon.nullOrDefault(
+            props['pa'][0],
+            props['pa'][1],
+          ),
       'SugarStringExtension.test': (props) => SugarStringExtension.test(
+            props['pa'][0],
+          ),
+      'ExtendedFairWidget': (props) => ExtendedFairWidget(
+            key: props['key'],
+            builder: props['builder'],
+            name: props['name'],
+            fairProps: props['fairProps'],
+            delegate: props['delegate'],
+            holder: props['holder'],
+            wantKeepAlive: props['wantKeepAlive'],
+            index: props['index'],
+          ),
+      'ExtendedFairWidget.tag': ExtendedFairWidget.tag,
+      'ExtendedFairWidget.fairEnable': (props) => ExtendedFairWidget.fairEnable(
             props['pa'][0],
           ),
       'ImageGrid': (props) => ImageGrid(
@@ -1821,6 +1852,7 @@ class AppGeneratedModule extends GeneratedModule {
       'SugarString': false,
       'SugarCommon': false,
       'SugarStringExtension': false,
+      'ExtendedFairWidget': true,
       'ImageGrid': true,
       'ImageGrid1': true,
       'HeroWidget': true,

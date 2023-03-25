@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 
 import 'src/main_page.dart';
 import 'src/page/photo_gallery.dart';
+import 'src/page/photo_gallery1.dart';
 import 'src/page/photo_gallery_item.dart';
 import 'src/page/photo_swiper.dart';
 
@@ -73,6 +74,23 @@ FFRouteSettings getRouteSettings({
           ExtendedFairWidget.tag: true,
           'ffRouteFileImport':
               'package:fair_gallery/src/page/photo_gallery.dart',
+        },
+      );
+    case 'PhotoGalleryPage1':
+      return FFRouteSettings(
+        name: name,
+        arguments: arguments,
+        builder: () => PhotoGalleryPage1(
+          key: asT<Key?>(
+            safeArguments['key'],
+          ),
+        ),
+        routeName: '照片库列表1',
+        description: '展示如何使用Fair创建一个列表1',
+        exts: <String, dynamic>{
+          ExtendedFairWidget.tag: true,
+          'ffRouteFileImport':
+              'package:fair_gallery/src/page/photo_gallery1.dart',
         },
       );
     case 'PhotoSwiper':
