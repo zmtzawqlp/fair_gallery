@@ -385,7 +385,7 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                 child: GestureDetector(
                   onTap: SugarCommon.voidCallBack(
                     function: _onImageTap,
-                    values: [0],
+                    value: 0,
                   ),
                   child: Hero(
                     tag: _getImageUrl(0),
@@ -433,7 +433,7 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                     return GestureDetector(
                       onTap: SugarCommon.voidCallBack(
                         function: _onImageTap,
-                        values: [index],
+                        value: index,
                       ),
                       child: Hero(
                         tag: '$item',
@@ -476,7 +476,7 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
               return GestureDetector(
                 onTap: SugarCommon.voidCallBack(
                   function: _onImageTap,
-                  values: [index],
+                  value: index,
                 ),
                 child: Sugar.ifEqualBool(
                     SugarBool.and(

@@ -197,7 +197,9 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
     });
   }
 
-  void _onImageTap(int imageIndex, dynamic item) {
+  void _onImageTap(List input) {
+    int index = input[0];
+    dynamic item = input[1];
     FairCommonPlugin().navigate({
       // required
       'pageName': 'PhotoGalleryItem',
@@ -209,14 +211,15 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
       'method': 'pushNamed',
       'arguments': {
         'fairProps': {
-          'index': imageIndex,
+          'index': index,
           'images': item['images'],
         }
       },
     });
   }
 
-  String _getImageUrl(int index, List images) {
+  String _getImageUrl(int index, dynamic item) {
+    var images = item['images'];
     if (index >= images.length) {
       return '';
     }
@@ -229,7 +232,8 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
         '.jpg';
   }
 
-  double _getImageWidthOrHeight(int index, int returnWidth, List images) {
+  double _getImageWidthOrHeight(int index, int returnWidth, dynamic item) {
+    var images = item['images'];
     if (index >= images.length) {
       return 0.0;
     }
@@ -266,7 +270,8 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
     }
   }
 
-  List<String> _getImageUrls(int maxCount, List images) {
+  List<String> _getImageUrls(int maxCount, dynamic item) {
+    var images = item['images'];
     List<String> urls = [];
     var length = images.length;
     if (maxCount > length) {
@@ -274,7 +279,7 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
     }
 
     for (var i = 0; i < maxCount; i++) {
-      urls.add(_getImageUrl(i, images));
+      urls.add(_getImageUrl(i, item));
     }
     return urls;
   }
@@ -450,31 +455,21 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
                                       padding: const EdgeInsets.only(
                                           left: 11, right: 11, bottom: 11),
                                       child: GestureDetector(
-                                        // onTap: SugarCommon.voidCallBack(
-                                        //   function: _onImageTap,
-                                        //   values: [0, loadingMoreItem],
-                                        // ),
+                                        onTap: SugarCommon.voidCallBack(
+                                          function: _onImageTap,
+                                          value: [0, loadingMoreItem],
+                                        ),
                                         child: Hero(
                                           tag: _getImageUrl(
                                             0,
-                                            SugarMap.get(
-                                                loadingMoreItem, 'images'),
+                                            loadingMoreItem,
                                           ),
                                           child: ExtendedImage.network(
-                                            _getImageUrl(
-                                                0,
-                                                SugarMap.get(
-                                                    loadingMoreItem, 'images')),
+                                            _getImageUrl(0, loadingMoreItem),
                                             height: _getImageWidthOrHeight(
-                                                0,
-                                                0,
-                                                SugarMap.get(
-                                                    loadingMoreItem, 'images')),
+                                                0, 0, loadingMoreItem),
                                             width: _getImageWidthOrHeight(
-                                                0,
-                                                1,
-                                                SugarMap.get(
-                                                    loadingMoreItem, 'images')),
+                                                0, 1, loadingMoreItem),
                                             fit: BoxFit.fill,
                                             loadStateChanged:
                                                 SugarCommon.onImageStateChanged(
@@ -517,16 +512,13 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
                                         physics:
                                             const NeverScrollableScrollPhysics(),
                                         children: Sugar.mapEach(
-                                            _getImageUrls(
-                                                4,
-                                                SugarMap.get(
-                                                    loadingMoreItem, 'images')),
+                                            _getImageUrls(4, loadingMoreItem),
                                             (index, item) {
                                           return GestureDetector(
-                                            // onTap: SugarCommon.voidCallBack(
-                                            //   function: _onImageTap,
-                                            //   values: [index, loadingMoreItem],
-                                            // ),
+                                            onTap: SugarCommon.voidCallBack(
+                                              function: _onImageTap,
+                                              value: [index, loadingMoreItem],
+                                            ),
                                             child: Hero(
                                               tag: '$item',
                                               child: ExtendedImage.network(
@@ -572,12 +564,12 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
                                   children: Sugar.mapEach(
                                       _getImageUrls(
                                         9,
-                                        SugarMap.get(loadingMoreItem, 'images'),
+                                        loadingMoreItem,
                                       ), (index, item) {
                                     return GestureDetector(
                                       onTap: SugarCommon.voidCallBack(
                                         function: _onImageTap,
-                                        values: [index, loadingMoreItem],
+                                        value: [index, loadingMoreItem],
                                       ),
                                       child: Sugar.ifEqualBool(
                                           SugarBool.and(
@@ -668,60 +660,60 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
                                   }),
                                 ),
                               ),
-                              // Padding(
-                              //   padding:
-                              //       const EdgeInsets.symmetric(horizontal: 11),
-                              //   child: Row(
-                              //     children: <Widget>[
-                              //       Row(
-                              //         children: <Widget>[
-                              //           const Icon(
-                              //             Icons.comment,
-                              //             color: Colors.amberAccent,
-                              //             size: 18.0,
-                              //           ),
-                              //           const SizedBox(
-                              //             width: 3.0,
-                              //           ),
-                              //           Text(
-                              //             SugarInt.intToString(
-                              //               SugarCommon.nullOrDefault(
-                              //                 SugarMap.get(
-                              //                     loadingMoreItem, 'comments'),
-                              //                 0,
-                              //               ),
-                              //             ),
-                              //             style: const TextStyle(
-                              //                 color: Colors.black,
-                              //                 fontSize: 12),
-                              //           )
-                              //         ],
-                              //       ),
-                              //       const Spacer(),
-                              //       LikeButton(
-                              //         size: 18.0,
-                              //         isLiked: SugarCommon.nullOrDefault(
-                              //           SugarMap.get(
-                              //             loadingMoreItem,
-                              //             'is_favorite',
-                              //           ),
-                              //           false,
-                              //         ),
-                              //         likeCount: SugarCommon.nullOrDefault(
-                              //           SugarMap.get(
-                              //             loadingMoreItem,
-                              //             'favorites',
-                              //           ),
-                              //           0,
-                              //         ),
-                              //         onTap: SugarCommon.likeButtonTapCallback(
-                              //           context,
-                              //           loadingMoreIndex,
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 11),
+                                child: Row(
+                                  children: <Widget>[
+                                    Row(
+                                      children: <Widget>[
+                                        const Icon(
+                                          Icons.comment,
+                                          color: Colors.amberAccent,
+                                          size: 18.0,
+                                        ),
+                                        const SizedBox(
+                                          width: 3.0,
+                                        ),
+                                        Text(
+                                          SugarInt.intToString(
+                                            SugarCommon.nullOrDefault(
+                                              SugarMap.get(
+                                                  loadingMoreItem, 'comments'),
+                                              0,
+                                            ),
+                                          ),
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12),
+                                        )
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    LikeButton(
+                                      size: 18.0,
+                                      isLiked: SugarCommon.nullOrDefault(
+                                        SugarMap.get(
+                                          loadingMoreItem,
+                                          'is_favorite',
+                                        ),
+                                        false,
+                                      ),
+                                      likeCount: SugarCommon.nullOrDefault(
+                                        SugarMap.get(
+                                          loadingMoreItem,
+                                          'favorites',
+                                        ),
+                                        0,
+                                      ),
+                                      onTap: SugarCommon.likeButtonTapCallback(
+                                        context,
+                                        loadingMoreIndex,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               Container(
                                 margin:
                                     const EdgeInsets.symmetric(vertical: 11),

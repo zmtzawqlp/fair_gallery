@@ -376,9 +376,7 @@
                           "className": "SugarCommon.voidCallBack",
                           "na": {
                             "function": "@(_onImageTap)",
-                            "values": [
-                              0
-                            ]
+                            "value": 0
                           }
                         },
                         "child": {
@@ -493,9 +491,7 @@
                                   "className": "SugarCommon.voidCallBack",
                                   "na": {
                                     "function": "@(_onImageTap)",
-                                    "values": [
-                                      "^(index)"
-                                    ]
+                                    "value": "^(index)"
                                   }
                                 },
                                 "child": {
@@ -588,9 +584,7 @@
                         "className": "SugarCommon.voidCallBack",
                         "na": {
                           "function": "@(_onImageTap)",
-                          "values": [
-                            "^(index)"
-                          ]
+                          "value": "^(index)"
                         }
                       },
                       "child": {

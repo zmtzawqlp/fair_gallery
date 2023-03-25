@@ -77,6 +77,7 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
             context: context,
             item: item,
             index: index,
+            parent: domain,
           ),
         );
       };
@@ -101,12 +102,13 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
   }
 }
 
-class LoadingMoreItemBuilderDomain extends Domain {
-  LoadingMoreItemBuilderDomain({
-    required int index,
-    required this.item,
-    required this.context,
-  }) : super([]) {
+class LoadingMoreItemBuilderDomain extends IndexDomain {
+  LoadingMoreItemBuilderDomain(
+      {required int index,
+      required this.item,
+      required this.context,
+      required Domain? parent})
+      : super(parent: parent) {
     this.index = index;
   }
 
@@ -115,7 +117,10 @@ class LoadingMoreItemBuilderDomain extends Domain {
 
   @override
   bool match(dynamic exp) {
-    return source != null &&
+    if (parent != null && parent!.match(exp)) {
+      return true;
+    }
+    return item != null &&
         exp is String &&
         ((RegExp('#\\(.+\\)', multiLine: true).hasMatch(exp) &&
                 (exp.contains('\$loadingMoreItem') ||
@@ -132,10 +137,14 @@ class LoadingMoreItemBuilderDomain extends Domain {
 
   @override
   dynamic bindValue(String exp) {
+    if (parent != null && parent!.match(exp)) {
+      return parent!.bindValue(exp);
+    }
+
     if (exp == 'loadingMoreItem') {
-      return exp.replaceAll('loadingMoreItem', '$item');
+      return item;
     } else if (exp == 'loadingMoreIndex') {
-      return exp.replaceAll('loadingMoreIndex', '$index');
+      return index;
     }
     // Carrying ”#(“ indicates value conversion to a string
 

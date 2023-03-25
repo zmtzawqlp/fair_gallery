@@ -431,7 +431,7 @@
                                                                     "className": "SugarCommon.voidCallBack",
                                                                     "na": {
                                                                       "function": "@(_onImageTap)",
-                                                                      "values": [
+                                                                      "value": [
                                                                         0,
                                                                         "^(loadingMoreItem)"
                                                                       ]
@@ -440,15 +440,15 @@
                                                                   "child": {
                                                                     "className": "Hero",
                                                                     "na": {
-                                                                      "tag": "%(_getImageUrl(0,{className: SugarMap.get, pa: [^(loadingMoreItem), images]}))",
+                                                                      "tag": "%(_getImageUrl(0,^(loadingMoreItem)))",
                                                                       "child": {
                                                                         "className": "ExtendedImage.network",
                                                                         "pa": [
-                                                                          "%(_getImageUrl(0,{className: SugarMap.get, pa: [^(loadingMoreItem), images]}))"
+                                                                          "%(_getImageUrl(0,^(loadingMoreItem)))"
                                                                         ],
                                                                         "na": {
-                                                                          "height": "%(_getImageWidthOrHeight(0,0,{className: SugarMap.get, pa: [^(loadingMoreItem), images]}))",
-                                                                          "width": "%(_getImageWidthOrHeight(0,1,{className: SugarMap.get, pa: [^(loadingMoreItem), images]}))",
+                                                                          "height": "%(_getImageWidthOrHeight(0,0,^(loadingMoreItem)))",
+                                                                          "width": "%(_getImageWidthOrHeight(0,1,^(loadingMoreItem)))",
                                                                           "fit": "#(BoxFit.fill)",
                                                                           "loadStateChanged": {
                                                                             "className": "SugarCommon.onImageStateChanged",
@@ -541,7 +541,7 @@
                                                                   "children": {
                                                                     "className": "Sugar.mapEach",
                                                                     "pa": [
-                                                                      "%(_getImageUrls(4,{className: SugarMap.get, pa: [^(loadingMoreItem), images]}))",
+                                                                      "%(_getImageUrls(4,^(loadingMoreItem)))",
                                                                       {
                                                                         "className": "GestureDetector",
                                                                         "na": {
@@ -549,7 +549,7 @@
                                                                             "className": "SugarCommon.voidCallBack",
                                                                             "na": {
                                                                               "function": "@(_onImageTap)",
-                                                                              "values": [
+                                                                              "value": [
                                                                                 "^(index)",
                                                                                 "^(loadingMoreItem)"
                                                                               ]
@@ -637,7 +637,7 @@
                                                         "children": {
                                                           "className": "Sugar.mapEach",
                                                           "pa": [
-                                                            "%(_getImageUrls(9,{className: SugarMap.get, pa: [^(loadingMoreItem), images]}))",
+                                                            "%(_getImageUrls(9,^(loadingMoreItem)))",
                                                             {
                                                               "className": "GestureDetector",
                                                               "na": {
@@ -645,7 +645,7 @@
                                                                   "className": "SugarCommon.voidCallBack",
                                                                   "na": {
                                                                     "function": "@(_onImageTap)",
-                                                                    "values": [
+                                                                    "value": [
                                                                       "^(index)",
                                                                       "^(loadingMoreItem)"
                                                                     ]
@@ -842,6 +842,121 @@
                                                       }
                                                     }
                                                   ]
+                                                },
+                                                {
+                                                  "className": "Padding",
+                                                  "na": {
+                                                    "padding": {
+                                                      "className": "EdgeInsets.symmetric",
+                                                      "na": {
+                                                        "horizontal": 11
+                                                      }
+                                                    },
+                                                    "child": {
+                                                      "className": "Row",
+                                                      "na": {
+                                                        "children": [
+                                                          {
+                                                            "className": "Row",
+                                                            "na": {
+                                                              "children": [
+                                                                {
+                                                                  "className": "Icon",
+                                                                  "pa": [
+                                                                    "#(Icons.comment)"
+                                                                  ],
+                                                                  "na": {
+                                                                    "color": "#(Colors.amberAccent)",
+                                                                    "size": 18.0
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "className": "SizedBox",
+                                                                  "na": {
+                                                                    "width": 3.0
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "className": "Text",
+                                                                  "pa": [
+                                                                    {
+                                                                      "className": "SugarInt.intToString",
+                                                                      "pa": [
+                                                                        {
+                                                                          "className": "SugarCommon.nullOrDefault",
+                                                                          "pa": [
+                                                                            {
+                                                                              "className": "SugarMap.get",
+                                                                              "pa": [
+                                                                                "^(loadingMoreItem)",
+                                                                                "comments"
+                                                                              ]
+                                                                            },
+                                                                            0
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ],
+                                                                  "na": {
+                                                                    "style": {
+                                                                      "className": "TextStyle",
+                                                                      "na": {
+                                                                        "color": "#(Colors.black)",
+                                                                        "fontSize": 12
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
+                                                          {
+                                                            "className": "Spacer"
+                                                          },
+                                                          {
+                                                            "className": "LikeButton",
+                                                            "na": {
+                                                              "size": 18.0,
+                                                              "isLiked": {
+                                                                "className": "SugarCommon.nullOrDefault",
+                                                                "pa": [
+                                                                  {
+                                                                    "className": "SugarMap.get",
+                                                                    "pa": [
+                                                                      "^(loadingMoreItem)",
+                                                                      "is_favorite"
+                                                                    ]
+                                                                  },
+                                                                  false
+                                                                ]
+                                                              },
+                                                              "likeCount": {
+                                                                "className": "SugarCommon.nullOrDefault",
+                                                                "pa": [
+                                                                  {
+                                                                    "className": "SugarMap.get",
+                                                                    "pa": [
+                                                                      "^(loadingMoreItem)",
+                                                                      "favorites"
+                                                                    ]
+                                                                  },
+                                                                  0
+                                                                ]
+                                                              },
+                                                              "onTap": {
+                                                                "className": "SugarCommon.likeButtonTapCallback",
+                                                                "pa": [
+                                                                  "^(context)",
+                                                                  "^(loadingMoreIndex)"
+                                                                ]
+                                                              }
+                                                            }
+                                                          }
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
                                                 },
                                                 {
                                                   "className": "Container",

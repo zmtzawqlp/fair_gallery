@@ -73,10 +73,29 @@ class SugarCommon {
 
   static Function() voidCallBack({
     required Function function,
+    required dynamic value,
+  }) {
+    return () {
+      function.call(value);
+    };
+  }
+
+  // static Function() voidCallBack1({
+  //   required Function function,
+  //   required dynamic value,
+  //   required dynamic value1,
+  // }) {
+  //   return () {
+  //     function.call([value, value1]);
+  //   };
+  // }
+
+  static List<String> Function() callBack({
+    required Function function,
     required List<dynamic> values,
   }) {
     return () {
-      Function.apply(function, values);
+      return Function.apply(function, values);
     };
   }
 
