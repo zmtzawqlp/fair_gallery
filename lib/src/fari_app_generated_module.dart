@@ -1,6 +1,7 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:fair_gallery/src/utils/text/my_extended_text_selection_controls.dart';
 import 'package:fair_gallery/src/utils/text/my_special_text_span_builder.dart';
+import 'package:fair_gallery/src/widget/push_to_refresh_header.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:loading_more_list/loading_more_list.dart';
@@ -68,7 +69,23 @@ class FairAppGeneratedModule extends AppGeneratedModule {
           ),
       'MySpecialTextSpanBuilder': (props) => MySpecialTextSpanBuilder(),
       'MyTextSelectionControls': (props) => MyTextSelectionControls(),
-
+      'PullToRefreshHeader': (props) {
+        // 这里 DateTime lastRefreshTime 需要自己转换一下
+        //
+        var dateTime = props['pa'][1];
+        // 从 js 那边获取的 DateTime
+        if (dateTime is Map) {
+          // var isUtc = dateTime['isUtc'];
+          var dateTimeS = dateTime['__date__'];
+          dateTime = DateTime.tryParse(dateTimeS);
+        }
+        return PullToRefreshHeader(
+          props['pa'][0],
+          dateTime,
+          key: props['key'],
+          color: props['color'],
+        );
+      },
       // add your cases here.
     };
   }

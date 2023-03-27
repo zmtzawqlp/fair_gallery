@@ -41,20 +41,46 @@
                     },
                     "loadStateChanged": {
                       "className": "SugarCommon.onImageStateChanged",
-                      "na": {
-                        "loadingWidget": {
-                          "className": "ExtendedImage.asset",
+                      "pa": [
+                        {
+                          "className": "Sugar.switchCase",
                           "pa": [
-                            "#(Assets.assets_image_avatar_jpg)"
-                          ]
-                        },
-                        "failedWidget": {
-                          "className": "ExtendedImage.asset",
-                          "pa": [
-                            "#(Assets.assets_image_avatar_jpg)"
-                          ]
+                            "^(loadState)",
+                            [
+                              {
+                                "className": "SugarSwitchCaseObj",
+                                "na": {
+                                  "sugarCase": "#(LoadState.loading)",
+                                  "reValue": {
+                                    "className": "ExtendedImage.asset",
+                                    "pa": [
+                                      "#(Assets.assets_image_avatar_jpg)"
+                                    ]
+                                  }
+                                }
+                              },
+                              {
+                                "className": "SugarSwitchCaseObj",
+                                "na": {
+                                  "sugarCase": "#(LoadState.failed)",
+                                  "reValue": {
+                                    "className": "ExtendedImage.asset",
+                                    "pa": [
+                                      "#(Assets.assets_image_avatar_jpg)"
+                                    ]
+                                  }
+                                }
+                              }
+                            ],
+                            null
+                          ],
+                          "functionParameters": {
+                            "pa": [
+                              "loadState"
+                            ]
+                          }
                         }
-                      }
+                      ]
                     }
                   }
                 },
@@ -315,6 +341,12 @@
                           }
                         }
                       }
+                    },
+                    "functionParameters": {
+                      "pa": [
+                        "index",
+                        "item"
+                      ]
                     }
                   }
                 ]
@@ -394,32 +426,58 @@
                                 "fit": "#(BoxFit.fill)",
                                 "loadStateChanged": {
                                   "className": "SugarCommon.onImageStateChanged",
-                                  "na": {
-                                    "loadingWidget": {
-                                      "className": "ColoredBox",
-                                      "na": {
-                                        "color": {
-                                          "className": "Sugar.colorsWithOpacity",
-                                          "pa": [
-                                            "#(Colors.grey)",
-                                            0.2
-                                          ]
-                                        }
-                                      }
-                                    },
-                                    "failedWidget": {
-                                      "className": "ColoredBox",
-                                      "na": {
-                                        "color": {
-                                          "className": "Sugar.colorsWithOpacity",
-                                          "pa": [
-                                            "#(Colors.grey)",
-                                            0.2
-                                          ]
-                                        }
+                                  "pa": [
+                                    {
+                                      "className": "Sugar.switchCase",
+                                      "pa": [
+                                        "^(loadState)",
+                                        [
+                                          {
+                                            "className": "SugarSwitchCaseObj",
+                                            "na": {
+                                              "sugarCase": "#(LoadState.loading)",
+                                              "reValue": {
+                                                "className": "ColoredBox",
+                                                "na": {
+                                                  "color": {
+                                                    "className": "Sugar.colorsWithOpacity",
+                                                    "pa": [
+                                                      "#(Colors.grey)",
+                                                      0.2
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "className": "SugarSwitchCaseObj",
+                                            "na": {
+                                              "sugarCase": "#(LoadState.failed)",
+                                              "reValue": {
+                                                "className": "ColoredBox",
+                                                "na": {
+                                                  "color": {
+                                                    "className": "Sugar.colorsWithOpacity",
+                                                    "pa": [
+                                                      "#(Colors.grey)",
+                                                      0.2
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ],
+                                        null
+                                      ],
+                                      "functionParameters": {
+                                        "pa": [
+                                          "loadState"
+                                        ]
                                       }
                                     }
-                                  }
+                                  ]
                                 }
                               }
                             }
@@ -507,37 +565,69 @@
                                         "fit": "#(BoxFit.cover)",
                                         "loadStateChanged": {
                                           "className": "SugarCommon.onImageStateChanged",
-                                          "na": {
-                                            "loadingWidget": {
-                                              "className": "ColoredBox",
-                                              "na": {
-                                                "color": {
-                                                  "className": "Sugar.colorsWithOpacity",
-                                                  "pa": [
-                                                    "#(Colors.grey)",
-                                                    0.2
-                                                  ]
-                                                }
-                                              }
-                                            },
-                                            "failedWidget": {
-                                              "className": "ColoredBox",
-                                              "na": {
-                                                "color": {
-                                                  "className": "Sugar.colorsWithOpacity",
-                                                  "pa": [
-                                                    "#(Colors.grey)",
-                                                    0.2
-                                                  ]
-                                                }
+                                          "pa": [
+                                            {
+                                              "className": "Sugar.switchCase",
+                                              "pa": [
+                                                "^(loadState)",
+                                                [
+                                                  {
+                                                    "className": "SugarSwitchCaseObj",
+                                                    "na": {
+                                                      "sugarCase": "#(LoadState.loading)",
+                                                      "reValue": {
+                                                        "className": "ColoredBox",
+                                                        "na": {
+                                                          "color": {
+                                                            "className": "Sugar.colorsWithOpacity",
+                                                            "pa": [
+                                                              "#(Colors.grey)",
+                                                              0.2
+                                                            ]
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  {
+                                                    "className": "SugarSwitchCaseObj",
+                                                    "na": {
+                                                      "sugarCase": "#(LoadState.failed)",
+                                                      "reValue": {
+                                                        "className": "ColoredBox",
+                                                        "na": {
+                                                          "color": {
+                                                            "className": "Sugar.colorsWithOpacity",
+                                                            "pa": [
+                                                              "#(Colors.grey)",
+                                                              0.2
+                                                            ]
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                ],
+                                                null
+                                              ],
+                                              "functionParameters": {
+                                                "pa": [
+                                                  "loadState"
+                                                ]
                                               }
                                             }
-                                          }
+                                          ]
                                         }
                                       }
                                     }
                                   }
                                 }
+                              },
+                              "functionParameters": {
+                                "pa": [
+                                  "index",
+                                  "item"
+                                ]
                               }
                             }
                           ]
@@ -648,23 +738,58 @@
                                             "fit": "#(BoxFit.cover)",
                                             "loadStateChanged": {
                                               "className": "SugarCommon.onImageStateChanged",
-                                              "na": {
-                                                "loadingWidget": {
-                                                  "className": "Container"
-                                                },
-                                                "failedWidget": {
-                                                  "className": "ColoredBox",
-                                                  "na": {
-                                                    "color": {
-                                                      "className": "Sugar.colorsWithOpacity",
-                                                      "pa": [
-                                                        "#(Colors.grey)",
-                                                        0.2
-                                                      ]
-                                                    }
+                                              "pa": [
+                                                {
+                                                  "className": "Sugar.switchCase",
+                                                  "pa": [
+                                                    "^(loadState)",
+                                                    [
+                                                      {
+                                                        "className": "SugarSwitchCaseObj",
+                                                        "na": {
+                                                          "sugarCase": "#(LoadState.loading)",
+                                                          "reValue": {
+                                                            "className": "ColoredBox",
+                                                            "na": {
+                                                              "color": {
+                                                                "className": "Sugar.colorsWithOpacity",
+                                                                "pa": [
+                                                                  "#(Colors.grey)",
+                                                                  0.2
+                                                                ]
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      {
+                                                        "className": "SugarSwitchCaseObj",
+                                                        "na": {
+                                                          "sugarCase": "#(LoadState.failed)",
+                                                          "reValue": {
+                                                            "className": "ColoredBox",
+                                                            "na": {
+                                                              "color": {
+                                                                "className": "Sugar.colorsWithOpacity",
+                                                                "pa": [
+                                                                  "#(Colors.grey)",
+                                                                  0.2
+                                                                ]
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    ],
+                                                    null
+                                                  ],
+                                                  "functionParameters": {
+                                                    "pa": [
+                                                      "loadState"
+                                                    ]
                                                   }
                                                 }
-                                              }
+                                              ]
                                             }
                                           }
                                         }
@@ -750,32 +875,58 @@
                                   "fit": "#(BoxFit.cover)",
                                   "loadStateChanged": {
                                     "className": "SugarCommon.onImageStateChanged",
-                                    "na": {
-                                      "loadingWidget": {
-                                        "className": "ColoredBox",
-                                        "na": {
-                                          "color": {
-                                            "className": "Sugar.colorsWithOpacity",
-                                            "pa": [
-                                              "#(Colors.grey)",
-                                              0.2
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      "failedWidget": {
-                                        "className": "ColoredBox",
-                                        "na": {
-                                          "color": {
-                                            "className": "Sugar.colorsWithOpacity",
-                                            "pa": [
-                                              "#(Colors.grey)",
-                                              0.2
-                                            ]
-                                          }
+                                    "pa": [
+                                      {
+                                        "className": "Sugar.switchCase",
+                                        "pa": [
+                                          "^(loadState)",
+                                          [
+                                            {
+                                              "className": "SugarSwitchCaseObj",
+                                              "na": {
+                                                "sugarCase": "#(LoadState.loading)",
+                                                "reValue": {
+                                                  "className": "ColoredBox",
+                                                  "na": {
+                                                    "color": {
+                                                      "className": "Sugar.colorsWithOpacity",
+                                                      "pa": [
+                                                        "#(Colors.grey)",
+                                                        0.2
+                                                      ]
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "className": "SugarSwitchCaseObj",
+                                              "na": {
+                                                "sugarCase": "#(LoadState.failed)",
+                                                "reValue": {
+                                                  "className": "ColoredBox",
+                                                  "na": {
+                                                    "color": {
+                                                      "className": "Sugar.colorsWithOpacity",
+                                                      "pa": [
+                                                        "#(Colors.grey)",
+                                                        0.2
+                                                      ]
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          ],
+                                          null
+                                        ],
+                                        "functionParameters": {
+                                          "pa": [
+                                            "loadState"
+                                          ]
                                         }
                                       }
-                                    }
+                                    ]
                                   }
                                 }
                               }
@@ -783,6 +934,12 @@
                           }
                         }
                       }
+                    },
+                    "functionParameters": {
+                      "pa": [
+                        "index",
+                        "item"
+                      ]
                     }
                   }
                 ]
@@ -859,8 +1016,7 @@
                     "onTap": {
                       "className": "SugarCommon.likeButtonTapCallback",
                       "pa": [
-                        "^(context)",
-                        "^(itemIndex)"
+                        "^(context)"
                       ]
                     }
                   }

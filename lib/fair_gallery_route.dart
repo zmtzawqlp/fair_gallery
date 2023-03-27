@@ -69,7 +69,7 @@ FFRouteSettings getRouteSettings({
           ),
         ),
         routeName: '照片库列表',
-        description: '展示如何使用Fair创建一个列表',
+        description: '展示如何使用Fair创建一个列表,使用 delegate 绑定 itemBuilder',
         exts: <String, dynamic>{
           ExtendedFairWidget.tag: true,
           'ffRouteFileImport':
@@ -85,8 +85,8 @@ FFRouteSettings getRouteSettings({
             safeArguments['key'],
           ),
         ),
-        routeName: '照片库列表1',
-        description: '展示如何使用Fair创建一个列表1',
+        routeName: '照片库列表',
+        description: '展示如何使用Fair创建一个列表, 直接利用 FunctionDomain 创建 itemBuilder',
         exts: <String, dynamic>{
           ExtendedFairWidget.tag: true,
           'ffRouteFileImport':

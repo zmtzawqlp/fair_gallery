@@ -8,7 +8,7 @@ import 'package:fair_gallery/src/sugar/dart_core.dart';
 import 'package:fair_gallery/src/utils/repository.dart';
 @FFArgumentImport()
 import 'package:fair_gallery/src/widget/extended_fair_widget.dart';
-import 'package:fair_gallery/src/widget/share_data_widget.dart';
+import 'package:fair_gallery/src/widget/push_to_refresh_header.dart';
 import 'package:ff_annotation_route_library/ff_annotation_route_library.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_more_list/loading_more_list.dart';
@@ -19,7 +19,7 @@ import 'package:keframe/keframe.dart';
 @FFRoute(
   name: 'PhotoGalleryPage',
   routeName: '照片库列表',
-  description: '展示如何使用Fair创建一个列表',
+  description: '展示如何使用Fair创建一个列表,使用 delegate 绑定 itemBuilder',
   exts: <String, dynamic>{
     ExtendedFairWidget.tag: true,
   },
@@ -33,7 +33,7 @@ class PhotoGalleryPage extends StatefulWidget {
 
 class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
   late LoadingMoreRepository _repository;
-
+  DateTime lastRefreshTime = DateTime.now();
   @override
   void initState() {
     super.initState();
@@ -133,6 +133,9 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
             }
             pageIndex = pageIndex + 1;
           }
+          if (!isloadMoreAction) {
+            lastRefreshTime = DateTime.now();
+          }
 
           FairCommonPlugin().futureComplete({
             // required
@@ -161,11 +164,10 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
         armedDragUpCancel: false,
         onRefresh: _onRefresh,
         child: Column(children: [
-          ShareDataWidget(
-            data: _repository,
-            child: PullToRefreshContainer(
-              SugarCommon.pullToRefreshContainerBuilder(),
-            ),
+          PullToRefreshContainer(
+            SugarCommon.pullToRefreshContainerBuilder((info) {
+              return PullToRefreshHeader(info, lastRefreshTime);
+            }),
           ),
           Expanded(
             child: SizeCacheWidget(

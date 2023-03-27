@@ -4,7 +4,6 @@ import 'package:extended_image/extended_image.dart';
 import 'package:fair/fair.dart';
 import 'package:fair_gallery/src/utils/repository.dart';
 import 'package:fair_gallery/src/widget/share_data_widget.dart';
-import 'package:fair_gallery/src/widget/push_to_refresh_header.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:loading_more_list/loading_more_list.dart';
@@ -13,30 +12,16 @@ import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 class SugarCommon {
   SugarCommon._();
 
-  static PullToRefreshContainerBuilder pullToRefreshContainerBuilder() {
-    return (PullToRefreshScrollNotificationInfo? info) {
-      return Builder(builder: (context) {
-        var repository = ShareDataWidget.of(context) as LoadingMoreRepository;
-        return PullToRefreshHeader(info, repository.dateTimeNow);
-      });
-    };
+  static PullToRefreshContainerBuilder pullToRefreshContainerBuilder(
+      PullToRefreshContainerBuilder builder) {
+    return builder;
   }
 
-  static LoadStateChanged onImageStateChanged({
-    Widget? loadingWidget,
-    Widget? failedWidget,
-  }) {
+  static LoadStateChanged onImageStateChanged(
+    Widget? Function(LoadState loadState) callback,
+  ) {
     return (ExtendedImageState state) {
-      switch (state.extendedImageLoadState) {
-        case LoadState.loading:
-          return loadingWidget;
-        case LoadState.completed:
-          break;
-        case LoadState.failed:
-          return failedWidget;
-        default:
-      }
-      return null;
+      return callback(state.extendedImageLoadState);
     };
   }
 
@@ -59,11 +44,19 @@ class SugarCommon {
   }
 
   static LikeButtonTapCallback likeButtonTapCallback(
-    BuildContext context,
-    int index,
-  ) {
+    BuildContext context, {
+    int? index,
+  }) {
     return (bool isLiked) async {
-      var item = ShareDataWidget.getValue(context, ['item']);
+      dynamic item;
+      if (index != null) {
+        LoadingMoreRepository repository =
+            ShareDataWidget.of(context) as LoadingMoreRepository;
+        item = repository[index];
+      } else {
+        item = ShareDataWidget.getValue(context, ['item']);
+      }
+
       if (item != null) {
         item['is_favorite'] = !isLiked;
       }
@@ -77,25 +70,6 @@ class SugarCommon {
   }) {
     return () {
       function.call(value);
-    };
-  }
-
-  // static Function() voidCallBack1({
-  //   required Function function,
-  //   required dynamic value,
-  //   required dynamic value1,
-  // }) {
-  //   return () {
-  //     function.call([value, value1]);
-  //   };
-  // }
-
-  static List<String> Function() callBack({
-    required Function function,
-    required List<dynamic> values,
-  }) {
-    return () {
-      return Function.apply(function, values);
     };
   }
 
@@ -135,12 +109,7 @@ class SugarCommon {
   }
 
   static LoadingMoreItemBuilder loadingMoreItemBuilder(
-      Widget Function(
-    BuildContext context,
-    dynamic loadingMoreItem,
-    int loadingMoreIndex,
-  )
-          loadingMoreItemBuilder) {
+      LoadingMoreItemBuilder loadingMoreItemBuilder) {
     return loadingMoreItemBuilder;
   }
 

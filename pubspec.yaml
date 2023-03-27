@@ -80,12 +80,21 @@ dependency_overrides:
       url: https://github.com/zmtzawqlp/fair.git
       ref: fix
       path: flutter_version/flutter_3_3_0
+  fair_dart2dsl:
+    git:
+      #url: https://github.com/wuba/Fair.git
+      url: https://github.com/zmtzawqlp/fair.git
+      ref: fix
+      path: dart2dsl
+  fair_dart2js:
+    git:
+      #url: https://github.com/wuba/Fair.git
+      url: https://github.com/zmtzawqlp/fair.git
+      ref: fix
+      path: dart2js      
   # 如果你是 3.3.0 以下的版本，需要 override collection
   collection: 1.17.0
-  # fair:
-  #   path: Fair2/fair/
-  # fair_compiler:
-  #   path: Fair2/compiler                    
+                
 # The following section is specific to Flutter packages.
 flutter:
 

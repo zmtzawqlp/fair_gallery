@@ -1,10 +1,12 @@
 // ignore_for_file: implementation_imports, prefer_function_declarations_over_variables
 
+import 'package:extended_image/extended_image.dart';
 import 'package:fair/src/render/builder.dart';
 import 'package:fair/src/render/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:fair/src/type.dart';
 import 'package:loading_more_list/loading_more_list.dart';
+import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
   CustomDynamicWidgetBuilder(
@@ -20,19 +22,19 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
     var name = map[tag];
     // &
     if (name == 'SugarBool.and') {
-      var p0 = p0Value(pa0(map), methodMap, context, domain);
+      var p0 = pa0Value(pa0(map), methodMap, context, domain);
       if (!p0) {
         return false;
       }
-      return p0 & p0Value(pa1(map), methodMap, context, domain);
+      return p0 & pa0Value(pa1(map), methodMap, context, domain);
     }
     // |
     else if (name == 'SugarBool.inclusiveOr') {
-      var p0 = p0Value(pa0(map), methodMap, context, domain);
+      var p0 = pa0Value(pa0(map), methodMap, context, domain);
       if (p0) {
         return true;
       }
-      return p0Value(pa1(map), methodMap, context, domain);
+      return pa0Value(pa1(map), methodMap, context, domain);
     } else if (name == 'SugarCommon.loadingMoreIndicatorBuilder') {
       LoadingMoreIndicatorBuilder builder = (
         _,
@@ -48,9 +50,9 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
 
         for (var caseItem in source) {
           var na = caseItem['na'];
-          var sugarCase = p0Value(na['sugarCase'], methodMap, context, domain);
+          var sugarCase = pa0Value(na['sugarCase'], methodMap, context, domain);
           if (sugarCase == status) {
-            return p0Value(na['reValue'], methodMap, context, domain);
+            return pa0Value(na['reValue'], methodMap, context, domain);
           }
         }
 
@@ -66,17 +68,56 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
       };
       return builder;
     } else if (name == 'SugarCommon.loadingMoreItemBuilder') {
-      LoadingMoreItemBuilder builder = (context, item, index) {
-        dynamic source = pa0(map);
-        assert(source is Map);
+      dynamic source = pa0(map);
+      assert(source is Map);
+      List functionParameters = FunctionDomain.pa(source);
+      LoadingMoreItemBuilder builder = (builderContext, item, index) {
         return convert(
           context,
           source,
           methodMap,
-          domain: LoadingMoreItemBuilderDomain(
-            context: context,
-            item: item,
-            index: index,
+          domain: FunctionDomain(
+            {
+              functionParameters[0]: builderContext,
+              functionParameters[1]: item,
+              functionParameters[2]: index,
+            },
+            parent: domain,
+          ),
+        );
+      };
+      return builder;
+    } else if (name == 'SugarCommon.pullToRefreshContainerBuilder') {
+      dynamic source = pa0(map);
+      assert(source is Map);
+      List functionParameters = FunctionDomain.pa(source);
+      PullToRefreshContainerBuilder builder = (info) {
+        return convert(
+          context,
+          source,
+          methodMap,
+          domain: FunctionDomain(
+            {
+              functionParameters[0]: info,
+            },
+            parent: domain,
+          ),
+        );
+      };
+      return builder;
+    } else if (name == 'SugarCommon.onImageStateChanged') {
+      dynamic source = pa0(map);
+      assert(source is Map);
+      List functionParameters = FunctionDomain.pa(source);
+      Widget? Function(ExtendedImageState state) builder = (state) {
+        return convert(
+          context,
+          source,
+          methodMap,
+          domain: FunctionDomain(
+            {
+              functionParameters[0]: state.extendedImageLoadState,
+            },
             parent: domain,
           ),
         );
@@ -99,72 +140,5 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
     mapper ??= bound?.functionOf(name) ?? bound?.valueOf(name);
     mapper ??= proxyMirror?.componentOf(name);
     return mapper;
-  }
-}
-
-class LoadingMoreItemBuilderDomain extends IndexDomain {
-  LoadingMoreItemBuilderDomain(
-      {required int index,
-      required this.item,
-      required this.context,
-      required Domain? parent})
-      : super(parent: parent) {
-    this.index = index;
-  }
-
-  final dynamic item;
-  final BuildContext context;
-
-  @override
-  bool match(dynamic exp) {
-    if (parent != null && parent!.match(exp)) {
-      return true;
-    }
-    return item != null &&
-        exp is String &&
-        ((RegExp('#\\(.+\\)', multiLine: true).hasMatch(exp) &&
-                (exp.contains('\$loadingMoreItem') ||
-                    exp.contains('\$loadingMoreIndex'))) ||
-            exp == 'loadingMoreItem' ||
-            exp == 'loadingMoreIndex' ||
-            exp.startsWith("\$(loadingMoreItem") ||
-            exp.startsWith("\$(loadingMoreIndex") ||
-            exp.startsWith("#(\${loadingMoreIndex") ||
-            exp.startsWith("#(\${loadingMoreItem") ||
-            exp.startsWith('^(loadingMoreIndex)') ||
-            exp.startsWith('^(loadingMoreItem)'));
-  }
-
-  @override
-  dynamic bindValue(String exp) {
-    if (parent != null && parent!.match(exp)) {
-      return parent!.bindValue(exp);
-    }
-
-    if (exp == 'loadingMoreItem') {
-      return item;
-    } else if (exp == 'loadingMoreIndex') {
-      return index;
-    }
-    // Carrying ”#(“ indicates value conversion to a string
-
-    dynamic processed = exp.substring(2, exp.length - 1);
-    if (processed.startsWith("\${")) {
-      processed = processed.substring(2, processed.length - 1);
-    }
-
-    // ^(item)
-    if (processed == 'loadingMoreItem') {
-      return item;
-    }
-    // ^(index)
-    else if (processed == 'loadingMoreIndex') {
-      return index;
-    }
-
-    processed = processed.replaceAll('\$loadingMoreItem', '$item');
-    processed = processed.replaceAll('\$loadingMoreIndex', '$index');
-
-    return processed;
   }
 }

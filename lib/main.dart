@@ -28,10 +28,12 @@ import 'packages.dart';
   'package:fair_gallery/assets.dart',
   'package:fair_gallery/src/widget/extended_fair_widget.dart',
   'package:fair_gallery/src/widget/share_data_widget.dart',
+  'package:fair_gallery/src/widget/push_to_refresh_header.dart',
   'package:fair_gallery/src/widget/hero_widget.dart',
   'package:fair_gallery/src/widget/image_grid.dart',
   'package:loading_more_list_library/loading_more_list_library.dart',
   'package:fair_gallery/src/utils/repository.dart',
+  'package:fair_gallery/src/widget/frame_separate_widget.dart',
 ])
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

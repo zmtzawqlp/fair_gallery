@@ -2,8 +2,6 @@ import 'package:extended_image/extended_image.dart';
 import 'package:extended_text/extended_text.dart';
 import 'package:fair/fair.dart';
 import 'package:fair_gallery/assets.dart';
-import 'package:fair_gallery/fair_gallery_routes.dart';
-import 'package:fair_gallery/src/page/photo_gallery_item.dart';
 import 'package:fair_gallery/src/plugin/fair_common_plugin.dart';
 import 'package:fair_gallery/src/sugar/common.dart';
 import 'package:fair_gallery/src/sugar/dart_core.dart';
@@ -12,6 +10,8 @@ import 'package:fair_gallery/src/utils/text/my_extended_text_selection_controls.
 import 'package:fair_gallery/src/utils/text/my_special_text_span_builder.dart';
 @FFArgumentImport()
 import 'package:fair_gallery/src/widget/extended_fair_widget.dart';
+import 'package:fair_gallery/src/widget/frame_separate_widget.dart';
+import 'package:fair_gallery/src/widget/push_to_refresh_header.dart';
 import 'package:fair_gallery/src/widget/share_data_widget.dart';
 import 'package:ff_annotation_route_library/ff_annotation_route_library.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +23,8 @@ import 'package:keframe/keframe.dart';
 @FairPatch()
 @FFRoute(
   name: 'PhotoGalleryPage1',
-  routeName: '照片库列表1',
-  description: '展示如何使用Fair创建一个列表1',
+  routeName: '照片库列表',
+  description: '展示如何使用Fair创建一个列表, 直接利用 FunctionDomain 创建 itemBuilder',
   exts: <String, dynamic>{
     ExtendedFairWidget.tag: true,
   },
@@ -38,7 +38,7 @@ class PhotoGalleryPage1 extends StatefulWidget {
 
 class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
   late LoadingMoreRepository _repository;
-
+  DateTime lastRefreshTime = DateTime.now();
   @override
   void initState() {
     super.initState();
@@ -115,7 +115,9 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
             }
             pageIndex = pageIndex + 1;
           }
-
+          if (!isloadMoreAction) {
+            lastRefreshTime = DateTime.now();
+          }
           FairCommonPlugin().futureComplete({
             // required
             'pageName': 'PhotoGalleryPage',
@@ -296,471 +298,597 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
         armedDragUpCancel: false,
         onRefresh: _onRefresh,
         child: Column(children: [
-          ShareDataWidget(
-            data: _repository,
-            child: PullToRefreshContainer(
-              SugarCommon.pullToRefreshContainerBuilder(),
-            ),
+          PullToRefreshContainer(
+            SugarCommon.pullToRefreshContainerBuilder((info) {
+              return PullToRefreshHeader(info, lastRefreshTime);
+            }),
           ),
           Expanded(
             child: SizeCacheWidget(
               child: ExtendedTextSelectionPointerHandler(
-                child: LoadingMoreList(
-                  ListConfig(
-                    itemBuilder: SugarCommon.loadingMoreItemBuilder(
-                      (context, loadingMoreItem, loadingMoreIndex) {
-                        return FrameSeparateWidget(
-                          index: loadingMoreIndex,
-                          placeHolder: Container(height: 200),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(11),
-                                child: Row(
-                                  children: <Widget>[
-                                    ExtendedImage.network(
-                                      _getAvatarUrl(loadingMoreItem),
-                                      width: 40.0,
-                                      height: 40.0,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Sugar.colorsWithOpacity(
-                                            Colors.grey, 0.4),
-                                        width: 1.0,
-                                      ),
-                                      loadStateChanged:
-                                          SugarCommon.onImageStateChanged(
-                                        loadingWidget: ExtendedImage.asset(
-                                            Assets.assets_image_avatar_jpg),
-                                        failedWidget: ExtendedImage.asset(
-                                            Assets.assets_image_avatar_jpg),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 11,
-                                    ),
-                                    Text(
-                                      _getSiteTitle(loadingMoreItem),
-                                      maxLines: 1,
-                                      style: const TextStyle(
-                                        fontSize: 17,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 11,
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        _getSiteDescription(loadingMoreItem),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          fontSize: 17,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                child: ExtendedText(
-                                  _getContent(loadingMoreItem),
-                                  onSpecialTextTap: _onSpecialTextTap,
-                                  specialTextSpanBuilder:
-                                      MySpecialTextSpanBuilder(),
-                                  style: const TextStyle(
-                                      fontSize: 14, color: Colors.grey),
-                                  maxLines: 5,
-                                  overflowWidget: TextOverflowWidget(
+                child: ShareDataWidget(
+                  data: _repository,
+                  child: LoadingMoreList(
+                    ListConfig(
+                      sourceList: LoadingMoreRepository.onLoadData(
+                        _repository,
+                        _onLoadData,
+                        maxLength: 300,
+                      ),
+                      cacheExtent: SugarNum.toDouble(
+                          SugarNum.multiplies(Sugar.height(context), 2)),
+                      physics: const BouncingScrollPhysics(),
+                      indicatorBuilder: SugarCommon.loadingMoreIndicatorBuilder(
+                        [
+                          SugarSwitchCaseObj(
+                            sugarCase: () => IndicatorStatus.fullScreenBusying,
+                            reValue: () => const Align(
+                              alignment: Alignment.center,
+                              child: Text('不要着急，正在加载中...'),
+                            ),
+                          ),
+                          SugarSwitchCaseObj(
+                            sugarCase: () => IndicatorStatus.loadingMoreBusying,
+                            reValue: () => Container(
+                              height: 35.0,
+                              alignment: Alignment.center,
+                              child: const Text('不要拖了，正在加载更多...'),
+                            ),
+                          ),
+                          SugarSwitchCaseObj(
+                            sugarCase: () => IndicatorStatus.noMoreLoad,
+                            reValue: () => Container(
+                              height: 35.0,
+                              alignment: Alignment.center,
+                              child: const Text('拖不动了，没有更多了！'),
+                            ),
+                          ),
+                        ],
+                        isSliver: false,
+                      ),
+                      itemBuilder: SugarCommon.loadingMoreItemBuilder(
+                        (context, loadingMoreItem, loadingMoreIndex) {
+                          return ExtendedFrameSeparateWidget(
+                            index: loadingMoreIndex,
+                            placeHolder: Container(height: 200),
+                            builder: Sugar.widgetBuilder((context) {
+                              return Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(11),
                                     child: Row(
-                                      mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
-                                        const Text('\u2026 ',
-                                            style: TextStyle(
-                                                fontSize: 14, height: 1.2)),
-                                        GestureDetector(
-                                          child: const Text(
-                                            '更多',
-                                            style: TextStyle(
-                                                fontSize: 14, height: 1.2),
-                                          ),
-                                          onTap: _onTextMoreTap,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  selectionEnabled: true,
-                                  selectionControls: MyTextSelectionControls(),
-                                ),
-                                padding: const EdgeInsets.only(
-                                    left: 11, right: 11, bottom: 11),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 11, right: 11, bottom: 11),
-                                child: Wrap(
-                                    runSpacing: 5.0,
-                                    spacing: 5.0,
-                                    children: Sugar.mapEach(
-                                      SugarIterable.toList(SugarIterable.take(
-                                          SugarMap.get(loadingMoreItem, 'tags'),
-                                          //tags,
-                                          6)),
-                                      (index, item) => Container(
-                                        padding: const EdgeInsets.all(3.0),
-                                        decoration: BoxDecoration(
-                                          color:
-                                              SugarCommon.getRandomColor(index),
+                                        ExtendedImage.network(
+                                          _getAvatarUrl(loadingMoreItem),
+                                          width: 40.0,
+                                          height: 40.0,
+                                          shape: BoxShape.circle,
                                           border: Border.all(
                                             color: Sugar.colorsWithOpacity(
                                                 Colors.grey, 0.4),
                                             width: 1.0,
                                           ),
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(5.0),
+                                          loadStateChanged:
+                                              SugarCommon.onImageStateChanged(
+                                                  (loadState) {
+                                            return Sugar.switchCase(
+                                              loadState,
+                                              [
+                                                SugarSwitchCaseObj(
+                                                    sugarCase: () =>
+                                                        LoadState.loading,
+                                                    reValue: () => ExtendedImage
+                                                        .asset(Assets
+                                                            .assets_image_avatar_jpg)),
+                                                SugarSwitchCaseObj(
+                                                    sugarCase: () =>
+                                                        LoadState.failed,
+                                                    reValue: () => ExtendedImage
+                                                        .asset(Assets
+                                                            .assets_image_avatar_jpg)),
+                                              ],
+                                              () => null,
+                                            );
+                                          }),
+                                        ),
+                                        const SizedBox(
+                                          width: 11,
+                                        ),
+                                        Text(
+                                          _getSiteTitle(loadingMoreItem),
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            fontSize: 17,
                                           ),
                                         ),
-                                        child: Text(
-                                          '$item',
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color:
-                                                SugarCommon.getLuminanceColor(
-                                              SugarCommon.colorComputeLuminance(
-                                                SugarCommon.getRandomColor(
-                                                  index,
-                                                ),
-                                              ),
+                                        const SizedBox(
+                                          width: 11,
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            _getSiteDescription(
+                                                loadingMoreItem),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              fontSize: 17,
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    )),
-                              ),
-                              Sugar.switchCase(
-                                // SugarList.length(images),
-                                SugarList.length(
-                                  SugarMap.get(loadingMoreItem, 'images'),
-                                ),
-                                [
-                                  SugarSwitchCaseObj(
-                                      sugarCase: () => 0,
-                                      reValue: () => Container()),
-                                  SugarSwitchCaseObj(
-                                    sugarCase: () => 1,
-                                    reValue: () => Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 11, right: 11, bottom: 11),
-                                      child: GestureDetector(
-                                        onTap: SugarCommon.voidCallBack(
-                                          function: _onImageTap,
-                                          value: [0, loadingMoreItem],
-                                        ),
-                                        child: Hero(
-                                          tag: _getImageUrl(
-                                            0,
-                                            loadingMoreItem,
-                                          ),
-                                          child: ExtendedImage.network(
-                                            _getImageUrl(0, loadingMoreItem),
-                                            height: _getImageWidthOrHeight(
-                                                0, 0, loadingMoreItem),
-                                            width: _getImageWidthOrHeight(
-                                                0, 1, loadingMoreItem),
-                                            fit: BoxFit.fill,
-                                            loadStateChanged:
-                                                SugarCommon.onImageStateChanged(
-                                              loadingWidget: ColoredBox(
-                                                color: Sugar.colorsWithOpacity(
-                                                  Colors.grey,
-                                                  0.2,
-                                                ),
-                                              ),
-                                              failedWidget: ColoredBox(
-                                                color: Sugar.colorsWithOpacity(
-                                                  Colors.grey,
-                                                  0.2,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                      ],
                                     ),
                                   ),
-                                  SugarSwitchCaseObj(
-                                    sugarCase: () => 4,
-                                    reValue: () => SizedBox(
-                                      width: SugarDouble.multiplies(
-                                          SugarDouble.divides(
-                                              Sugar.width(context), 3),
-                                          2),
-                                      child: GridView(
-                                        padding: const EdgeInsets.only(
-                                            left: 11, right: 11, bottom: 11),
-                                        shrinkWrap: true,
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          mainAxisSpacing: 10.0,
-                                          crossAxisSpacing: 10.0,
-                                          childAspectRatio: 1.0,
+                                  Padding(
+                                    child: ExtendedText(
+                                      _getContent(loadingMoreItem),
+                                      onSpecialTextTap: _onSpecialTextTap,
+                                      specialTextSpanBuilder:
+                                          MySpecialTextSpanBuilder(),
+                                      style: const TextStyle(
+                                          fontSize: 14, color: Colors.grey),
+                                      maxLines: 5,
+                                      overflowWidget: TextOverflowWidget(
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            const Text('\u2026 ',
+                                                style: TextStyle(
+                                                    fontSize: 14, height: 1.2)),
+                                            GestureDetector(
+                                              child: const Text(
+                                                '更多',
+                                                style: TextStyle(
+                                                    fontSize: 14, height: 1.2),
+                                              ),
+                                              onTap: _onTextMoreTap,
+                                            )
+                                          ],
                                         ),
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
+                                      ),
+                                      selectionEnabled: true,
+                                      selectionControls:
+                                          MyTextSelectionControls(),
+                                    ),
+                                    padding: const EdgeInsets.only(
+                                        left: 11, right: 11, bottom: 11),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 11, right: 11, bottom: 11),
+                                    child: Wrap(
+                                        runSpacing: 5.0,
+                                        spacing: 5.0,
                                         children: Sugar.mapEach(
-                                            _getImageUrls(4, loadingMoreItem),
-                                            (index, item) {
-                                          return GestureDetector(
+                                          SugarIterable.toList(
+                                              SugarIterable.take(
+                                                  SugarMap.get(
+                                                      loadingMoreItem, 'tags'),
+                                                  //tags,
+                                                  6)),
+                                          (index, item) => Container(
+                                            padding: const EdgeInsets.all(3.0),
+                                            decoration: BoxDecoration(
+                                              color: SugarCommon.getRandomColor(
+                                                  index),
+                                              border: Border.all(
+                                                color: Sugar.colorsWithOpacity(
+                                                    Colors.grey, 0.4),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(5.0),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              '$item',
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: SugarCommon
+                                                    .getLuminanceColor(
+                                                  SugarCommon
+                                                      .colorComputeLuminance(
+                                                    SugarCommon.getRandomColor(
+                                                      index,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                  Sugar.switchCase(
+                                    // SugarList.length(images),
+                                    SugarList.length(
+                                      SugarMap.get(loadingMoreItem, 'images'),
+                                    ),
+                                    [
+                                      SugarSwitchCaseObj(
+                                          sugarCase: () => 0,
+                                          reValue: () => Container()),
+                                      SugarSwitchCaseObj(
+                                        sugarCase: () => 1,
+                                        reValue: () => Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 11, right: 11, bottom: 11),
+                                          child: GestureDetector(
                                             onTap: SugarCommon.voidCallBack(
                                               function: _onImageTap,
-                                              value: [index, loadingMoreItem],
+                                              value: [0, loadingMoreItem],
                                             ),
                                             child: Hero(
-                                              tag: '$item',
+                                              tag: _getImageUrl(
+                                                0,
+                                                loadingMoreItem,
+                                              ),
                                               child: ExtendedImage.network(
-                                                '$item',
-                                                fit: BoxFit.cover,
+                                                _getImageUrl(
+                                                    0, loadingMoreItem),
+                                                height: _getImageWidthOrHeight(
+                                                    0, 0, loadingMoreItem),
+                                                width: _getImageWidthOrHeight(
+                                                    0, 1, loadingMoreItem),
+                                                fit: BoxFit.fill,
                                                 loadStateChanged: SugarCommon
                                                     .onImageStateChanged(
-                                                  loadingWidget: ColoredBox(
-                                                    color:
-                                                        Sugar.colorsWithOpacity(
-                                                      Colors.grey,
-                                                      0.2,
-                                                    ),
-                                                  ),
-                                                  failedWidget: ColoredBox(
-                                                    color:
-                                                        Sugar.colorsWithOpacity(
-                                                      Colors.grey,
-                                                      0.2,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        }),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                                () => GridView(
-                                  padding: const EdgeInsets.only(
-                                      left: 11, right: 11, bottom: 11),
-                                  shrinkWrap: true,
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
-                                    mainAxisSpacing: 10.0,
-                                    crossAxisSpacing: 10.0,
-                                    childAspectRatio: 1.0,
-                                  ),
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  children: Sugar.mapEach(
-                                      _getImageUrls(
-                                        9,
-                                        loadingMoreItem,
-                                      ), (index, item) {
-                                    return GestureDetector(
-                                      onTap: SugarCommon.voidCallBack(
-                                        function: _onImageTap,
-                                        value: [index, loadingMoreItem],
-                                      ),
-                                      child: Sugar.ifEqualBool(
-                                          SugarBool.and(
-                                            SugarNum.greaterThan(
-                                              SugarList.length(SugarMap.get(
-                                                  loadingMoreItem, 'images')),
-                                              9,
-                                            ),
-                                            SugarNum.equalTo(index, 8),
-                                          ),
-                                          trueValue: () => Stack(
-                                                children: [
-                                                  Positioned.fill(
-                                                    child: Hero(
-                                                      tag: '$item',
-                                                      child:
-                                                          ExtendedImage.network(
-                                                        '$item',
-                                                        fit: BoxFit.cover,
-                                                        loadStateChanged:
-                                                            SugarCommon
-                                                                .onImageStateChanged(
-                                                          loadingWidget:
-                                                              Container(),
-                                                          failedWidget:
-                                                              ColoredBox(
-                                                            color: Sugar
-                                                                .colorsWithOpacity(
-                                                              Colors.grey,
-                                                              0.2,
-                                                            ),
+                                                        (loadState) {
+                                                  return Sugar.switchCase(
+                                                    loadState,
+                                                    [
+                                                      SugarSwitchCaseObj(
+                                                        sugarCase: () =>
+                                                            LoadState.loading,
+                                                        reValue: () =>
+                                                            ColoredBox(
+                                                          color: Sugar
+                                                              .colorsWithOpacity(
+                                                            Colors.grey,
+                                                            0.2,
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    color:
-                                                        Sugar.colorsWithOpacity(
-                                                            Colors.grey, 0.2),
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      SugarString.concatenates(
-                                                          '+',
-                                                          SugarNum.numToString(
-                                                            SugarNum.subtracts(
-                                                              SugarList.length(
-                                                                  SugarMap.get(
-                                                                      loadingMoreItem,
-                                                                      'images')),
-                                                              9,
-                                                            ),
-                                                          ))
-                                                      //_getImageMoreCount(),
-                                                      ,
-                                                      style: const TextStyle(
-                                                          fontSize: 18.0,
-                                                          color: Colors.white),
-                                                    ),
-                                                  )
-                                                ],
+                                                      SugarSwitchCaseObj(
+                                                        sugarCase: () =>
+                                                            LoadState.failed,
+                                                        reValue: () =>
+                                                            ColoredBox(
+                                                          color: Sugar
+                                                              .colorsWithOpacity(
+                                                            Colors.grey,
+                                                            0.2,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                    () => null,
+                                                  );
+                                                }),
                                               ),
-                                          falseValue: () => Hero(
-                                                tag: '$item',
-                                                child: ExtendedImage.network(
-                                                  '$item',
-                                                  fit: BoxFit.cover,
-                                                  loadStateChanged: SugarCommon
-                                                      .onImageStateChanged(
-                                                    loadingWidget: ColoredBox(
-                                                      color: Sugar
-                                                          .colorsWithOpacity(
-                                                        Colors.grey,
-                                                        0.2,
-                                                      ),
-                                                    ),
-                                                    failedWidget: ColoredBox(
-                                                      color: Sugar
-                                                          .colorsWithOpacity(
-                                                        Colors.grey,
-                                                        0.2,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              )),
-                                    );
-                                  }),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 11),
-                                child: Row(
-                                  children: <Widget>[
-                                    Row(
-                                      children: <Widget>[
-                                        const Icon(
-                                          Icons.comment,
-                                          color: Colors.amberAccent,
-                                          size: 18.0,
-                                        ),
-                                        const SizedBox(
-                                          width: 3.0,
-                                        ),
-                                        Text(
-                                          SugarInt.intToString(
-                                            SugarCommon.nullOrDefault(
-                                              SugarMap.get(
-                                                  loadingMoreItem, 'comments'),
-                                              0,
                                             ),
                                           ),
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 12),
-                                        )
+                                        ),
+                                      ),
+                                      SugarSwitchCaseObj(
+                                        sugarCase: () => 4,
+                                        reValue: () => SizedBox(
+                                          width: SugarDouble.multiplies(
+                                              SugarDouble.divides(
+                                                  Sugar.width(context), 3),
+                                              2),
+                                          child: GridView(
+                                            padding: const EdgeInsets.only(
+                                                left: 11,
+                                                right: 11,
+                                                bottom: 11),
+                                            shrinkWrap: true,
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 2,
+                                              mainAxisSpacing: 10.0,
+                                              crossAxisSpacing: 10.0,
+                                              childAspectRatio: 1.0,
+                                            ),
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            children: Sugar.mapEach(
+                                                _getImageUrls(
+                                                    4, loadingMoreItem),
+                                                (index, item) {
+                                              return GestureDetector(
+                                                onTap: SugarCommon.voidCallBack(
+                                                  function: _onImageTap,
+                                                  value: [
+                                                    index,
+                                                    loadingMoreItem
+                                                  ],
+                                                ),
+                                                child: Hero(
+                                                  tag: '$item',
+                                                  child: ExtendedImage.network(
+                                                    '$item',
+                                                    fit: BoxFit.cover,
+                                                    loadStateChanged: SugarCommon
+                                                        .onImageStateChanged(
+                                                            (loadState) {
+                                                      return Sugar.switchCase(
+                                                        loadState,
+                                                        [
+                                                          SugarSwitchCaseObj(
+                                                            sugarCase: () =>
+                                                                LoadState
+                                                                    .loading,
+                                                            reValue: () =>
+                                                                ColoredBox(
+                                                              color: Sugar
+                                                                  .colorsWithOpacity(
+                                                                Colors.grey,
+                                                                0.2,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          SugarSwitchCaseObj(
+                                                            sugarCase: () =>
+                                                                LoadState
+                                                                    .failed,
+                                                            reValue: () =>
+                                                                ColoredBox(
+                                                              color: Sugar
+                                                                  .colorsWithOpacity(
+                                                                Colors.grey,
+                                                                0.2,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                        () => null,
+                                                      );
+                                                    }),
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                    () => GridView(
+                                      padding: const EdgeInsets.only(
+                                          left: 11, right: 11, bottom: 11),
+                                      shrinkWrap: true,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        mainAxisSpacing: 10.0,
+                                        crossAxisSpacing: 10.0,
+                                        childAspectRatio: 1.0,
+                                      ),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      children: Sugar.mapEach(
+                                          _getImageUrls(
+                                            9,
+                                            loadingMoreItem,
+                                          ), (index, item) {
+                                        return GestureDetector(
+                                          onTap: SugarCommon.voidCallBack(
+                                            function: _onImageTap,
+                                            value: [index, loadingMoreItem],
+                                          ),
+                                          child: Sugar.ifEqualBool(
+                                              SugarBool.and(
+                                                SugarNum.greaterThan(
+                                                  SugarList.length(SugarMap.get(
+                                                      loadingMoreItem,
+                                                      'images')),
+                                                  9,
+                                                ),
+                                                SugarNum.equalTo(index, 8),
+                                              ),
+                                              trueValue: () => Stack(
+                                                    children: [
+                                                      Positioned.fill(
+                                                        child: Hero(
+                                                          tag: '$item',
+                                                          child: ExtendedImage
+                                                              .network(
+                                                            '$item',
+                                                            fit: BoxFit.cover,
+                                                            loadStateChanged:
+                                                                SugarCommon
+                                                                    .onImageStateChanged(
+                                                                        (loadState) {
+                                                              return Sugar
+                                                                  .switchCase(
+                                                                loadState,
+                                                                [
+                                                                  SugarSwitchCaseObj(
+                                                                    sugarCase: () =>
+                                                                        LoadState
+                                                                            .loading,
+                                                                    reValue: () =>
+                                                                        ColoredBox(
+                                                                      color: Sugar
+                                                                          .colorsWithOpacity(
+                                                                        Colors
+                                                                            .grey,
+                                                                        0.2,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  SugarSwitchCaseObj(
+                                                                    sugarCase: () =>
+                                                                        LoadState
+                                                                            .failed,
+                                                                    reValue: () =>
+                                                                        ColoredBox(
+                                                                      color: Sugar
+                                                                          .colorsWithOpacity(
+                                                                        Colors
+                                                                            .grey,
+                                                                        0.2,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                                () => null,
+                                                              );
+                                                            }),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        color: Sugar
+                                                            .colorsWithOpacity(
+                                                                Colors.grey,
+                                                                0.2),
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: Text(
+                                                          SugarString
+                                                              .concatenates(
+                                                                  '+',
+                                                                  SugarNum
+                                                                      .numToString(
+                                                                    SugarNum
+                                                                        .subtracts(
+                                                                      SugarList.length(SugarMap.get(
+                                                                          loadingMoreItem,
+                                                                          'images')),
+                                                                      9,
+                                                                    ),
+                                                                  ))
+                                                          //_getImageMoreCount(),
+                                                          ,
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize:
+                                                                      18.0,
+                                                                  color: Colors
+                                                                      .white),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                              falseValue: () => Hero(
+                                                    tag: '$item',
+                                                    child:
+                                                        ExtendedImage.network(
+                                                      '$item',
+                                                      fit: BoxFit.cover,
+                                                      loadStateChanged: SugarCommon
+                                                          .onImageStateChanged(
+                                                              (loadState) {
+                                                        return Sugar.switchCase(
+                                                          loadState,
+                                                          [
+                                                            SugarSwitchCaseObj(
+                                                              sugarCase: () =>
+                                                                  LoadState
+                                                                      .loading,
+                                                              reValue: () =>
+                                                                  ColoredBox(
+                                                                color: Sugar
+                                                                    .colorsWithOpacity(
+                                                                  Colors.grey,
+                                                                  0.2,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            SugarSwitchCaseObj(
+                                                              sugarCase: () =>
+                                                                  LoadState
+                                                                      .failed,
+                                                              reValue: () =>
+                                                                  ColoredBox(
+                                                                color: Sugar
+                                                                    .colorsWithOpacity(
+                                                                  Colors.grey,
+                                                                  0.2,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                          () => null,
+                                                        );
+                                                      }),
+                                                    ),
+                                                  )),
+                                        );
+                                      }),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 11),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Row(
+                                          children: <Widget>[
+                                            const Icon(
+                                              Icons.comment,
+                                              color: Colors.amberAccent,
+                                              size: 18.0,
+                                            ),
+                                            const SizedBox(
+                                              width: 3.0,
+                                            ),
+                                            Text(
+                                              SugarInt.intToString(
+                                                SugarCommon.nullOrDefault(
+                                                  SugarMap.get(loadingMoreItem,
+                                                      'comments'),
+                                                  0,
+                                                ),
+                                              ),
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12),
+                                            )
+                                          ],
+                                        ),
+                                        const Spacer(),
+                                        LikeButton(
+                                          size: 18.0,
+                                          isLiked: SugarCommon.nullOrDefault(
+                                            SugarMap.get(
+                                              loadingMoreItem,
+                                              'is_favorite',
+                                            ),
+                                            false,
+                                          ),
+                                          likeCount: SugarCommon.nullOrDefault(
+                                            SugarMap.get(
+                                              loadingMoreItem,
+                                              'favorites',
+                                            ),
+                                            0,
+                                          ),
+                                          onTap:
+                                              SugarCommon.likeButtonTapCallback(
+                                            context,
+                                            index: loadingMoreIndex,
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    const Spacer(),
-                                    LikeButton(
-                                      size: 18.0,
-                                      isLiked: SugarCommon.nullOrDefault(
-                                        SugarMap.get(
-                                          loadingMoreItem,
-                                          'is_favorite',
-                                        ),
-                                        false,
-                                      ),
-                                      likeCount: SugarCommon.nullOrDefault(
-                                        SugarMap.get(
-                                          loadingMoreItem,
-                                          'favorites',
-                                        ),
-                                        0,
-                                      ),
-                                      onTap: SugarCommon.likeButtonTapCallback(
-                                        context,
-                                        loadingMoreIndex,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 11),
-                                color:
-                                    Sugar.colorsWithOpacity(Colors.grey, 0.2),
-                                height: 11,
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                    sourceList: LoadingMoreRepository.onLoadData(
-                      _repository,
-                      _onLoadData,
-                      maxLength: 300,
-                    ),
-                    cacheExtent: SugarNum.toDouble(
-                        SugarNum.multiplies(Sugar.height(context), 2)),
-                    physics: const BouncingScrollPhysics(),
-                    indicatorBuilder: SugarCommon.loadingMoreIndicatorBuilder(
-                      [
-                        SugarSwitchCaseObj(
-                          sugarCase: () => IndicatorStatus.fullScreenBusying,
-                          reValue: () => const Align(
-                            alignment: Alignment.center,
-                            child: Text('不要着急，正在加载中...'),
-                          ),
-                        ),
-                        SugarSwitchCaseObj(
-                          sugarCase: () => IndicatorStatus.loadingMoreBusying,
-                          reValue: () => Container(
-                            height: 35.0,
-                            alignment: Alignment.center,
-                            child: const Text('不要拖了，正在加载更多...'),
-                          ),
-                        ),
-                        SugarSwitchCaseObj(
-                          sugarCase: () => IndicatorStatus.noMoreLoad,
-                          reValue: () => Container(
-                            height: 35.0,
-                            alignment: Alignment.center,
-                            child: const Text('拖不动了，没有更多了！'),
-                          ),
-                        ),
-                      ],
-                      isSliver: false,
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 11),
+                                    color: Sugar.colorsWithOpacity(
+                                        Colors.grey, 0.2),
+                                    height: 11,
+                                  )
+                                ],
+                              );
+                            }),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

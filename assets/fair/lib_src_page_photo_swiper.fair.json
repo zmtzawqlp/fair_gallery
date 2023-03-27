@@ -58,6 +58,12 @@
                                   }
                                 }
                               }
+                            },
+                            "functionParameters": {
+                              "pa": [
+                                "index",
+                                "item"
+                              ]
                             }
                           }
                         ]

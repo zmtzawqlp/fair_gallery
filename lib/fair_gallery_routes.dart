@@ -46,24 +46,24 @@ class Routes {
   /// [exts] : {ExtendedFairWidget.tag: true, 'ffRouteFileImport': 'package:fair_gallery/src/page/photo_gallery_item.dart'}
   static const _PhotoGalleryItem photoGalleryItem = _PhotoGalleryItem();
 
-  /// '展示如何使用Fair创建一个列表'
+  /// '展示如何使用Fair创建一个列表,使用 delegate 绑定 itemBuilder'
   ///
   /// [name] : 'PhotoGalleryPage'
   ///
   /// [routeName] : '照片库列表'
   ///
-  /// [description] : '展示如何使用Fair创建一个列表'
+  /// [description] : '展示如何使用Fair创建一个列表,使用 delegate 绑定 itemBuilder'
   ///
   /// [exts] : {ExtendedFairWidget.tag: true, 'ffRouteFileImport': 'package:fair_gallery/src/page/photo_gallery.dart'}
   static const _PhotoGalleryPage photoGalleryPage = _PhotoGalleryPage();
 
-  /// '展示如何使用Fair创建一个列表1'
+  /// '展示如何使用Fair创建一个列表, 直接利用 FunctionDomain 创建 itemBuilder'
   ///
   /// [name] : 'PhotoGalleryPage1'
   ///
-  /// [routeName] : '照片库列表1'
+  /// [routeName] : '照片库列表'
   ///
-  /// [description] : '展示如何使用Fair创建一个列表1'
+  /// [description] : '展示如何使用Fair创建一个列表, 直接利用 FunctionDomain 创建 itemBuilder'
   ///
   /// [exts] : {ExtendedFairWidget.tag: true, 'ffRouteFileImport': 'package:fair_gallery/src/page/photo_gallery1.dart'}
   static const _PhotoGalleryPage1 photoGalleryPage1 = _PhotoGalleryPage1();

@@ -263,12 +263,24 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                   color: Sugar.colorsWithOpacity(Colors.grey, 0.4),
                   width: 1.0,
                 ),
-                loadStateChanged: SugarCommon.onImageStateChanged(
-                  loadingWidget:
-                      ExtendedImage.asset(Assets.assets_image_avatar_jpg),
-                  failedWidget:
-                      ExtendedImage.asset(Assets.assets_image_avatar_jpg),
-                ),
+                loadStateChanged: SugarCommon.onImageStateChanged((loadState) {
+                  return Sugar.switchCase(
+                    loadState,
+                    [
+                      SugarSwitchCaseObj(
+                        sugarCase: () => LoadState.loading,
+                        reValue: () =>
+                            ExtendedImage.asset(Assets.assets_image_avatar_jpg),
+                      ),
+                      SugarSwitchCaseObj(
+                        sugarCase: () => LoadState.failed,
+                        reValue: () =>
+                            ExtendedImage.asset(Assets.assets_image_avatar_jpg),
+                      ),
+                    ],
+                    () => null,
+                  );
+                }),
               ),
               const SizedBox(
                 width: 11,
@@ -394,20 +406,33 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                       height: _getImageWidthOrHeight(0, 0),
                       width: _getImageWidthOrHeight(0, 1),
                       fit: BoxFit.fill,
-                      loadStateChanged: SugarCommon.onImageStateChanged(
-                        loadingWidget: ColoredBox(
-                          color: Sugar.colorsWithOpacity(
-                            Colors.grey,
-                            0.2,
-                          ),
-                        ),
-                        failedWidget: ColoredBox(
-                          color: Sugar.colorsWithOpacity(
-                            Colors.grey,
-                            0.2,
-                          ),
-                        ),
-                      ),
+                      loadStateChanged:
+                          SugarCommon.onImageStateChanged((loadState) {
+                        return Sugar.switchCase(
+                          loadState,
+                          [
+                            SugarSwitchCaseObj(
+                              sugarCase: () => LoadState.loading,
+                              reValue: () => ColoredBox(
+                                color: Sugar.colorsWithOpacity(
+                                  Colors.grey,
+                                  0.2,
+                                ),
+                              ),
+                            ),
+                            SugarSwitchCaseObj(
+                              sugarCase: () => LoadState.failed,
+                              reValue: () => ColoredBox(
+                                color: Sugar.colorsWithOpacity(
+                                  Colors.grey,
+                                  0.2,
+                                ),
+                              ),
+                            ),
+                          ],
+                          () => null,
+                        );
+                      }),
                     ),
                   ),
                 ),
@@ -440,20 +465,33 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                         child: ExtendedImage.network(
                           '$item',
                           fit: BoxFit.cover,
-                          loadStateChanged: SugarCommon.onImageStateChanged(
-                            loadingWidget: ColoredBox(
-                              color: Sugar.colorsWithOpacity(
-                                Colors.grey,
-                                0.2,
-                              ),
-                            ),
-                            failedWidget: ColoredBox(
-                              color: Sugar.colorsWithOpacity(
-                                Colors.grey,
-                                0.2,
-                              ),
-                            ),
-                          ),
+                          loadStateChanged:
+                              SugarCommon.onImageStateChanged((loadState) {
+                            return Sugar.switchCase(
+                              loadState,
+                              [
+                                SugarSwitchCaseObj(
+                                  sugarCase: () => LoadState.loading,
+                                  reValue: () => ColoredBox(
+                                    color: Sugar.colorsWithOpacity(
+                                      Colors.grey,
+                                      0.2,
+                                    ),
+                                  ),
+                                ),
+                                SugarSwitchCaseObj(
+                                  sugarCase: () => LoadState.failed,
+                                  reValue: () => ColoredBox(
+                                    color: Sugar.colorsWithOpacity(
+                                      Colors.grey,
+                                      0.2,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                              () => null,
+                            );
+                          }),
                         ),
                       ),
                     );
@@ -502,14 +540,32 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                                   fit: BoxFit.cover,
                                   loadStateChanged:
                                       SugarCommon.onImageStateChanged(
-                                    loadingWidget: Container(),
-                                    failedWidget: ColoredBox(
-                                      color: Sugar.colorsWithOpacity(
-                                        Colors.grey,
-                                        0.2,
-                                      ),
-                                    ),
-                                  ),
+                                          (loadState) {
+                                    return Sugar.switchCase(
+                                      loadState,
+                                      [
+                                        SugarSwitchCaseObj(
+                                          sugarCase: () => LoadState.loading,
+                                          reValue: () => ColoredBox(
+                                            color: Sugar.colorsWithOpacity(
+                                              Colors.grey,
+                                              0.2,
+                                            ),
+                                          ),
+                                        ),
+                                        SugarSwitchCaseObj(
+                                          sugarCase: () => LoadState.failed,
+                                          reValue: () => ColoredBox(
+                                            color: Sugar.colorsWithOpacity(
+                                              Colors.grey,
+                                              0.2,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                      () => null,
+                                    );
+                                  }),
                                 ),
                               ),
                             ),
@@ -543,20 +599,33 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                           child: ExtendedImage.network(
                             '$item',
                             fit: BoxFit.cover,
-                            loadStateChanged: SugarCommon.onImageStateChanged(
-                              loadingWidget: ColoredBox(
-                                color: Sugar.colorsWithOpacity(
-                                  Colors.grey,
-                                  0.2,
-                                ),
-                              ),
-                              failedWidget: ColoredBox(
-                                color: Sugar.colorsWithOpacity(
-                                  Colors.grey,
-                                  0.2,
-                                ),
-                              ),
-                            ),
+                            loadStateChanged:
+                                SugarCommon.onImageStateChanged((loadState) {
+                              return Sugar.switchCase(
+                                loadState,
+                                [
+                                  SugarSwitchCaseObj(
+                                    sugarCase: () => LoadState.loading,
+                                    reValue: () => ColoredBox(
+                                      color: Sugar.colorsWithOpacity(
+                                        Colors.grey,
+                                        0.2,
+                                      ),
+                                    ),
+                                  ),
+                                  SugarSwitchCaseObj(
+                                    sugarCase: () => LoadState.failed,
+                                    reValue: () => ColoredBox(
+                                      color: Sugar.colorsWithOpacity(
+                                        Colors.grey,
+                                        0.2,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                                () => null,
+                              );
+                            }),
                           ),
                         )),
               );
@@ -590,7 +659,6 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                 likeCount: _getValue('favorites', 0),
                 onTap: SugarCommon.likeButtonTapCallback(
                   context,
-                  itemIndex,
                 ),
               ),
             ],

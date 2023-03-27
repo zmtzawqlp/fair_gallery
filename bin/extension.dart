@@ -11,13 +11,13 @@ import 'package:path/path.dart' as path;
 DartFormatter _dartFormatter = DartFormatter();
 
 Future<void> main(List<String> args) async {
-  Directory sourceCodeDirectory = Directory.current;
-  while (!sourceCodeDirectory.path.endsWith('fair_gallery')) {
-    sourceCodeDirectory = sourceCodeDirectory.parent;
+  Directory projectDirectory = Directory.current;
+  while (!projectDirectory.path.endsWith('fair_gallery')) {
+    projectDirectory = projectDirectory.parent;
   }
 
   final File file = File(path.join(
-    sourceCodeDirectory.path,
+    projectDirectory.path,
     'lib',
     'src',
     'sugar',
@@ -30,7 +30,7 @@ Future<void> main(List<String> args) async {
   final AnalysisContextCollection collection =
       AnalysisContextCollection(includedPaths: <String>[
     path.join(
-      sourceCodeDirectory.path,
+      projectDirectory.path,
       'lib',
       'src',
       'extension',

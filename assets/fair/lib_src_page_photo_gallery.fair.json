@@ -24,18 +24,26 @@
           "na": {
             "children": [
               {
-                "className": "ShareDataWidget",
-                "na": {
-                  "data": "^(_repository)",
-                  "child": {
-                    "className": "PullToRefreshContainer",
+                "className": "PullToRefreshContainer",
+                "pa": [
+                  {
+                    "className": "SugarCommon.pullToRefreshContainerBuilder",
                     "pa": [
                       {
-                        "className": "SugarCommon.pullToRefreshContainerBuilder"
+                        "className": "PullToRefreshHeader",
+                        "pa": [
+                          "^(info)",
+                          "^(lastRefreshTime)"
+                        ],
+                        "functionParameters": {
+                          "pa": [
+                            "info"
+                          ]
+                        }
                       }
                     ]
                   }
-                }
+                ]
               },
               {
                 "className": "Expanded",
@@ -177,6 +185,11 @@
               "className": "PhotoGalleryItem",
               "na": {
                 "fairProps": "^(fairProps)"
+              },
+              "functionParameters": {
+                "pa": [
+                  "context"
+                ]
               }
             },
             "name": "$(name:)",
@@ -185,6 +198,11 @@
               "className": "SizedBox",
               "na": {
                 "height": "^(height)"
+              },
+              "functionParameters": {
+                "pa": [
+                  "b"
+                ]
               }
             }
           }
