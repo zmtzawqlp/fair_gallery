@@ -35,6 +35,7 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
   var initialPage;
   var images = [];
   bool _showHeader = true;
+  final String _pageName = '#FairKey#';
   @override
   void initState() {
     super.initState();
@@ -98,13 +99,13 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
   void _onImageSaveTap() {
     FairCommonPlugin().savePhoto({
       // required
-      'pageName': '#FairKey#',
+      'pageName': _pageName,
       // if need, add a callback
       'callback': (dynamic result) {
         var success = result['success'];
         if (success == true) {
           FairCommonPlugin().showToast({
-            'pageName': '#FairKey#',
+            'pageName': _pageName,
             'msg': '图片保存成功',
           });
         }

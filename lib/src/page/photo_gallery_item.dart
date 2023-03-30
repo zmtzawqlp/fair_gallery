@@ -48,7 +48,7 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
   var site;
   var tags = [];
   var images = [];
-
+  final String _pageName = '#FairKey#';
   @override
   void initState() {
     super.initState();
@@ -143,7 +143,7 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
     if (url.isNotEmpty) {
       FairCommonPlugin().launchUrl({
         // required
-        'pageName': '#FairKey#',
+        'pageName': _pageName,
         'url': url,
       });
     }
@@ -152,7 +152,7 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
   void _onTextMoreTap() {
     FairCommonPlugin().launchUrl({
       // required
-      'pageName': '#FairKey#',
+      'pageName': _pageName,
       'url': 'https://github.com/wuba/Fair',
     });
   }
@@ -228,7 +228,7 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
   void _onImageTap(int index) {
     FairCommonPlugin().navigate({
       // required
-      'pageName': '#FairKey#',
+      'pageName': _pageName,
       // if need, add a callback
       'callback': (dynamic result) {
         // result is map or null

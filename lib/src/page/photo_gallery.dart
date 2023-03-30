@@ -34,6 +34,7 @@ class PhotoGalleryPage extends StatefulWidget {
 class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
   late LoadingMoreRepository _repository;
   DateTime lastRefreshTime = DateTime.now();
+  final String _pageName = '#FairKey#';
   @override
   void initState() {
     super.initState();
@@ -112,7 +113,7 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
       'method': 'GET',
       'url': url,
       // required
-      'pageName': '#FairKey#',
+      'pageName': _pageName,
       // if need, add a callback
       'callback': (dynamic result) {
         if (result != null) {
@@ -139,7 +140,7 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
 
           FairCommonPlugin().futureComplete({
             // required
-            'pageName': '#FairKey#',
+            'pageName': _pageName,
             'futureId': futureId,
             'futureValue': {
               'pageIndex': pageIndex,
