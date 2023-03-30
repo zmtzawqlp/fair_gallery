@@ -41,7 +41,7 @@ class LoadingMoreRepository extends LoadingMoreBase<dynamic> {
     try {
       String futureId =
           'LoadingMoreRepository${DateTime.now().microsecondsSinceEpoch}';
-      Completer completer = CompleterPlugin.putIfAbsent(futureId);
+      Completer completer = CompleterPlugin.create(futureId);
       _onLoadData?.call({
         'futureId': futureId,
         'isloadMoreAction': isloadMoreAction,

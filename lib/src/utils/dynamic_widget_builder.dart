@@ -68,13 +68,13 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
       };
       return builder;
     } else if (name == 'SugarCommon.loadingMoreItemBuilder') {
-      dynamic source = pa0(map);
-      assert(source is Map);
-      List functionParameters = FunctionDomain.pa(source);
+      dynamic fairFunction = pa0(map);
+      assert(fairFunction is Map);
+      List functionParameters = FunctionDomain.pa(fairFunction);
       LoadingMoreItemBuilder builder = (builderContext, item, index) {
         return convert(
           context,
-          source,
+          FunctionDomain.getBody(fairFunction),
           methodMap,
           domain: FunctionDomain(
             {
@@ -88,13 +88,13 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
       };
       return builder;
     } else if (name == 'SugarCommon.pullToRefreshContainerBuilder') {
-      dynamic source = pa0(map);
-      assert(source is Map);
-      List functionParameters = FunctionDomain.pa(source);
+      dynamic fairFunction = pa0(map);
+      assert(fairFunction is Map);
+      List functionParameters = FunctionDomain.pa(fairFunction);
       PullToRefreshContainerBuilder builder = (info) {
         return convert(
           context,
-          source,
+          FunctionDomain.getBody(fairFunction),
           methodMap,
           domain: FunctionDomain(
             {
@@ -106,13 +106,13 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
       };
       return builder;
     } else if (name == 'SugarCommon.onImageStateChanged') {
-      dynamic source = pa0(map);
-      assert(source is Map);
-      List functionParameters = FunctionDomain.pa(source);
+      dynamic fairFunction = pa0(map);
+      assert(fairFunction is Map);
+      List functionParameters = FunctionDomain.pa(fairFunction);
       Widget? Function(ExtendedImageState state) builder = (state) {
         return convert(
           context,
-          source,
+         FunctionDomain.getBody(fairFunction),
           methodMap,
           domain: FunctionDomain(
             {

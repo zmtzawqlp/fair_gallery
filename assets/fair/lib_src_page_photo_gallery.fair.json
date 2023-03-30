@@ -30,12 +30,15 @@
                     "className": "SugarCommon.pullToRefreshContainerBuilder",
                     "pa": [
                       {
-                        "className": "PullToRefreshHeader",
-                        "pa": [
-                          "^(info)",
-                          "^(lastRefreshTime)"
-                        ],
-                        "functionParameters": {
+                        "className": "FairFunction",
+                        "body": {
+                          "className": "PullToRefreshHeader",
+                          "pa": [
+                            "^(info)",
+                            "^(lastRefreshTime)"
+                          ]
+                        },
+                        "parameters": {
                           "pa": [
                             "info"
                           ]
@@ -182,11 +185,14 @@
           "className": "ExtendedFairWidget",
           "na": {
             "builder": {
-              "className": "PhotoGalleryItem",
-              "na": {
-                "fairProps": "^(fairProps)"
+              "className": "FairFunction",
+              "body": {
+                "className": "PhotoGalleryItem",
+                "na": {
+                  "fairProps": "^(fairProps)"
+                }
               },
-              "functionParameters": {
+              "parameters": {
                 "pa": [
                   "context"
                 ]
@@ -195,11 +201,14 @@
             "name": "$(name:)",
             "fairProps": "^(fairProps)",
             "holder": {
-              "className": "SizedBox",
-              "na": {
-                "height": "^(height)"
+              "className": "FairFunction",
+              "body": {
+                "className": "SizedBox",
+                "na": {
+                  "height": "^(height)"
+                }
               },
-              "functionParameters": {
+              "parameters": {
                 "pa": [
                   "b"
                 ]

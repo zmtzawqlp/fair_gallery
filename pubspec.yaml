@@ -36,9 +36,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   fair:
     git:
-      # url: https://github.com/wuba/Fair.git
+      #url: https://github.com/wuba/Fair.git
       url: https://github.com/zmtzawqlp/fair.git
-      ref: fix
+      ref: fixed
       path: fair
   extended_image: any
   oktoast: any
@@ -69,7 +69,7 @@ dev_dependencies:
     git:
       #url: https://github.com/wuba/Fair.git
       url: https://github.com/zmtzawqlp/fair.git
-      ref: fix
+      ref: fixed
       path: compiler 
   yaml: 3.1.1  
 dependency_overrides:
@@ -78,23 +78,28 @@ dependency_overrides:
     git:
       #url: https://github.com/wuba/Fair.git
       url: https://github.com/zmtzawqlp/fair.git
-      ref: fix
+      ref: fixed
       path: flutter_version/flutter_3_3_0
   fair_dart2dsl:
     git:
       #url: https://github.com/wuba/Fair.git
       url: https://github.com/zmtzawqlp/fair.git
-      ref: fix
+      ref: fixed
       path: dart2dsl
   fair_dart2js:
     git:
       #url: https://github.com/wuba/Fair.git
       url: https://github.com/zmtzawqlp/fair.git
-      ref: fix
+      ref: fixed
       path: dart2js      
   # 如果你是 3.3.0 以下的版本，需要 override collection
   collection: 1.17.0
-                
+  # fair:
+  #   path: /fair  
+  # fair_compiler:
+  #   path: /compiler
+  # fair_dart2dsl:
+  #   path: /dart2dsl         
 # The following section is specific to Flutter packages.
 flutter:
 

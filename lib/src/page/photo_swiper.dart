@@ -73,7 +73,7 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
   void _onImageTap() {
     FairCommonPlugin().navigate({
       // required
-      'pageName': 'PhotoSwiper',
+      'pageName': '#FairKey#',
       'method': 'pop',
     });
   }
@@ -98,13 +98,13 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
   void _onImageSaveTap() {
     FairCommonPlugin().savePhoto({
       // required
-      'pageName': 'PhotoSwiper',
+      'pageName': '#FairKey#',
       // if need, add a callback
       'callback': (dynamic result) {
         var success = result['success'];
         if (success == true) {
           FairCommonPlugin().showToast({
-            'pageName': 'PhotoSwiper',
+            'pageName': '#FairKey#',
             'msg': '图片保存成功',
           });
         }

@@ -112,7 +112,7 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
       'method': 'GET',
       'url': url,
       // required
-      'pageName': 'PhotoGalleryPage',
+      'pageName': '#FairKey#',
       // if need, add a callback
       'callback': (dynamic result) {
         if (result != null) {
@@ -139,7 +139,7 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
 
           FairCommonPlugin().futureComplete({
             // required
-            'pageName': 'PhotoGalleryPage',
+            'pageName': '#FairKey#',
             'futureId': futureId,
             'futureValue': {
               'pageIndex': pageIndex,

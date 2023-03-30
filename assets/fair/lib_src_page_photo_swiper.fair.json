@@ -36,30 +36,33 @@
                         "pa": [
                           "^(images)",
                           {
-                            "className": "GestureDetector",
-                            "na": {
-                              "onTap": "@(_onImageTap)",
-                              "child": {
-                                "className": "HeroWidget",
-                                "na": {
-                                  "tag": "%(_getImageUrl(^(index)))",
-                                  "slidePagekey": "^(_slidePagekey)",
-                                  "slideType": "#(SlideType.wholePage)",
-                                  "child": {
-                                    "className": "ExtendedImage.network",
-                                    "pa": [
-                                      "%(_getImageUrl(^(index)))"
-                                    ],
-                                    "na": {
-                                      "fit": "#(BoxFit.contain)",
-                                      "enableSlideOutPage": true,
-                                      "mode": "#(ExtendedImageMode.gesture)"
+                            "className": "FairFunction",
+                            "body": {
+                              "className": "GestureDetector",
+                              "na": {
+                                "onTap": "@(_onImageTap)",
+                                "child": {
+                                  "className": "HeroWidget",
+                                  "na": {
+                                    "tag": "%(_getImageUrl(^(index)))",
+                                    "slidePagekey": "^(_slidePagekey)",
+                                    "slideType": "#(SlideType.wholePage)",
+                                    "child": {
+                                      "className": "ExtendedImage.network",
+                                      "pa": [
+                                        "%(_getImageUrl(^(index)))"
+                                      ],
+                                      "na": {
+                                        "fit": "#(BoxFit.contain)",
+                                        "enableSlideOutPage": true,
+                                        "mode": "#(ExtendedImageMode.gesture)"
+                                      }
                                     }
                                   }
                                 }
                               }
                             },
-                            "functionParameters": {
+                            "parameters": {
                               "pa": [
                                 "index",
                                 "item"

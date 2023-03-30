@@ -15,7 +15,7 @@ mixin CompleterPlugin implements FairCommonPluginMixin {
 
   static final Map<String, Completer> _completers = <String, Completer>{};
 
-  static Completer putIfAbsent(String futureId) => _completers.putIfAbsent(
+  static Completer create(String futureId) => _completers.putIfAbsent(
         futureId,
         () => Completer(),
       );

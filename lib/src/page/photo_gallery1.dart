@@ -94,7 +94,7 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
       'method': 'GET',
       'url': url,
       // required
-      'pageName': 'PhotoGalleryPage',
+      'pageName': '#FairKey#',
       // if need, add a callback
       'callback': (dynamic result) {
         if (result != null) {
@@ -120,7 +120,7 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
           }
           FairCommonPlugin().futureComplete({
             // required
-            'pageName': 'PhotoGalleryPage',
+            'pageName': '#FairKey#',
             'futureId': futureId,
             'futureValue': {
               'pageIndex': pageIndex,
@@ -185,7 +185,7 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
     if (url.isNotEmpty) {
       FairCommonPlugin().launchUrl({
         // required
-        'pageName': 'PhotoGalleryItem',
+        'pageName': '#FairKey#',
         'url': url,
       });
     }
@@ -194,7 +194,7 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
   void _onTextMoreTap() {
     FairCommonPlugin().launchUrl({
       // required
-      'pageName': 'PhotoGalleryItem',
+      'pageName': '#FairKey#',
       'url': 'https://github.com/wuba/Fair',
     });
   }
@@ -204,7 +204,7 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
     dynamic item = input[1];
     FairCommonPlugin().navigate({
       // required
-      'pageName': 'PhotoGalleryItem',
+      'pageName': '#FairKey#',
       // if need, add a callback
       'callback': (dynamic result) {
         // result is map or null

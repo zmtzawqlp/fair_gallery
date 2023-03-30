@@ -26,25 +26,6 @@
 // ignore_for_file: implementation_imports, unused_import, depend_on_referenced_packages, unused_shown_name, duplicate_import, always_specify_types, unnecessary_import
 
 import 'package:extended_image/extended_image.dart';
-import 'package:extended_sliver/extended_sliver.dart';
-import 'package:extended_text/extended_text.dart';
-import 'package:keframe/keframe.dart';
-import 'package:like_button/like_button.dart';
-import 'package:loading_more_list/loading_more_list.dart';
-import 'package:oktoast/oktoast.dart';
-import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
-import 'package:fair_gallery/src/sugar/common.dart';
-import 'package:fair_gallery/src/sugar/dart_core.dart';
-import 'package:fair_gallery/src/sugar/extension.dart';
-import 'package:fair_gallery/assets.dart';
-import 'package:fair_gallery/src/widget/extended_fair_widget.dart';
-import 'package:fair_gallery/src/widget/share_data_widget.dart';
-import 'package:fair_gallery/src/widget/push_to_refresh_header.dart';
-import 'package:fair_gallery/src/widget/hero_widget.dart';
-import 'package:fair_gallery/src/widget/image_grid.dart';
-import 'package:loading_more_list_library/loading_more_list_library.dart';
-import 'package:fair_gallery/src/utils/repository.dart';
-import 'package:fair_gallery/src/widget/frame_separate_widget.dart';
 import 'package:extended_image_library/extended_image_library.dart';
 import 'package:extended_image/src/border_painter.dart';
 import 'package:extended_image/src/editor/editor.dart';
@@ -60,23 +41,29 @@ import 'package:extended_image/src/image/raw_image.dart';
 import 'package:extended_image/src/image/render_image.dart';
 import 'package:extended_image/src/typedef.dart';
 import 'package:extended_image/src/utils.dart';
+import 'package:extended_sliver/extended_sliver.dart';
 import 'package:extended_sliver/src/widget.dart';
+import 'package:extended_text/extended_text.dart';
 import 'package:extended_text_library/extended_text_library.dart';
 import 'package:extended_text/src/extended_render_paragraph.dart';
 import 'package:extended_text/src/extended_text.dart';
 import 'package:extended_text/src/selection/extended_text_selection.dart';
 import 'package:extended_text/src/selection/extended_text_selection_pointer_handler.dart';
 import 'package:extended_text/src/text_overflow_widget.dart';
+import 'package:keframe/keframe.dart';
 import 'package:keframe/src/frame_separate_task.dart';
 import 'package:keframe/src/frame_separate_widget.dart';
 import 'package:keframe/src/layout_proxy.dart';
 import 'package:keframe/src/logcat.dart';
 import 'package:keframe/src/notification.dart';
 import 'package:keframe/src/size_cache_widget.dart';
+import 'package:like_button/like_button.dart';
 import 'package:like_button/src/like_button.dart';
 import 'package:like_button/src/utils/like_button_model.dart';
 import 'package:like_button/src/utils/like_button_typedef.dart';
+import 'package:loading_more_list/loading_more_list.dart';
 import 'package:extended_list_library/extended_list_library.dart';
+import 'package:loading_more_list_library/loading_more_list_library.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 import 'package:loading_more_list/src/empty_widget.dart';
 import 'package:loading_more_list/src/glow_notification_widget.dart';
@@ -87,30 +74,33 @@ import 'package:loading_more_list/src/list_config/sliver_list_config.dart';
 import 'package:loading_more_list/src/loading_more_list.dart';
 import 'package:loading_more_list/src/loading_more_sliver_list.dart';
 import 'package:loading_more_list/src/physics.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:oktoast/src/core/position.dart';
 import 'package:oktoast/src/core/toast.dart';
 import 'package:oktoast/src/widget/animation/animation_builder.dart';
 import 'package:oktoast/src/widget/animation/offset_builder.dart';
 import 'package:oktoast/src/widget/animation/opacity_builder.dart';
+import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 import 'package:pull_to_refresh_notification/src/always_scrollable_clamping_scroll_physics.dart';
 import 'package:pull_to_refresh_notification/src/pull_to_refresh_notification.dart';
+import 'package:fair_gallery/src/sugar/common.dart';
+import 'package:fair_gallery/src/sugar/dart_core.dart';
+import 'package:fair_gallery/src/sugar/extension.dart';
+import 'package:fair_gallery/assets.dart';
+import 'package:fair_gallery/src/widget/extended_fair_widget.dart';
+import 'package:fair_gallery/src/widget/share_data_widget.dart';
+import 'package:fair_gallery/src/widget/push_to_refresh_header.dart';
+import 'package:fair_gallery/src/widget/hero_widget.dart';
+import 'package:fair_gallery/src/widget/image_grid.dart';
 import 'package:loading_more_list_library/src/loading_more_list_library.dart';
-import 'dart:math';
-import 'package:fair/fair.dart';
-import 'package:flutter/material.dart';
-import 'package:fair_gallery/src/extension/string.dart';
-import 'dart:convert';
-import 'package:fair_gallery/src/utils/asset_buldes.dart';
-import 'package:ff_annotation_route_library/ff_annotation_route_library.dart';
-import 'dart:ui' as ui show Image;
-import 'package:intl/intl.dart';
-import 'dart:async';
-import 'package:fair_gallery/src/plugin/completer.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:fair_gallery/src/utils/repository.dart';
+import 'package:fair_gallery/src/widget/frame_separate_widget.dart';
 import 'package:flutter/rendering.dart';
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:extended_image/src/editor/crop_layer.dart';
 import 'package:flutter/cupertino.dart';
@@ -118,6 +108,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/semantics.dart';
 import 'package:extended_image/src/gesture_detector/drag.dart';
+import 'dart:ui' as ui show Image;
 import 'package:extended_sliver/src/element.dart';
 import 'package:extended_sliver/src/rendering.dart';
 import 'dart:collection';
@@ -135,7 +126,9 @@ import 'dart:ui' as ui show TextHeightBehavior, BoxWidthStyle, BoxHeightStyle;
 import 'package:extended_text/src/extended_rich_text.dart';
 import 'package:flutter/services.dart';
 import 'package:extended_text/src/extended_text_typedef.dart';
+import 'dart:async';
 import 'dart:developer';
+import 'package:flutter/scheduler.dart';
 import 'package:like_button/src/painter/bubbles_painter.dart';
 import 'package:like_button/src/painter/circle_painter.dart';
 import 'package:like_button/src/utils/like_button_util.dart';
@@ -144,7 +137,14 @@ import 'package:flutter/material.dart' hide Overlay, OverlayEntry, OverlayState;
 import 'package:oktoast/src/widget/overlay.dart';
 import 'package:oktoast/src/core/toast_manager.dart';
 import 'package:flutter/cupertino.dart' show CupertinoDynamicColor;
+import 'package:fair/fair.dart';
+import 'package:fair_gallery/src/extension/string.dart';
+import 'dart:convert';
+import 'package:fair_gallery/src/utils/asset_buldes.dart';
+import 'package:ff_annotation_route_library/ff_annotation_route_library.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:fair_gallery/src/plugin/completer.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fair/fair.dart';
@@ -320,10 +320,6 @@ class AppGeneratedModule extends GeneratedModule {
             builder: props['builder'],
           ),
       'Assets': {
-        'assets_fair_lib_src_page_list_builder_fair_bin':
-            Assets.assets_fair_lib_src_page_list_builder_fair_bin,
-        'assets_fair_lib_src_page_list_builder_fair_js':
-            Assets.assets_fair_lib_src_page_list_builder_fair_js,
         'assets_fair_lib_src_page_photo_gallery_fair_bin':
             Assets.assets_fair_lib_src_page_photo_gallery_fair_bin,
         'assets_fair_lib_src_page_photo_gallery_fair_js':

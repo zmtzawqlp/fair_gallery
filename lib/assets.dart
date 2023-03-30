@@ -6,12 +6,6 @@
 
 class Assets {
   const Assets._();
-  static const String assets_fair_lib_src_page_list_builder_fair_bin =
-      'assets/fair/lib_src_page_list_builder.fair.bin';
-
-  static const String assets_fair_lib_src_page_list_builder_fair_js =
-      'assets/fair/lib_src_page_list_builder.fair.js';
-
   static const String assets_fair_lib_src_page_photo_gallery_fair_bin =
       'assets/fair/lib_src_page_photo_gallery.fair.bin';
 
