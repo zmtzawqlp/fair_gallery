@@ -19,10 +19,10 @@ class ExtendedFrameSeparateWidget extends StatefulWidget {
   final int? index;
 
   @override
-  FrameSeparateWidgetState createState() => FrameSeparateWidgetState();
+  State<ExtendedFrameSeparateWidget> createState() => _FrameSeparateWidgetState();
 }
 
-class FrameSeparateWidgetState extends State<ExtendedFrameSeparateWidget> {
+class _FrameSeparateWidgetState extends State<ExtendedFrameSeparateWidget> {
   Widget? result;
 
   @override

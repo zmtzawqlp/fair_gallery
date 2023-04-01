@@ -115,4 +115,19 @@ class SugarCommon {
 
   static dynamic nullOrDefault(dynamic value, dynamic defaultValue) =>
       value ?? defaultValue;
+
+  static DateTime dateTimeConvert(dynamic dateTime) {
+    if (dateTime is DateTime) {
+      return dateTime;
+    } else if (dateTime is Map) {
+      // var isUtc = dateTime['isUtc'];
+      var dateTimeS = dateTime['__date__'];
+      return DateTime.tryParse(dateTimeS) ?? DateTime.now();
+    }
+    assert(
+      false,
+      'DateTime Convert failed',
+    );
+    return DateTime.now();
+  }
 }

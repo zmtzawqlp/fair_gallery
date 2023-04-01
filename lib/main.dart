@@ -9,6 +9,7 @@ import 'package:fair_gallery/src/delegate/delegate_base.dart';
 import 'package:fair_gallery/src/fari_app_generated_module.dart';
 import 'package:fair_gallery/src/plugin/fair_common_plugin.dart';
 import 'package:fair_gallery/src/utils/dynamic_widget_builder.dart';
+import 'package:fair_gallery/src/utils/fair_bindings.dart';
 import 'package:fair_gallery/src/utils/js_decoder.dart';
 import 'package:fair_gallery/src/utils/loader.dart';
 import 'package:fair_gallery/src/widget/extended_fair_widget.dart';
@@ -34,12 +35,15 @@ import 'packages.dart';
   'package:loading_more_list_library/loading_more_list_library.dart',
   'package:fair_gallery/src/utils/repository.dart',
   'package:fair_gallery/src/widget/frame_separate_widget.dart',
+  'package:extended_image/src/gesture/page_view/widgets/page_controller.dart'
 ])
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   FairJSDecoder.resolve = (String? jsPath) async {
     return CustomFairJSDecoder().decode(jsPath);
   };
+  FairBindings.init();
+
   FairApp.runApplication(
       FairApp(
         generated: FairAppGeneratedModule(),

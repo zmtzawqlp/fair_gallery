@@ -95,6 +95,7 @@ import 'package:fair_gallery/src/widget/image_grid.dart';
 import 'package:loading_more_list_library/src/loading_more_list_library.dart';
 import 'package:fair_gallery/src/utils/repository.dart';
 import 'package:fair_gallery/src/widget/frame_separate_widget.dart';
+import 'package:extended_image/src/gesture/page_view/widgets/page_controller.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math';
 import 'dart:typed_data';
@@ -150,10 +151,16 @@ import 'package:flutter/material.dart';
 import 'package:fair/fair.dart';
 import 'package:fair_version/fair_version.dart';
 
+int _kDefaultSemanticIndexCallback(Widget _, int localIndex) => localIndex;
+
 class AppGeneratedModule extends GeneratedModule {
   @override
   Map<String, dynamic> components() {
     return {
+      'AlwaysScrollableClampingScrollPhysics': (props) =>
+          AlwaysScrollableClampingScrollPhysics(
+            parent: props['parent'],
+          ),
       'PullToRefreshNotification': (props) => PullToRefreshNotification(
             key: props['key'],
             child: props['child'],
@@ -172,6 +179,15 @@ class AppGeneratedModule extends GeneratedModule {
             refreshOffset: props['refreshOffset']?.toDouble(),
             reachToRefreshOffset: props['reachToRefreshOffset']?.toDouble(),
           ),
+      'PullToRefreshNotificationState': (props) =>
+          PullToRefreshNotificationState(),
+      'PullToRefreshScrollNotificationInfo': (props) =>
+          PullToRefreshScrollNotificationInfo(
+            props['pa'][0],
+            props['pa'][1]?.toDouble(),
+            props['pa'][2],
+            props['pa'][3],
+          ),
       'PullToRefreshContainer': (props) => PullToRefreshContainer(
             props['pa'][0],
           ),
@@ -185,16 +201,15 @@ class AppGeneratedModule extends GeneratedModule {
           ),
       'PullToRefreshCupertinoActivityIndicator.defaultIndicatorRadius':
           PullToRefreshCupertinoActivityIndicator.defaultIndicatorRadius,
-      'PullToRefreshIndicatorMode': {
-        'drag': PullToRefreshIndicatorMode.drag,
-        'armed': PullToRefreshIndicatorMode.armed,
-        'snap': PullToRefreshIndicatorMode.snap,
-        'refresh': PullToRefreshIndicatorMode.refresh,
-        'done': PullToRefreshIndicatorMode.done,
-        'canceled': PullToRefreshIndicatorMode.canceled,
-        'error': PullToRefreshIndicatorMode.error,
-        'values': PullToRefreshIndicatorMode.values,
-      },
+      'PullToRefreshIndicatorMode.drag': PullToRefreshIndicatorMode.drag,
+      'PullToRefreshIndicatorMode.armed': PullToRefreshIndicatorMode.armed,
+      'PullToRefreshIndicatorMode.snap': PullToRefreshIndicatorMode.snap,
+      'PullToRefreshIndicatorMode.refresh': PullToRefreshIndicatorMode.refresh,
+      'PullToRefreshIndicatorMode.done': PullToRefreshIndicatorMode.done,
+      'PullToRefreshIndicatorMode.canceled':
+          PullToRefreshIndicatorMode.canceled,
+      'PullToRefreshIndicatorMode.error': PullToRefreshIndicatorMode.error,
+      'PullToRefreshIndicatorMode.values': PullToRefreshIndicatorMode.values,
       'TextOverflowWidget': (props) => TextOverflowWidget(
             child: props['child'],
             align: props['align'] ?? TextOverflowAlign.right,
@@ -204,23 +219,43 @@ class AppGeneratedModule extends GeneratedModule {
             clearType:
                 props['clearType'] ?? TextOverflowClearType.blendModeClear,
           ),
-      'TextOverflowAlign': {
-        'left': TextOverflowAlign.left,
-        'right': TextOverflowAlign.right,
-        'center': TextOverflowAlign.center,
-        'values': TextOverflowAlign.values,
-      },
-      'TextOverflowPosition': {
-        'start': TextOverflowPosition.start,
-        'middle': TextOverflowPosition.middle,
-        'end': TextOverflowPosition.end,
-        'values': TextOverflowPosition.values,
-      },
-      'TextOverflowClearType': {
-        'clipRect': TextOverflowClearType.clipRect,
-        'blendModeClear': TextOverflowClearType.blendModeClear,
-        'values': TextOverflowClearType.values,
-      },
+      'TextOverflowAlign.left': TextOverflowAlign.left,
+      'TextOverflowAlign.right': TextOverflowAlign.right,
+      'TextOverflowAlign.center': TextOverflowAlign.center,
+      'TextOverflowAlign.values': TextOverflowAlign.values,
+      'TextOverflowPosition.start': TextOverflowPosition.start,
+      'TextOverflowPosition.middle': TextOverflowPosition.middle,
+      'TextOverflowPosition.end': TextOverflowPosition.end,
+      'TextOverflowPosition.values': TextOverflowPosition.values,
+      'TextOverflowClearType.clipRect': TextOverflowClearType.clipRect,
+      'TextOverflowClearType.blendModeClear':
+          TextOverflowClearType.blendModeClear,
+      'TextOverflowClearType.values': TextOverflowClearType.values,
+      'ExtendedRenderParagraph': (props) => ExtendedRenderParagraph(
+            props['pa'][0],
+            textAlign: props['textAlign'] ?? TextAlign.start,
+            textDirection: props['textDirection'],
+            softWrap: props['softWrap'] ?? true,
+            overflow: props['overflow'] ?? TextOverflow.clip,
+            textScaleFactor: props['textScaleFactor']?.toDouble() ?? 1.0,
+            maxLines: props['maxLines'],
+            textWidthBasis: props['textWidthBasis'] ?? TextWidthBasis.parent,
+            locale: props['locale'],
+            startHandleLayerLink: props['startHandleLayerLink'],
+            endHandleLayerLink: props['endHandleLayerLink'],
+            selectionColor: props['selectionColor'],
+            selection: props['selection'],
+            strutStyle: props['strutStyle'],
+            children: as<RenderBox>(props['children']),
+            textHeightBehavior: props['textHeightBehavior'],
+            selectionHeightStyle:
+                props['selectionHeightStyle'] ?? ui.BoxHeightStyle.tight,
+            selectionWidthStyle:
+                props['selectionWidthStyle'] ?? ui.BoxWidthStyle.tight,
+            overflowWidget: props['overflowWidget'],
+            textSelectionDelegate: props['textSelectionDelegate'],
+            hasFocus: props['hasFocus'],
+          ),
       'ExtendedText': (props) => ExtendedText(
             props['pa'][0],
             key: props['key'],
@@ -314,38 +349,40 @@ class AppGeneratedModule extends GeneratedModule {
                 props['textSelectionGestureDetectorBuilder'],
             key: props['key'],
           ),
+      'ExtendedTextSelectionState': (props) => ExtendedTextSelectionState(),
       'ExtendedTextSelectionPointerHandler': (props) =>
           ExtendedTextSelectionPointerHandler(
             child: props['child'],
             builder: props['builder'],
           ),
-      'Assets': {
-        'assets_fair_lib_src_page_photo_gallery_fair_bin':
-            Assets.assets_fair_lib_src_page_photo_gallery_fair_bin,
-        'assets_fair_lib_src_page_photo_gallery_fair_js':
-            Assets.assets_fair_lib_src_page_photo_gallery_fair_js,
-        'assets_fair_lib_src_page_photo_gallery1_fair_bin':
-            Assets.assets_fair_lib_src_page_photo_gallery1_fair_bin,
-        'assets_fair_lib_src_page_photo_gallery1_fair_js':
-            Assets.assets_fair_lib_src_page_photo_gallery1_fair_js,
-        'assets_fair_lib_src_page_photo_gallery_item_fair_bin':
-            Assets.assets_fair_lib_src_page_photo_gallery_item_fair_bin,
-        'assets_fair_lib_src_page_photo_gallery_item_fair_js':
-            Assets.assets_fair_lib_src_page_photo_gallery_item_fair_js,
-        'assets_fair_lib_src_page_photo_swiper_fair_bin':
-            Assets.assets_fair_lib_src_page_photo_swiper_fair_bin,
-        'assets_fair_lib_src_page_photo_swiper_fair_js':
-            Assets.assets_fair_lib_src_page_photo_swiper_fair_js,
-        'assets_image_40_png': Assets.assets_image_40_png,
-        'assets_image_avatar_jpg': Assets.assets_image_avatar_jpg,
-        'assets_image_fluttercandies_grey_png':
-            Assets.assets_image_fluttercandies_grey_png,
-        'assets_image_loading_gif': Assets.assets_image_loading_gif,
-        'assets_image_love_png': Assets.assets_image_love_png,
-        'assets_image_sun_glasses_png': Assets.assets_image_sun_glasses_png,
-        'assets_plugin_fair_common_plugin_js':
-            Assets.assets_plugin_fair_common_plugin_js,
-      },
+      'ExtendedTextSelectionPointerHandlerState': (props) =>
+          ExtendedTextSelectionPointerHandlerState(),
+      'Assets.assets_fair_lib_src_page_photo_gallery_fair_bin':
+          Assets.assets_fair_lib_src_page_photo_gallery_fair_bin,
+      'Assets.assets_fair_lib_src_page_photo_gallery_fair_js':
+          Assets.assets_fair_lib_src_page_photo_gallery_fair_js,
+      'Assets.assets_fair_lib_src_page_photo_gallery1_fair_bin':
+          Assets.assets_fair_lib_src_page_photo_gallery1_fair_bin,
+      'Assets.assets_fair_lib_src_page_photo_gallery1_fair_js':
+          Assets.assets_fair_lib_src_page_photo_gallery1_fair_js,
+      'Assets.assets_fair_lib_src_page_photo_gallery_item_fair_bin':
+          Assets.assets_fair_lib_src_page_photo_gallery_item_fair_bin,
+      'Assets.assets_fair_lib_src_page_photo_gallery_item_fair_js':
+          Assets.assets_fair_lib_src_page_photo_gallery_item_fair_js,
+      'Assets.assets_fair_lib_src_page_photo_swiper_fair_bin':
+          Assets.assets_fair_lib_src_page_photo_swiper_fair_bin,
+      'Assets.assets_fair_lib_src_page_photo_swiper_fair_js':
+          Assets.assets_fair_lib_src_page_photo_swiper_fair_js,
+      'Assets.assets_image_40_png': Assets.assets_image_40_png,
+      'Assets.assets_image_avatar_jpg': Assets.assets_image_avatar_jpg,
+      'Assets.assets_image_fluttercandies_grey_png':
+          Assets.assets_image_fluttercandies_grey_png,
+      'Assets.assets_image_loading_gif': Assets.assets_image_loading_gif,
+      'Assets.assets_image_love_png': Assets.assets_image_love_png,
+      'Assets.assets_image_sun_glasses_png':
+          Assets.assets_image_sun_glasses_png,
+      'Assets.assets_plugin_fair_common_plugin_js':
+          Assets.assets_plugin_fair_common_plugin_js,
       'SugarIterable.iterator': (props) => SugarIterable.iterator(
             props['pa'][0],
           ),
@@ -1200,6 +1237,9 @@ class AppGeneratedModule extends GeneratedModule {
             props['pa'][0],
             props['pa'][1],
           ),
+      'SugarCommon.dateTimeConvert': (props) => SugarCommon.dateTimeConvert(
+            props['pa'][0],
+          ),
       'SugarStringExtension.test': (props) => SugarStringExtension.test(
             props['pa'][0],
           ),
@@ -1274,12 +1314,90 @@ class AppGeneratedModule extends GeneratedModule {
             props['pa'][1],
             defaultValue: props['defaultValue'],
           ),
+      'LoadingMoreRepository': (props) => LoadingMoreRepository(),
       'LoadingMoreRepository.onLoadData': (props) =>
           LoadingMoreRepository.onLoadData(
             props['pa'][0],
             props['pa'][1],
             notifyStateChanged: props['notifyStateChanged'],
             maxLength: props['maxLength'],
+          ),
+      'FixedOverscrollBouncingScrollPhysics': (props) =>
+          FixedOverscrollBouncingScrollPhysics(
+            parent: props['parent'],
+          ),
+      'SliverListConfig': (props) => SliverListConfig(
+            itemBuilder: props['itemBuilder'],
+            sourceList: props['sourceList'],
+            indicatorBuilder: props['indicatorBuilder'],
+            gridDelegate: props['gridDelegate'],
+            addAutomaticKeepAlives: props['addAutomaticKeepAlives'] ?? true,
+            addRepaintBoundaries: props['addRepaintBoundaries'] ?? true,
+            addSemanticIndexes: props['addSemanticIndexes'] ?? true,
+            semanticIndexCallback: props['semanticIndexCallback'] ??
+                _kDefaultSemanticIndexCallback,
+            semanticIndexOffset: props['semanticIndexOffset'] ?? 0,
+            childCount: props['childCount'],
+            autoLoadMore: props['autoLoadMore'] ?? true,
+            extendedListDelegate: props['extendedListDelegate'],
+            lastChildLayoutType:
+                props['lastChildLayoutType'] ?? LastChildLayoutType.foot,
+            padding: props['padding'],
+            itemExtent: props['itemExtent']?.toDouble(),
+            autoRefresh: props['autoRefresh'] ?? true,
+            childCountBuilder: props['childCountBuilder'],
+            getActualIndex: props['getActualIndex'],
+            showNoMore: props['showNoMore'],
+            lock: props['lock'],
+          ),
+      'LoadingMoreListConfig': (props) => LoadingMoreListConfig(
+            props['pa'][0],
+            props['pa'][1],
+            indicatorBuilder: props['indicatorBuilder'],
+            gridDelegate: props['gridDelegate'],
+            autoLoadMore: props['autoLoadMore'] ?? true,
+            extendedListDelegate: props['extendedListDelegate'],
+            lastChildLayoutType:
+                props['lastChildLayoutType'] ?? LastChildLayoutType.foot,
+            autoRefresh: props['autoRefresh'] ?? true,
+            childCount: props['childCount'],
+            childCountBuilder: props['childCountBuilder'],
+            getActualIndex: props['getActualIndex'],
+          ),
+      'ListConfig': (props) => ListConfig(
+            itemBuilder: props['itemBuilder'],
+            sourceList: props['sourceList'],
+            showGlowLeading: props['showGlowLeading'] ?? true,
+            showGlowTrailing: props['showGlowTrailing'] ?? true,
+            indicatorBuilder: props['indicatorBuilder'],
+            gridDelegate: props['gridDelegate'],
+            scrollDirection: props['scrollDirection'] ?? Axis.vertical,
+            reverse: props['reverse'] ?? false,
+            controller: props['controller'],
+            primary: props['primary'],
+            physics: props['physics'],
+            shrinkWrap: props['shrinkWrap'] ?? false,
+            padding: props['padding'] ?? const EdgeInsets.all(0.0),
+            itemExtent: props['itemExtent']?.toDouble(),
+            itemCount: props['itemCount'],
+            addAutomaticKeepAlives: props['addAutomaticKeepAlives'] ?? true,
+            addRepaintBoundaries: props['addRepaintBoundaries'] ?? true,
+            addSemanticIndexes: props['addSemanticIndexes'] ?? true,
+            cacheExtent: props['cacheExtent']?.toDouble(),
+            semanticChildCount: props['semanticChildCount'],
+            autoLoadMore: props['autoLoadMore'] ?? true,
+            extendedListDelegate: props['extendedListDelegate'],
+            lastChildLayoutType:
+                props['lastChildLayoutType'] ?? LastChildLayoutType.foot,
+            autoRefresh: props['autoRefresh'] ?? true,
+            itemCountBuilder: props['itemCountBuilder'],
+            dragStartBehavior:
+                props['dragStartBehavior'] ?? DragStartBehavior.start,
+            keyboardDismissBehavior: props['keyboardDismissBehavior'] ??
+                ScrollViewKeyboardDismissBehavior.manual,
+            restorationId: props['restorationId'],
+            clipBehavior: props['clipBehavior'] ?? Clip.hardEdge,
+            getActualIndex: props['getActualIndex'],
           ),
       'LoadingMoreSliverList': (props) => LoadingMoreSliverList(
             props['pa'][0],
@@ -1335,12 +1453,30 @@ class AppGeneratedModule extends GeneratedModule {
             index: props['index'],
             child: props['child'],
           ),
+      'InitialRenderSizeChangedWithCallback': (props) =>
+          InitialRenderSizeChangedWithCallback(
+            child: props['child'],
+            onLayoutChangedCallback: props['onLayoutChangedCallback'],
+          ),
+      'TaskEntry': (props) => TaskEntry(
+            props['pa'][0],
+            props['pa'][1],
+            props['pa'][2],
+            props['pa'][3],
+            props['pa'][4],
+            id: props['id'],
+          ),
+      'LayoutInfoNotification': (props) => LayoutInfoNotification(
+            props['pa'][0],
+            props['pa'][1],
+          ),
       'FrameSeparateWidget': (props) => FrameSeparateWidget(
             key: props['key'],
             index: props['index'],
             placeHolder: props['placeHolder'],
             child: props['child'],
           ),
+      'FrameSeparateWidgetState': (props) => FrameSeparateWidgetState(),
       'SizeCacheWidget': (props) => SizeCacheWidget(
             key: props['key'],
             child: props['child'],
@@ -1349,6 +1485,7 @@ class AppGeneratedModule extends GeneratedModule {
       'SizeCacheWidget.of': (props) => SizeCacheWidget.of(
             props['pa'][0],
           ),
+      'SizeCacheWidgetState': (props) => SizeCacheWidgetState(),
       'LikeButton': (props) => LikeButton(
             key: props['key'],
             size: props['size']?.toDouble() ?? 30.0,
@@ -1385,34 +1522,50 @@ class AppGeneratedModule extends GeneratedModule {
             countDecoration: props['countDecoration'],
             postFrameCallback: props['postFrameCallback'],
           ),
-      'LikeCountAnimationType': {
-        'none': LikeCountAnimationType.none,
-        'part': LikeCountAnimationType.part,
-        'all': LikeCountAnimationType.all,
-        'values': LikeCountAnimationType.values,
-      },
-      'CountPostion': {
-        'left': CountPostion.left,
-        'right': CountPostion.right,
-        'top': CountPostion.top,
-        'bottom': CountPostion.bottom,
-        'values': CountPostion.values,
-      },
-      'ToastPosition': {
-        'center': ToastPosition.center,
-        'bottom': ToastPosition.bottom,
-        'top': ToastPosition.top,
-      },
-      'IndicatorStatus': {
-        'none': IndicatorStatus.none,
-        'loadingMoreBusying': IndicatorStatus.loadingMoreBusying,
-        'fullScreenBusying': IndicatorStatus.fullScreenBusying,
-        'error': IndicatorStatus.error,
-        'fullScreenError': IndicatorStatus.fullScreenError,
-        'noMoreLoad': IndicatorStatus.noMoreLoad,
-        'empty': IndicatorStatus.empty,
-        'values': IndicatorStatus.values,
-      },
+      'LikeButtonState': (props) => LikeButtonState(),
+      'BubblesColor': (props) => BubblesColor(
+            dotPrimaryColor: props['dotPrimaryColor'],
+            dotSecondaryColor: props['dotSecondaryColor'],
+            dotThirdColor: props['dotThirdColor'],
+            dotLastColor: props['dotLastColor'],
+          ),
+      'CircleColor': (props) => CircleColor(
+            start: props['start'],
+            end: props['end'],
+          ),
+      'OvershootCurve': (props) => OvershootCurve(
+            props['pa'][0]?.toDouble() ?? 2.5,
+          ),
+      'LikeCountClip': (props) => LikeCountClip(),
+      'LikeCountAnimationType.none': LikeCountAnimationType.none,
+      'LikeCountAnimationType.part': LikeCountAnimationType.part,
+      'LikeCountAnimationType.all': LikeCountAnimationType.all,
+      'LikeCountAnimationType.values': LikeCountAnimationType.values,
+      'CountPostion.left': CountPostion.left,
+      'CountPostion.right': CountPostion.right,
+      'CountPostion.top': CountPostion.top,
+      'CountPostion.bottom': CountPostion.bottom,
+      'CountPostion.values': CountPostion.values,
+      'ToastPosition': (props) => ToastPosition(
+            align: props['align'] ?? Alignment.center,
+            offset: props['offset']?.toDouble() ?? 0.0,
+          ),
+      'ToastPosition.center': ToastPosition.center,
+      'ToastPosition.bottom': ToastPosition.bottom,
+      'ToastPosition.top': ToastPosition.top,
+      'OpacityAnimationBuilder': (props) => const OpacityAnimationBuilder(),
+      'OffsetAnimationBuilder': (props) => OffsetAnimationBuilder(
+            maxOffsetX: props['maxOffsetX']?.toDouble() ?? 0,
+            maxOffsetY: props['maxOffsetY']?.toDouble() ?? 100,
+          ),
+      'IndicatorStatus.none': IndicatorStatus.none,
+      'IndicatorStatus.loadingMoreBusying': IndicatorStatus.loadingMoreBusying,
+      'IndicatorStatus.fullScreenBusying': IndicatorStatus.fullScreenBusying,
+      'IndicatorStatus.error': IndicatorStatus.error,
+      'IndicatorStatus.fullScreenError': IndicatorStatus.fullScreenError,
+      'IndicatorStatus.noMoreLoad': IndicatorStatus.noMoreLoad,
+      'IndicatorStatus.empty': IndicatorStatus.empty,
+      'IndicatorStatus.values': IndicatorStatus.values,
       'SliverPinnedPersistentHeader': (props) => SliverPinnedPersistentHeader(
             delegate: props['delegate'],
           ),
@@ -1447,18 +1600,14 @@ class AppGeneratedModule extends GeneratedModule {
             crossAxisAlignment:
                 props['crossAxisAlignment'] ?? CrossAxisAlignment.center,
           ),
-      'LoadState': {
-        'loading': LoadState.loading,
-        'completed': LoadState.completed,
-        'failed': LoadState.failed,
-        'values': LoadState.values,
-      },
-      'ExtendedImageMode': {
-        'none': ExtendedImageMode.none,
-        'gesture': ExtendedImageMode.gesture,
-        'editor': ExtendedImageMode.editor,
-        'values': ExtendedImageMode.values,
-      },
+      'LoadState.loading': LoadState.loading,
+      'LoadState.completed': LoadState.completed,
+      'LoadState.failed': LoadState.failed,
+      'LoadState.values': LoadState.values,
+      'ExtendedImageMode.none': ExtendedImageMode.none,
+      'ExtendedImageMode.gesture': ExtendedImageMode.gesture,
+      'ExtendedImageMode.editor': ExtendedImageMode.editor,
+      'ExtendedImageMode.values': ExtendedImageMode.values,
       'ExtendedRawImage': (props) => ExtendedRawImage(
             key: props['key'],
             image: props['image'],
@@ -1484,30 +1633,88 @@ class AppGeneratedModule extends GeneratedModule {
             debugImageLabel: props['debugImageLabel'],
             layoutInsets: props['layoutInsets'] ?? EdgeInsets.zero,
           ),
+      'ExtendedRenderImage': (props) => ExtendedRenderImage(
+            image: props['image'],
+            debugImageLabel: props['debugImageLabel'],
+            width: props['width']?.toDouble(),
+            height: props['height']?.toDouble(),
+            scale: props['scale']?.toDouble() ?? 1.0,
+            color: props['color'],
+            opacity: props['opacity'],
+            colorBlendMode: props['colorBlendMode'],
+            fit: props['fit'],
+            alignment: props['alignment'] ?? Alignment.center,
+            repeat: props['repeat'] ?? ImageRepeat.noRepeat,
+            centerSlice: props['centerSlice'],
+            matchTextDirection: props['matchTextDirection'] ?? false,
+            textDirection: props['textDirection'],
+            invertColors: props['invertColors'] ?? false,
+            isAntiAlias: props['isAntiAlias'] ?? false,
+            filterQuality: props['filterQuality'] ?? FilterQuality.low,
+            sourceRect: props['sourceRect'],
+            afterPaintImage: props['afterPaintImage'],
+            beforePaintImage: props['beforePaintImage'],
+            gestureDetails: props['gestureDetails'],
+            editActionDetails: props['editActionDetails'],
+            layoutInsets: props['layoutInsets'] ?? EdgeInsets.zero,
+          ),
       'ExtendedImageGesture': (props) => ExtendedImageGesture(
             props['pa'][0],
             imageBuilder: props['imageBuilder'],
             canScaleImage: props['canScaleImage'],
             key: props['key'],
           ),
-      'InitialAlignment': {
-        'topLeft': InitialAlignment.topLeft,
-        'topCenter': InitialAlignment.topCenter,
-        'topRight': InitialAlignment.topRight,
-        'centerLeft': InitialAlignment.centerLeft,
-        'center': InitialAlignment.center,
-        'centerRight': InitialAlignment.centerRight,
-        'bottomLeft': InitialAlignment.bottomLeft,
-        'bottomCenter': InitialAlignment.bottomCenter,
-        'bottomRight': InitialAlignment.bottomRight,
-        'values': InitialAlignment.values,
-      },
-      'ActionType': {
-        'zoom': ActionType.zoom,
-        'pan': ActionType.pan,
-        'edit': ActionType.edit,
-        'values': ActionType.values,
-      },
+      'ExtendedImageGestureState': (props) => ExtendedImageGestureState(),
+      'Boundary': (props) => Boundary(
+            left: props['left'] ?? false,
+            right: props['right'] ?? false,
+            top: props['top'] ?? false,
+            bottom: props['bottom'] ?? false,
+          ),
+      'GestureDetails': (props) => GestureDetails(
+            offset: props['offset'],
+            totalScale: props['totalScale']?.toDouble(),
+            gestureDetails: props['gestureDetails'],
+            actionType: props['actionType'] ?? ActionType.pan,
+            userOffset: props['userOffset'] ?? true,
+          ),
+      'GestureConfig': (props) => GestureConfig(
+            minScale: props['minScale']?.toDouble() ?? 0.8,
+            maxScale: props['maxScale']?.toDouble() ?? 5.0,
+            speed: props['speed']?.toDouble() ?? 1.0,
+            cacheGesture: props['cacheGesture'] ?? false,
+            inertialSpeed: props['inertialSpeed']?.toDouble() ?? 100.0,
+            initialScale: props['initialScale']?.toDouble() ?? 1.0,
+            inPageView: props['inPageView'] ?? false,
+            animationMinScale: props['animationMinScale']?.toDouble(),
+            animationMaxScale: props['animationMaxScale']?.toDouble(),
+            initialAlignment:
+                props['initialAlignment'] ?? InitialAlignment.center,
+            gestureDetailsIsChanged: props['gestureDetailsIsChanged'],
+            hitTestBehavior:
+                props['hitTestBehavior'] ?? HitTestBehavior.deferToChild,
+            reverseMousePointerScrollDirection:
+                props['reverseMousePointerScrollDirection'] ?? false,
+          ),
+      'GestureAnimation': (props) => GestureAnimation(
+            props['pa'][0],
+            offsetCallBack: props['offsetCallBack'],
+            scaleCallBack: props['scaleCallBack'],
+          ),
+      'InitialAlignment.topLeft': InitialAlignment.topLeft,
+      'InitialAlignment.topCenter': InitialAlignment.topCenter,
+      'InitialAlignment.topRight': InitialAlignment.topRight,
+      'InitialAlignment.centerLeft': InitialAlignment.centerLeft,
+      'InitialAlignment.center': InitialAlignment.center,
+      'InitialAlignment.centerRight': InitialAlignment.centerRight,
+      'InitialAlignment.bottomLeft': InitialAlignment.bottomLeft,
+      'InitialAlignment.bottomCenter': InitialAlignment.bottomCenter,
+      'InitialAlignment.bottomRight': InitialAlignment.bottomRight,
+      'InitialAlignment.values': InitialAlignment.values,
+      'ActionType.zoom': ActionType.zoom,
+      'ActionType.pan': ActionType.pan,
+      'ActionType.edit': ActionType.edit,
+      'ActionType.values': ActionType.values,
       'ExtendedImageSlidePage': (props) => ExtendedImageSlidePage(
             child: props['child'],
             slidePageBackgroundHandler: props['slidePageBackgroundHandler'],
@@ -1521,22 +1728,21 @@ class AppGeneratedModule extends GeneratedModule {
             onSlidingPage: props['onSlidingPage'],
             key: props['key'],
           ),
-      'SlideAxis': {
-        'both': SlideAxis.both,
-        'horizontal': SlideAxis.horizontal,
-        'vertical': SlideAxis.vertical,
-        'values': SlideAxis.values,
-      },
-      'SlideType': {
-        'wholePage': SlideType.wholePage,
-        'onlyImage': SlideType.onlyImage,
-        'values': SlideType.values,
-      },
+      'ExtendedImageSlidePageState': (props) => ExtendedImageSlidePageState(),
+      'SlideAxis.both': SlideAxis.both,
+      'SlideAxis.horizontal': SlideAxis.horizontal,
+      'SlideAxis.vertical': SlideAxis.vertical,
+      'SlideAxis.values': SlideAxis.values,
+      'SlideType.wholePage': SlideType.wholePage,
+      'SlideType.onlyImage': SlideType.onlyImage,
+      'SlideType.values': SlideType.values,
       'ExtendedImageSlidePageHandler': (props) => ExtendedImageSlidePageHandler(
             child: props['child'],
             extendedImageSlidePageState: props['extendedImageSlidePageState'],
             heroBuilderForSlidingPage: props['heroBuilderForSlidingPage'],
           ),
+      'ExtendedImageSlidePageHandlerState': (props) =>
+          ExtendedImageSlidePageHandlerState(),
       'ExtendedImageGesturePageView': (props) => ExtendedImageGesturePageView(
             key: props['key'],
             scrollDirection: props['scrollDirection'] ?? Axis.horizontal,
@@ -1575,24 +1781,79 @@ class AppGeneratedModule extends GeneratedModule {
             childrenDelegate: props['childrenDelegate'],
             preloadPagesCount: props['preloadPagesCount'] ?? 0,
           ),
+      'ExtendedImageGesturePageViewState': (props) =>
+          ExtendedImageGesturePageViewState(),
+      'ExtendedPageController': (props) => ExtendedPageController(
+            initialPage: props['initialPage'] ?? 0,
+            keepPage: props['keepPage'] ?? true,
+            viewportFraction: props['viewportFraction']?.toDouble() ?? 1.0,
+            pageSpacing: props['pageSpacing']?.toDouble() ?? 0.0,
+            shouldIgnorePointerWhenScrolling:
+                props['shouldIgnorePointerWhenScrolling'] ?? false,
+          ),
+      'ExtendedImageBorderPainter': (props) => ExtendedImageBorderPainter(
+            border: props['border'],
+            shape: props['shape'] ?? BoxShape.rectangle,
+            borderRadius: props['borderRadius'],
+          ),
       'ExtendedImageEditor': (props) => ExtendedImageEditor(
             extendedImageState: props['extendedImageState'],
             key: props['key'],
           ),
-      'CropAspectRatios': {
-        'custom': CropAspectRatios.custom,
-        'original': CropAspectRatios.original,
-        'ratio1_1': CropAspectRatios.ratio1_1,
-        'ratio3_4': CropAspectRatios.ratio3_4,
-        'ratio4_3': CropAspectRatios.ratio4_3,
-        'ratio9_16': CropAspectRatios.ratio9_16,
-        'ratio16_9': CropAspectRatios.ratio16_9,
-      },
-      'InitCropRectType': {
-        'imageRect': InitCropRectType.imageRect,
-        'layoutRect': InitCropRectType.layoutRect,
-        'values': InitCropRectType.values,
-      },
+      'ExtendedImageEditorState': (props) => ExtendedImageEditorState(),
+      'EditActionDetails': (props) => EditActionDetails(),
+      'EditorConfig': (props) => EditorConfig(
+            maxScale: props['maxScale']?.toDouble() ?? 5.0,
+            cropRectPadding:
+                props['cropRectPadding'] ?? const EdgeInsets.all(20.0),
+            cornerSize: props['cornerSize'] ?? const Size(30.0, 5.0),
+            cornerColor: props['cornerColor'],
+            lineColor: props['lineColor'],
+            lineHeight: props['lineHeight']?.toDouble() ?? 0.6,
+            editorMaskColorHandler: props['editorMaskColorHandler'],
+            hitTestSize: props['hitTestSize']?.toDouble() ?? 20.0,
+            animationDuration:
+                props['animationDuration'] ?? const Duration(milliseconds: 200),
+            tickerDuration:
+                props['tickerDuration'] ?? const Duration(milliseconds: 400),
+            cropAspectRatio:
+                props['cropAspectRatio']?.toDouble() ?? CropAspectRatios.custom,
+            initialCropAspectRatio:
+                props['initialCropAspectRatio']?.toDouble() ??
+                    CropAspectRatios.custom,
+            initCropRectType:
+                props['initCropRectType'] ?? InitCropRectType.imageRect,
+            cropLayerPainter:
+                props['cropLayerPainter'] ?? const EditorCropLayerPainter(),
+            speed: props['speed']?.toDouble() ?? 1.0,
+            hitTestBehavior:
+                props['hitTestBehavior'] ?? HitTestBehavior.deferToChild,
+            editActionDetailsIsChanged: props['editActionDetailsIsChanged'],
+            reverseMousePointerScrollDirection:
+                props['reverseMousePointerScrollDirection'] ?? false,
+          ),
+      'CropAspectRatios': (props) => CropAspectRatios(),
+      'CropAspectRatios.custom': CropAspectRatios.custom,
+      'CropAspectRatios.original': CropAspectRatios.original,
+      'CropAspectRatios.ratio1_1': CropAspectRatios.ratio1_1,
+      'CropAspectRatios.ratio3_4': CropAspectRatios.ratio3_4,
+      'CropAspectRatios.ratio4_3': CropAspectRatios.ratio4_3,
+      'CropAspectRatios.ratio9_16': CropAspectRatios.ratio9_16,
+      'CropAspectRatios.ratio16_9': CropAspectRatios.ratio16_9,
+      'EditorCropLayerPainter': (props) => const EditorCropLayerPainter(),
+      'ExtendedImageCropLayerPainter': (props) => ExtendedImageCropLayerPainter(
+            cropRect: props['cropRect'],
+            cropLayerPainter: props['cropLayerPainter'],
+            lineColor: props['lineColor'],
+            cornerColor: props['cornerColor'],
+            cornerSize: props['cornerSize'],
+            lineHeight: props['lineHeight']?.toDouble() ?? 0,
+            maskColor: props['maskColor'],
+            pointerDown: props['pointerDown'],
+          ),
+      'InitCropRectType.imageRect': InitCropRectType.imageRect,
+      'InitCropRectType.layoutRect': InitCropRectType.layoutRect,
+      'InitCropRectType.values': InitCropRectType.values,
       'ExtendedImage': (props) => ExtendedImage(
             key: props['key'],
             image: props['image'],
@@ -1845,7 +2106,10 @@ class AppGeneratedModule extends GeneratedModule {
   @override
   Map<String, bool> mapping() {
     return const {
+      'AlwaysScrollableClampingScrollPhysics': false,
       'PullToRefreshNotification': true,
+      'PullToRefreshNotificationState': false,
+      'PullToRefreshScrollNotificationInfo': false,
       'PullToRefreshContainer': true,
       'PullToRefreshCupertinoActivityIndicator': true,
       'PullToRefreshIndicatorMode': false,
@@ -1853,9 +2117,12 @@ class AppGeneratedModule extends GeneratedModule {
       'TextOverflowAlign': false,
       'TextOverflowPosition': false,
       'TextOverflowClearType': false,
+      'ExtendedRenderParagraph': false,
       'ExtendedText': true,
       'ExtendedTextSelection': true,
+      'ExtendedTextSelectionState': false,
       'ExtendedTextSelectionPointerHandler': true,
+      'ExtendedTextSelectionPointerHandlerState': false,
       'Assets': false,
       'SugarIterable': false,
       'SugarMap': false,
@@ -1876,6 +2143,10 @@ class AppGeneratedModule extends GeneratedModule {
       'RefreshImage': true,
       'ShareDataWidget': true,
       'LoadingMoreRepository': false,
+      'FixedOverscrollBouncingScrollPhysics': false,
+      'SliverListConfig': false,
+      'LoadingMoreListConfig': false,
+      'ListConfig': false,
       'LoadingMoreSliverList': true,
       'LoadingMoreCustomScrollView': true,
       'EmptyWidget': true,
@@ -1883,12 +2154,24 @@ class AppGeneratedModule extends GeneratedModule {
       'IndicatorWidget': true,
       'GlowNotificationWidget': true,
       'ItemSizeInfoNotifier': true,
+      'InitialRenderSizeChangedWithCallback': false,
+      'TaskEntry': false,
+      'LayoutInfoNotification': false,
       'FrameSeparateWidget': true,
+      'FrameSeparateWidgetState': false,
       'SizeCacheWidget': true,
+      'SizeCacheWidgetState': false,
       'LikeButton': true,
+      'LikeButtonState': false,
+      'BubblesColor': false,
+      'CircleColor': false,
+      'OvershootCurve': false,
+      'LikeCountClip': false,
       'LikeCountAnimationType': false,
       'CountPostion': false,
       'ToastPosition': false,
+      'OpacityAnimationBuilder': false,
+      'OffsetAnimationBuilder': false,
       'IndicatorStatus': false,
       'SliverPinnedPersistentHeader': true,
       'SliverPinnedPersistentHeaderRenderObjectWidget': true,
@@ -1898,16 +2181,32 @@ class AppGeneratedModule extends GeneratedModule {
       'LoadState': false,
       'ExtendedImageMode': false,
       'ExtendedRawImage': true,
+      'ExtendedRenderImage': false,
       'ExtendedImageGesture': true,
+      'ExtendedImageGestureState': false,
+      'Boundary': false,
+      'GestureDetails': false,
+      'GestureConfig': false,
+      'GestureAnimation': false,
       'InitialAlignment': false,
       'ActionType': false,
       'ExtendedImageSlidePage': true,
+      'ExtendedImageSlidePageState': false,
       'SlideAxis': false,
       'SlideType': false,
       'ExtendedImageSlidePageHandler': true,
+      'ExtendedImageSlidePageHandlerState': false,
       'ExtendedImageGesturePageView': true,
+      'ExtendedImageGesturePageViewState': false,
+      'ExtendedPageController': false,
+      'ExtendedImageBorderPainter': false,
       'ExtendedImageEditor': true,
+      'ExtendedImageEditorState': false,
+      'EditActionDetails': false,
+      'EditorConfig': false,
       'CropAspectRatios': false,
+      'EditorCropLayerPainter': false,
+      'ExtendedImageCropLayerPainter': false,
       'InitCropRectType': false,
       'ExtendedImage': true,
     };

@@ -301,7 +301,10 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
         child: Column(children: [
           PullToRefreshContainer(
             SugarCommon.pullToRefreshContainerBuilder((info) {
-              return PullToRefreshHeader(info, lastRefreshTime);
+              return PullToRefreshHeader(
+                info,
+                SugarCommon.dateTimeConvert(lastRefreshTime),
+              );
             }),
           ),
           Expanded(

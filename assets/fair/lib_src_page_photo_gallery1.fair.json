@@ -35,7 +35,12 @@
                           "className": "PullToRefreshHeader",
                           "pa": [
                             "^(info)",
-                            "^(lastRefreshTime)"
+                            {
+                              "className": "SugarCommon.dateTimeConvert",
+                              "pa": [
+                                "^(lastRefreshTime)"
+                              ]
+                            }
                           ]
                         },
                         "parameters": {
