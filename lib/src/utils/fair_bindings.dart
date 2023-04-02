@@ -59,6 +59,16 @@ class FairBindings {
           },
       'double.infinity': double.infinity,
       'File': (props) => File(props['pa'][0]),
+      'Duration': (props) {
+        return Duration(
+          days: props['days'] ?? 0,
+          hours: props['hours'] ?? 0,
+          minutes: props['minutes'] ?? 0,
+          seconds: props['seconds'] ?? 0,
+          milliseconds: props['milliseconds'] ?? 0,
+          microseconds: props['microseconds'] ?? 0,
+        );
+      },
       ...fair_flow.provider(),
     });
   }

@@ -863,7 +863,7 @@ String processRun({
 }
 
 String _template = '''
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, prefer_single_quotes, unused_element, unused_field
 
 {0}
 

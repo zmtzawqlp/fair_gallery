@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, prefer_single_quotes, unused_element, unused_field
 
 import 'package:flutter/rendering.dart';
 import 'package:flutter/gestures.dart';
@@ -589,7 +589,7 @@ int _kDefaultSemanticIndexCallback(Widget _, int localIndex) => localIndex;
 /// flutterVersion = '3.3.9';
 /// dartVersion = '2.18.5';
 /// widgetCount = 418;
-/// apiCount = 1022;
+/// apiCount = 999;
 Map<String, dynamic> flutterComponents = {
   'Ticker': (props) => Ticker(
         props['pa'][0],
@@ -6404,7 +6404,6 @@ Map<String, dynamic> flutterComponents = {
   'ScaffoldMessenger.maybeOf': (props) => ScaffoldMessenger.maybeOf(
         props['pa'][0],
       ),
-  'ScaffoldMessengerState': (props) => ScaffoldMessengerState(),
   'ScaffoldPrelayoutGeometry': (props) => ScaffoldPrelayoutGeometry(
         bottomSheetSize: props['bottomSheetSize'],
         contentBottom: props['contentBottom']?.toDouble() ?? 0,
@@ -6465,7 +6464,6 @@ Map<String, dynamic> flutterComponents = {
         props['pa'][0],
         registerForUpdates: props['registerForUpdates'] ?? true,
       ),
-  'ScaffoldState': (props) => ScaffoldState(),
   'Feedback.forTap': (props) => Feedback.forTap(
         props['pa'][0],
       ),
@@ -6854,7 +6852,6 @@ Map<String, dynamic> flutterComponents = {
             RefreshProgressIndicator.defaultStrokeWidth,
         triggerMode: props['triggerMode'] ?? RefreshIndicatorTriggerMode.onEdge,
       ),
-  'RefreshIndicatorState': (props) => RefreshIndicatorState(),
   'RefreshIndicatorTriggerMode.anywhere': RefreshIndicatorTriggerMode.anywhere,
   'RefreshIndicatorTriggerMode.onEdge': RefreshIndicatorTriggerMode.onEdge,
   'RefreshIndicatorTriggerMode.values': RefreshIndicatorTriggerMode.values,
@@ -8604,7 +8601,6 @@ Map<String, dynamic> flutterComponents = {
         mouseCursor: props['mouseCursor'],
         child: props['child'],
       ),
-  'PopupMenuItemState': (props) => PopupMenuItemState(),
   'CheckedPopupMenuItem': (props) => CheckedPopupMenuItem(
         key: props['key'],
         value: props['value'],
@@ -8636,7 +8632,6 @@ Map<String, dynamic> flutterComponents = {
         constraints: props['constraints'],
         position: props['position'] ?? PopupMenuPosition.over,
       ),
-  'PopupMenuButtonState': (props) => PopupMenuButtonState(),
   'PopupMenuPosition.over': PopupMenuPosition.over,
   'PopupMenuPosition.under': PopupMenuPosition.under,
   'PopupMenuPosition.values': PopupMenuPosition.values,
@@ -9005,7 +9000,6 @@ Map<String, dynamic> flutterComponents = {
       ),
   'PaginatedDataTable.defaultRowsPerPage':
       PaginatedDataTable.defaultRowsPerPage,
-  'PaginatedDataTableState': (props) => PaginatedDataTableState(),
   'MaterialStatePropertyAll': (props) => MaterialStatePropertyAll(
         props['pa'][0],
       ),
@@ -9109,7 +9103,6 @@ Map<String, dynamic> flutterComponents = {
         child: props['child'],
       ),
   'Tooltip.dismissAllToolTips': (props) => Tooltip.dismissAllToolTips(),
-  'TooltipState': (props) => TooltipState(),
   'ElevatedButton': (props) => ElevatedButton(
         key: props['key'],
         onPressed: props['onPressed'],
@@ -10038,7 +10031,6 @@ Map<String, dynamic> flutterComponents = {
         edgeDragWidth: props['edgeDragWidth']?.toDouble(),
         enableOpenDragGesture: props['enableOpenDragGesture'] ?? true,
       ),
-  'DrawerControllerState': (props) => DrawerControllerState(),
   'DrawerAlignment.start': DrawerAlignment.start,
   'DrawerAlignment.end': DrawerAlignment.end,
   'DrawerAlignment.values': DrawerAlignment.values,
@@ -21764,7 +21756,6 @@ Map<String, dynamic> flutterComponents = {
         excludeFromSemantics: props['excludeFromSemantics'] ?? false,
         semantics: props['semantics'],
       ),
-  'RawGestureDetectorState': (props) => RawGestureDetectorState(),
   'RestorableNum': (props) => RestorableNum<num>(
         props['pa'][0],
       ),
@@ -21990,7 +21981,6 @@ Map<String, dynamic> flutterComponents = {
   'Form.of': (props) => Form.of(
         props['pa'][0],
       ),
-  'FormState': (props) => FormState(),
   'FormField': (props) => FormField(
         key: props['key'],
         builder: props['builder'],
@@ -22001,7 +21991,6 @@ Map<String, dynamic> flutterComponents = {
         autovalidateMode: props['autovalidateMode'],
         restorationId: props['restorationId'],
       ),
-  'FormFieldState': (props) => FormFieldState(),
   'AutovalidateMode.disabled': AutovalidateMode.disabled,
   'AutovalidateMode.always': AutovalidateMode.always,
   'AutovalidateMode.onUserInteraction': AutovalidateMode.onUserInteraction,
@@ -22165,7 +22154,6 @@ Map<String, dynamic> flutterComponents = {
       NestedScrollView.sliverOverlapAbsorberHandleFor(
         props['pa'][0],
       ),
-  'NestedScrollViewState': (props) => NestedScrollViewState(),
   'SliverOverlapAbsorberHandle': (props) => SliverOverlapAbsorberHandle(),
   'SliverOverlapAbsorber': (props) => SliverOverlapAbsorber(
         key: props['key'],
@@ -22264,7 +22252,6 @@ Map<String, dynamic> flutterComponents = {
   'ReorderableList.maybeOf': (props) => ReorderableList.maybeOf(
         props['pa'][0],
       ),
-  'ReorderableListState': (props) => ReorderableListState(),
   'SliverReorderableList': (props) => SliverReorderableList(
         key: props['key'],
         itemBuilder: props['itemBuilder'],
@@ -22283,7 +22270,6 @@ Map<String, dynamic> flutterComponents = {
   'SliverReorderableList.maybeOf': (props) => SliverReorderableList.maybeOf(
         props['pa'][0],
       ),
-  'SliverReorderableListState': (props) => SliverReorderableListState(),
   'ReorderableDragStartListener': (props) => ReorderableDragStartListener(
         key: props['key'],
         child: props['child'],
@@ -22506,7 +22492,6 @@ Map<String, dynamic> flutterComponents = {
         props['pa'][0],
         props['pa'][1],
       ),
-  'NavigatorState': (props) => NavigatorState(),
   'RestorableRouteFuture': (props) => RestorableRouteFuture(
         navigatorFinder: props['navigatorFinder'] ?? _defaultNavigatorFinder,
         onPresent: props['onPresent'],
@@ -22828,7 +22813,6 @@ Map<String, dynamic> flutterComponents = {
         enableIMEPersonalizedLearning:
             props['enableIMEPersonalizedLearning'] ?? true,
       ),
-  'EditableTextState': (props) => EditableTextState(),
   'Placeholder': (props) => Placeholder(
         key: props['key'],
         color: props['color'] ?? const Color(0xFF455A64),
@@ -22925,7 +22909,6 @@ Map<String, dynamic> flutterComponents = {
         alignmentPolicy:
             props['alignmentPolicy'] ?? ScrollPositionAlignmentPolicy.explicit,
       ),
-  'ScrollableState': (props) => ScrollableState(),
   'EdgeDraggingAutoScroller': (props) => EdgeDraggingAutoScroller(
         props['pa'][0],
         onScrollViewScrolled: props['onScrollViewScrolled'],
@@ -23335,8 +23318,6 @@ Map<String, dynamic> flutterComponents = {
   'ScrollNotificationObserver.of': (props) => ScrollNotificationObserver.of(
         props['pa'][0],
       ),
-  'ScrollNotificationObserverState': (props) =>
-      ScrollNotificationObserverState(),
   'SharedAppData': (props) => SharedAppData(
         key: props['key'],
         child: props['child'],
@@ -23702,7 +23683,6 @@ Map<String, dynamic> flutterComponents = {
   'AnimatedList.maybeOf': (props) => AnimatedList.maybeOf(
         props['pa'][0],
       ),
-  'AnimatedListState': (props) => AnimatedListState(),
   'SliverAnimatedList': (props) => SliverAnimatedList(
         key: props['key'],
         itemBuilder: props['itemBuilder'],
@@ -23715,7 +23695,6 @@ Map<String, dynamic> flutterComponents = {
   'SliverAnimatedList.maybeOf': (props) => SliverAnimatedList.maybeOf(
         props['pa'][0],
       ),
-  'SliverAnimatedListState': (props) => SliverAnimatedListState(),
   'ScrollPhysics': (props) => ScrollPhysics(
         parent: props['parent'],
       ),
@@ -23975,7 +23954,6 @@ Map<String, dynamic> flutterComponents = {
   'AutofillGroup.of': (props) => AutofillGroup.of(
         props['pa'][0],
       ),
-  'AutofillGroupState': (props) => AutofillGroupState(),
   'AutofillContextAction.commit': AutofillContextAction.commit,
   'AutofillContextAction.cancel': AutofillContextAction.cancel,
   'AutofillContextAction.values': AutofillContextAction.values,
@@ -24398,7 +24376,6 @@ Map<String, dynamic> flutterComponents = {
         crossAxisMargin: props['crossAxisMargin']?.toDouble() ?? 0.0,
         isAlwaysShown: props['isAlwaysShown'],
       ),
-  'RawScrollbarState': (props) => RawScrollbarState(),
   'ScrollbarOrientation.left': ScrollbarOrientation.left,
   'ScrollbarOrientation.right': ScrollbarOrientation.right,
   'ScrollbarOrientation.top': ScrollbarOrientation.top,
@@ -24598,7 +24575,6 @@ Map<String, dynamic> flutterComponents = {
         rootOverlay: props['rootOverlay'] ?? false,
         debugRequiredFor: props['debugRequiredFor'],
       ),
-  'OverlayState': (props) => OverlayState(),
   'DefaultSelectionStyle': (props) => DefaultSelectionStyle(
         key: props['key'],
         cursorColor: props['cursorColor'],
@@ -26237,11 +26213,9 @@ Map<String, bool> flutterMapping = {
   'MaterialBannerThemeData': false,
   'MaterialBannerTheme': true,
   'ScaffoldMessenger': true,
-  'ScaffoldMessengerState': false,
   'ScaffoldPrelayoutGeometry': false,
   'ScaffoldGeometry': false,
   'Scaffold': true,
-  'ScaffoldState': false,
   'Feedback': false,
   'SwitchThemeData': false,
   'SwitchTheme': true,
@@ -26271,7 +26245,6 @@ Map<String, bool> flutterMapping = {
   'TextSelectionTheme': true,
   'RadioListTile': true,
   'RefreshIndicator': true,
-  'RefreshIndicatorState': false,
   'RefreshIndicatorTriggerMode': false,
   'ActionChip': true,
   'InputDatePickerFormField': true,
@@ -26371,10 +26344,8 @@ Map<String, bool> flutterMapping = {
   'InkHighlight': false,
   'PopupMenuDivider': true,
   'PopupMenuItem': true,
-  'PopupMenuItemState': false,
   'CheckedPopupMenuItem': true,
   'PopupMenuButton': true,
-  'PopupMenuButtonState': false,
   'PopupMenuPosition': false,
   'ExpandIcon': true,
   'AppBar': true,
@@ -26391,7 +26362,6 @@ Map<String, bool> flutterMapping = {
   'RawChip': true,
   'DialogTheme': false,
   'PaginatedDataTable': true,
-  'PaginatedDataTableState': false,
   'MaterialStatePropertyAll': false,
   'MaterialStatesController': false,
   'MaterialState': false,
@@ -26400,7 +26370,6 @@ Map<String, bool> flutterMapping = {
   'CardTheme': false,
   'BottomSheetThemeData': false,
   'Tooltip': true,
-  'TooltipState': false,
   'ElevatedButton': true,
   'SwitchListTile': true,
   'DropdownMenuItem': true,
@@ -26467,7 +26436,6 @@ Map<String, bool> flutterMapping = {
   'MergeableMaterial': true,
   'Drawer': true,
   'DrawerController': true,
-  'DrawerControllerState': false,
   'DrawerAlignment': false,
   'ExpansionTileThemeData': false,
   'ExpansionTileTheme': true,
@@ -26724,7 +26692,6 @@ Map<String, bool> flutterMapping = {
   'GestureRecognizerFactoryWithHandlers': false,
   'GestureDetector': true,
   'RawGestureDetector': true,
-  'RawGestureDetectorState': false,
   'RestorableNum': false,
   'RestorableDouble': false,
   'RestorableInt': false,
@@ -26763,15 +26730,12 @@ Map<String, bool> flutterMapping = {
   'PrioritizedIntents': false,
   'PrioritizedAction': false,
   'Form': true,
-  'FormState': false,
   'FormField': true,
-  'FormFieldState': false,
   'AutovalidateMode': false,
   'Image': true,
   'IconThemeData': false,
   'Texture': true,
   'NestedScrollView': true,
-  'NestedScrollViewState': false,
   'SliverOverlapAbsorberHandle': false,
   'SliverOverlapAbsorber': true,
   'RenderSliverOverlapAbsorber': false,
@@ -26783,9 +26747,7 @@ Map<String, bool> flutterMapping = {
   'SelectionRegistrarScope': true,
   'NavigationToolbar': true,
   'ReorderableList': true,
-  'ReorderableListState': false,
   'SliverReorderableList': true,
-  'SliverReorderableListState': false,
   'ReorderableDragStartListener': true,
   'ReorderableDelayedDragStartListener': true,
   'PageRouteBuilder': false,
@@ -26797,7 +26759,6 @@ Map<String, bool> flutterMapping = {
   'HeroControllerScope': true,
   'DefaultTransitionDelegate': false,
   'Navigator': true,
-  'NavigatorState': false,
   'RestorableRouteFuture': false,
   'RoutePopDisposition': false,
   'DoNothingAndStopPropagationTextIntent': false,
@@ -26837,7 +26798,6 @@ Map<String, bool> flutterMapping = {
   'TextEditingController': false,
   'ToolbarOptions': false,
   'EditableText': true,
-  'EditableTextState': false,
   'Placeholder': true,
   'Icon': true,
   'BottomNavigationBarItem': false,
@@ -26847,7 +26807,6 @@ Map<String, bool> flutterMapping = {
   'ScrollPositionAlignmentPolicy': false,
   'ImageIcon': true,
   'Scrollable': true,
-  'ScrollableState': false,
   'EdgeDraggingAutoScroller': false,
   'ScrollableDetails': false,
   'ScrollIncrementDetails': false,
@@ -26914,7 +26873,6 @@ Map<String, bool> flutterMapping = {
   'KeyboardListener': true,
   'ImageFiltered': true,
   'ScrollNotificationObserver': true,
-  'ScrollNotificationObserverState': false,
   'SharedAppData': true,
   'Draggable': true,
   'LongPressDraggable': true,
@@ -26966,9 +26924,7 @@ Map<String, bool> flutterMapping = {
   'UnmanagedRestorationScope': true,
   'RootRestorationScope': true,
   'AnimatedList': true,
-  'AnimatedListState': false,
   'SliverAnimatedList': true,
-  'SliverAnimatedListState': false,
   'ScrollPhysics': false,
   'RangeMaintainingScrollPhysics': false,
   'BouncingScrollPhysics': false,
@@ -26988,7 +26944,6 @@ Map<String, bool> flutterMapping = {
   'TransformationController': false,
   'DisplayFeatureSubScreen': true,
   'AutofillGroup': true,
-  'AutofillGroupState': false,
   'AutofillContextAction': false,
   'IdleScrollActivity': false,
   'HoldScrollActivity': false,
@@ -27034,7 +26989,6 @@ Map<String, bool> flutterMapping = {
   'SliverSafeArea': true,
   'ScrollbarPainter': false,
   'RawScrollbar': true,
-  'RawScrollbarState': false,
   'ScrollbarOrientation': false,
   'AndroidView': true,
   'UiKitView': true,
@@ -27054,7 +27008,6 @@ Map<String, bool> flutterMapping = {
   'UserScrollNotification': false,
   'OverlayEntry': false,
   'Overlay': true,
-  'OverlayState': false,
   'DefaultSelectionStyle': true,
   'BouncingScrollSimulation': false,
   'ClampingScrollSimulation': false,

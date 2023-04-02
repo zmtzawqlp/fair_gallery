@@ -179,8 +179,6 @@ class AppGeneratedModule extends GeneratedModule {
             refreshOffset: props['refreshOffset']?.toDouble(),
             reachToRefreshOffset: props['reachToRefreshOffset']?.toDouble(),
           ),
-      'PullToRefreshNotificationState': (props) =>
-          PullToRefreshNotificationState(),
       'PullToRefreshScrollNotificationInfo': (props) =>
           PullToRefreshScrollNotificationInfo(
             props['pa'][0],
@@ -349,14 +347,11 @@ class AppGeneratedModule extends GeneratedModule {
                 props['textSelectionGestureDetectorBuilder'],
             key: props['key'],
           ),
-      'ExtendedTextSelectionState': (props) => ExtendedTextSelectionState(),
       'ExtendedTextSelectionPointerHandler': (props) =>
           ExtendedTextSelectionPointerHandler(
             child: props['child'],
             builder: props['builder'],
           ),
-      'ExtendedTextSelectionPointerHandlerState': (props) =>
-          ExtendedTextSelectionPointerHandlerState(),
       'Assets.assets_fair_lib_src_page_photo_gallery_fair_bin':
           Assets.assets_fair_lib_src_page_photo_gallery_fair_bin,
       'Assets.assets_fair_lib_src_page_photo_gallery_fair_js':
@@ -1476,7 +1471,6 @@ class AppGeneratedModule extends GeneratedModule {
             placeHolder: props['placeHolder'],
             child: props['child'],
           ),
-      'FrameSeparateWidgetState': (props) => FrameSeparateWidgetState(),
       'SizeCacheWidget': (props) => SizeCacheWidget(
             key: props['key'],
             child: props['child'],
@@ -1485,7 +1479,6 @@ class AppGeneratedModule extends GeneratedModule {
       'SizeCacheWidget.of': (props) => SizeCacheWidget.of(
             props['pa'][0],
           ),
-      'SizeCacheWidgetState': (props) => SizeCacheWidgetState(),
       'LikeButton': (props) => LikeButton(
             key: props['key'],
             size: props['size']?.toDouble() ?? 30.0,
@@ -1522,7 +1515,6 @@ class AppGeneratedModule extends GeneratedModule {
             countDecoration: props['countDecoration'],
             postFrameCallback: props['postFrameCallback'],
           ),
-      'LikeButtonState': (props) => LikeButtonState(),
       'BubblesColor': (props) => BubblesColor(
             dotPrimaryColor: props['dotPrimaryColor'],
             dotSecondaryColor: props['dotSecondaryColor'],
@@ -1664,7 +1656,6 @@ class AppGeneratedModule extends GeneratedModule {
             canScaleImage: props['canScaleImage'],
             key: props['key'],
           ),
-      'ExtendedImageGestureState': (props) => ExtendedImageGestureState(),
       'Boundary': (props) => Boundary(
             left: props['left'] ?? false,
             right: props['right'] ?? false,
@@ -1728,7 +1719,6 @@ class AppGeneratedModule extends GeneratedModule {
             onSlidingPage: props['onSlidingPage'],
             key: props['key'],
           ),
-      'ExtendedImageSlidePageState': (props) => ExtendedImageSlidePageState(),
       'SlideAxis.both': SlideAxis.both,
       'SlideAxis.horizontal': SlideAxis.horizontal,
       'SlideAxis.vertical': SlideAxis.vertical,
@@ -1741,8 +1731,6 @@ class AppGeneratedModule extends GeneratedModule {
             extendedImageSlidePageState: props['extendedImageSlidePageState'],
             heroBuilderForSlidingPage: props['heroBuilderForSlidingPage'],
           ),
-      'ExtendedImageSlidePageHandlerState': (props) =>
-          ExtendedImageSlidePageHandlerState(),
       'ExtendedImageGesturePageView': (props) => ExtendedImageGesturePageView(
             key: props['key'],
             scrollDirection: props['scrollDirection'] ?? Axis.horizontal,
@@ -1781,8 +1769,6 @@ class AppGeneratedModule extends GeneratedModule {
             childrenDelegate: props['childrenDelegate'],
             preloadPagesCount: props['preloadPagesCount'] ?? 0,
           ),
-      'ExtendedImageGesturePageViewState': (props) =>
-          ExtendedImageGesturePageViewState(),
       'ExtendedPageController': (props) => ExtendedPageController(
             initialPage: props['initialPage'] ?? 0,
             keepPage: props['keepPage'] ?? true,
@@ -1800,7 +1786,6 @@ class AppGeneratedModule extends GeneratedModule {
             extendedImageState: props['extendedImageState'],
             key: props['key'],
           ),
-      'ExtendedImageEditorState': (props) => ExtendedImageEditorState(),
       'EditActionDetails': (props) => EditActionDetails(),
       'EditorConfig': (props) => EditorConfig(
             maxScale: props['maxScale']?.toDouble() ?? 5.0,
@@ -2108,7 +2093,6 @@ class AppGeneratedModule extends GeneratedModule {
     return const {
       'AlwaysScrollableClampingScrollPhysics': false,
       'PullToRefreshNotification': true,
-      'PullToRefreshNotificationState': false,
       'PullToRefreshScrollNotificationInfo': false,
       'PullToRefreshContainer': true,
       'PullToRefreshCupertinoActivityIndicator': true,
@@ -2120,9 +2104,7 @@ class AppGeneratedModule extends GeneratedModule {
       'ExtendedRenderParagraph': false,
       'ExtendedText': true,
       'ExtendedTextSelection': true,
-      'ExtendedTextSelectionState': false,
       'ExtendedTextSelectionPointerHandler': true,
-      'ExtendedTextSelectionPointerHandlerState': false,
       'Assets': false,
       'SugarIterable': false,
       'SugarMap': false,
@@ -2158,11 +2140,8 @@ class AppGeneratedModule extends GeneratedModule {
       'TaskEntry': false,
       'LayoutInfoNotification': false,
       'FrameSeparateWidget': true,
-      'FrameSeparateWidgetState': false,
       'SizeCacheWidget': true,
-      'SizeCacheWidgetState': false,
       'LikeButton': true,
-      'LikeButtonState': false,
       'BubblesColor': false,
       'CircleColor': false,
       'OvershootCurve': false,
@@ -2183,7 +2162,6 @@ class AppGeneratedModule extends GeneratedModule {
       'ExtendedRawImage': true,
       'ExtendedRenderImage': false,
       'ExtendedImageGesture': true,
-      'ExtendedImageGestureState': false,
       'Boundary': false,
       'GestureDetails': false,
       'GestureConfig': false,
@@ -2191,17 +2169,13 @@ class AppGeneratedModule extends GeneratedModule {
       'InitialAlignment': false,
       'ActionType': false,
       'ExtendedImageSlidePage': true,
-      'ExtendedImageSlidePageState': false,
       'SlideAxis': false,
       'SlideType': false,
       'ExtendedImageSlidePageHandler': true,
-      'ExtendedImageSlidePageHandlerState': false,
       'ExtendedImageGesturePageView': true,
-      'ExtendedImageGesturePageViewState': false,
       'ExtendedPageController': false,
       'ExtendedImageBorderPainter': false,
       'ExtendedImageEditor': true,
-      'ExtendedImageEditorState': false,
       'EditActionDetails': false,
       'EditorConfig': false,
       'CropAspectRatios': false,
