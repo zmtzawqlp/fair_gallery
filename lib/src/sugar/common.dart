@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_function_declarations_over_variables
+
 import 'dart:math';
 
 import 'package:extended_image/extended_image.dart';
@@ -7,13 +9,13 @@ import 'package:fair_gallery/src/widget/share_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 class SugarCommon {
   SugarCommon._();
-
-  static PullToRefreshContainerBuilder pullToRefreshContainerBuilder(
-      PullToRefreshContainerBuilder builder) {
+  static Container Function() returnContainer(Widget Function() input) {
+    Container Function() builder = () {
+      return input() as Container;
+    };
     return builder;
   }
 

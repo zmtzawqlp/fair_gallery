@@ -52,36 +52,57 @@
                                 {
                                   "className": "SugarSwitchCaseObj",
                                   "na": {
-                                    "sugarCase": "#(LoadState.loading)",
+                                    "sugarCase": {
+                                      "className": "FairFunction",
+                                      "body": "#(LoadState.loading)",
+                                      "tag": "LoadState Function()"
+                                    },
                                     "reValue": {
-                                      "className": "ExtendedImage.asset",
-                                      "pa": [
-                                        "#(Assets.assets_image_avatar_jpg)"
-                                      ]
+                                      "className": "FairFunction",
+                                      "body": {
+                                        "className": "ExtendedImage.asset",
+                                        "pa": [
+                                          "#(Assets.assets_image_avatar_jpg)"
+                                        ]
+                                      },
+                                      "tag": "Widget Function()"
                                     }
                                   }
                                 },
                                 {
                                   "className": "SugarSwitchCaseObj",
                                   "na": {
-                                    "sugarCase": "#(LoadState.failed)",
+                                    "sugarCase": {
+                                      "className": "FairFunction",
+                                      "body": "#(LoadState.failed)",
+                                      "tag": "LoadState Function()"
+                                    },
                                     "reValue": {
-                                      "className": "ExtendedImage.asset",
-                                      "pa": [
-                                        "#(Assets.assets_image_avatar_jpg)"
-                                      ]
+                                      "className": "FairFunction",
+                                      "body": {
+                                        "className": "ExtendedImage.asset",
+                                        "pa": [
+                                          "#(Assets.assets_image_avatar_jpg)"
+                                        ]
+                                      },
+                                      "tag": "Widget Function()"
                                     }
                                   }
                                 }
                               ],
-                              null
+                              {
+                                "className": "FairFunction",
+                                "body": null,
+                                "tag": "Null Function()"
+                              }
                             ]
                           },
                           "parameters": {
                             "pa": [
                               "loadState"
                             ]
-                          }
+                          },
+                          "tag": "Widget? Function(LoadState)"
                         }
                       ]
                     }
@@ -353,7 +374,8 @@
                         "index",
                         "item"
                       ]
-                    }
+                    },
+                    "tag": "Widget Function(int, Object?)"
                   }
                 ]
               }
@@ -386,107 +408,143 @@
             {
               "className": "SugarSwitchCaseObj",
               "na": {
-                "sugarCase": 0,
+                "sugarCase": {
+                  "className": "FairFunction",
+                  "body": 0,
+                  "tag": "int Function()"
+                },
                 "reValue": {
-                  "className": "Container"
+                  "className": "FairFunction",
+                  "body": {
+                    "className": "Container"
+                  },
+                  "tag": "Widget Function()"
                 }
               }
             },
             {
               "className": "SugarSwitchCaseObj",
               "na": {
-                "sugarCase": 1,
+                "sugarCase": {
+                  "className": "FairFunction",
+                  "body": 1,
+                  "tag": "int Function()"
+                },
                 "reValue": {
-                  "className": "Padding",
-                  "na": {
-                    "padding": {
-                      "className": "EdgeInsets.only",
-                      "na": {
-                        "left": 11,
-                        "right": 11,
-                        "bottom": 11
-                      }
-                    },
-                    "child": {
-                      "className": "GestureDetector",
-                      "na": {
-                        "onTap": {
-                          "className": "SugarCommon.voidCallBack",
-                          "na": {
-                            "function": "@(_onImageTap)",
-                            "value": 0
-                          }
-                        },
-                        "child": {
-                          "className": "Hero",
-                          "na": {
-                            "tag": "%(_getImageUrl(0))",
-                            "child": {
-                              "className": "ExtendedImage.network",
-                              "pa": [
-                                "%(_getImageUrl(0))"
-                              ],
-                              "na": {
-                                "height": "%(_getImageWidthOrHeight(0,0))",
-                                "width": "%(_getImageWidthOrHeight(0,1))",
-                                "fit": "#(BoxFit.fill)",
-                                "loadStateChanged": {
-                                  "className": "SugarCommon.onImageStateChanged",
-                                  "pa": [
-                                    {
-                                      "className": "FairFunction",
-                                      "body": {
-                                        "className": "Sugar.switchCase",
-                                        "pa": [
-                                          "^(loadState)",
-                                          [
-                                            {
-                                              "className": "SugarSwitchCaseObj",
-                                              "na": {
-                                                "sugarCase": "#(LoadState.loading)",
-                                                "reValue": {
-                                                  "className": "ColoredBox",
-                                                  "na": {
-                                                    "color": {
-                                                      "className": "Sugar.colorsWithOpacity",
-                                                      "pa": [
-                                                        "#(Colors.grey)",
-                                                        0.2
-                                                      ]
-                                                    }
+                  "className": "FairFunction",
+                  "body": {
+                    "className": "Padding",
+                    "na": {
+                      "padding": {
+                        "className": "EdgeInsets.only",
+                        "na": {
+                          "left": 11,
+                          "right": 11,
+                          "bottom": 11
+                        }
+                      },
+                      "child": {
+                        "className": "GestureDetector",
+                        "na": {
+                          "onTap": {
+                            "className": "SugarCommon.voidCallBack",
+                            "na": {
+                              "function": "@(_onImageTap)",
+                              "value": 0
+                            }
+                          },
+                          "child": {
+                            "className": "Hero",
+                            "na": {
+                              "tag": "%(_getImageUrl(0))",
+                              "child": {
+                                "className": "ExtendedImage.network",
+                                "pa": [
+                                  "%(_getImageUrl(0))"
+                                ],
+                                "na": {
+                                  "height": "%(_getImageWidthOrHeight(0,0))",
+                                  "width": "%(_getImageWidthOrHeight(0,1))",
+                                  "fit": "#(BoxFit.fill)",
+                                  "loadStateChanged": {
+                                    "className": "SugarCommon.onImageStateChanged",
+                                    "pa": [
+                                      {
+                                        "className": "FairFunction",
+                                        "body": {
+                                          "className": "Sugar.switchCase",
+                                          "pa": [
+                                            "^(loadState)",
+                                            [
+                                              {
+                                                "className": "SugarSwitchCaseObj",
+                                                "na": {
+                                                  "sugarCase": {
+                                                    "className": "FairFunction",
+                                                    "body": "#(LoadState.loading)",
+                                                    "tag": "LoadState Function()"
+                                                  },
+                                                  "reValue": {
+                                                    "className": "FairFunction",
+                                                    "body": {
+                                                      "className": "ColoredBox",
+                                                      "na": {
+                                                        "color": {
+                                                          "className": "Sugar.colorsWithOpacity",
+                                                          "pa": [
+                                                            "#(Colors.grey)",
+                                                            0.2
+                                                          ]
+                                                        }
+                                                      }
+                                                    },
+                                                    "tag": "Widget Function()"
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                "className": "SugarSwitchCaseObj",
+                                                "na": {
+                                                  "sugarCase": {
+                                                    "className": "FairFunction",
+                                                    "body": "#(LoadState.failed)",
+                                                    "tag": "LoadState Function()"
+                                                  },
+                                                  "reValue": {
+                                                    "className": "FairFunction",
+                                                    "body": {
+                                                      "className": "ColoredBox",
+                                                      "na": {
+                                                        "color": {
+                                                          "className": "Sugar.colorsWithOpacity",
+                                                          "pa": [
+                                                            "#(Colors.grey)",
+                                                            0.2
+                                                          ]
+                                                        }
+                                                      }
+                                                    },
+                                                    "tag": "Widget Function()"
                                                   }
                                                 }
                                               }
-                                            },
+                                            ],
                                             {
-                                              "className": "SugarSwitchCaseObj",
-                                              "na": {
-                                                "sugarCase": "#(LoadState.failed)",
-                                                "reValue": {
-                                                  "className": "ColoredBox",
-                                                  "na": {
-                                                    "color": {
-                                                      "className": "Sugar.colorsWithOpacity",
-                                                      "pa": [
-                                                        "#(Colors.grey)",
-                                                        0.2
-                                                      ]
-                                                    }
-                                                  }
-                                                }
-                                              }
+                                              "className": "FairFunction",
+                                              "body": null,
+                                              "tag": "Null Function()"
                                             }
-                                          ],
-                                          null
-                                        ]
-                                      },
-                                      "parameters": {
-                                        "pa": [
-                                          "loadState"
-                                        ]
+                                          ]
+                                        },
+                                        "parameters": {
+                                          "pa": [
+                                            "loadState"
+                                          ]
+                                        },
+                                        "tag": "Widget? Function(LoadState)"
                                       }
-                                    }
-                                  ]
+                                    ]
+                                  }
                                 }
                               }
                             }
@@ -494,481 +552,571 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "tag": "Widget Function()"
                 }
               }
             },
             {
               "className": "SugarSwitchCaseObj",
               "na": {
-                "sugarCase": 4,
+                "sugarCase": {
+                  "className": "FairFunction",
+                  "body": 4,
+                  "tag": "int Function()"
+                },
                 "reValue": {
-                  "className": "SizedBox",
-                  "na": {
-                    "width": {
-                      "className": "SugarDouble.multiplies",
-                      "pa": [
-                        {
-                          "className": "SugarDouble.divides",
-                          "pa": [
-                            {
-                              "className": "Sugar.width",
-                              "pa": [
-                                "^(context)"
-                              ]
-                            },
-                            3
-                          ]
-                        },
-                        2
-                      ]
-                    },
-                    "child": {
-                      "className": "GridView",
-                      "na": {
-                        "padding": {
-                          "className": "EdgeInsets.only",
-                          "na": {
-                            "left": 11,
-                            "right": 11,
-                            "bottom": 11
-                          }
-                        },
-                        "shrinkWrap": true,
-                        "gridDelegate": {
-                          "className": "SliverGridDelegateWithFixedCrossAxisCount",
-                          "na": {
-                            "crossAxisCount": 2,
-                            "mainAxisSpacing": 10.0,
-                            "crossAxisSpacing": 10.0,
-                            "childAspectRatio": 1.0
-                          }
-                        },
-                        "physics": {
-                          "className": "NeverScrollableScrollPhysics"
-                        },
-                        "children": {
-                          "className": "Sugar.mapEach",
-                          "pa": [
-                            "%(_getImageUrls(4))",
-                            {
-                              "className": "FairFunction",
-                              "body": {
-                                "className": "GestureDetector",
-                                "na": {
-                                  "onTap": {
-                                    "className": "SugarCommon.voidCallBack",
-                                    "na": {
-                                      "function": "@(_onImageTap)",
-                                      "value": "^(index)"
-                                    }
-                                  },
-                                  "child": {
-                                    "className": "Hero",
-                                    "na": {
-                                      "tag": "#($item)",
-                                      "child": {
-                                        "className": "ExtendedImage.network",
-                                        "pa": [
-                                          "#($item)"
-                                        ],
-                                        "na": {
-                                          "fit": "#(BoxFit.cover)",
-                                          "loadStateChanged": {
-                                            "className": "SugarCommon.onImageStateChanged",
-                                            "pa": [
-                                              {
-                                                "className": "FairFunction",
-                                                "body": {
-                                                  "className": "Sugar.switchCase",
-                                                  "pa": [
-                                                    "^(loadState)",
-                                                    [
-                                                      {
-                                                        "className": "SugarSwitchCaseObj",
-                                                        "na": {
-                                                          "sugarCase": "#(LoadState.loading)",
-                                                          "reValue": {
-                                                            "className": "ColoredBox",
-                                                            "na": {
-                                                              "color": {
-                                                                "className": "Sugar.colorsWithOpacity",
-                                                                "pa": [
-                                                                  "#(Colors.grey)",
-                                                                  0.2
-                                                                ]
-                                                              }
+                  "className": "FairFunction",
+                  "body": {
+                    "className": "SizedBox",
+                    "na": {
+                      "width": {
+                        "className": "SugarDouble.multiplies",
+                        "pa": [
+                          {
+                            "className": "SugarDouble.divides",
+                            "pa": [
+                              {
+                                "className": "Sugar.width",
+                                "pa": [
+                                  "^(context)"
+                                ]
+                              },
+                              3
+                            ]
+                          },
+                          2
+                        ]
+                      },
+                      "child": {
+                        "className": "GridView",
+                        "na": {
+                          "padding": {
+                            "className": "EdgeInsets.only",
+                            "na": {
+                              "left": 11,
+                              "right": 11,
+                              "bottom": 11
+                            }
+                          },
+                          "shrinkWrap": true,
+                          "gridDelegate": {
+                            "className": "SliverGridDelegateWithFixedCrossAxisCount",
+                            "na": {
+                              "crossAxisCount": 2,
+                              "mainAxisSpacing": 10.0,
+                              "crossAxisSpacing": 10.0,
+                              "childAspectRatio": 1.0
+                            }
+                          },
+                          "physics": {
+                            "className": "NeverScrollableScrollPhysics"
+                          },
+                          "children": {
+                            "className": "Sugar.mapEach",
+                            "pa": [
+                              "%(_getImageUrls(4))",
+                              {
+                                "className": "FairFunction",
+                                "body": {
+                                  "className": "GestureDetector",
+                                  "na": {
+                                    "onTap": {
+                                      "className": "SugarCommon.voidCallBack",
+                                      "na": {
+                                        "function": "@(_onImageTap)",
+                                        "value": "^(index)"
+                                      }
+                                    },
+                                    "child": {
+                                      "className": "Hero",
+                                      "na": {
+                                        "tag": "#($imageItem)",
+                                        "child": {
+                                          "className": "ExtendedImage.network",
+                                          "pa": [
+                                            "#($imageItem)"
+                                          ],
+                                          "na": {
+                                            "fit": "#(BoxFit.cover)",
+                                            "loadStateChanged": {
+                                              "className": "SugarCommon.onImageStateChanged",
+                                              "pa": [
+                                                {
+                                                  "className": "FairFunction",
+                                                  "body": {
+                                                    "className": "Sugar.switchCase",
+                                                    "pa": [
+                                                      "^(loadState)",
+                                                      [
+                                                        {
+                                                          "className": "SugarSwitchCaseObj",
+                                                          "na": {
+                                                            "sugarCase": {
+                                                              "className": "FairFunction",
+                                                              "body": "#(LoadState.loading)",
+                                                              "tag": "LoadState Function()"
+                                                            },
+                                                            "reValue": {
+                                                              "className": "FairFunction",
+                                                              "body": {
+                                                                "className": "ColoredBox",
+                                                                "na": {
+                                                                  "color": {
+                                                                    "className": "Sugar.colorsWithOpacity",
+                                                                    "pa": [
+                                                                      "#(Colors.grey)",
+                                                                      0.2
+                                                                    ]
+                                                                  }
+                                                                }
+                                                              },
+                                                              "tag": "Widget Function()"
+                                                            }
+                                                          }
+                                                        },
+                                                        {
+                                                          "className": "SugarSwitchCaseObj",
+                                                          "na": {
+                                                            "sugarCase": {
+                                                              "className": "FairFunction",
+                                                              "body": "#(LoadState.failed)",
+                                                              "tag": "LoadState Function()"
+                                                            },
+                                                            "reValue": {
+                                                              "className": "FairFunction",
+                                                              "body": {
+                                                                "className": "ColoredBox",
+                                                                "na": {
+                                                                  "color": {
+                                                                    "className": "Sugar.colorsWithOpacity",
+                                                                    "pa": [
+                                                                      "#(Colors.grey)",
+                                                                      0.2
+                                                                    ]
+                                                                  }
+                                                                }
+                                                              },
+                                                              "tag": "Widget Function()"
                                                             }
                                                           }
                                                         }
-                                                      },
+                                                      ],
                                                       {
-                                                        "className": "SugarSwitchCaseObj",
-                                                        "na": {
-                                                          "sugarCase": "#(LoadState.failed)",
-                                                          "reValue": {
-                                                            "className": "ColoredBox",
-                                                            "na": {
-                                                              "color": {
-                                                                "className": "Sugar.colorsWithOpacity",
-                                                                "pa": [
-                                                                  "#(Colors.grey)",
-                                                                  0.2
-                                                                ]
-                                                              }
-                                                            }
-                                                          }
-                                                        }
+                                                        "className": "FairFunction",
+                                                        "body": null,
+                                                        "tag": "Null Function()"
                                                       }
-                                                    ],
-                                                    null
-                                                  ]
-                                                },
-                                                "parameters": {
-                                                  "pa": [
-                                                    "loadState"
-                                                  ]
+                                                    ]
+                                                  },
+                                                  "parameters": {
+                                                    "pa": [
+                                                      "loadState"
+                                                    ]
+                                                  },
+                                                  "tag": "Widget? Function(LoadState)"
                                                 }
-                                              }
-                                            ]
+                                              ]
+                                            }
                                           }
                                         }
                                       }
                                     }
                                   }
-                                }
-                              },
-                              "parameters": {
-                                "pa": [
-                                  "index",
-                                  "item"
-                                ]
+                                },
+                                "parameters": {
+                                  "pa": [
+                                    "index",
+                                    "imageItem"
+                                  ]
+                                },
+                                "tag": "Widget Function(int, Object?)"
                               }
-                            }
-                          ]
+                            ]
+                          }
                         }
                       }
                     }
-                  }
+                  },
+                  "tag": "Widget Function()"
                 }
               }
             }
           ],
           {
-            "className": "GridView",
-            "na": {
-              "padding": {
-                "className": "EdgeInsets.only",
-                "na": {
-                  "left": 11,
-                  "right": 11,
-                  "bottom": 11
-                }
-              },
-              "shrinkWrap": true,
-              "gridDelegate": {
-                "className": "SliverGridDelegateWithFixedCrossAxisCount",
-                "na": {
-                  "crossAxisCount": 3,
-                  "mainAxisSpacing": 10.0,
-                  "crossAxisSpacing": 10.0,
-                  "childAspectRatio": 1.0
-                }
-              },
-              "physics": {
-                "className": "NeverScrollableScrollPhysics"
-              },
-              "children": {
-                "className": "Sugar.mapEach",
-                "pa": [
-                  "%(_getImageUrls(9))",
-                  {
-                    "className": "FairFunction",
-                    "body": {
-                      "className": "GestureDetector",
-                      "na": {
-                        "onTap": {
-                          "className": "SugarCommon.voidCallBack",
-                          "na": {
-                            "function": "@(_onImageTap)",
-                            "value": "^(index)"
-                          }
-                        },
-                        "child": {
-                          "className": "Sugar.ifEqualBool",
-                          "pa": [
-                            {
-                              "className": "SugarBool.and",
-                              "pa": [
-                                {
-                                  "className": "SugarNum.greaterThan",
-                                  "pa": [
-                                    {
-                                      "className": "SugarList.length",
-                                      "pa": [
-                                        {
-                                          "className": "ShareDataWidget.getValue",
-                                          "pa": [
-                                            "^(context)",
-                                            [
-                                              "item",
-                                              "images"
-                                            ]
-                                          ],
-                                          "na": {
-                                            "defaultValue": []
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    9
-                                  ]
-                                },
-                                {
-                                  "className": "SugarNum.equalTo",
-                                  "pa": [
-                                    "^(index)",
-                                    8
-                                  ]
-                                }
-                              ]
+            "className": "FairFunction",
+            "body": {
+              "className": "GridView",
+              "na": {
+                "padding": {
+                  "className": "EdgeInsets.only",
+                  "na": {
+                    "left": 11,
+                    "right": 11,
+                    "bottom": 11
+                  }
+                },
+                "shrinkWrap": true,
+                "gridDelegate": {
+                  "className": "SliverGridDelegateWithFixedCrossAxisCount",
+                  "na": {
+                    "crossAxisCount": 3,
+                    "mainAxisSpacing": 10.0,
+                    "crossAxisSpacing": 10.0,
+                    "childAspectRatio": 1.0
+                  }
+                },
+                "physics": {
+                  "className": "NeverScrollableScrollPhysics"
+                },
+                "children": {
+                  "className": "Sugar.mapEach",
+                  "pa": [
+                    "%(_getImageUrls(9))",
+                    {
+                      "className": "FairFunction",
+                      "body": {
+                        "className": "GestureDetector",
+                        "na": {
+                          "onTap": {
+                            "className": "SugarCommon.voidCallBack",
+                            "na": {
+                              "function": "@(_onImageTap)",
+                              "value": "^(index)"
                             }
-                          ],
-                          "na": {
-                            "trueValue": {
-                              "className": "Stack",
-                              "na": {
-                                "children": [
+                          },
+                          "child": {
+                            "className": "Sugar.ifEqualBool",
+                            "pa": [
+                              {
+                                "className": "SugarBool.and",
+                                "pa": [
                                   {
-                                    "className": "Positioned.fill",
-                                    "na": {
-                                      "child": {
-                                        "className": "Hero",
-                                        "na": {
-                                          "tag": "#($item)",
-                                          "child": {
-                                            "className": "ExtendedImage.network",
+                                    "className": "SugarNum.greaterThan",
+                                    "pa": [
+                                      {
+                                        "className": "SugarList.length",
+                                        "pa": [
+                                          {
+                                            "className": "ShareDataWidget.getValue",
                                             "pa": [
-                                              "#($item)"
+                                              "^(context)",
+                                              [
+                                                "item",
+                                                "images"
+                                              ]
                                             ],
                                             "na": {
-                                              "fit": "#(BoxFit.cover)",
-                                              "loadStateChanged": {
-                                                "className": "SugarCommon.onImageStateChanged",
+                                              "defaultValue": []
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      9
+                                    ]
+                                  },
+                                  {
+                                    "className": "FairFunction",
+                                    "body": {
+                                      "className": "SugarNum.equalTo",
+                                      "pa": [
+                                        "^(index)",
+                                        8
+                                      ]
+                                    },
+                                    "tag": "bool Function()"
+                                  }
+                                ]
+                              }
+                            ],
+                            "na": {
+                              "trueValue": {
+                                "className": "FairFunction",
+                                "body": {
+                                  "className": "Stack",
+                                  "na": {
+                                    "children": [
+                                      {
+                                        "className": "Positioned.fill",
+                                        "na": {
+                                          "child": {
+                                            "className": "Hero",
+                                            "na": {
+                                              "tag": "#($imageItem)",
+                                              "child": {
+                                                "className": "ExtendedImage.network",
                                                 "pa": [
-                                                  {
-                                                    "className": "FairFunction",
-                                                    "body": {
-                                                      "className": "Sugar.switchCase",
-                                                      "pa": [
-                                                        "^(loadState)",
-                                                        [
-                                                          {
-                                                            "className": "SugarSwitchCaseObj",
-                                                            "na": {
-                                                              "sugarCase": "#(LoadState.loading)",
-                                                              "reValue": {
-                                                                "className": "ColoredBox",
+                                                  "#($imageItem)"
+                                                ],
+                                                "na": {
+                                                  "fit": "#(BoxFit.cover)",
+                                                  "loadStateChanged": {
+                                                    "className": "SugarCommon.onImageStateChanged",
+                                                    "pa": [
+                                                      {
+                                                        "className": "FairFunction",
+                                                        "body": {
+                                                          "className": "Sugar.switchCase",
+                                                          "pa": [
+                                                            "^(loadState)",
+                                                            [
+                                                              {
+                                                                "className": "SugarSwitchCaseObj",
                                                                 "na": {
-                                                                  "color": {
-                                                                    "className": "Sugar.colorsWithOpacity",
-                                                                    "pa": [
-                                                                      "#(Colors.grey)",
-                                                                      0.2
-                                                                    ]
+                                                                  "sugarCase": {
+                                                                    "className": "FairFunction",
+                                                                    "body": "#(LoadState.loading)",
+                                                                    "tag": "LoadState Function()"
+                                                                  },
+                                                                  "reValue": {
+                                                                    "className": "FairFunction",
+                                                                    "body": {
+                                                                      "className": "ColoredBox",
+                                                                      "na": {
+                                                                        "color": {
+                                                                          "className": "Sugar.colorsWithOpacity",
+                                                                          "pa": [
+                                                                            "#(Colors.grey)",
+                                                                            0.2
+                                                                          ]
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "tag": "Widget Function()"
+                                                                  }
+                                                                }
+                                                              },
+                                                              {
+                                                                "className": "SugarSwitchCaseObj",
+                                                                "na": {
+                                                                  "sugarCase": {
+                                                                    "className": "FairFunction",
+                                                                    "body": "#(LoadState.failed)",
+                                                                    "tag": "LoadState Function()"
+                                                                  },
+                                                                  "reValue": {
+                                                                    "className": "FairFunction",
+                                                                    "body": {
+                                                                      "className": "ColoredBox",
+                                                                      "na": {
+                                                                        "color": {
+                                                                          "className": "Sugar.colorsWithOpacity",
+                                                                          "pa": [
+                                                                            "#(Colors.grey)",
+                                                                            0.2
+                                                                          ]
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "tag": "Widget Function()"
                                                                   }
                                                                 }
                                                               }
+                                                            ],
+                                                            {
+                                                              "className": "FairFunction",
+                                                              "body": null,
+                                                              "tag": "Null Function()"
                                                             }
-                                                          },
-                                                          {
-                                                            "className": "SugarSwitchCaseObj",
-                                                            "na": {
-                                                              "sugarCase": "#(LoadState.failed)",
-                                                              "reValue": {
-                                                                "className": "ColoredBox",
-                                                                "na": {
-                                                                  "color": {
-                                                                    "className": "Sugar.colorsWithOpacity",
-                                                                    "pa": [
-                                                                      "#(Colors.grey)",
-                                                                      0.2
-                                                                    ]
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        ],
-                                                        null
-                                                      ]
-                                                    },
-                                                    "parameters": {
-                                                      "pa": [
-                                                        "loadState"
-                                                      ]
-                                                    }
+                                                          ]
+                                                        },
+                                                        "parameters": {
+                                                          "pa": [
+                                                            "loadState"
+                                                          ]
+                                                        },
+                                                        "tag": "Widget? Function(LoadState)"
+                                                      }
+                                                    ]
                                                   }
-                                                ]
+                                                }
                                               }
                                             }
                                           }
                                         }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "className": "Container",
-                                    "na": {
-                                      "color": {
-                                        "className": "Sugar.colorsWithOpacity",
-                                        "pa": [
-                                          "#(Colors.grey)",
-                                          0.2
-                                        ]
                                       },
-                                      "alignment": "#(Alignment.center)",
-                                      "child": {
-                                        "className": "Text",
-                                        "pa": [
-                                          {
-                                            "className": "SugarString.concatenates",
+                                      {
+                                        "className": "Container",
+                                        "na": {
+                                          "color": {
+                                            "className": "Sugar.colorsWithOpacity",
                                             "pa": [
-                                              "+",
+                                              "#(Colors.grey)",
+                                              0.2
+                                            ]
+                                          },
+                                          "alignment": "#(Alignment.center)",
+                                          "child": {
+                                            "className": "Text",
+                                            "pa": [
                                               {
-                                                "className": "SugarNum.numToString",
+                                                "className": "SugarString.concatenates",
                                                 "pa": [
+                                                  "+",
                                                   {
-                                                    "className": "SugarNum.subtracts",
+                                                    "className": "SugarNum.numToString",
                                                     "pa": [
                                                       {
-                                                        "className": "SugarList.length",
+                                                        "className": "SugarNum.subtracts",
                                                         "pa": [
                                                           {
-                                                            "className": "ShareDataWidget.getValue",
+                                                            "className": "SugarList.length",
                                                             "pa": [
-                                                              "^(context)",
-                                                              [
-                                                                "item",
-                                                                "images"
-                                                              ]
-                                                            ],
-                                                            "na": {
-                                                              "defaultValue": []
-                                                            }
-                                                          }
+                                                              {
+                                                                "className": "ShareDataWidget.getValue",
+                                                                "pa": [
+                                                                  "^(context)",
+                                                                  [
+                                                                    "item",
+                                                                    "images"
+                                                                  ]
+                                                                ],
+                                                                "na": {
+                                                                  "defaultValue": []
+                                                                }
+                                                              }
+                                                            ]
+                                                          },
+                                                          9
                                                         ]
-                                                      },
-                                                      9
+                                                      }
                                                     ]
                                                   }
                                                 ]
                                               }
-                                            ]
-                                          }
-                                        ],
-                                        "na": {
-                                          "style": {
-                                            "className": "TextStyle",
+                                            ],
                                             "na": {
-                                              "fontSize": 18.0,
-                                              "color": "#(Colors.white)"
+                                              "style": {
+                                                "className": "TextStyle",
+                                                "na": {
+                                                  "fontSize": 18.0,
+                                                  "color": "#(Colors.white)"
+                                                }
+                                              }
                                             }
                                           }
                                         }
                                       }
-                                    }
+                                    ]
                                   }
-                                ]
-                              }
-                            },
-                            "falseValue": {
-                              "className": "Hero",
-                              "na": {
-                                "tag": "#($item)",
-                                "child": {
-                                  "className": "ExtendedImage.network",
-                                  "pa": [
-                                    "#($item)"
-                                  ],
+                                },
+                                "tag": "Widget Function()"
+                              },
+                              "falseValue": {
+                                "className": "FairFunction",
+                                "body": {
+                                  "className": "Hero",
                                   "na": {
-                                    "fit": "#(BoxFit.cover)",
-                                    "loadStateChanged": {
-                                      "className": "SugarCommon.onImageStateChanged",
+                                    "tag": "#($imageItem)",
+                                    "child": {
+                                      "className": "ExtendedImage.network",
                                       "pa": [
-                                        {
-                                          "className": "FairFunction",
-                                          "body": {
-                                            "className": "Sugar.switchCase",
-                                            "pa": [
-                                              "^(loadState)",
-                                              [
-                                                {
-                                                  "className": "SugarSwitchCaseObj",
-                                                  "na": {
-                                                    "sugarCase": "#(LoadState.loading)",
-                                                    "reValue": {
-                                                      "className": "ColoredBox",
+                                        "#($imageItem)"
+                                      ],
+                                      "na": {
+                                        "fit": "#(BoxFit.cover)",
+                                        "loadStateChanged": {
+                                          "className": "SugarCommon.onImageStateChanged",
+                                          "pa": [
+                                            {
+                                              "className": "FairFunction",
+                                              "body": {
+                                                "className": "Sugar.switchCase",
+                                                "pa": [
+                                                  "^(loadState)",
+                                                  [
+                                                    {
+                                                      "className": "SugarSwitchCaseObj",
                                                       "na": {
-                                                        "color": {
-                                                          "className": "Sugar.colorsWithOpacity",
-                                                          "pa": [
-                                                            "#(Colors.grey)",
-                                                            0.2
-                                                          ]
+                                                        "sugarCase": {
+                                                          "className": "FairFunction",
+                                                          "body": "#(LoadState.loading)",
+                                                          "tag": "LoadState Function()"
+                                                        },
+                                                        "reValue": {
+                                                          "className": "FairFunction",
+                                                          "body": {
+                                                            "className": "ColoredBox",
+                                                            "na": {
+                                                              "color": {
+                                                                "className": "Sugar.colorsWithOpacity",
+                                                                "pa": [
+                                                                  "#(Colors.grey)",
+                                                                  0.2
+                                                                ]
+                                                              }
+                                                            }
+                                                          },
+                                                          "tag": "Widget Function()"
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "className": "SugarSwitchCaseObj",
+                                                      "na": {
+                                                        "sugarCase": {
+                                                          "className": "FairFunction",
+                                                          "body": "#(LoadState.failed)",
+                                                          "tag": "LoadState Function()"
+                                                        },
+                                                        "reValue": {
+                                                          "className": "FairFunction",
+                                                          "body": {
+                                                            "className": "ColoredBox",
+                                                            "na": {
+                                                              "color": {
+                                                                "className": "Sugar.colorsWithOpacity",
+                                                                "pa": [
+                                                                  "#(Colors.grey)",
+                                                                  0.2
+                                                                ]
+                                                              }
+                                                            }
+                                                          },
+                                                          "tag": "Widget Function()"
                                                         }
                                                       }
                                                     }
+                                                  ],
+                                                  {
+                                                    "className": "FairFunction",
+                                                    "body": null,
+                                                    "tag": "Null Function()"
                                                   }
-                                                },
-                                                {
-                                                  "className": "SugarSwitchCaseObj",
-                                                  "na": {
-                                                    "sugarCase": "#(LoadState.failed)",
-                                                    "reValue": {
-                                                      "className": "ColoredBox",
-                                                      "na": {
-                                                        "color": {
-                                                          "className": "Sugar.colorsWithOpacity",
-                                                          "pa": [
-                                                            "#(Colors.grey)",
-                                                            0.2
-                                                          ]
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              ],
-                                              null
-                                            ]
-                                          },
-                                          "parameters": {
-                                            "pa": [
-                                              "loadState"
-                                            ]
-                                          }
+                                                ]
+                                              },
+                                              "parameters": {
+                                                "pa": [
+                                                  "loadState"
+                                                ]
+                                              },
+                                              "tag": "Widget? Function(LoadState)"
+                                            }
+                                          ]
                                         }
-                                      ]
+                                      }
                                     }
                                   }
-                                }
+                                },
+                                "tag": "Widget Function()"
                               }
                             }
                           }
                         }
-                      }
-                    },
-                    "parameters": {
-                      "pa": [
-                        "index",
-                        "item"
-                      ]
+                      },
+                      "parameters": {
+                        "pa": [
+                          "index",
+                          "imageItem"
+                        ]
+                      },
+                      "tag": "Widget Function(int, Object?)"
                     }
-                  }
-                ]
+                  ]
+                }
               }
-            }
+            },
+            "tag": "Widget Function()"
           }
         ]
       },
@@ -1038,10 +1186,24 @@
                     "isLiked": "%(_getValue(is_favorite,false))",
                     "likeCount": "%(_getValue(favorites,0))",
                     "onTap": {
-                      "className": "SugarCommon.likeButtonTapCallback",
-                      "pa": [
-                        "^(context)"
-                      ]
+                      "className": "FairFunction",
+                      "body": {
+                        "className": "Sugar.futureValue",
+                        "pa": [
+                          {
+                            "className": "SugarBool.invert",
+                            "pa": [
+                              "^(isLiked)"
+                            ]
+                          }
+                        ]
+                      },
+                      "parameters": {
+                        "pa": [
+                          "isLiked"
+                        ]
+                      },
+                      "tag": "Future<bool?> Function(bool)"
                     }
                   }
                 }

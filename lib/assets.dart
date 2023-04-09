@@ -12,11 +12,14 @@ class Assets {
   static const String assets_fair_lib_src_page_photo_gallery_fair_js =
       'assets/fair/lib_src_page_photo_gallery.fair.js';
 
-  static const String assets_fair_lib_src_page_photo_gallery1_fair_bin =
-      'assets/fair/lib_src_page_photo_gallery1.fair.bin';
+  static const String assets_fair_lib_src_page_photo_gallery_fair_json =
+      'assets/fair/lib_src_page_photo_gallery.fair.json';
 
   static const String assets_fair_lib_src_page_photo_gallery1_fair_js =
       'assets/fair/lib_src_page_photo_gallery1.fair.js';
+
+  static const String assets_fair_lib_src_page_photo_gallery1_fair_json =
+      'assets/fair/lib_src_page_photo_gallery1.fair.json';
 
   static const String assets_fair_lib_src_page_photo_gallery_item_fair_bin =
       'assets/fair/lib_src_page_photo_gallery_item.fair.bin';
@@ -24,11 +27,20 @@ class Assets {
   static const String assets_fair_lib_src_page_photo_gallery_item_fair_js =
       'assets/fair/lib_src_page_photo_gallery_item.fair.js';
 
+  static const String assets_fair_lib_src_page_photo_gallery_item_fair_json =
+      'assets/fair/lib_src_page_photo_gallery_item.fair.json';
+
   static const String assets_fair_lib_src_page_photo_swiper_fair_bin =
       'assets/fair/lib_src_page_photo_swiper.fair.bin';
 
   static const String assets_fair_lib_src_page_photo_swiper_fair_js =
       'assets/fair/lib_src_page_photo_swiper.fair.js';
+
+  static const String assets_fair_lib_src_page_photo_swiper_fair_json =
+      'assets/fair/lib_src_page_photo_swiper.fair.json';
+
+  static const String assets_fair_basic_config_json =
+      'assets/fair_basic_config.json';
 
   /// {@macro assets_generator.assets_image_40_png.preview}
   static const String assets_image_40_png = 'assets/image/40.png';

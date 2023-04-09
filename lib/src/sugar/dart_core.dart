@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, prefer_single_quotes
 
 import 'dart:math';
 
@@ -900,15 +900,18 @@ class SugarMap {
 class SugarBool {
   SugarBool._();
 
+  // !input
+  static bool invert(bool input) => !input;
+
   /// The logical conjunction ("and") of this and [other].
   ///
   /// Returns `true` if both this and [other] are `true`, and `false` otherwise.
-  static bool and(bool input, bool other) => input & other;
+  static bool and(bool input, bool Function() other) => input & other();
 
   /// The logical disjunction ("inclusive or") of this and [other].
   ///
   /// Returns `true` if either this or [other] is `true`, and `false` otherwise.
-  static bool inclusiveOr(bool input, bool other) => input | other;
+  static bool inclusiveOr(bool input, bool Function() other) => input | other();
 
   /// The logical exclusive disjunction ("exclusive or") of this and [other].
   ///
@@ -1314,7 +1317,7 @@ class SugarInt {
   /// Shift the bits of this integer to the left by [shiftAmount].
   ///
   /// Shifting to the left makes the number larger, effectively multiplying
-  /// the number by `pow(2, shiftAmount)`.
+  /// the number by `pow(2, shiftIndex)`.
   ///
   /// There is no limit on the size of the result. It may be relevant to
   /// limit intermediate values by using the "and" operator with a suitable
@@ -1334,7 +1337,7 @@ class SugarInt {
   ///
   /// Shifting to the right makes the number smaller and drops the least
   /// significant bits, effectively doing an integer division by
-  /// `pow(2, shiftAmount)`.
+  /// `pow(2, shiftIndex)`.
   ///
   /// It is an error if [shiftAmount] is negative.
   ///

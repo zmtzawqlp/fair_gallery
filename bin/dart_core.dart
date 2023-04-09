@@ -8,14 +8,13 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as path;
 
+import 'util/utils.dart';
+
 DartFormatter _dartFormatter = DartFormatter();
 
 /// build dart core sugar
 Future<void> main(List<String> args) async {
-  Directory projectDirectory = Directory.current;
-  while (!projectDirectory.path.endsWith('fair_gallery')) {
-    projectDirectory = projectDirectory.parent;
-  }
+  Directory projectDirectory = getProjectDirectory(pubGet: true);
 
   final File dartRunFile = File(Platform.executable);
   var cacheDirectory = dartRunFile.parent;
@@ -124,6 +123,14 @@ Future<void> main(List<String> args) async {
               if (classes.containsKey(element.name)) {
                 continue;
               }
+
+              if (element.name == 'bool') {
+                methods.add('''
+// !input
+static bool invert(bool input) => !input;
+''');
+              }
+
               for (final accessor in element.accessors) {
                 if (accessor.name == 'hashCode') {
                   continue;
@@ -224,6 +231,17 @@ Future<void> main(List<String> args) async {
                         operatorMethodName = 'negation';
                       } else if (parameters.isEmpty) {
                         oldMethod = '${methodName}input';
+                      } else if (element.name == 'bool') {
+                        if (methodName == '&') {
+                          methods.add(
+                              '${methodElement.documentationComment ?? ''}\n static bool and(bool input, bool Function() other) => input & other();');
+                          continue;
+                        } else if (methodName == '|') {
+                          methods.add(
+                              '${methodElement.documentationComment ?? ''}\n static bool inclusiveOr(bool input, bool Function() other) => input | other();');
+                          continue;
+                        }
+                        oldMethod = 'input $methodName $parameters';
                       } else {
                         oldMethod = 'input $methodName $parameters';
                       }
@@ -297,7 +315,7 @@ Future<void> main(List<String> args) async {
     }
   }
 
-  var out = '''// ignore_for_file: deprecated_member_use\n
+  var out = '''// ignore_for_file: deprecated_member_use, prefer_single_quotes\n
       ${imports.join('\n')}\n 
       ${classes.values.join('\n')}''';
   out = _dartFormatter.format(out);

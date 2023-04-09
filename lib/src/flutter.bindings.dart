@@ -1,17 +1,17 @@
-// ignore_for_file: deprecated_member_use, prefer_single_quotes, unused_element, unused_field
-
+// ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors
 import 'package:flutter/rendering.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'dart:ui';
-import 'package:fair/fair.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+
+import 'package:fair/fair.dart';
 
 // Value inspected from Xcode 11 & iOS 13.0 Simulator.
 const BorderSide _kDefaultRoundedBorderSide = BorderSide(

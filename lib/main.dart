@@ -19,24 +19,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:fair/src/internal/flexbuffer/fair_js_decoder.dart';
-import 'packages.dart';
 
-@FairBinding(packages: <String>[
-  ...packages,
-  'package:fair_gallery/src/sugar/common.dart',
-  'package:fair_gallery/src/sugar/dart_core.dart',
-  'package:fair_gallery/src/sugar/extension.dart',
-  'package:fair_gallery/assets.dart',
-  'package:fair_gallery/src/widget/extended_fair_widget.dart',
-  'package:fair_gallery/src/widget/share_data_widget.dart',
-  'package:fair_gallery/src/widget/push_to_refresh_header.dart',
-  'package:fair_gallery/src/widget/hero_widget.dart',
-  'package:fair_gallery/src/widget/image_grid.dart',
-  'package:loading_more_list_library/loading_more_list_library.dart',
-  'package:fair_gallery/src/utils/repository.dart',
-  'package:fair_gallery/src/widget/frame_separate_widget.dart',
-  'package:extended_image/src/gesture/page_view/widgets/page_controller.dart'
-])
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   FairJSDecoder.resolve = (String? jsPath) async {

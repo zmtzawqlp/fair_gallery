@@ -71,7 +71,8 @@ dev_dependencies:
       url: https://github.com/zmtzawqlp/fair.git
       ref: fixed
       path: compiler 
-  yaml: 3.1.1  
+  yaml: 3.1.1
+  package_config: any  
 dependency_overrides:
   build_runner: 2.3.3
   fair_version:

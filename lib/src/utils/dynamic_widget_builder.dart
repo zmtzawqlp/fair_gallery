@@ -1,14 +1,14 @@
 // ignore_for_file: implementation_imports, prefer_function_declarations_over_variables
 
 import 'package:extended_image/extended_image.dart';
-import 'package:fair/src/render/builder.dart';
-import 'package:fair/src/render/domain.dart';
+import 'package:fair_gallery/src/app.function.dart';
+import 'package:fair_gallery/src/flutter.function.dart';
 import 'package:flutter/material.dart';
-import 'package:fair/src/type.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
+import 'package:fair/fair.dart';
 
-class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
+class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder
+    with AppFunctionDynamicWidgetBuilder, FlutterFunctionDynamicWidgetBuilder {
   CustomDynamicWidgetBuilder(
     super.proxyMirror,
     super.page,
@@ -20,13 +20,28 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
   dynamic convert(BuildContext context, Map map, Map? methodMap,
       {Domain? domain}) {
     var name = map[tag];
+
+    if (name == 'FairFunction') {
+      var appFunction =
+          convertAppFunction(context, map, methodMap, domain: domain);
+      if (appFunction != null) {
+        return appFunction;
+      }
+      var flutterFunction =
+          convertFlutterFunction(context, map, methodMap, domain: domain);
+      if (flutterFunction != null) {
+        return flutterFunction;
+      }
+    }
+
     // &
     if (name == 'SugarBool.and') {
       var p0 = pa0Value(pa0(map), methodMap, context, domain);
       if (!p0) {
         return false;
       }
-      return p0 & pa0Value(pa1(map), methodMap, context, domain);
+      return pa0Value(
+          FunctionDomain.getBody(pa1(map)), methodMap, context, domain);
     }
     // |
     else if (name == 'SugarBool.inclusiveOr') {
@@ -34,7 +49,8 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
       if (p0) {
         return true;
       }
-      return pa0Value(pa1(map), methodMap, context, domain);
+      return pa0Value(
+          FunctionDomain.getBody(pa1(map)), methodMap, context, domain);
     } else if (name == 'SugarCommon.loadingMoreIndicatorBuilder') {
       LoadingMoreIndicatorBuilder builder = (
         _,
@@ -48,11 +64,13 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
               'SugarCommon.loadingMoreIndicatorBuilder has no valid cases array');
         }
 
-        for (var caseItem in source) {
-          var na = caseItem['na'];
-          var sugarCase = pa0Value(na['sugarCase'], methodMap, context, domain);
+        for (final caseItem in source) {
+          final na = caseItem['na'];
+          final sugarCase = pa0Value(FunctionDomain.getBody(na['sugarCase']),
+              methodMap, context, domain);
           if (sugarCase == status) {
-            return pa0Value(na['reValue'], methodMap, context, domain);
+            return pa0Value(FunctionDomain.getBody(na['reValue']), methodMap,
+                context, domain);
           }
         }
 
@@ -87,24 +105,6 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
         );
       };
       return builder;
-    } else if (name == 'SugarCommon.pullToRefreshContainerBuilder') {
-      dynamic fairFunction = pa0(map);
-      assert(fairFunction is Map);
-      List functionParameters = FunctionDomain.pa(fairFunction);
-      PullToRefreshContainerBuilder builder = (info) {
-        return convert(
-          context,
-          FunctionDomain.getBody(fairFunction),
-          methodMap,
-          domain: FunctionDomain(
-            {
-              functionParameters[0]: info,
-            },
-            parent: domain,
-          ),
-        );
-      };
-      return builder;
     } else if (name == 'SugarCommon.onImageStateChanged') {
       dynamic fairFunction = pa0(map);
       assert(fairFunction is Map);
@@ -112,7 +112,7 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder {
       Widget? Function(ExtendedImageState state) builder = (state) {
         return convert(
           context,
-         FunctionDomain.getBody(fairFunction),
+          FunctionDomain.getBody(fairFunction),
           methodMap,
           domain: FunctionDomain(
             {

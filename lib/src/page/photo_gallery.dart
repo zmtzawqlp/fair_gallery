@@ -166,12 +166,10 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
         onRefresh: _onRefresh,
         child: Column(children: [
           PullToRefreshContainer(
-            SugarCommon.pullToRefreshContainerBuilder((info) {
-              return PullToRefreshHeader(
-                info,
-                SugarCommon.dateTimeConvert(lastRefreshTime),
-              );
-            }),
+            (info) => PullToRefreshHeader(
+              info,
+              SugarCommon.dateTimeConvert(lastRefreshTime),
+            ),
           ),
           Expanded(
             child: SizeCacheWidget(

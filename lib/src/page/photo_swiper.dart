@@ -134,7 +134,23 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
         child: Stack(
           children: [
             Positioned.fill(
-              child: ExtendedImageGesturePageView(
+              child: ExtendedImageGesturePageView.builder(
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: _onImageTap,
+                    child: HeroWidget(
+                      tag: _getImageUrl(index),
+                      slidePagekey: _slidePagekey,
+                      slideType: SlideType.wholePage,
+                      child: ExtendedImage.network(
+                        _getImageUrl(index),
+                        fit: BoxFit.contain,
+                        enableSlideOutPage: true,
+                        mode: ExtendedImageMode.gesture,
+                      ),
+                    ),
+                  );
+                },
                 controller: ExtendedPageController(
                   initialPage: initialPage,
                   pageSpacing: 50,
@@ -142,26 +158,8 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
                 ),
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
-                children: Sugar.mapEach(
-                  images,
-                  (index, item) {
-                    return GestureDetector(
-                      onTap: _onImageTap,
-                      child: HeroWidget(
-                        tag: _getImageUrl(index),
-                        slidePagekey: _slidePagekey,
-                        slideType: SlideType.wholePage,
-                        child: ExtendedImage.network(
-                          _getImageUrl(index),
-                          fit: BoxFit.contain,
-                          enableSlideOutPage: true,
-                          mode: ExtendedImageMode.gesture,
-                        ),
-                      ),
-                    );
-                  },
-                ),
                 onPageChanged: _onPageChanged,
+                itemCount: SugarList.length(images),
               ),
             ),
             Positioned(

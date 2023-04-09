@@ -1,1 +1,1 @@
--s --no-watch --const-ignore (json|metadata|zip)
+-s --no-watch --const-ignore (metadata|zip)

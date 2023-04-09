@@ -8,14 +8,12 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as path;
 
+import 'util/utils.dart';
+
 DartFormatter _dartFormatter = DartFormatter();
 
 Future<void> main(List<String> args) async {
-  Directory projectDirectory = Directory.current;
-  while (!projectDirectory.path.endsWith('fair_gallery')) {
-    projectDirectory = projectDirectory.parent;
-  }
-
+  Directory projectDirectory = getProjectDirectory(pubGet: false);
   final File file = File(path.join(
     projectDirectory.path,
     'lib',

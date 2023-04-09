@@ -454,16 +454,16 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                     childAspectRatio: 1.0,
                   ),
                   physics: const NeverScrollableScrollPhysics(),
-                  children: Sugar.mapEach(_getImageUrls(4), (index, item) {
+                  children: Sugar.mapEach(_getImageUrls(4), (index, imageItem) {
                     return GestureDetector(
                       onTap: SugarCommon.voidCallBack(
                         function: _onImageTap,
                         value: index,
                       ),
                       child: Hero(
-                        tag: '$item',
+                        tag: '$imageItem',
                         child: ExtendedImage.network(
-                          '$item',
+                          '$imageItem',
                           fit: BoxFit.cover,
                           loadStateChanged:
                               SugarCommon.onImageStateChanged((loadState) {
@@ -510,7 +510,7 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
               childAspectRatio: 1.0,
             ),
             physics: const NeverScrollableScrollPhysics(),
-            children: Sugar.mapEach(_getImageUrls(9), (index, item) {
+            children: Sugar.mapEach(_getImageUrls(9), (index, imageItem) {
               return GestureDetector(
                 onTap: SugarCommon.voidCallBack(
                   function: _onImageTap,
@@ -528,15 +528,15 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                         ),
                         9,
                       ),
-                      SugarNum.equalTo(index, 8),
+                      () => SugarNum.equalTo(index, 8),
                     ),
                     trueValue: () => Stack(
                           children: [
                             Positioned.fill(
                               child: Hero(
-                                tag: '$item',
+                                tag: '$imageItem',
                                 child: ExtendedImage.network(
-                                  '$item',
+                                  '$imageItem',
                                   fit: BoxFit.cover,
                                   loadStateChanged:
                                       SugarCommon.onImageStateChanged(
@@ -595,9 +595,9 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                           ],
                         ),
                     falseValue: () => Hero(
-                          tag: '$item',
+                          tag: '$imageItem',
                           child: ExtendedImage.network(
-                            '$item',
+                            '$imageItem',
                             fit: BoxFit.cover,
                             loadStateChanged:
                                 SugarCommon.onImageStateChanged((loadState) {
@@ -654,13 +654,16 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
               ),
               const Spacer(),
               LikeButton(
-                size: 18.0,
-                isLiked: _getValue('is_favorite', false),
-                likeCount: _getValue('favorites', 0),
-                onTap: SugarCommon.likeButtonTapCallback(
-                  context,
-                ),
-              ),
+                  size: 18.0,
+                  isLiked: _getValue('is_favorite', false),
+                  likeCount: _getValue('favorites', 0),
+                  // onTap: (isLiked) =>
+                  //     Sugar.futureValue<bool?>(SugarBool.invert(isLiked))
+                  // 需要保存 is_favorite 的值，只能特殊处理了
+                  onTap: SugarCommon.likeButtonTapCallback(
+                    context,
+                  ),
+                  ),
             ],
           ),
         ),

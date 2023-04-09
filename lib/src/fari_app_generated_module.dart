@@ -1,16 +1,17 @@
-import 'package:fair_gallery/src/flutter.generated.fair.dart';
+import 'package:fair/fair.dart';
+import 'package:fair_gallery/src/app.bindings.dart';
+import 'package:fair_gallery/src/flutter.bindings.dart';
 import 'package:fair_gallery/src/utils/text/my_extended_text_selection_controls.dart';
 import 'package:fair_gallery/src/utils/text/my_special_text_span_builder.dart';
 import 'package:flutter/widgets.dart';
 
-import 'generated.fair.dart';
-
-class FairAppGeneratedModule extends AppGeneratedModule {
+class FairAppGeneratedModule extends GeneratedModule {
   @override
   Map<String, dynamic> components() {
     return <String, dynamic>{
-      ...super.components(),
+      ...appComponents,
       ...flutterComponents,
+
       'NeverScrollableScrollPhysics': (props) => props['parent'] != null
           ? NeverScrollableScrollPhysics(parent: props['parent'])
           : const NeverScrollableScrollPhysics(),
@@ -30,7 +31,7 @@ class FairAppGeneratedModule extends AppGeneratedModule {
   @override
   Map<String, bool> mapping() {
     return <String, bool>{
-      ...super.mapping(),
+      ...appMapping,
       ...flutterMapping,
       'NeverScrollableScrollPhysics': false,
       'BouncingScrollPhysics': false,

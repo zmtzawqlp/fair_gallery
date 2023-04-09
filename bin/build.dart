@@ -1,8 +1,11 @@
 // ignore_for_file: avoid_print
 
 import 'dart:io';
+
 import 'package:path/path.dart' as path;
 import 'package:dart_style/dart_style.dart';
+
+import 'util/utils.dart';
 
 DartFormatter _dartFormatter = DartFormatter();
 Map<String, String> _fixes = <String, String>{
@@ -11,22 +14,7 @@ int _kDefaultSemanticIndexCallback(Widget _, int localIndex) => localIndex;
 class AppGeneratedModule extends GeneratedModule {''',
 };
 void main() async {
-  Directory projectDirectory = Directory.current;
-  while (!projectDirectory.path.endsWith('fair_gallery')) {
-    projectDirectory = projectDirectory.parent;
-  }
-
-  processRun(
-    executable: 'flutter',
-    arguments: 'clean',
-    workingDirectory: projectDirectory.path,
-  );
-
-  processRun(
-    executable: 'flutter',
-    arguments: 'packages get',
-    workingDirectory: projectDirectory.path,
-  );
+  Directory projectDirectory = getProjectDirectory();
 
   final File file = File(path.join(
     projectDirectory.path,
