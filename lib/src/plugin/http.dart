@@ -12,7 +12,6 @@ mixin HttpPlugin implements FairCommonPluginMixin {
           final url = requestMap['url'];
           final headers = requestMap['headers'];
           final body = requestMap['body'];
-
           switch (method) {
             case 'GET':
               final Response result =

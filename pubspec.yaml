@@ -52,6 +52,8 @@ dependencies:
   intl: any
   ff_annotation_route_library: any
   photo_manager: any
+  flutter_highlight: any
+  widget_with_codeview: any    
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -72,7 +74,8 @@ dev_dependencies:
       ref: fixed
       path: compiler 
   yaml: 3.1.1
-  package_config: any  
+  package_config: any
+
 dependency_overrides:
   build_runner: 2.3.3
   fair_version:
@@ -96,11 +99,11 @@ dependency_overrides:
   # 如果你是 3.3.0 以下的版本，需要 override collection
   collection: 1.17.0
   # fair:
-  #   path: /fair  
+  #   path: fair  
   # fair_compiler:
-  #   path: /compiler
+  #   path: compiler
   # fair_dart2dsl:
-  #   path: /dart2dsl         
+  #   path: dart2dsl         
 # The following section is specific to Flutter packages.
 flutter:
 
@@ -152,6 +155,8 @@ flutter:
     - assets/
     - assets/fair/
     - assets/image/
+    - assets/page/complex/
+    - assets/page/simple/
     - assets/plugin/
 
   # assets end

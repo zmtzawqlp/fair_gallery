@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fair_gallery/src/plugin/completer.dart';
+import 'package:fair/fair.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 
 class LoadingMoreRepository extends LoadingMoreBase<dynamic> {
@@ -41,7 +41,7 @@ class LoadingMoreRepository extends LoadingMoreBase<dynamic> {
     try {
       String futureId =
           'LoadingMoreRepository${DateTime.now().microsecondsSinceEpoch}';
-      Completer completer = CompleterPlugin.create(futureId);
+      Completer completer = CompleterPlugin.createCompleter(futureId);
       _onLoadData?.call({
         'futureId': futureId,
         'isloadMoreAction': isloadMoreAction,

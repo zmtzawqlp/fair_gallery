@@ -1,0 +1,98 @@
+{
+  "className": "Scaffold",
+  "na": {
+    "appBar": {
+      "className": "CommomAppBar",
+      "na": {
+        "title": "%(_getRouteName)",
+        "asset": "#(Assets.assets_page_simple_plugin_dart)"
+      }
+    },
+    "body": {
+      "className": "RefreshIndicator",
+      "na": {
+        "onRefresh": {
+          "className": "FairFunction",
+          "body": {
+            "className": "Sugar.createFuture",
+            "na": {
+              "function": "@(_onRefresh)",
+              "argument": "可以传一些参数过去，多个参数用数组"
+            },
+            "ta": "void"
+          },
+          "tag": "Future<void> Function()",
+          "rt": "Future<void>"
+        },
+        "child": {
+          "className": "Sugar.ifEqualBool",
+          "pa": [
+            {
+              "className": "SugarIterable.isEmpty",
+              "pa": [
+                "^(feedList)"
+              ]
+            }
+          ],
+          "na": {
+            "trueValue": {
+              "className": "FairFunction",
+              "body": {
+                "className": "Center",
+                "na": {
+                  "child": {
+                    "className": "CircularProgressIndicator",
+                    "na": {
+                      "strokeWidth": 2.0
+                    }
+                  }
+                }
+              },
+              "tag": "Widget Function()",
+              "rt": "Widget"
+            },
+            "falseValue": {
+              "className": "FairFunction",
+              "body": {
+                "className": "ListView.builder",
+                "na": {
+                  "itemBuilder": {
+                    "className": "FairFunction",
+                    "body": {
+                      "className": "Column",
+                      "na": {
+                        "children": [
+                          {
+                            "className": "Text",
+                            "pa": [
+                              "%(_getContent(^(index)))"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "parameters": {
+                      "pa": [
+                        "context",
+                        "index"
+                      ]
+                    },
+                    "tag": "Widget Function(BuildContext, int)",
+                    "rt": "Widget"
+                  }
+                }
+              },
+              "tag": "Widget Function()",
+              "rt": "Widget"
+            }
+          }
+        }
+      }
+    }
+  },
+  "methodMap": {
+    "_getContent": {
+      "className": "index.toString"
+    }
+  }
+}

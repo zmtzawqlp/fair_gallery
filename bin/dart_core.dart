@@ -14,7 +14,7 @@ DartFormatter _dartFormatter = DartFormatter();
 
 /// build dart core sugar
 Future<void> main(List<String> args) async {
-  Directory projectDirectory = getProjectDirectory(pubGet: true);
+  Directory projectDirectory = getProjectDirectory(pubGet: false);
 
   final File dartRunFile = File(Platform.executable);
   var cacheDirectory = dartRunFile.parent;
@@ -131,6 +131,36 @@ static bool invert(bool input) => !input;
 ''');
               }
 
+              if (element.name == 'List') {
+                for (var element in element.constructors) {
+                  if (element.name == '') {
+                    continue;
+                  }
+                  var fullString =
+                      element.getDisplayString(withNullability: true);
+                  fullString = fullString.replaceFirst('List.', '');
+                  String parameters = '';
+                  for (final ParameterElement parameter in element.parameters) {
+                    // the getters isOptionalNamed, isOptionalPositional, '
+                    // 'isRequiredNamed, and isRequiredPositional
+
+                    if (parameter.isNamed ||
+                        parameter.isOptionalNamed ||
+                        parameter.isRequiredNamed) {
+                      parameters += '${parameter.name}: ${parameter.name},';
+                    } else {
+                      parameters += '${parameter.name},';
+                    }
+                  }
+                  var method =
+                      'static $fullString => List.${element.name}($parameters);';
+                  method = method
+                      .replaceAll('E?', 'dynamic')
+                      .replaceAll('E', 'dynamic');
+                  methods.add('${element.documentationComment ?? ''}\n$method');
+                }
+              }
+
               for (final accessor in element.accessors) {
                 if (accessor.name == 'hashCode') {
                   continue;
@@ -175,7 +205,6 @@ static bool invert(bool input) => !input;
                 //   continue;
                 // }
                 String parameters = '';
-
                 for (final ParameterElement parameter
                     in methodElement.parameters) {
                   // the getters isOptionalNamed, isOptionalPositional, '

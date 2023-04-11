@@ -184,6 +184,7 @@ Future<void> createBindings({
     projectDirectory.path,
     'lib',
     'src',
+    'generated_module',
     '${fileName.toLowerCase()}.bindings.dart',
   ));
   if (!file.existsSync()) {

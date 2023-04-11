@@ -18,22 +18,19 @@ class FairDelegateBase extends FairDelegate {
 
   static Map<String, FairDelegateBuilder> delegates =
       <String, FairDelegateBuilder>{
-    Routes.photoGalleryPage.name: (
+    for (var routeName in routeNames)
+      routeName: (context, data) => FairDelegateBase(data),
+    Routes.fairPhotoGalleryPage.name: (
       BuildContext context,
       Map<String, dynamic>? data,
     ) =>
         PhotoGalleryDelegate(data),
-    Routes.photoGalleryPage1.name: (
+    Routes.fairPhotoGalleryPage1.name: (
       BuildContext context,
       Map<String, dynamic>? data,
     ) =>
         PhotoGalleryDelegate(data),
-    Routes.photoGalleryItem.name: (
-      BuildContext context,
-      Map<String, dynamic>? data,
-    ) =>
-        FairDelegateBase(data),
-    Routes.photoSwiper.name: (
+    Routes.fairPhotoSwiper.name: (
       BuildContext context,
       Map<String, dynamic>? data,
     ) =>

@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:fair/fair.dart';
-import 'package:fair_gallery/src/utils/asset_buldes.dart';
+import 'package:fair_gallery/src/utils/asset_bunldes.dart';
 import 'package:fair_gallery/src/widget/share_data_widget.dart';
 import 'package:ff_annotation_route_library/ff_annotation_route_library.dart';
 import 'package:flutter/material.dart';

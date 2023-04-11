@@ -2,6 +2,768 @@
 
 import 'dart:math';
 
+/// Bool Sugar
+class SugarBool {
+  SugarBool._();
+
+  // !input
+  static bool invert(bool input) => !input;
+
+  /// The logical conjunction ("and") of this and [other].
+  ///
+  /// Returns `true` if both this and [other] are `true`, and `false` otherwise.
+  static bool and(bool input, bool Function() other) => input & other();
+
+  /// The logical disjunction ("inclusive or") of this and [other].
+  ///
+  /// Returns `true` if either this or [other] is `true`, and `false` otherwise.
+  static bool inclusiveOr(bool input, bool Function() other) => input | other();
+
+  /// The logical exclusive disjunction ("exclusive or") of this and [other].
+  ///
+  /// Returns whether this and [other] are neither both `true` nor both `false`.
+  static bool exclusiveOr(bool input, bool other) => input ^ other;
+
+  /// Returns either `"true"` for `true` and `"false"` for `false`.
+  static String boolToString(
+    bool input,
+  ) =>
+      input.toString();
+}
+
+/// Double Sugar
+class SugarDouble {
+  SugarDouble._();
+
+  static double nan() => double.nan;
+
+  static double infinity() => double.infinity;
+
+  static double negativeInfinity() => double.negativeInfinity;
+
+  static double minPositive() => double.minPositive;
+
+  static double maxFinite() => double.maxFinite;
+
+  /// The sign of the double's numerical value.
+  ///
+  /// Returns -1.0 if the value is less than zero,
+  /// +1.0 if the value is greater than zero,
+  /// and the value itself if it is -0.0, 0.0 or NaN.
+  static double sign(double input) => input.sign;
+
+  static double remainder(double input, num other) => input.remainder(
+        other,
+      );
+
+  static double adds(double input, num other) => input + other;
+
+  static double subtracts(double input, num other) => input - other;
+
+  static double multiplies(double input, num other) => input * other;
+
+  static double euclideanModulo(double input, num other) => input % other;
+
+  static double divides(double input, num other) => input / other;
+
+  static int truncatingDivision(double input, num other) => input ~/ other;
+
+  static double negation(
+    double input,
+  ) =>
+      -input;
+
+  static double abs(
+    double input,
+  ) =>
+      input.abs();
+
+  /// Returns the integer closest to this number.
+  ///
+  /// Rounds away from zero when there is no closest integer:
+  ///  `(3.5).round() == 4` and `(-3.5).round() == -4`.
+  ///
+  /// Throws an [UnsupportedError] if this number is not finite
+  /// (NaN or an infinity).
+  /// ```dart
+  /// print(3.0.round()); // 3
+  /// print(3.25.round()); // 3
+  /// print(3.5.round()); // 4
+  /// print(3.75.round()); // 4
+  /// print((-3.5).round()); // -4
+  /// ```
+  static int round(
+    double input,
+  ) =>
+      input.round();
+
+  /// Returns the greatest integer no greater than this number.
+  ///
+  /// Rounds the number towards negative infinity.
+  ///
+  /// Throws an [UnsupportedError] if this number is not finite
+  /// (NaN or infinity).
+  /// ```dart
+  /// print(1.99999.floor()); // 1
+  /// print(2.0.floor()); // 2
+  /// print(2.99999.floor()); // 2
+  /// print((-1.99999).floor()); // -2
+  /// print((-2.0).floor()); // -2
+  /// print((-2.00001).floor()); // -3
+  /// ```
+  static int floor(
+    double input,
+  ) =>
+      input.floor();
+
+  /// Returns the least integer that is not smaller than this number.
+  ///
+  /// Rounds the number towards infinity.
+  ///
+  /// Throws an [UnsupportedError] if this number is not finite
+  /// (NaN or an infinity).
+  /// ```dart
+  /// print(1.99999.ceil()); // 2
+  /// print(2.0.ceil()); // 2
+  /// print(2.00001.ceil()); // 3
+  /// print((-1.99999).ceil()); // -1
+  /// print((-2.0).ceil()); // -2
+  /// print((-2.00001).ceil()); // -2
+  /// ```
+  static int ceil(
+    double input,
+  ) =>
+      input.ceil();
+
+  /// Returns the integer obtained by discarding any fractional
+  /// part of this number.
+  ///
+  /// Rounds the number towards zero.
+  ///
+  /// Throws an [UnsupportedError] if this number is not finite
+  /// (NaN or an infinity).
+  /// ```dart
+  /// print(2.00001.truncate()); // 2
+  /// print(1.99999.truncate()); // 1
+  /// print(0.5.truncate()); // 0
+  /// print((-0.5).truncate()); // 0
+  /// print((-1.5).truncate()); // -1
+  /// print((-2.5).truncate()); // -2
+  /// ```
+  static int truncate(
+    double input,
+  ) =>
+      input.truncate();
+
+  /// Returns the integer double value closest to `this`.
+  ///
+  /// Rounds away from zero when there is no closest integer:
+  ///  `(3.5).roundToDouble() == 4` and `(-3.5).roundToDouble() == -4`.
+  ///
+  /// If this is already an integer valued double, including `-0.0`, or it is not
+  /// a finite value, the value is returned unmodified.
+  ///
+  /// For the purpose of rounding, `-0.0` is considered to be below `0.0`,
+  /// and `-0.0` is therefore considered closer to negative numbers than `0.0`.
+  /// This means that for a value `d` in the range `-0.5 < d < 0.0`,
+  /// the result is `-0.0`.
+  /// ```dart
+  /// print(3.0.roundToDouble()); // 3.0
+  /// print(3.25.roundToDouble()); // 3.0
+  /// print(3.5.roundToDouble()); // 4.0
+  /// print(3.75.roundToDouble()); // 4.0
+  /// print((-3.5).roundToDouble()); // -4.0
+  /// ```
+  static double roundToDouble(
+    double input,
+  ) =>
+      input.roundToDouble();
+
+  /// Returns the greatest integer double value no greater than `this`.
+  ///
+  /// If this is already an integer valued double, including `-0.0`, or it is not
+  /// a finite value, the value is returned unmodified.
+  ///
+  /// For the purpose of rounding, `-0.0` is considered to be below `0.0`.
+  /// A number `d` in the range `0.0 < d < 1.0` will return `0.0`.
+  /// ```dart
+  /// print(1.99999.floorToDouble()); // 1.0
+  /// print(2.0.floorToDouble()); // 2.0
+  /// print(2.99999.floorToDouble()); // 2.0
+  /// print((-1.99999).floorToDouble()); // -2.0
+  /// print((-2.0).floorToDouble()); // -2.0
+  /// print((-2.00001).floorToDouble()); // -3.0
+  /// ```
+  static double floorToDouble(
+    double input,
+  ) =>
+      input.floorToDouble();
+
+  /// Returns the least integer double value no smaller than `this`.
+  ///
+  /// If this is already an integer valued double, including `-0.0`, or it is not
+  /// a finite value, the value is returned unmodified.
+  ///
+  /// For the purpose of rounding, `-0.0` is considered to be below `0.0`.
+  /// A number `d` in the range `-1.0 < d < 0.0` will return `-0.0`.
+  /// ```dart
+  /// print(1.99999.ceilToDouble()); // 2.0
+  /// print(2.0.ceilToDouble()); // 2.0
+  /// print(2.00001.ceilToDouble()); // 3.0
+  /// print((-1.99999).ceilToDouble()); // -1.0
+  /// print((-2.0).ceilToDouble()); // -2.0
+  /// print((-2.00001).ceilToDouble()); // -2.0
+  /// ```
+  static double ceilToDouble(
+    double input,
+  ) =>
+      input.ceilToDouble();
+
+  /// Returns the integer double value obtained by discarding any fractional
+  /// digits from `this`.
+  ///
+  /// If this is already an integer valued double, including `-0.0`, or it is not
+  /// a finite value, the value is returned unmodified.
+  ///
+  /// For the purpose of rounding, `-0.0` is considered to be below `0.0`.
+  /// A number `d` in the range `-1.0 < d < 0.0` will return `-0.0`, and
+  /// in the range `0.0 < d < 1.0` it will return 0.0.
+  /// ```dart
+  /// print(2.5.truncateToDouble()); // 2.0
+  /// print(2.00001.truncateToDouble()); // 2.0
+  /// print(1.99999.truncateToDouble()); // 1.0
+  /// print(0.5.truncateToDouble()); // 0.0
+  /// print((-0.5).truncateToDouble()); // -0.0
+  /// print((-1.5).truncateToDouble()); // -1.0
+  /// print((-2.5).truncateToDouble()); // -2.0
+  /// ```
+  static double truncateToDouble(
+    double input,
+  ) =>
+      input.truncateToDouble();
+
+  /// Provide a representation of this [double] value.
+  ///
+  /// The representation is a number literal such that the closest double value
+  /// to the representation's mathematical value is this [double].
+  ///
+  /// Returns "NaN" for the Not-a-Number value.
+  /// Returns "Infinity" and "-Infinity" for positive and negative Infinity.
+  /// Returns "-0.0" for negative zero.
+  ///
+  /// For all doubles, `d`, converting to a string and parsing the string back
+  /// gives the same value again: `d == double.parse(d.toString())` (except when
+  /// `d` is NaN).
+  static String doubleToString(
+    double input,
+  ) =>
+      input.toString();
+
+  /// Parse [source] as a double literal and return its value.
+  ///
+  /// Accepts an optional sign (`+` or `-`) followed by either the characters
+  /// "Infinity", the characters "NaN" or a floating-point representation.
+  /// A floating-point representation is composed of a mantissa and an optional
+  /// exponent part. The mantissa is either a decimal point (`.`) followed by a
+  /// sequence of (decimal) digits, or a sequence of digits
+  /// optionally followed by a decimal point and optionally more digits. The
+  /// (optional) exponent part consists of the character "e" or "E", an optional
+  /// sign, and one or more digits.
+  /// The [source] must not be `null`.
+  ///
+  /// Leading and trailing whitespace is ignored.
+  ///
+  /// If the [source] string is not a valid double literal, the [onError]
+  /// is called with the [source] as argument, and its return value is
+  /// used instead.
+  /// Throws a [FormatException] if the [source] string is not valid
+  /// and no `onError` is provided.
+  ///
+  /// Examples of accepted strings:
+  /// ```
+  /// "3.14"
+  /// "  3.14 \xA0"
+  /// "0."
+  /// ".0"
+  /// "-1.e3"
+  /// "1234E+7"
+  /// "+.12e-9"
+  /// "-NaN"
+  /// ```
+  /// The [onError] parameter is deprecated and will be removed.
+  /// Instead of `double.parse(string, (string) { ... })`,
+  /// you should use `double.tryParse(string) ?? (...)`.
+  static double parse(String source, [double Function(String)? onError]) =>
+      double.parse(
+        source,
+        onError,
+      );
+
+  /// Parse [source] as a double literal and return its value.
+  ///
+  /// Like [parse], except that this function returns `null` for invalid inputs
+  /// instead of throwing.
+  ///
+  /// Example:
+  /// ```dart
+  /// var value = double.tryParse('3.14'); // 3.14
+  /// value = double.tryParse('  3.14 \xA0'); // 3.14
+  /// value = double.tryParse('0.'); // 0.0
+  /// value = double.tryParse('.0'); // 0.0
+  /// value = double.tryParse('-1.e3'); // -1000.0
+  /// value = double.tryParse('1234E+7'); // 12340000000.0
+  /// value = double.tryParse('+.12e-9'); // 1.2e-10
+  /// value = double.tryParse('-NaN'); // NaN
+  /// value = double.tryParse('0xFF'); // null
+  /// value = double.tryParse(double.infinity.toString()); // Infinity
+  /// ```
+  static double? tryParse(String source) => double.tryParse(
+        source,
+      );
+}
+
+/// Int Sugar
+class SugarInt {
+  SugarInt._();
+
+  /// Returns true if and only if this integer is even.
+  static bool isEven(int input) => input.isEven;
+
+  /// Returns true if and only if this integer is odd.
+  static bool isOdd(int input) => input.isOdd;
+
+  /// Returns the minimum number of bits required to store this integer.
+  ///
+  /// The number of bits excludes the sign bit, which gives the natural length
+  /// for non-negative (unsigned) values.  Negative values are complemented to
+  /// return the bit position of the first bit that differs from the sign bit.
+  ///
+  /// To find the number of bits needed to store the value as a signed value,
+  /// add one, i.e. use `x.bitLength + 1`.
+  /// ```dart
+  /// x.bitLength == (-x-1).bitLength;
+  ///
+  /// 3.bitLength == 2;     // 00000011
+  /// 2.bitLength == 2;     // 00000010
+  /// 1.bitLength == 1;     // 00000001
+  /// 0.bitLength == 0;     // 00000000
+  /// (-1).bitLength == 0;  // 11111111
+  /// (-2).bitLength == 1;  // 11111110
+  /// (-3).bitLength == 2;  // 11111101
+  /// (-4).bitLength == 2;  // 11111100
+  /// ```
+  static int bitLength(int input) => input.bitLength;
+
+  /// Returns the sign of this integer.
+  ///
+  /// Returns 0 for zero, -1 for values less than zero and
+  /// +1 for values greater than zero.
+  static int sign(int input) => input.sign;
+
+  /// Bit-wise and operator.
+  ///
+  /// Treating both `this` and [other] as sufficiently large two's component
+  /// integers, the result is a number with only the bits set that are set in
+  /// both `this` and [other]
+  ///
+  /// If both operands are negative, the result is negative, otherwise
+  /// the result is non-negative.
+  /// ```dart
+  /// print((2 & 1).toRadixString(2)); // 0010 & 0001 -> 0000
+  /// print((3 & 1).toRadixString(2)); // 0011 & 0001 -> 0001
+  /// print((10 & 2).toRadixString(2)); // 1010 & 0010 -> 0010
+  /// ```
+  static int and(int input, int other) => input & other;
+
+  /// Bit-wise or operator.
+  ///
+  /// Treating both `this` and [other] as sufficiently large two's component
+  /// integers, the result is a number with the bits set that are set in either
+  /// of `this` and [other]
+  ///
+  /// If both operands are non-negative, the result is non-negative,
+  /// otherwise the result is negative.
+  ///
+  /// Example:
+  /// ```dart
+  /// print((2 | 1).toRadixString(2)); // 0010 | 0001 -> 0011
+  /// print((3 | 1).toRadixString(2)); // 0011 | 0001 -> 0011
+  /// print((10 | 2).toRadixString(2)); // 1010 | 0010 -> 1010
+  /// ```
+  static int or(int input, int other) => input | other;
+
+  /// Bit-wise exclusive-or operator.
+  ///
+  /// Treating both `this` and [other] as sufficiently large two's component
+  /// integers, the result is a number with the bits set that are set in one,
+  /// but not both, of `this` and [other]
+  ///
+  /// If the operands have the same sign, the result is non-negative,
+  /// otherwise the result is negative.
+  ///
+  /// Example:
+  /// ```dart
+  /// print((2 ^ 1).toRadixString(2)); //  0010 ^ 0001 -> 0011
+  /// print((3 ^ 1).toRadixString(2)); //  0011 ^ 0001 -> 0010
+  /// print((10 ^ 2).toRadixString(2)); //  1010 ^ 0010 -> 1000
+  /// ```
+  static int exclusiveOr(int input, int other) => input ^ other;
+
+  /// The bit-wise negate operator.
+  ///
+  /// Treating `this` as a sufficiently large two's component integer,
+  /// the result is a number with the opposite bits set.
+  ///
+  /// This maps any integer `x` to `-x - 1`.
+  static int negate(
+    int input,
+  ) =>
+      ~input;
+
+  /// Shift the bits of this integer to the left by [shiftAmount].
+  ///
+  /// Shifting to the left makes the number larger, effectively multiplying
+  /// the number by `pow(2, shiftAmount)`.
+  ///
+  /// There is no limit on the size of the result. It may be relevant to
+  /// limit intermediate values by using the "and" operator with a suitable
+  /// mask.
+  ///
+  /// It is an error if [shiftAmount] is negative.
+  ///
+  /// Example:
+  /// ```dart
+  /// print((3 << 1).toRadixString(2)); // 0011 -> 0110
+  /// print((9 << 2).toRadixString(2)); // 1001 -> 100100
+  /// print((10 << 3).toRadixString(2)); // 1010 -> 1010000
+  /// ```
+  static int leftShift(int input, int shiftAmount) => input << shiftAmount;
+
+  /// Shift the bits of this integer to the right by [shiftAmount].
+  ///
+  /// Shifting to the right makes the number smaller and drops the least
+  /// significant bits, effectively doing an integer division by
+  /// `pow(2, shiftAmount)`.
+  ///
+  /// It is an error if [shiftAmount] is negative.
+  ///
+  /// Example:
+  /// ```dart
+  /// print((3 >> 1).toRadixString(2)); // 0011 -> 0001
+  /// print((9 >> 2).toRadixString(2)); // 1001 -> 0010
+  /// print((10 >> 3).toRadixString(2)); // 1010 -> 0001
+  /// print((-6 >> 2).toRadixString); // 111...1010 -> 111...1110 == -2
+  /// print((-85 >> 3).toRadixString); // 111...10101011 -> 111...11110101 == -11
+  /// ```
+  static int rightShift(int input, int shiftAmount) => input >> shiftAmount;
+
+  /// Bitwise unsigned right shift by [shiftAmount] bits.
+  ///
+  /// The least significant [shiftAmount] bits are dropped,
+  /// the remaining bits (if any) are shifted down,
+  /// and zero-bits are shifted in as the new most significant bits.
+  ///
+  /// The [shiftAmount] must be non-negative.
+  ///
+  /// Example:
+  /// ```dart
+  /// print((3 >>> 1).toRadixString(2)); // 0011 -> 0001
+  /// print((9 >>> 2).toRadixString(2)); // 1001 -> 0010
+  /// print(((-9) >>> 2).toRadixString(2)); // 111...1011 -> 001...1110 (> 0)
+  /// ```
+  static int unsignedRightShift(int input, int shiftAmount) =>
+      input >>> shiftAmount;
+
+  /// Returns this integer to the power of [exponent] modulo [modulus].
+  ///
+  /// The [exponent] must be non-negative and [modulus] must be
+  /// positive.
+  static int modPow(int input, int exponent, int modulus) => input.modPow(
+        exponent,
+        modulus,
+      );
+
+  /// Returns the modular multiplicative inverse of this integer
+  /// modulo [modulus].
+  ///
+  /// The [modulus] must be positive.
+  ///
+  /// It is an error if no modular inverse exists.
+  static int modInverse(int input, int modulus) => input.modInverse(
+        modulus,
+      );
+
+  /// Returns the greatest common divisor of this integer and [other].
+  ///
+  /// If either number is non-zero, the result is the numerically greatest
+  /// integer dividing both `this` and `other`.
+  ///
+  /// The greatest common divisor is independent of the order,
+  /// so `x.gcd(y)` is  always the same as `y.gcd(x)`.
+  ///
+  /// For any integer `x`, `x.gcd(x)` is `x.abs()`.
+  ///
+  /// If both `this` and `other` is zero, the result is also zero.
+  ///
+  /// Example:
+  /// ```dart
+  /// print(4.gcd(2)); // 2
+  /// print(8.gcd(4)); // 4
+  /// print(10.gcd(12)); // 2
+  /// print(10.gcd(0)); // 10
+  /// print((-2).gcd(-3)); // 1
+  /// ```
+  static int gcd(int input, int other) => input.gcd(
+        other,
+      );
+
+  /// Returns the least significant [width] bits of this integer as a
+  /// non-negative number (i.e. unsigned representation).  The returned value has
+  /// zeros in all bit positions higher than [width].
+  /// ```dart
+  /// (-1).toUnsigned(5) == 31   // 11111111  ->  00011111
+  /// ```
+  /// This operation can be used to simulate arithmetic from low level languages.
+  /// For example, to increment an 8 bit quantity:
+  /// ```dart
+  /// q = (q + 1).toUnsigned(8);
+  /// ```
+  /// `q` will count from `0` up to `255` and then wrap around to `0`.
+  ///
+  /// If the input fits in [width] bits without truncation, the result is the
+  /// same as the input.  The minimum width needed to avoid truncation of `x` is
+  /// given by `x.bitLength`, i.e.
+  /// ```dart
+  /// x == x.toUnsigned(x.bitLength);
+  /// ```
+  static int toUnsigned(int input, int width) => input.toUnsigned(
+        width,
+      );
+
+  /// Returns the least significant [width] bits of this integer, extending the
+  /// highest retained bit to the sign. This is the same as truncating the value
+  /// to fit in [width] bits using an signed 2-s complement representation. The
+  /// returned value has the same bit value in all positions higher than [width].
+  ///
+  /// ```dart
+  ///                          //     V--sign bit-V
+  /// 16.toSigned(5) == -16;   //  00010000 -> 11110000
+  /// 239.toSigned(5) == 15;   //  11101111 -> 00001111
+  ///                          //     ^           ^
+  /// ```
+  /// This operation can be used to simulate arithmetic from low level languages.
+  /// For example, to increment an 8 bit signed quantity:
+  /// ```dart
+  /// q = (q + 1).toSigned(8);
+  /// ```
+  /// `q` will count from `0` up to `127`, wrap to `-128` and count back up to
+  /// `127`.
+  ///
+  /// If the input value fits in [width] bits without truncation, the result is
+  /// the same as the input.  The minimum width needed to avoid truncation of `x`
+  /// is `x.bitLength + 1`, i.e.
+  /// ```dart
+  /// x == x.toSigned(x.bitLength + 1);
+  /// ```
+  static int toSigned(int input, int width) => input.toSigned(
+        width,
+      );
+
+  /// Return the negative value of this integer.
+  ///
+  /// The result of negating an integer always has the opposite sign, except
+  /// for zero, which is its own negation.
+  static int negation(
+    int input,
+  ) =>
+      -input;
+
+  /// Returns the absolute value of this integer.
+  ///
+  /// For any integer `value`,
+  /// the result is the same as `value < 0 ? -value : value`.
+  ///
+  /// Integer overflow may cause the result of `-value` to stay negative.
+  static int abs(
+    int input,
+  ) =>
+      input.abs();
+
+  /// Returns `this`.
+  static int round(
+    int input,
+  ) =>
+      input.round();
+
+  /// Returns `this`.
+  static int floor(
+    int input,
+  ) =>
+      input.floor();
+
+  /// Returns `this`.
+  static int ceil(
+    int input,
+  ) =>
+      input.ceil();
+
+  /// Returns `this`.
+  static int truncate(
+    int input,
+  ) =>
+      input.truncate();
+
+  /// Returns `this.toDouble()`.
+  static double roundToDouble(
+    int input,
+  ) =>
+      input.roundToDouble();
+
+  /// Returns `this.toDouble()`.
+  static double floorToDouble(
+    int input,
+  ) =>
+      input.floorToDouble();
+
+  /// Returns `this.toDouble()`.
+  static double ceilToDouble(
+    int input,
+  ) =>
+      input.ceilToDouble();
+
+  /// Returns `this.toDouble()`.
+  static double truncateToDouble(
+    int input,
+  ) =>
+      input.truncateToDouble();
+
+  /// Returns a string representation of this integer.
+  ///
+  /// The returned string is parsable by [parse].
+  /// For any `int` `i`, it is guaranteed that
+  /// `i == int.parse(i.toString())`.
+  static String intToString(
+    int input,
+  ) =>
+      input.toString();
+
+  /// Converts [this] to a string representation in the given [radix].
+  ///
+  /// In the string representation, lower-case letters are used for digits above
+  /// '9', with 'a' being 10 and 'z' being 35.
+  ///
+  /// The [radix] argument must be an integer in the range 2 to 36.
+  ///
+  /// Example:
+  /// ```dart
+  /// // Binary (base 2).
+  /// print(12.toRadixString(2)); // 1100
+  /// print(31.toRadixString(2)); // 11111
+  /// print(2021.toRadixString(2)); // 11111100101
+  /// print((-12).toRadixString(2)); // -1100
+  /// // Octal (base 8).
+  /// print(12.toRadixString(8)); // 14
+  /// print(31.toRadixString(8)); // 37
+  /// print(2021.toRadixString(8)); // 3745
+  /// // Hexadecimal (base 16).
+  /// print(12.toRadixString(16)); // c
+  /// print(31.toRadixString(16)); // 1f
+  /// print(2021.toRadixString(16)); // 7e5
+  /// // Base 36.
+  /// print((35 * 36 + 1).toRadixString(36)); // z1
+  /// ```
+  static String toRadixString(int input, int radix) => input.toRadixString(
+        radix,
+      );
+
+  /// Parse [source] as a, possibly signed, integer literal and return its value.
+  ///
+  /// The [source] must be a non-empty sequence of base-[radix] digits,
+  /// optionally prefixed with a minus or plus sign ('-' or '+').
+  ///
+  /// The [radix] must be in the range 2..36. The digits used are
+  /// first the decimal digits 0..9, and then the letters 'a'..'z' with
+  /// values 10 through 35. Also accepts upper-case letters with the same
+  /// values as the lower-case ones.
+  ///
+  /// If no [radix] is given then it defaults to 10. In this case, the [source]
+  /// digits may also start with `0x`, in which case the number is interpreted
+  /// as a hexadecimal integer literal,
+  /// When `int` is implemented by 64-bit signed integers,
+  /// hexadecimal integer literals may represent values larger than
+  /// 2<sup>63</sup>, in which case the value is parsed as if it is an
+  /// *unsigned* number, and the resulting value is the corresponding
+  /// signed integer value.
+  ///
+  /// For any int `n` and valid radix `r`, it is guaranteed that
+  /// `n == int.parse(n.toRadixString(r), radix: r)`.
+  ///
+  /// If the [source] string does not contain a valid integer literal,
+  /// optionally prefixed by a sign, a [FormatException] is thrown
+  /// (unless the deprecated [onError] parameter is used, see below).
+  ///
+  /// Instead of throwing and immediately catching the [FormatException],
+  /// instead use [tryParse] to handle a parsing error.
+  ///
+  /// Example:
+  /// ```dart
+  /// var value = int.tryParse(text);
+  /// if (value == null) {
+  ///   // handle the problem
+  ///   // ...
+  /// }
+  /// ```
+  ///
+  /// The [onError] parameter is deprecated and will be removed.
+  /// Instead of `int.parse(string, onError: (string) => ...)`,
+  /// you should use `int.tryParse(string) ?? (...)`.
+  ///
+  /// When the source string is not valid and [onError] is provided,
+  /// whenever a [FormatException] would be thrown,
+  /// [onError] is instead called with [source] as argument,
+  /// and the result of that call is returned by [parse].
+  static int parse(String source,
+          {int? radix, int Function(String)? onError}) =>
+      int.parse(
+        source,
+        radix: radix,
+        onError: onError,
+      );
+
+  /// Parse [source] as a, possibly signed, integer literal.
+  ///
+  /// Like [parse] except that this function returns `null` where a
+  /// similar call to [parse] would throw a [FormatException].
+  ///
+  /// Example:
+  /// ```dart
+  /// print(int.tryParse('2021')); // 2021
+  /// print(int.tryParse('1f')); // null
+  /// // From binary (base 2) value.
+  /// print(int.tryParse('1100', radix: 2)); // 12
+  /// print(int.tryParse('00011111', radix: 2)); // 31
+  /// print(int.tryParse('011111100101', radix: 2)); // 2021
+  /// // From octal (base 8) value.
+  /// print(int.tryParse('14', radix: 8)); // 12
+  /// print(int.tryParse('37', radix: 8)); // 31
+  /// print(int.tryParse('3745', radix: 8)); // 2021
+  /// // From hexadecimal (base 16) value.
+  /// print(int.tryParse('c', radix: 16)); // 12
+  /// print(int.tryParse('1f', radix: 16)); // 31
+  /// print(int.tryParse('7e5', radix: 16)); // 2021
+  /// // From base 35 value.
+  /// print(int.tryParse('y1', radix: 35)); // 1191 == 34 * 35 + 1
+  /// print(int.tryParse('z1', radix: 35)); // null
+  /// // From base 36 value.
+  /// print(int.tryParse('y1', radix: 36)); // 1225 == 34 * 36 + 1
+  /// print(int.tryParse('z1', radix: 36)); // 1261 == 35 * 36 + 1
+  /// ```
+  static int? tryParse(String source, {int? radix}) => int.tryParse(
+        source,
+        radix: radix,
+      );
+}
+
 /// Iterable Sugar
 class SugarIterable {
   SugarIterable._();
@@ -638,1029 +1400,156 @@ class SugarIterable {
       input.toString();
 }
 
-/// Map Sugar
-class SugarMap {
-  SugarMap._();
-
-  /// The map entries of [this].
-  static Iterable<MapEntry<dynamic, dynamic>> entries(Map input) =>
-      input.entries;
-
-  /// The keys of [this].
-  ///
-  /// The returned iterable has efficient `length` and `contains` operations,
-  /// based on [length] and [containsKey] of the map.
-  ///
-  /// The order of iteration is defined by the individual `Map` implementation,
-  /// but must be consistent between changes to the map.
-  ///
-  /// Modifying the map while iterating the keys may break the iteration.
-  static Iterable<dynamic> keys(Map input) => input.keys;
-
-  /// The values of [this].
-  ///
-  /// The values are iterated in the order of their corresponding keys.
-  /// This means that iterating [keys] and [values] in parallel will
-  /// provide matching pairs of keys and values.
-  ///
-  /// The returned iterable has an efficient `length` method based on the
-  /// [length] of the map. Its [Iterable.contains] method is based on
-  /// `==` comparison.
-  ///
-  /// Modifying the map while iterating the values may break the iteration.
-  static Iterable<dynamic> values(Map input) => input.values;
-
-  /// The number of key/value pairs in the map.
-  static int length(Map input) => input.length;
-
-  /// Whether there is no key/value pair in the map.
-  static bool isEmpty(Map input) => input.isEmpty;
-
-  /// Whether there is at least one key/value pair in the map.
-  static bool isNotEmpty(Map input) => input.isNotEmpty;
-
-  /// Whether this map contains the given [value].
-  ///
-  /// Returns true if any of the values in the map are equal to `value`
-  /// according to the `==` operator.
-  /// ```dart
-  /// final moonCount = <String, int>{'Mercury': 0, 'Venus': 0, 'Earth': 1,
-  ///   'Mars': 2, 'Jupiter': 79, 'Saturn': 82, 'Uranus': 27, 'Neptune': 14 };
-  /// final moons3 = moonCount.containsValue(3); // false
-  /// final moons82 = moonCount.containsValue(82); // true
-  /// ```
-  static bool containsValue(Map input, Object? value) => input.containsValue(
-        value,
-      );
-
-  /// Whether this map contains the given [key].
-  ///
-  /// Returns true if any of the keys in the map are equal to `key`
-  /// according to the equality used by the map.
-  /// ```dart
-  /// final moonCount = <String, int>{'Mercury': 0, 'Venus': 0, 'Earth': 1,
-  ///   'Mars': 2, 'Jupiter': 79, 'Saturn': 82, 'Uranus': 27, 'Neptune': 14 };
-  /// final containsUranus = moonCount.containsKey('Uranus'); // true
-  /// final containsPluto = moonCount.containsKey('Pluto'); // false
-  /// ```
-  static bool containsKey(Map input, Object? key) => input.containsKey(
-        key,
-      );
-
-  /// The value for the given [key], or `null` if [key] is not in the map.
-  ///
-  /// Some maps allow `null` as a value.
-  /// For those maps, a lookup using this operator cannot distinguish between a
-  /// key not being in the map, and the key being there with a `null` value.
-  /// Methods like [containsKey] or [putIfAbsent] can be used if the distinction
-  /// is important.
-  static dynamic get(Map input, Object? key) => input[key];
-
-  /// Associates the [key] with the given [value].
-  ///
-  /// If the key was already in the map, its associated value is changed.
-  /// Otherwise the key/value pair is added to the map.
-  static void set(Map input, dynamic key, dynamic value) => input[key] = value;
-
-  /// Adds all key/value pairs of [newEntries] to this map.
-  ///
-  /// If a key of [newEntries] is already in this map,
-  /// the corresponding value is overwritten.
-  ///
-  /// The operation is equivalent to doing `this[entry.key] = entry.value`
-  /// for each [MapEntry] of the iterable.
-  /// ```dart
-  /// final planets = <int, String>{1: 'Mercury', 2: 'Venus',
-  ///   3: 'Earth', 4: 'Mars'};
-  /// final gasGiants = <int, String>{5: 'Jupiter', 6: 'Saturn'};
-  /// final iceGiants = <int, String>{7: 'Uranus', 8: 'Neptune'};
-  /// planets.addEntries(gasGiants.entries);
-  /// planets.addEntries(iceGiants.entries);
-  /// print(planets);
-  /// // {1: Mercury, 2: Venus, 3: Earth, 4: Mars, 5: Jupiter, 6: Saturn,
-  /// //  7: Uranus, 8: Neptune}
-  /// ```
-  static void addEntries(
-          Map input, Iterable<MapEntry<dynamic, dynamic>> newEntries) =>
-      input.addEntries(
-        newEntries,
-      );
-
-  /// Updates the value for the provided [key].
-  ///
-  /// Returns the new value associated with the key.
-  ///
-  /// If the key is present, invokes [update] with the current value and stores
-  /// the new value in the map.
-  ///
-  /// If the key is not present and [ifAbsent] is provided, calls [ifAbsent]
-  /// and adds the key with the returned value to the map.
-  ///
-  /// If the key is not present, [ifAbsent] must be provided.
-  /// ```dart
-  /// final planetsFromSun = <int, String>{1: 'Mercury', 2: 'unknown',
-  ///   3: 'Earth'};
-  /// // Update value for known key value 2.
-  /// planetsFromSun.update(2, (value) => 'Venus');
-  /// print(planetsFromSun); // {1: Mercury, 2: Venus, 3: Earth}
-  ///
-  /// final largestPlanets = <int, String>{1: 'Jupiter', 2: 'Saturn',
-  ///   3: 'Neptune'};
-  /// // Key value 8 is missing from list, add it using [ifAbsent].
-  /// largestPlanets.update(8, (value) => 'New', ifAbsent: () => 'Mercury');
-  /// print(largestPlanets); // {1: Jupiter, 2: Saturn, 3: Neptune, 8: Mercury}
-  /// ```
-  static dynamic update(
-          Map input, dynamic key, dynamic Function(dynamic) update,
-          {dynamic Function()? ifAbsent}) =>
-      input.update(
-        key,
-        update,
-        ifAbsent: ifAbsent,
-      );
-
-  /// Updates all values.
-  ///
-  /// Iterates over all entries in the map and updates them with the result
-  /// of invoking [update].
-  /// ```dart
-  /// final terrestrial = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
-  /// terrestrial.updateAll((key, value) => value.toUpperCase());
-  /// print(terrestrial); // {1: MERCURY, 2: VENUS, 3: EARTH}
-  /// ```
-  static void updateAll(Map input, dynamic Function(dynamic, dynamic) update) =>
-      input.updateAll(
-        update,
-      );
-
-  /// Removes all entries of this map that satisfy the given [test].
-  /// ```dart
-  /// final terrestrial = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
-  /// terrestrial.removeWhere((key, value) => value.startsWith('E'));
-  /// print(terrestrial); // {1: Mercury, 2: Venus}
-  /// ```
-  static void removeWhere(Map input, bool Function(dynamic, dynamic) test) =>
-      input.removeWhere(
-        test,
-      );
-
-  /// Look up the value of [key], or add a new entry if it isn't there.
-  ///
-  /// Returns the value associated to [key], if there is one.
-  /// Otherwise calls [ifAbsent] to get a new value, associates [key] to
-  /// that value, and then returns the new value.
-  /// ```dart
-  /// final diameters = <num, String>{1.0: 'Earth'};
-  /// final otherDiameters = <double, String>{0.383: 'Mercury', 0.949: 'Venus'};
-  ///
-  /// for (final item in otherDiameters.entries) {
-  ///   diameters.putIfAbsent(item.key, () => item.value);
-  /// }
-  /// print(diameters); // {1.0: Earth, 0.383: Mercury, 0.949: Venus}
-  ///
-  /// // If the key already exists, the current value is returned.
-  /// final result = diameters.putIfAbsent(0.383, () => 'Random');
-  /// print(result); // Mercury
-  /// print(diameters); // {1.0: Earth, 0.383: Mercury, 0.949: Venus}
-  /// ```
-  /// Calling [ifAbsent] must not add or remove keys from the map.
-  static dynamic putIfAbsent(
-          Map input, dynamic key, dynamic Function() ifAbsent) =>
-      input.putIfAbsent(
-        key,
-        ifAbsent,
-      );
-
-  /// Adds all key/value pairs of [other] to this map.
-  ///
-  /// If a key of [other] is already in this map, its value is overwritten.
-  ///
-  /// The operation is equivalent to doing `this[key] = value` for each key
-  /// and associated value in other. It iterates over [other], which must
-  /// therefore not change during the iteration.
-  /// ```dart
-  /// final planets = <int, String>{1: 'Mercury', 2: 'Earth'};
-  /// planets.addAll({5: 'Jupiter', 6: 'Saturn'});
-  /// print(planets); // {1: Mercury, 2: Earth, 5: Jupiter, 6: Saturn}
-  /// ```
-  static void addAll(Map input, Map<dynamic, dynamic> other) => input.addAll(
-        other,
-      );
-
-  /// Removes [key] and its associated value, if present, from the map.
-  ///
-  /// Returns the value associated with `key` before it was removed.
-  /// Returns `null` if `key` was not in the map.
-  ///
-  /// Note that some maps allow `null` as a value,
-  /// so a returned `null` value doesn't always mean that the key was absent.
-  /// ```dart
-  /// final terrestrial = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
-  /// final removedValue = terrestrial.remove(2); // Venus
-  /// print(terrestrial); // {1: Mercury, 3: Earth}
-  /// ```
-  static dynamic remove(Map input, Object? key) => input.remove(
-        key,
-      );
-
-  /// Removes all entries from the map.
-  ///
-  /// After this, the map is empty.
-  /// ```dart
-  /// final planets = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
-  /// planets.clear(); // {}
-  /// ```
-  static void clear(
-    Map input,
-  ) =>
-      input.clear();
-
-  /// Applies [action] to each key/value pair of the map.
-  ///
-  /// Calling `action` must not add or remove keys from the map.
-  /// ```dart
-  /// final planetsByMass = <num, String>{0.81: 'Venus', 1: 'Earth',
-  ///   0.11: 'Mars', 17.15: 'Neptune'};
-  ///
-  /// planetsByMass.forEach((key, value) {
-  ///   print('$key: $value');
-  ///   // 0.81: Venus
-  ///   // 1: Earth
-  ///   // 0.11: Mars
-  ///   // 17.15: Neptune
-  /// });
-  /// ```
-  static void forEach(Map input, void Function(dynamic, dynamic) action) =>
-      input.forEach(
-        action,
-      );
-}
-
-/// Bool Sugar
-class SugarBool {
-  SugarBool._();
-
-  // !input
-  static bool invert(bool input) => !input;
-
-  /// The logical conjunction ("and") of this and [other].
-  ///
-  /// Returns `true` if both this and [other] are `true`, and `false` otherwise.
-  static bool and(bool input, bool Function() other) => input & other();
-
-  /// The logical disjunction ("inclusive or") of this and [other].
-  ///
-  /// Returns `true` if either this or [other] is `true`, and `false` otherwise.
-  static bool inclusiveOr(bool input, bool Function() other) => input | other();
-
-  /// The logical exclusive disjunction ("exclusive or") of this and [other].
-  ///
-  /// Returns whether this and [other] are neither both `true` nor both `false`.
-  static bool exclusiveOr(bool input, bool other) => input ^ other;
-
-  /// Returns either `"true"` for `true` and `"false"` for `false`.
-  static String boolToString(
-    bool input,
-  ) =>
-      input.toString();
-}
-
-/// Double Sugar
-class SugarDouble {
-  SugarDouble._();
-
-  static double nan() => double.nan;
-
-  static double infinity() => double.infinity;
-
-  static double negativeInfinity() => double.negativeInfinity;
-
-  static double minPositive() => double.minPositive;
-
-  static double maxFinite() => double.maxFinite;
-
-  /// The sign of the double's numerical value.
-  ///
-  /// Returns -1.0 if the value is less than zero,
-  /// +1.0 if the value is greater than zero,
-  /// and the value itself if it is -0.0, 0.0 or NaN.
-  static double sign(double input) => input.sign;
-
-  static double remainder(double input, num other) => input.remainder(
-        other,
-      );
-
-  static double adds(double input, num other) => input + other;
-
-  static double subtracts(double input, num other) => input - other;
-
-  static double multiplies(double input, num other) => input * other;
-
-  static double euclideanModulo(double input, num other) => input % other;
-
-  static double divides(double input, num other) => input / other;
-
-  static int truncatingDivision(double input, num other) => input ~/ other;
-
-  static double negation(
-    double input,
-  ) =>
-      -input;
-
-  static double abs(
-    double input,
-  ) =>
-      input.abs();
-
-  /// Returns the integer closest to this number.
-  ///
-  /// Rounds away from zero when there is no closest integer:
-  ///  `(3.5).round() == 4` and `(-3.5).round() == -4`.
-  ///
-  /// Throws an [UnsupportedError] if this number is not finite
-  /// (NaN or an infinity).
-  /// ```dart
-  /// print(3.0.round()); // 3
-  /// print(3.25.round()); // 3
-  /// print(3.5.round()); // 4
-  /// print(3.75.round()); // 4
-  /// print((-3.5).round()); // -4
-  /// ```
-  static int round(
-    double input,
-  ) =>
-      input.round();
-
-  /// Returns the greatest integer no greater than this number.
-  ///
-  /// Rounds the number towards negative infinity.
-  ///
-  /// Throws an [UnsupportedError] if this number is not finite
-  /// (NaN or infinity).
-  /// ```dart
-  /// print(1.99999.floor()); // 1
-  /// print(2.0.floor()); // 2
-  /// print(2.99999.floor()); // 2
-  /// print((-1.99999).floor()); // -2
-  /// print((-2.0).floor()); // -2
-  /// print((-2.00001).floor()); // -3
-  /// ```
-  static int floor(
-    double input,
-  ) =>
-      input.floor();
-
-  /// Returns the least integer that is not smaller than this number.
-  ///
-  /// Rounds the number towards infinity.
-  ///
-  /// Throws an [UnsupportedError] if this number is not finite
-  /// (NaN or an infinity).
-  /// ```dart
-  /// print(1.99999.ceil()); // 2
-  /// print(2.0.ceil()); // 2
-  /// print(2.00001.ceil()); // 3
-  /// print((-1.99999).ceil()); // -1
-  /// print((-2.0).ceil()); // -2
-  /// print((-2.00001).ceil()); // -2
-  /// ```
-  static int ceil(
-    double input,
-  ) =>
-      input.ceil();
-
-  /// Returns the integer obtained by discarding any fractional
-  /// part of this number.
-  ///
-  /// Rounds the number towards zero.
-  ///
-  /// Throws an [UnsupportedError] if this number is not finite
-  /// (NaN or an infinity).
-  /// ```dart
-  /// print(2.00001.truncate()); // 2
-  /// print(1.99999.truncate()); // 1
-  /// print(0.5.truncate()); // 0
-  /// print((-0.5).truncate()); // 0
-  /// print((-1.5).truncate()); // -1
-  /// print((-2.5).truncate()); // -2
-  /// ```
-  static int truncate(
-    double input,
-  ) =>
-      input.truncate();
-
-  /// Returns the integer double value closest to `this`.
-  ///
-  /// Rounds away from zero when there is no closest integer:
-  ///  `(3.5).roundToDouble() == 4` and `(-3.5).roundToDouble() == -4`.
-  ///
-  /// If this is already an integer valued double, including `-0.0`, or it is not
-  /// a finite value, the value is returned unmodified.
-  ///
-  /// For the purpose of rounding, `-0.0` is considered to be below `0.0`,
-  /// and `-0.0` is therefore considered closer to negative numbers than `0.0`.
-  /// This means that for a value `d` in the range `-0.5 < d < 0.0`,
-  /// the result is `-0.0`.
-  /// ```dart
-  /// print(3.0.roundToDouble()); // 3.0
-  /// print(3.25.roundToDouble()); // 3.0
-  /// print(3.5.roundToDouble()); // 4.0
-  /// print(3.75.roundToDouble()); // 4.0
-  /// print((-3.5).roundToDouble()); // -4.0
-  /// ```
-  static double roundToDouble(
-    double input,
-  ) =>
-      input.roundToDouble();
-
-  /// Returns the greatest integer double value no greater than `this`.
-  ///
-  /// If this is already an integer valued double, including `-0.0`, or it is not
-  /// a finite value, the value is returned unmodified.
-  ///
-  /// For the purpose of rounding, `-0.0` is considered to be below `0.0`.
-  /// A number `d` in the range `0.0 < d < 1.0` will return `0.0`.
-  /// ```dart
-  /// print(1.99999.floorToDouble()); // 1.0
-  /// print(2.0.floorToDouble()); // 2.0
-  /// print(2.99999.floorToDouble()); // 2.0
-  /// print((-1.99999).floorToDouble()); // -2.0
-  /// print((-2.0).floorToDouble()); // -2.0
-  /// print((-2.00001).floorToDouble()); // -3.0
-  /// ```
-  static double floorToDouble(
-    double input,
-  ) =>
-      input.floorToDouble();
-
-  /// Returns the least integer double value no smaller than `this`.
-  ///
-  /// If this is already an integer valued double, including `-0.0`, or it is not
-  /// a finite value, the value is returned unmodified.
-  ///
-  /// For the purpose of rounding, `-0.0` is considered to be below `0.0`.
-  /// A number `d` in the range `-1.0 < d < 0.0` will return `-0.0`.
-  /// ```dart
-  /// print(1.99999.ceilToDouble()); // 2.0
-  /// print(2.0.ceilToDouble()); // 2.0
-  /// print(2.00001.ceilToDouble()); // 3.0
-  /// print((-1.99999).ceilToDouble()); // -1.0
-  /// print((-2.0).ceilToDouble()); // -2.0
-  /// print((-2.00001).ceilToDouble()); // -2.0
-  /// ```
-  static double ceilToDouble(
-    double input,
-  ) =>
-      input.ceilToDouble();
-
-  /// Returns the integer double value obtained by discarding any fractional
-  /// digits from `this`.
-  ///
-  /// If this is already an integer valued double, including `-0.0`, or it is not
-  /// a finite value, the value is returned unmodified.
-  ///
-  /// For the purpose of rounding, `-0.0` is considered to be below `0.0`.
-  /// A number `d` in the range `-1.0 < d < 0.0` will return `-0.0`, and
-  /// in the range `0.0 < d < 1.0` it will return 0.0.
-  /// ```dart
-  /// print(2.5.truncateToDouble()); // 2.0
-  /// print(2.00001.truncateToDouble()); // 2.0
-  /// print(1.99999.truncateToDouble()); // 1.0
-  /// print(0.5.truncateToDouble()); // 0.0
-  /// print((-0.5).truncateToDouble()); // -0.0
-  /// print((-1.5).truncateToDouble()); // -1.0
-  /// print((-2.5).truncateToDouble()); // -2.0
-  /// ```
-  static double truncateToDouble(
-    double input,
-  ) =>
-      input.truncateToDouble();
-
-  /// Provide a representation of this [double] value.
-  ///
-  /// The representation is a number literal such that the closest double value
-  /// to the representation's mathematical value is this [double].
-  ///
-  /// Returns "NaN" for the Not-a-Number value.
-  /// Returns "Infinity" and "-Infinity" for positive and negative Infinity.
-  /// Returns "-0.0" for negative zero.
-  ///
-  /// For all doubles, `d`, converting to a string and parsing the string back
-  /// gives the same value again: `d == double.parse(d.toString())` (except when
-  /// `d` is NaN).
-  static String doubleToString(
-    double input,
-  ) =>
-      input.toString();
-
-  /// Parse [source] as a double literal and return its value.
-  ///
-  /// Accepts an optional sign (`+` or `-`) followed by either the characters
-  /// "Infinity", the characters "NaN" or a floating-point representation.
-  /// A floating-point representation is composed of a mantissa and an optional
-  /// exponent part. The mantissa is either a decimal point (`.`) followed by a
-  /// sequence of (decimal) digits, or a sequence of digits
-  /// optionally followed by a decimal point and optionally more digits. The
-  /// (optional) exponent part consists of the character "e" or "E", an optional
-  /// sign, and one or more digits.
-  /// The [source] must not be `null`.
-  ///
-  /// Leading and trailing whitespace is ignored.
-  ///
-  /// If the [source] string is not a valid double literal, the [onError]
-  /// is called with the [source] as argument, and its return value is
-  /// used instead.
-  /// Throws a [FormatException] if the [source] string is not valid
-  /// and no `onError` is provided.
-  ///
-  /// Examples of accepted strings:
-  /// ```
-  /// "3.14"
-  /// "  3.14 \xA0"
-  /// "0."
-  /// ".0"
-  /// "-1.e3"
-  /// "1234E+7"
-  /// "+.12e-9"
-  /// "-NaN"
-  /// ```
-  /// The [onError] parameter is deprecated and will be removed.
-  /// Instead of `double.parse(string, (string) { ... })`,
-  /// you should use `double.tryParse(string) ?? (...)`.
-  static double parse(String source, [double Function(String)? onError]) =>
-      double.parse(
-        source,
-        onError,
-      );
-
-  /// Parse [source] as a double literal and return its value.
-  ///
-  /// Like [parse], except that this function returns `null` for invalid inputs
-  /// instead of throwing.
-  ///
-  /// Example:
-  /// ```dart
-  /// var value = double.tryParse('3.14'); // 3.14
-  /// value = double.tryParse('  3.14 \xA0'); // 3.14
-  /// value = double.tryParse('0.'); // 0.0
-  /// value = double.tryParse('.0'); // 0.0
-  /// value = double.tryParse('-1.e3'); // -1000.0
-  /// value = double.tryParse('1234E+7'); // 12340000000.0
-  /// value = double.tryParse('+.12e-9'); // 1.2e-10
-  /// value = double.tryParse('-NaN'); // NaN
-  /// value = double.tryParse('0xFF'); // null
-  /// value = double.tryParse(double.infinity.toString()); // Infinity
-  /// ```
-  static double? tryParse(String source) => double.tryParse(
-        source,
-      );
-}
-
-/// Int Sugar
-class SugarInt {
-  SugarInt._();
-
-  /// Returns true if and only if this integer is even.
-  static bool isEven(int input) => input.isEven;
-
-  /// Returns true if and only if this integer is odd.
-  static bool isOdd(int input) => input.isOdd;
-
-  /// Returns the minimum number of bits required to store this integer.
-  ///
-  /// The number of bits excludes the sign bit, which gives the natural length
-  /// for non-negative (unsigned) values.  Negative values are complemented to
-  /// return the bit position of the first bit that differs from the sign bit.
-  ///
-  /// To find the number of bits needed to store the value as a signed value,
-  /// add one, i.e. use `x.bitLength + 1`.
-  /// ```dart
-  /// x.bitLength == (-x-1).bitLength;
-  ///
-  /// 3.bitLength == 2;     // 00000011
-  /// 2.bitLength == 2;     // 00000010
-  /// 1.bitLength == 1;     // 00000001
-  /// 0.bitLength == 0;     // 00000000
-  /// (-1).bitLength == 0;  // 11111111
-  /// (-2).bitLength == 1;  // 11111110
-  /// (-3).bitLength == 2;  // 11111101
-  /// (-4).bitLength == 2;  // 11111100
-  /// ```
-  static int bitLength(int input) => input.bitLength;
-
-  /// Returns the sign of this integer.
-  ///
-  /// Returns 0 for zero, -1 for values less than zero and
-  /// +1 for values greater than zero.
-  static int sign(int input) => input.sign;
-
-  /// Bit-wise and operator.
-  ///
-  /// Treating both `this` and [other] as sufficiently large two's component
-  /// integers, the result is a number with only the bits set that are set in
-  /// both `this` and [other]
-  ///
-  /// If both operands are negative, the result is negative, otherwise
-  /// the result is non-negative.
-  /// ```dart
-  /// print((2 & 1).toRadixString(2)); // 0010 & 0001 -> 0000
-  /// print((3 & 1).toRadixString(2)); // 0011 & 0001 -> 0001
-  /// print((10 & 2).toRadixString(2)); // 1010 & 0010 -> 0010
-  /// ```
-  static int and(int input, int other) => input & other;
-
-  /// Bit-wise or operator.
-  ///
-  /// Treating both `this` and [other] as sufficiently large two's component
-  /// integers, the result is a number with the bits set that are set in either
-  /// of `this` and [other]
-  ///
-  /// If both operands are non-negative, the result is non-negative,
-  /// otherwise the result is negative.
-  ///
-  /// Example:
-  /// ```dart
-  /// print((2 | 1).toRadixString(2)); // 0010 | 0001 -> 0011
-  /// print((3 | 1).toRadixString(2)); // 0011 | 0001 -> 0011
-  /// print((10 | 2).toRadixString(2)); // 1010 | 0010 -> 1010
-  /// ```
-  static int or(int input, int other) => input | other;
-
-  /// Bit-wise exclusive-or operator.
-  ///
-  /// Treating both `this` and [other] as sufficiently large two's component
-  /// integers, the result is a number with the bits set that are set in one,
-  /// but not both, of `this` and [other]
-  ///
-  /// If the operands have the same sign, the result is non-negative,
-  /// otherwise the result is negative.
-  ///
-  /// Example:
-  /// ```dart
-  /// print((2 ^ 1).toRadixString(2)); //  0010 ^ 0001 -> 0011
-  /// print((3 ^ 1).toRadixString(2)); //  0011 ^ 0001 -> 0010
-  /// print((10 ^ 2).toRadixString(2)); //  1010 ^ 0010 -> 1000
-  /// ```
-  static int exclusiveOr(int input, int other) => input ^ other;
-
-  /// The bit-wise negate operator.
-  ///
-  /// Treating `this` as a sufficiently large two's component integer,
-  /// the result is a number with the opposite bits set.
-  ///
-  /// This maps any integer `x` to `-x - 1`.
-  static int negate(
-    int input,
-  ) =>
-      ~input;
-
-  /// Shift the bits of this integer to the left by [shiftAmount].
-  ///
-  /// Shifting to the left makes the number larger, effectively multiplying
-  /// the number by `pow(2, shiftIndex)`.
-  ///
-  /// There is no limit on the size of the result. It may be relevant to
-  /// limit intermediate values by using the "and" operator with a suitable
-  /// mask.
-  ///
-  /// It is an error if [shiftAmount] is negative.
-  ///
-  /// Example:
-  /// ```dart
-  /// print((3 << 1).toRadixString(2)); // 0011 -> 0110
-  /// print((9 << 2).toRadixString(2)); // 1001 -> 100100
-  /// print((10 << 3).toRadixString(2)); // 1010 -> 1010000
-  /// ```
-  static int leftShift(int input, int shiftAmount) => input << shiftAmount;
-
-  /// Shift the bits of this integer to the right by [shiftAmount].
-  ///
-  /// Shifting to the right makes the number smaller and drops the least
-  /// significant bits, effectively doing an integer division by
-  /// `pow(2, shiftIndex)`.
-  ///
-  /// It is an error if [shiftAmount] is negative.
-  ///
-  /// Example:
-  /// ```dart
-  /// print((3 >> 1).toRadixString(2)); // 0011 -> 0001
-  /// print((9 >> 2).toRadixString(2)); // 1001 -> 0010
-  /// print((10 >> 3).toRadixString(2)); // 1010 -> 0001
-  /// print((-6 >> 2).toRadixString); // 111...1010 -> 111...1110 == -2
-  /// print((-85 >> 3).toRadixString); // 111...10101011 -> 111...11110101 == -11
-  /// ```
-  static int rightShift(int input, int shiftAmount) => input >> shiftAmount;
-
-  /// Bitwise unsigned right shift by [shiftAmount] bits.
-  ///
-  /// The least significant [shiftAmount] bits are dropped,
-  /// the remaining bits (if any) are shifted down,
-  /// and zero-bits are shifted in as the new most significant bits.
-  ///
-  /// The [shiftAmount] must be non-negative.
-  ///
-  /// Example:
-  /// ```dart
-  /// print((3 >>> 1).toRadixString(2)); // 0011 -> 0001
-  /// print((9 >>> 2).toRadixString(2)); // 1001 -> 0010
-  /// print(((-9) >>> 2).toRadixString(2)); // 111...1011 -> 001...1110 (> 0)
-  /// ```
-  static int unsignedRightShift(int input, int shiftAmount) =>
-      input >>> shiftAmount;
-
-  /// Returns this integer to the power of [exponent] modulo [modulus].
-  ///
-  /// The [exponent] must be non-negative and [modulus] must be
-  /// positive.
-  static int modPow(int input, int exponent, int modulus) => input.modPow(
-        exponent,
-        modulus,
-      );
-
-  /// Returns the modular multiplicative inverse of this integer
-  /// modulo [modulus].
-  ///
-  /// The [modulus] must be positive.
-  ///
-  /// It is an error if no modular inverse exists.
-  static int modInverse(int input, int modulus) => input.modInverse(
-        modulus,
-      );
-
-  /// Returns the greatest common divisor of this integer and [other].
-  ///
-  /// If either number is non-zero, the result is the numerically greatest
-  /// integer dividing both `this` and `other`.
-  ///
-  /// The greatest common divisor is independent of the order,
-  /// so `x.gcd(y)` is  always the same as `y.gcd(x)`.
-  ///
-  /// For any integer `x`, `x.gcd(x)` is `x.abs()`.
-  ///
-  /// If both `this` and `other` is zero, the result is also zero.
-  ///
-  /// Example:
-  /// ```dart
-  /// print(4.gcd(2)); // 2
-  /// print(8.gcd(4)); // 4
-  /// print(10.gcd(12)); // 2
-  /// print(10.gcd(0)); // 10
-  /// print((-2).gcd(-3)); // 1
-  /// ```
-  static int gcd(int input, int other) => input.gcd(
-        other,
-      );
-
-  /// Returns the least significant [width] bits of this integer as a
-  /// non-negative number (i.e. unsigned representation).  The returned value has
-  /// zeros in all bit positions higher than [width].
-  /// ```dart
-  /// (-1).toUnsigned(5) == 31   // 11111111  ->  00011111
-  /// ```
-  /// This operation can be used to simulate arithmetic from low level languages.
-  /// For example, to increment an 8 bit quantity:
-  /// ```dart
-  /// q = (q + 1).toUnsigned(8);
-  /// ```
-  /// `q` will count from `0` up to `255` and then wrap around to `0`.
-  ///
-  /// If the input fits in [width] bits without truncation, the result is the
-  /// same as the input.  The minimum width needed to avoid truncation of `x` is
-  /// given by `x.bitLength`, i.e.
-  /// ```dart
-  /// x == x.toUnsigned(x.bitLength);
-  /// ```
-  static int toUnsigned(int input, int width) => input.toUnsigned(
-        width,
-      );
-
-  /// Returns the least significant [width] bits of this integer, extending the
-  /// highest retained bit to the sign. This is the same as truncating the value
-  /// to fit in [width] bits using an signed 2-s complement representation. The
-  /// returned value has the same bit value in all positions higher than [width].
-  ///
-  /// ```dart
-  ///                          //     V--sign bit-V
-  /// 16.toSigned(5) == -16;   //  00010000 -> 11110000
-  /// 239.toSigned(5) == 15;   //  11101111 -> 00001111
-  ///                          //     ^           ^
-  /// ```
-  /// This operation can be used to simulate arithmetic from low level languages.
-  /// For example, to increment an 8 bit signed quantity:
-  /// ```dart
-  /// q = (q + 1).toSigned(8);
-  /// ```
-  /// `q` will count from `0` up to `127`, wrap to `-128` and count back up to
-  /// `127`.
-  ///
-  /// If the input value fits in [width] bits without truncation, the result is
-  /// the same as the input.  The minimum width needed to avoid truncation of `x`
-  /// is `x.bitLength + 1`, i.e.
-  /// ```dart
-  /// x == x.toSigned(x.bitLength + 1);
-  /// ```
-  static int toSigned(int input, int width) => input.toSigned(
-        width,
-      );
-
-  /// Return the negative value of this integer.
-  ///
-  /// The result of negating an integer always has the opposite sign, except
-  /// for zero, which is its own negation.
-  static int negation(
-    int input,
-  ) =>
-      -input;
-
-  /// Returns the absolute value of this integer.
-  ///
-  /// For any integer `value`,
-  /// the result is the same as `value < 0 ? -value : value`.
-  ///
-  /// Integer overflow may cause the result of `-value` to stay negative.
-  static int abs(
-    int input,
-  ) =>
-      input.abs();
-
-  /// Returns `this`.
-  static int round(
-    int input,
-  ) =>
-      input.round();
-
-  /// Returns `this`.
-  static int floor(
-    int input,
-  ) =>
-      input.floor();
-
-  /// Returns `this`.
-  static int ceil(
-    int input,
-  ) =>
-      input.ceil();
-
-  /// Returns `this`.
-  static int truncate(
-    int input,
-  ) =>
-      input.truncate();
-
-  /// Returns `this.toDouble()`.
-  static double roundToDouble(
-    int input,
-  ) =>
-      input.roundToDouble();
-
-  /// Returns `this.toDouble()`.
-  static double floorToDouble(
-    int input,
-  ) =>
-      input.floorToDouble();
-
-  /// Returns `this.toDouble()`.
-  static double ceilToDouble(
-    int input,
-  ) =>
-      input.ceilToDouble();
-
-  /// Returns `this.toDouble()`.
-  static double truncateToDouble(
-    int input,
-  ) =>
-      input.truncateToDouble();
-
-  /// Returns a string representation of this integer.
-  ///
-  /// The returned string is parsable by [parse].
-  /// For any `int` `i`, it is guaranteed that
-  /// `i == int.parse(i.toString())`.
-  static String intToString(
-    int input,
-  ) =>
-      input.toString();
-
-  /// Converts [this] to a string representation in the given [radix].
-  ///
-  /// In the string representation, lower-case letters are used for digits above
-  /// '9', with 'a' being 10 and 'z' being 35.
-  ///
-  /// The [radix] argument must be an integer in the range 2 to 36.
-  ///
-  /// Example:
-  /// ```dart
-  /// // Binary (base 2).
-  /// print(12.toRadixString(2)); // 1100
-  /// print(31.toRadixString(2)); // 11111
-  /// print(2021.toRadixString(2)); // 11111100101
-  /// print((-12).toRadixString(2)); // -1100
-  /// // Octal (base 8).
-  /// print(12.toRadixString(8)); // 14
-  /// print(31.toRadixString(8)); // 37
-  /// print(2021.toRadixString(8)); // 3745
-  /// // Hexadecimal (base 16).
-  /// print(12.toRadixString(16)); // c
-  /// print(31.toRadixString(16)); // 1f
-  /// print(2021.toRadixString(16)); // 7e5
-  /// // Base 36.
-  /// print((35 * 36 + 1).toRadixString(36)); // z1
-  /// ```
-  static String toRadixString(int input, int radix) => input.toRadixString(
-        radix,
-      );
-
-  /// Parse [source] as a, possibly signed, integer literal and return its value.
-  ///
-  /// The [source] must be a non-empty sequence of base-[radix] digits,
-  /// optionally prefixed with a minus or plus sign ('-' or '+').
-  ///
-  /// The [radix] must be in the range 2..36. The digits used are
-  /// first the decimal digits 0..9, and then the letters 'a'..'z' with
-  /// values 10 through 35. Also accepts upper-case letters with the same
-  /// values as the lower-case ones.
-  ///
-  /// If no [radix] is given then it defaults to 10. In this case, the [source]
-  /// digits may also start with `0x`, in which case the number is interpreted
-  /// as a hexadecimal integer literal,
-  /// When `int` is implemented by 64-bit signed integers,
-  /// hexadecimal integer literals may represent values larger than
-  /// 2<sup>63</sup>, in which case the value is parsed as if it is an
-  /// *unsigned* number, and the resulting value is the corresponding
-  /// signed integer value.
-  ///
-  /// For any int `n` and valid radix `r`, it is guaranteed that
-  /// `n == int.parse(n.toRadixString(r), radix: r)`.
-  ///
-  /// If the [source] string does not contain a valid integer literal,
-  /// optionally prefixed by a sign, a [FormatException] is thrown
-  /// (unless the deprecated [onError] parameter is used, see below).
-  ///
-  /// Instead of throwing and immediately catching the [FormatException],
-  /// instead use [tryParse] to handle a parsing error.
-  ///
-  /// Example:
-  /// ```dart
-  /// var value = int.tryParse(text);
-  /// if (value == null) {
-  ///   // handle the problem
-  ///   // ...
-  /// }
-  /// ```
-  ///
-  /// The [onError] parameter is deprecated and will be removed.
-  /// Instead of `int.parse(string, onError: (string) => ...)`,
-  /// you should use `int.tryParse(string) ?? (...)`.
-  ///
-  /// When the source string is not valid and [onError] is provided,
-  /// whenever a [FormatException] would be thrown,
-  /// [onError] is instead called with [source] as argument,
-  /// and the result of that call is returned by [parse].
-  static int parse(String source,
-          {int? radix, int Function(String)? onError}) =>
-      int.parse(
-        source,
-        radix: radix,
-        onError: onError,
-      );
-
-  /// Parse [source] as a, possibly signed, integer literal.
-  ///
-  /// Like [parse] except that this function returns `null` where a
-  /// similar call to [parse] would throw a [FormatException].
-  ///
-  /// Example:
-  /// ```dart
-  /// print(int.tryParse('2021')); // 2021
-  /// print(int.tryParse('1f')); // null
-  /// // From binary (base 2) value.
-  /// print(int.tryParse('1100', radix: 2)); // 12
-  /// print(int.tryParse('00011111', radix: 2)); // 31
-  /// print(int.tryParse('011111100101', radix: 2)); // 2021
-  /// // From octal (base 8) value.
-  /// print(int.tryParse('14', radix: 8)); // 12
-  /// print(int.tryParse('37', radix: 8)); // 31
-  /// print(int.tryParse('3745', radix: 8)); // 2021
-  /// // From hexadecimal (base 16) value.
-  /// print(int.tryParse('c', radix: 16)); // 12
-  /// print(int.tryParse('1f', radix: 16)); // 31
-  /// print(int.tryParse('7e5', radix: 16)); // 2021
-  /// // From base 35 value.
-  /// print(int.tryParse('y1', radix: 35)); // 1191 == 34 * 35 + 1
-  /// print(int.tryParse('z1', radix: 35)); // null
-  /// // From base 36 value.
-  /// print(int.tryParse('y1', radix: 36)); // 1225 == 34 * 36 + 1
-  /// print(int.tryParse('z1', radix: 36)); // 1261 == 35 * 36 + 1
-  /// ```
-  static int? tryParse(String source, {int? radix}) => int.tryParse(
-        source,
-        radix: radix,
-      );
-}
-
 /// List Sugar
 class SugarList {
   SugarList._();
+
+  /// Creates a list of the given length with [fill] at each position.
+  ///
+  /// The [length] must be a non-negative integer.
+  ///
+  /// Example:
+  /// ```dart
+  /// final zeroList = List<int>.filled(3, 0, growable: true); // [0, 0, 0]
+  /// ```
+  ///
+  /// The created list is fixed-length if [growable] is false (the default)
+  /// and growable if [growable] is true.
+  /// If the list is growable, increasing its [length] will *not* initialize
+  /// new entries with [fill].
+  /// After being created and filled, the list is no different from any other
+  /// growable or fixed-length list created
+  /// using `[]` or other [List] constructors.
+  ///
+  /// All elements of the created list share the same [fill] value.
+  /// ```dart
+  /// final shared = List.filled(3, []);
+  /// shared[0].add(499);
+  /// print(shared);  // [[499], [499], [499]]
+  /// ```
+  /// You can use [List.generate] to create a list with a fixed length
+  /// and a new object at each position.
+  /// ```dart
+  /// final unique = List.generate(3, (_) => []);
+  /// unique[0].add(499);
+  /// print(unique); // [[499], [], []]
+  /// ```
+  static List<dynamic> filled(int length, dynamic fill,
+          {bool growable = false}) =>
+      List.filled(
+        length,
+        fill,
+        growable: growable,
+      );
+
+  /// Creates a new empty list.
+  ///
+  /// If [growable] is `false`, which is the default,
+  /// the list is a fixed-length list of length zero.
+  /// If [growable] is `true`, the list is growable and equivalent to `<E>[]`.
+  /// ```dart
+  /// final growableList = List.empty(growable: true); // []
+  /// growableList.add(1); // [1]
+  ///
+  /// final fixedLengthList = List.empty(growable: false);
+  /// fixedLengthList.add(1); // error
+  /// ```
+  static List<dynamic> empty({bool growable = false}) => List.empty(
+        growable: growable,
+      );
+
+  /// Creates a list containing all [elements].
+  ///
+  /// The [Iterator] of [elements] provides the order of the elements.
+  ///
+  /// All the [elements] should be instances of [E].
+  ///
+  /// Example:
+  /// ```dart
+  /// final numbers = <num>[1, 2, 3];
+  /// final listFrom = List<int>.from(numbers);
+  /// print(listFrom); // [1, 2, 3]
+  /// ```
+  /// The `elements` iterable itself may have any element type, so this
+  /// constructor can be used to down-cast a `List`, for example as:
+  /// ```dart import:convert
+  /// const jsonArray = '''
+  ///   [{"text": "foo", "value": 1, "status": true},
+  ///    {"text": "bar", "value": 2, "status": false}]
+  /// ''';
+  /// final List<dynamic> dynamicList = jsonDecode(jsonArray);
+  /// final List<Map<String, dynamic>> fooData =
+  ///     List.from(dynamicList.where((x) => x is Map && x['text'] == 'foo'));
+  /// print(fooData); // [{text: foo, value: 1, status: true}]
+  /// ```
+  ///
+  /// This constructor creates a growable list when [growable] is true;
+  /// otherwise, it returns a fixed-length list.
+  static List<dynamic> from(Iterable<dynamic> elements,
+          {bool growable = true}) =>
+      List.from(
+        elements,
+        growable: growable,
+      );
+
+  /// Creates a list from [elements].
+  ///
+  /// The [Iterator] of [elements] provides the order of the elements.
+  ///
+  /// This constructor creates a growable list when [growable] is true;
+  /// otherwise, it returns a fixed-length list.
+  /// ```dart
+  /// final numbers = <int>[1, 2, 3];
+  /// final listOf = List<num>.of(numbers);
+  /// print(listOf); // [1, 2, 3]
+  /// ```
+  static List<dynamic> of(Iterable<dynamic> elements, {bool growable = true}) =>
+      List.of(
+        elements,
+        growable: growable,
+      );
+
+  /// Generates a list of values.
+  ///
+  /// Creates a list with [length] positions and fills it with values created by
+  /// calling [generator] for each index in the range `0` .. `length - 1`
+  /// in increasing order.
+  /// ```dart
+  /// final growableList =
+  ///     List<int>.generate(3, (int index) => index * index, growable: true);
+  /// print(growableList); // [0, 1, 4]
+  ///
+  /// final fixedLengthList =
+  ///     List<int>.generate(3, (int index) => index * index, growable: false);
+  /// print(fixedLengthList); // [0, 1, 4]
+  /// ```
+  /// The created list is fixed-length if [growable] is set to false.
+  ///
+  /// The [length] must be non-negative.
+  static List<dynamic> generate(int length, dynamic Function(int) generator,
+          {bool growable = true}) =>
+      List.generate(
+        length,
+        generator,
+        growable: growable,
+      );
+
+  /// Creates an unmodifiable list containing all [elements].
+  ///
+  /// The [Iterator] of [elements] provides the order of the elements.
+  ///
+  /// An unmodifiable list cannot have its length or elements changed.
+  /// If the elements are themselves immutable, then the resulting list
+  /// is also immutable.
+  /// ```dart
+  /// final numbers = <int>[1, 2, 3];
+  /// final unmodifiableList = List.unmodifiable(numbers); // [1, 2, 3]
+  /// unmodifiableList[1] = 87; // Throws.
+  /// ```
+  static List<dynamic> unmodifiable(Iterable<dynamic> elements) =>
+      List.unmodifiable(
+        elements,
+      );
 
   /// The number of objects in this list.
   ///
@@ -2313,6 +2202,264 @@ class SugarList {
   /// Even if [other] is also a list, the equality comparison
   /// does not compare the elements of the two lists.
   static bool equalTo(List input, Object other) => input == other;
+}
+
+/// Map Sugar
+class SugarMap {
+  SugarMap._();
+
+  /// The map entries of [this].
+  static Iterable<MapEntry<dynamic, dynamic>> entries(Map input) =>
+      input.entries;
+
+  /// The keys of [this].
+  ///
+  /// The returned iterable has efficient `length` and `contains` operations,
+  /// based on [length] and [containsKey] of the map.
+  ///
+  /// The order of iteration is defined by the individual `Map` implementation,
+  /// but must be consistent between changes to the map.
+  ///
+  /// Modifying the map while iterating the keys may break the iteration.
+  static Iterable<dynamic> keys(Map input) => input.keys;
+
+  /// The values of [this].
+  ///
+  /// The values are iterated in the order of their corresponding keys.
+  /// This means that iterating [keys] and [values] in parallel will
+  /// provide matching pairs of keys and values.
+  ///
+  /// The returned iterable has an efficient `length` method based on the
+  /// [length] of the map. Its [Iterable.contains] method is based on
+  /// `==` comparison.
+  ///
+  /// Modifying the map while iterating the values may break the iteration.
+  static Iterable<dynamic> values(Map input) => input.values;
+
+  /// The number of key/value pairs in the map.
+  static int length(Map input) => input.length;
+
+  /// Whether there is no key/value pair in the map.
+  static bool isEmpty(Map input) => input.isEmpty;
+
+  /// Whether there is at least one key/value pair in the map.
+  static bool isNotEmpty(Map input) => input.isNotEmpty;
+
+  /// Whether this map contains the given [value].
+  ///
+  /// Returns true if any of the values in the map are equal to `value`
+  /// according to the `==` operator.
+  /// ```dart
+  /// final moonCount = <String, int>{'Mercury': 0, 'Venus': 0, 'Earth': 1,
+  ///   'Mars': 2, 'Jupiter': 79, 'Saturn': 82, 'Uranus': 27, 'Neptune': 14 };
+  /// final moons3 = moonCount.containsValue(3); // false
+  /// final moons82 = moonCount.containsValue(82); // true
+  /// ```
+  static bool containsValue(Map input, Object? value) => input.containsValue(
+        value,
+      );
+
+  /// Whether this map contains the given [key].
+  ///
+  /// Returns true if any of the keys in the map are equal to `key`
+  /// according to the equality used by the map.
+  /// ```dart
+  /// final moonCount = <String, int>{'Mercury': 0, 'Venus': 0, 'Earth': 1,
+  ///   'Mars': 2, 'Jupiter': 79, 'Saturn': 82, 'Uranus': 27, 'Neptune': 14 };
+  /// final containsUranus = moonCount.containsKey('Uranus'); // true
+  /// final containsPluto = moonCount.containsKey('Pluto'); // false
+  /// ```
+  static bool containsKey(Map input, Object? key) => input.containsKey(
+        key,
+      );
+
+  /// The value for the given [key], or `null` if [key] is not in the map.
+  ///
+  /// Some maps allow `null` as a value.
+  /// For those maps, a lookup using this operator cannot distinguish between a
+  /// key not being in the map, and the key being there with a `null` value.
+  /// Methods like [containsKey] or [putIfAbsent] can be used if the distinction
+  /// is important.
+  static dynamic get(Map input, Object? key) => input[key];
+
+  /// Associates the [key] with the given [value].
+  ///
+  /// If the key was already in the map, its associated value is changed.
+  /// Otherwise the key/value pair is added to the map.
+  static void set(Map input, dynamic key, dynamic value) => input[key] = value;
+
+  /// Adds all key/value pairs of [newEntries] to this map.
+  ///
+  /// If a key of [newEntries] is already in this map,
+  /// the corresponding value is overwritten.
+  ///
+  /// The operation is equivalent to doing `this[entry.key] = entry.value`
+  /// for each [MapEntry] of the iterable.
+  /// ```dart
+  /// final planets = <int, String>{1: 'Mercury', 2: 'Venus',
+  ///   3: 'Earth', 4: 'Mars'};
+  /// final gasGiants = <int, String>{5: 'Jupiter', 6: 'Saturn'};
+  /// final iceGiants = <int, String>{7: 'Uranus', 8: 'Neptune'};
+  /// planets.addEntries(gasGiants.entries);
+  /// planets.addEntries(iceGiants.entries);
+  /// print(planets);
+  /// // {1: Mercury, 2: Venus, 3: Earth, 4: Mars, 5: Jupiter, 6: Saturn,
+  /// //  7: Uranus, 8: Neptune}
+  /// ```
+  static void addEntries(
+          Map input, Iterable<MapEntry<dynamic, dynamic>> newEntries) =>
+      input.addEntries(
+        newEntries,
+      );
+
+  /// Updates the value for the provided [key].
+  ///
+  /// Returns the new value associated with the key.
+  ///
+  /// If the key is present, invokes [update] with the current value and stores
+  /// the new value in the map.
+  ///
+  /// If the key is not present and [ifAbsent] is provided, calls [ifAbsent]
+  /// and adds the key with the returned value to the map.
+  ///
+  /// If the key is not present, [ifAbsent] must be provided.
+  /// ```dart
+  /// final planetsFromSun = <int, String>{1: 'Mercury', 2: 'unknown',
+  ///   3: 'Earth'};
+  /// // Update value for known key value 2.
+  /// planetsFromSun.update(2, (value) => 'Venus');
+  /// print(planetsFromSun); // {1: Mercury, 2: Venus, 3: Earth}
+  ///
+  /// final largestPlanets = <int, String>{1: 'Jupiter', 2: 'Saturn',
+  ///   3: 'Neptune'};
+  /// // Key value 8 is missing from list, add it using [ifAbsent].
+  /// largestPlanets.update(8, (value) => 'New', ifAbsent: () => 'Mercury');
+  /// print(largestPlanets); // {1: Jupiter, 2: Saturn, 3: Neptune, 8: Mercury}
+  /// ```
+  static dynamic update(
+          Map input, dynamic key, dynamic Function(dynamic) update,
+          {dynamic Function()? ifAbsent}) =>
+      input.update(
+        key,
+        update,
+        ifAbsent: ifAbsent,
+      );
+
+  /// Updates all values.
+  ///
+  /// Iterates over all entries in the map and updates them with the result
+  /// of invoking [update].
+  /// ```dart
+  /// final terrestrial = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
+  /// terrestrial.updateAll((key, value) => value.toUpperCase());
+  /// print(terrestrial); // {1: MERCURY, 2: VENUS, 3: EARTH}
+  /// ```
+  static void updateAll(Map input, dynamic Function(dynamic, dynamic) update) =>
+      input.updateAll(
+        update,
+      );
+
+  /// Removes all entries of this map that satisfy the given [test].
+  /// ```dart
+  /// final terrestrial = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
+  /// terrestrial.removeWhere((key, value) => value.startsWith('E'));
+  /// print(terrestrial); // {1: Mercury, 2: Venus}
+  /// ```
+  static void removeWhere(Map input, bool Function(dynamic, dynamic) test) =>
+      input.removeWhere(
+        test,
+      );
+
+  /// Look up the value of [key], or add a new entry if it isn't there.
+  ///
+  /// Returns the value associated to [key], if there is one.
+  /// Otherwise calls [ifAbsent] to get a new value, associates [key] to
+  /// that value, and then returns the new value.
+  /// ```dart
+  /// final diameters = <num, String>{1.0: 'Earth'};
+  /// final otherDiameters = <double, String>{0.383: 'Mercury', 0.949: 'Venus'};
+  ///
+  /// for (final item in otherDiameters.entries) {
+  ///   diameters.putIfAbsent(item.key, () => item.value);
+  /// }
+  /// print(diameters); // {1.0: Earth, 0.383: Mercury, 0.949: Venus}
+  ///
+  /// // If the key already exists, the current value is returned.
+  /// final result = diameters.putIfAbsent(0.383, () => 'Random');
+  /// print(result); // Mercury
+  /// print(diameters); // {1.0: Earth, 0.383: Mercury, 0.949: Venus}
+  /// ```
+  /// Calling [ifAbsent] must not add or remove keys from the map.
+  static dynamic putIfAbsent(
+          Map input, dynamic key, dynamic Function() ifAbsent) =>
+      input.putIfAbsent(
+        key,
+        ifAbsent,
+      );
+
+  /// Adds all key/value pairs of [other] to this map.
+  ///
+  /// If a key of [other] is already in this map, its value is overwritten.
+  ///
+  /// The operation is equivalent to doing `this[key] = value` for each key
+  /// and associated value in other. It iterates over [other], which must
+  /// therefore not change during the iteration.
+  /// ```dart
+  /// final planets = <int, String>{1: 'Mercury', 2: 'Earth'};
+  /// planets.addAll({5: 'Jupiter', 6: 'Saturn'});
+  /// print(planets); // {1: Mercury, 2: Earth, 5: Jupiter, 6: Saturn}
+  /// ```
+  static void addAll(Map input, Map<dynamic, dynamic> other) => input.addAll(
+        other,
+      );
+
+  /// Removes [key] and its associated value, if present, from the map.
+  ///
+  /// Returns the value associated with `key` before it was removed.
+  /// Returns `null` if `key` was not in the map.
+  ///
+  /// Note that some maps allow `null` as a value,
+  /// so a returned `null` value doesn't always mean that the key was absent.
+  /// ```dart
+  /// final terrestrial = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
+  /// final removedValue = terrestrial.remove(2); // Venus
+  /// print(terrestrial); // {1: Mercury, 3: Earth}
+  /// ```
+  static dynamic remove(Map input, Object? key) => input.remove(
+        key,
+      );
+
+  /// Removes all entries from the map.
+  ///
+  /// After this, the map is empty.
+  /// ```dart
+  /// final planets = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
+  /// planets.clear(); // {}
+  /// ```
+  static void clear(
+    Map input,
+  ) =>
+      input.clear();
+
+  /// Applies [action] to each key/value pair of the map.
+  ///
+  /// Calling `action` must not add or remove keys from the map.
+  /// ```dart
+  /// final planetsByMass = <num, String>{0.81: 'Venus', 1: 'Earth',
+  ///   0.11: 'Mars', 17.15: 'Neptune'};
+  ///
+  /// planetsByMass.forEach((key, value) {
+  ///   print('$key: $value');
+  ///   // 0.81: Venus
+  ///   // 1: Earth
+  ///   // 0.11: Mars
+  ///   // 17.15: Neptune
+  /// });
+  /// ```
+  static void forEach(Map input, void Function(dynamic, dynamic) action) =>
+      input.forEach(
+        action,
+      );
 }
 
 /// Num Sugar

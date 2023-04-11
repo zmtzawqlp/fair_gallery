@@ -1,30 +1,113 @@
+// ignore_for_file: unused_import
+
 import 'package:fair_gallery/fair_gallery_route.dart';
 import 'package:fair_gallery/fair_gallery_routes.dart';
+import 'package:fair_gallery/fair_gallery_routes.dart' as example_routes;
 import 'package:fair_gallery/src/widget/extended_fair_widget.dart';
 import 'package:ff_annotation_route_library/ff_annotation_route_library.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:collection/collection.dart';
+@FFArgumentImport()
+import 'package:fair_gallery/src/main_page.dart';
 
 @FFRoute(
-  name: 'MainPage',
+  name: 'fair://DemoGroupPage',
+  routeName: 'DemoGroupPage',
+)
+class DemoGroupPage extends StatelessWidget {
+  DemoGroupPage(
+      {super.key, required MapEntry<String, List<DemoRouteResult>> keyValue})
+      : routes = keyValue.value
+          ..sort((DemoRouteResult a, DemoRouteResult b) =>
+              a.order.compareTo(b.order)),
+        group = keyValue.key;
+  final List<DemoRouteResult> routes;
+  final String group;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('$group 例子'),
+        actions: const [_Button()],
+      ),
+      body: ListView.builder(
+        itemBuilder: (BuildContext context, int index) {
+          final DemoRouteResult page = routes[index];
+          return Container(
+            margin: const EdgeInsets.all(20.0),
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    (index + 1).toString() + '.' + page.routeResult.routeName!,
+                    //style: TextStyle(inherit: false),
+                  ),
+                  Text(
+                    page.routeResult.description!,
+                    style: const TextStyle(color: Colors.grey),
+                  )
+                ],
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, page.routeResult.name!,
+                    arguments: <String, dynamic>{
+                      'fairProps': {
+                        'routeName': page.routeResult.routeName ?? '',
+                        'description': page.routeResult.description ?? '',
+                      }
+                    });
+              },
+            ),
+          );
+        },
+        itemCount: routes.length,
+      ),
+    );
+  }
+}
+
+class DemoRouteResult {
+  DemoRouteResult(
+    this.routeResult,
+  )   : order = routeResult.exts!['order'] as int,
+        group = routeResult.exts!['group'] as String;
+  final int order;
+
+  final String group;
+  final FFRouteSettings routeResult;
+}
+
+@FFRoute(
+  name: 'fair://MainPage',
   routeName: 'MainPage',
 )
 class MainPage extends StatelessWidget {
   MainPage({super.key}) {
-    final List<String> list = <String>[];
-    list.addAll(routeNames);
+    final List<String> routeNames = <String>[];
+    routeNames.addAll(example_routes.routeNames);
+    routeNames.remove(Routes.fairMainPage.name);
+    routeNames.remove(Routes.fairDemoGroupPage.name);
+    routeNames.remove(Routes.fairPhotoSwiper.name);
+    routeNames.remove(Routes.fairPhotoGalleryItem.name);
+    routeNames.remove(Routes.fairSourceCodeViewPage.name);
 
-    list.remove(Routes.mainPage.name);
-
-    list.remove(Routes.photoGalleryItem.name);
-
-    list.remove(Routes.photoSwiper.name);
-
-    routes.addAll(list
-        .map<FFRouteSettings>((String name) => getRouteSettings(name: name)));
+    routesGroup.addAll(groupBy<DemoRouteResult, String>(
+        routeNames
+            .map<FFRouteSettings>((String name) => getRouteSettings(name: name))
+            .where((FFRouteSettings element) => element.exts != null)
+            .map<DemoRouteResult>((FFRouteSettings e) => DemoRouteResult(e))
+            .toList()
+          ..sort((DemoRouteResult a, DemoRouteResult b) =>
+              b.group.compareTo(a.group)),
+        (DemoRouteResult x) => x.group));
   }
-  final List<FFRouteSettings> routes = <FFRouteSettings>[];
-
+  final Map<String, List<DemoRouteResult>> routesGroup =
+      <String, List<DemoRouteResult>>{};
+  //final List<RouteResult> routes = <RouteResult>[];
+  //final List<String> routeNames = <String>[];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,31 +133,13 @@ class MainPage extends StatelessWidget {
               },
             ),
           ),
-          StatefulBuilder(builder: (context, setState) {
-            return ButtonTheme(
-              padding: const EdgeInsets.only(right: 10.0),
-              minWidth: 0.0,
-              child: TextButton(
-                child: Text(
-                  ExtendedFairWidget.enable ? 'Fair模式' : 'Aot模式',
-                  style: const TextStyle(
-                    decorationStyle: TextDecorationStyle.solid,
-                    color: Colors.white,
-                  ),
-                ),
-                onPressed: () {
-                  setState(() {
-                    ExtendedFairWidget.enable = !ExtendedFairWidget.enable;
-                  });
-                },
-              ),
-            );
-          })
+          const _Button(),
         ],
       ),
       body: ListView.builder(
         itemBuilder: (BuildContext c, int index) {
-          final FFRouteSettings page = routes[index];
+          // final RouteResult page = routes[index];
+          final String type = routesGroup.keys.toList()[index];
           return Container(
               margin: const EdgeInsets.all(20.0),
               child: GestureDetector(
@@ -83,20 +148,59 @@ class MainPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      '${index + 1}.${page.routeName!}',
+                      (index + 1).toString() + '.' + type,
+                      //style: TextStyle(inherit: false),
                     ),
                     Text(
-                      page.description!,
+                      'Fair 的一些$type的使用例子',
+                      //page.description,
                       style: const TextStyle(color: Colors.grey),
                     )
                   ],
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, routes[index].name!);
+                  Navigator.pushNamed(
+                    context,
+                    Routes.fairDemoGroupPage.name,
+                    arguments: <String, dynamic>{
+                      'keyValue': routesGroup.entries.toList()[index],
+                    },
+                  );
                 },
               ));
         },
-        itemCount: routes.length,
+        itemCount: routesGroup.length,
+      ),
+    );
+  }
+}
+
+class _Button extends StatefulWidget {
+  const _Button();
+
+  @override
+  State<_Button> createState() => __ButtonState();
+}
+
+class __ButtonState extends State<_Button> {
+  @override
+  Widget build(BuildContext context) {
+    return ButtonTheme(
+      padding: const EdgeInsets.only(right: 10.0),
+      minWidth: 0.0,
+      child: TextButton(
+        child: Text(
+          ExtendedFairWidget.enable ? 'Fair模式' : 'Aot模式',
+          style: const TextStyle(
+            decorationStyle: TextDecorationStyle.solid,
+            color: Colors.white,
+          ),
+        ),
+        onPressed: () {
+          setState(() {
+            ExtendedFairWidget.enable = !ExtendedFairWidget.enable;
+          });
+        },
       ),
     );
   }

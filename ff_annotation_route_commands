@@ -1,1 +1,1 @@
--s --super-arguments
+-s --super-arguments --generate-file-import

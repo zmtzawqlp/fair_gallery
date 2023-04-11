@@ -1,5 +1,6 @@
 import 'package:fair/fair.dart';
-import 'package:fair_gallery/src/plugin/completer.dart';
+import 'package:fair_gallery/src/plugin/debug.dart';
+import 'package:fair_gallery/src/plugin/future.dart';
 import 'package:fair_gallery/src/plugin/http.dart';
 import 'package:fair_gallery/src/plugin/launch_url.dart';
 import 'package:fair_gallery/src/plugin/navigator.dart';
@@ -13,7 +14,9 @@ class FairCommonPlugin extends IFairPlugin
         ToastPlugin,
         LaunchUrlPlugin,
         CompleterPlugin,
-        HttpPlugin {
+        HttpPlugin,
+        FuturePlugin,
+        DebugPlugin {
   factory FairCommonPlugin() => _fairCommonPlugin;
   FairCommonPlugin._();
   static final FairCommonPlugin _fairCommonPlugin = FairCommonPlugin._();
@@ -26,6 +29,8 @@ class FairCommonPlugin extends IFairPlugin
       'launchUrl': launchUrl,
       'futureComplete': futureComplete,
       'http': http,
+      'futureDelayed': futureDelayed,
+      'jsPrint': jsPrint,
     };
   }
 }

@@ -1,4 +1,5 @@
 
+
 flutter clean
 flutter packages get
 flutter pub run build_runner build --delete-conflicting-outputs
@@ -15,3 +16,6 @@ do
     cp $file assets/fair    
     fi
 done
+
+rm -rf assets/page
+cp -r lib/src/page assets/

@@ -6,7 +6,7 @@ import 'package:fair/fair.dart';
 import 'package:fair_gallery/fair_gallery_route.dart';
 import 'package:fair_gallery/fair_gallery_routes.dart';
 import 'package:fair_gallery/src/delegate/delegate_base.dart';
-import 'package:fair_gallery/src/fari_app_generated_module.dart';
+import 'package:fair_gallery/src/app_generated_module.dart';
 import 'package:fair_gallery/src/plugin/fair_common_plugin.dart';
 import 'package:fair_gallery/src/utils/dynamic_widget_builder.dart';
 import 'package:fair_gallery/src/utils/fair_bindings.dart';
@@ -54,22 +54,46 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         navigatorKey: MyApp.navigatorKey,
-        initialRoute: Routes.mainPage.name,
+        initialRoute: Routes.fairMainPage.name,
         onGenerateRoute: (RouteSettings settings) {
           final FFRouteSettings ffRouteSettings = getRouteSettings(
             name: settings.name!,
             arguments: settings.arguments as Map<String, dynamic>?,
           );
           final WidgetBuilder builder = (BuildContext context) {
-            return ExtendedFairWidget.fairEnable(ffRouteSettings.exts)
-                ? ExtendedFairWidget(
-                    name: ffRouteSettings.name!,
-                    fairProps: settings.arguments as Map<String, dynamic>?,
-                    builder: (BuildContext b) {
-                      return ffRouteSettings.builder();
-                    },
-                  )
-                : ffRouteSettings.builder();
+            if (ExtendedFairWidget.fairEnable(ffRouteSettings.exts)) {
+              Widget page = ExtendedFairWidget(
+                name: ffRouteSettings.name!,
+                fairProps: settings.arguments as Map<String, dynamic>?,
+                builder: (BuildContext b) {
+                  return ffRouteSettings.builder();
+                },
+              );
+              // var package =
+              //     ffRouteSettings.exts?[ffRouteFileImport]?.toString();
+
+              // if (package != null &&
+              //     ffRouteSettings.name != Routes.fairPhotoSwiper.name) {
+              //   var filePath = codeSources.firstWhere(
+              //       (element) => package.endsWith(element),
+              //       orElse: () => '');
+              //   if (filePath.isNotEmpty) {
+              //     page = Scaffold(
+              //       appBar: AppBar(
+              //         title: Text(ffRouteSettings.routeName!),
+              //       ),
+              //       body: WidgetWithCodeView(
+              //         filePath: 'assets/' + filePath,
+              //         child: page,
+              //       ),
+              //     );
+              //   }
+              // }
+
+              return page;
+            }
+
+            return ffRouteSettings.builder();
           };
 
           switch (ffRouteSettings.pageRouteType) {

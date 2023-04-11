@@ -17,7 +17,10 @@ void createFunctionDomain({
     StringBuffer sb = StringBuffer();
     for (var key in functions.keys) {
       var functionType = functions[key]!;
-
+      var fullElement = functionType.alias?.element.toString();
+      if (skips.contains(fullElement)) {
+        continue;
+      }
       String returnType = key;
       var callbackT = '';
       if (key ==
@@ -58,7 +61,7 @@ void createFunctionDomain({
       if (uri != null && uri.contains('.dart_tool')) {
         uri = uri.substring(uri.indexOf('.dart_tool') + 2);
       }
-      var fullElement = functionType.alias?.element.toString();
+
       template = template.replaceAll(
           '{5}', fullElement != null ? '// $fullElement' : '');
       template = template.replaceAll('{6}', uri != null ? '// $uri' : '');
@@ -144,7 +147,7 @@ void createFunctionDomain({
         );
     fileContent = _dartFormatter.format(fileContent);
     final File file = File(path.join(projectDirectory.path, 'lib', 'src',
-        '${fileName.toLowerCase()}.function.dart'));
+        'generated_module', '${fileName.toLowerCase()}.function.dart'));
 
     if (!file.existsSync()) {
       file.createSync(recursive: true);

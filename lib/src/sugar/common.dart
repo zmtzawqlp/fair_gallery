@@ -9,6 +9,7 @@ import 'package:fair_gallery/src/widget/share_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:loading_more_list/loading_more_list.dart';
+import 'package:flutter_highlight/themes/vs.dart' as vs;
 
 class SugarCommon {
   SugarCommon._();
@@ -110,11 +111,6 @@ class SugarCommon {
     };
   }
 
-  static LoadingMoreItemBuilder loadingMoreItemBuilder(
-      LoadingMoreItemBuilder loadingMoreItemBuilder) {
-    return loadingMoreItemBuilder;
-  }
-
   static dynamic nullOrDefault(dynamic value, dynamic defaultValue) =>
       value ?? defaultValue;
 
@@ -132,4 +128,6 @@ class SugarCommon {
     );
     return DateTime.now();
   }
+
+  static Map<String, TextStyle> vsTheme() => vs.vsTheme;
 }

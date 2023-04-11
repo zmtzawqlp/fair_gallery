@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:fair/fair.dart';
 import 'package:fair_gallery/fair_gallery_routes.dart';
-import 'package:fair_gallery/src/page/photo_gallery_item.dart';
+import 'package:fair_gallery/src/page/complex/photo_gallery_item.dart';
 import 'package:fair_gallery/src/utils/repository.dart';
 import 'package:fair_gallery/src/widget/extended_fair_widget.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +45,7 @@ class PhotoGalleryDelegate extends FairDelegateBase {
       index: index,
       child: ExtendedFairWidget(
         builder: (context) => PhotoGalleryItem(fairProps: fairProps),
-        name: Routes.photoGalleryItem.name,
+        name: Routes.fairPhotoGalleryItem.name,
         fairProps: fairProps,
         holder: (b) => SizedBox(height: height),
       ),

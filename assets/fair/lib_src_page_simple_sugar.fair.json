@@ -1,0 +1,43 @@
+{
+  "className": "Scaffold",
+  "na": {
+    "appBar": {
+      "className": "CommomAppBar",
+      "na": {
+        "title": "%(_getRouteName)",
+        "asset": "#(Assets.assets_page_simple_sugar_dart)"
+      }
+    },
+    "body": {
+      "className": "Column",
+      "na": {
+        "children": {
+          "className": "Sugar.map",
+          "pa": [
+            "^(_list)"
+          ],
+          "na": {
+            "builder": {
+              "className": "FairFunction",
+              "body": {
+                "className": "Text",
+                "pa": [
+                  "#($item)"
+                ]
+              },
+              "parameters": {
+                "pa": [
+                  "item"
+                ]
+              },
+              "tag": "Widget Function(dynamic)",
+              "rt": "Widget"
+            }
+          },
+          "ta": "Widget,dynamic"
+        }
+      }
+    }
+  },
+  "methodMap": {}
+}

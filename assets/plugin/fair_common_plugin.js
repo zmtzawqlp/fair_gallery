@@ -18,6 +18,12 @@ let FairCommonPlugin = function () {
         },
         http: function (resp) {
             fairCommonPluginRequest(resp, 'http');
-        }       
+        },
+        futureDelayed: function (resp) {
+            fairCommonPluginRequest(resp, 'futureDelayed');
+        },
+        jsPrint: function (resp) {
+            fairCommonPluginRequest(resp, 'jsPrint');
+        }                         
     }
 }
