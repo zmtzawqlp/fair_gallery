@@ -130,4 +130,17 @@ class SugarCommon {
   }
 
   static Map<String, TextStyle> vsTheme() => vs.vsTheme;
+
+  static bool isNull(dynamic value) => value == null;
+
+  static List<T> mapForEachToList<T>(
+    Map map,
+    T Function(dynamic key, dynamic value) forEach,
+  ) {
+    final List<T> list = <T>[];
+    map.forEach(forEach);
+    return list;
+  }
+
+  static bool get test => true;
 }

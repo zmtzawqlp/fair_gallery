@@ -1,3 +1,6 @@
+// flutterVersion = '3.3.9'
+// dartVersion = '2.18.5'
+// functionCount = 53
 // ignore_for_file: deprecated_member_use, prefer_single_quotes, unused_element, unused_field, unused_import, unnecessary_import, implementation_imports, unused_shown_name, prefer_function_declarations_over_variables, void_checks, duplicate_import, no_duplicate_case_values
 import 'package:extended_text_library/extended_text_library.dart'
     as extended_text_library;
@@ -128,7 +131,7 @@ import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 import 'package:flutter/cupertino.dart' show CupertinoDynamicColor;
 import 'package:fair/fair.dart';
 
-/// PackagesFunction: 53
+/// PackagesFunctionDynamicWidgetBuilder
 mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
   dynamic convertPackagesFunction(BuildContext context, Map map, Map? methodMap,
       {Domain? domain}) {

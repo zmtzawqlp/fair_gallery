@@ -15,7 +15,7 @@
           "className": "FairFunction",
           "body": [
             {
-              "className": "SliverToBoxAdapter",
+              "className": "SliverPinnedToBoxAdapter",
               "na": {
                 "child": {
                   "className": "Container",

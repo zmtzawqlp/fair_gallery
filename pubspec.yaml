@@ -53,7 +53,7 @@ dependencies:
   ff_annotation_route_library: any
   photo_manager: any
   flutter_highlight: any
-  widget_with_codeview: any    
+  widget_with_codeview: any  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -83,7 +83,7 @@ dependency_overrides:
       #url: https://github.com/wuba/Fair.git
       url: https://github.com/zmtzawqlp/fair.git
       ref: fixed
-      path: flutter_version/flutter_3_3_0
+      path: flutter_version/flutter_mock
   fair_dart2dsl:
     git:
       #url: https://github.com/wuba/Fair.git
@@ -99,11 +99,11 @@ dependency_overrides:
   # 如果你是 3.3.0 以下的版本，需要 override collection
   collection: 1.17.0
   # fair:
-  #   path: fair  
+  #   path: ../Fair/fair  
   # fair_compiler:
-  #   path: compiler
+  #   path: ../Fair/compiler
   # fair_dart2dsl:
-  #   path: dart2dsl         
+  #   path: ../Fair/dart2dsl         
 # The following section is specific to Flutter packages.
 flutter:
 

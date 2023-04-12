@@ -102,24 +102,6 @@ Future<void> createBindings({
     }
   }
 
-  createFunctionDomain(
-    projectDirectory: projectDirectory,
-    functions: functions,
-    fileName: fileName,
-    imports: functionDomainImports,
-    fixes: functionDomainFixes,
-    skips: functionDomainSkips,
-  );
-
-  var sortLines = lines.toList()
-    ..sort((a, b) =>
-        a.startsWith('import') ? -1 : (b.startsWith('import') ? 1 : 0));
-
-  allImports.addAll(imports.split('\n'));
-
-  var flutterVersion = jsonDecode(
-    processRun(executable: 'flutter', arguments: '--version --machine'),
-  );
   // {
   //   "frameworkVersion": "3.3.9",
   //   "channel": "stable",
@@ -131,6 +113,26 @@ Future<void> createBindings({
   //   "devToolsVersion": "2.15.0",
   //   "flutterRoot": ""
   // }
+
+  var flutterVersion = jsonDecode(
+    processRun(executable: 'flutter', arguments: '--version --machine'),
+  );
+
+  createFunctionDomain(
+    projectDirectory: projectDirectory,
+    functions: functions,
+    fileName: fileName,
+    imports: functionDomainImports,
+    fixes: functionDomainFixes,
+    skips: functionDomainSkips,
+    flutterVersion: flutterVersion,
+  );
+
+  var sortLines = lines.toList()
+    ..sort((a, b) =>
+        a.startsWith('import') ? -1 : (b.startsWith('import') ? 1 : 0));
+
+  allImports.addAll(imports.split('\n'));
 
   var fileContent = _template
       .replaceAll(
@@ -197,21 +199,26 @@ Future<void> createBindings({
 }
 
 String _template = '''
-// ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors
+// flutterVersion = '{5}'
+// dartVersion = '{6}'
+// widgetCount = {7}
+// apiCount = {8}
+// ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors, invalid_use_of_visible_for_testing_member
 {0}
 import 'package:fair/fair.dart';
 {1}
 
 {2}
-
-/// flutterVersion = '{5}';
-/// dartVersion = '{6}';
-/// widgetCount = {7};
-/// apiCount = {8};
+const String flutterVersion = '{5}';
+const String dartVersion = '{6}';
+const int widgetCount = {7};
+const int apiCount = {8};
+/// {9}Components
 Map<String, dynamic> {9}Components= {
   {3}
 };
 
+/// {9}Mapping
 Map<String, bool> {9}Mapping= {
   {4}
 };

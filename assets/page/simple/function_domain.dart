@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:extended_sliver/extended_sliver.dart';
 import 'package:fair/fair.dart';
 import 'package:fair_gallery/assets.dart';
 import 'package:fair_gallery/src/plugin/fair_common_plugin.dart';
@@ -52,6 +53,148 @@ class _FunctionDomainDemoState extends State<FunctionDomainDemo> {
   String _supportCaseTitle(int index, int subIndex) {
     var title = _supportCases[index][subIndex];
     return title;
+  }
+
+  String _getRouteName() {
+    if (fairProps != null && fairProps['routeName'] != null) {
+      return fairProps['routeName'];
+    }
+    return '';
+  }
+
+  void _onRefresh(Map input) {
+    String futureId = input['futureId'];
+    // 可以传一些参数过去，多个参数用数组
+    String argument = input['argument'];
+    // 模拟一个耗时的操作，等操作完毕之后，再去完成 Future
+    FairCommonPlugin().futureDelayed({
+      // required
+      'pageName': _pageName,
+      'seconds': 2,
+      'callback': (dynamic result) {
+        FairCommonPlugin().futureComplete({
+          // required
+          'pageName': _pageName,
+          'futureId': futureId,
+          'futureValue': null,
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // Flutter 当中常用的回调域已经默认支持
+      appBar: CommomAppBar(
+        title: _getRouteName(),
+        asset: Assets.assets_page_simple_function_domain_dart,
+      ),
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverPinnedToBoxAdapter(
+              child: Container(
+                height: 100,
+                color: Sugar.ifEqualBool(
+                  innerBoxIsScrolled,
+                  trueValue: () => Colors.red,
+                  falseValue: () => Colors.blue,
+                ),
+              ),
+            ),
+          ];
+        },
+        body: RefreshIndicator(
+          onRefresh: () => Sugar.createFuture<void>(
+            function: _onRefresh,
+            argument: '可以传一些参数过去，多个参数用数组',
+          ),
+          child: CustomScrollView(slivers: [
+            const SliverToBoxAdapter(
+                child: ListTile(
+              title: Text(
+                'Fair当中支持的回调如下',
+                style: TextStyle(color: Colors.blue),
+              ),
+              subtitle: Text(
+                  '三方支持请参考 \'fair_gallery/lib/src/utils/dynamic_widget_builder.dart\' 中的实现。'),
+            )),
+            const SliverToBoxAdapter(
+                child: ListTile(
+              title: Text(
+                '无入参回调，int,double,bool,String,Widget，以及它们的空类型和List类型，',
+              ),
+              subtitle: Text('比如 int Function()'),
+            )),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(SugarString.concatenates(
+                            SugarNum.numToString(SugarNum.adds(index, 1)),
+                            '.')),
+                        const SizedBox(width: 5),
+                        Expanded(
+                            child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            HighlightView(
+                              _supportCaseTitle(index, 0),
+                              language: 'dart',
+                              theme: SugarCommon.vsTheme(),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              _supportCaseTitle(index, 1),
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ))
+                      ],
+                    ),
+                  );
+                },
+                childCount: SugarList.length(_supportCases),
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return Card(
+                    child: Column(children: [
+                      Wrap(
+                        children: Sugar.mapEach(
+                            SugarList.generate(
+                              SugarNum.toInt(SugarNum.adds(index, 1)),
+                              (p0) => SugarString.concatenates(
+                                  '$index', '的item$p0'),
+                            ), (mapIndex, dynamic item) {
+                          return Container(
+                            width: 50,
+                            height: 50,
+                            alignment: Alignment.center,
+                            child: Text(
+                                SugarString.concatenates('$mapIndex', '$item')),
+                          );
+                        }),
+                      )
+                    ]),
+                  );
+                },
+                childCount: 10,
+              ),
+            ),
+          ]),
+        ),
+      ),
+    );
   }
 
   void onLoad() {
@@ -185,147 +328,5 @@ class _FunctionDomainDemoState extends State<FunctionDomainDemo> {
         'package:flutter/src/widgets/animated_list.dart',
       ],
     ];
-  }
-
-  String _getRouteName() {
-    if (fairProps != null && fairProps['routeName'] != null) {
-      return fairProps['routeName'];
-    }
-    return '';
-  }
-
-  void _onRefresh(Map input) {
-    String futureId = input['futureId'];
-    // 可以传一些参数过去，多个参数用数组
-    String argument = input['argument'];
-    // 模拟一个耗时的操作，等操作完毕之后，再去完成 Future
-    FairCommonPlugin().futureDelayed({
-      // required
-      'pageName': _pageName,
-      'seconds': 2,
-      'callback': (dynamic result) {
-        FairCommonPlugin().futureComplete({
-          // required
-          'pageName': _pageName,
-          'futureId': futureId,
-          'futureValue': null,
-        });
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // Flutter 当中常用的回调域已经默认支持
-      appBar: CommomAppBar(
-        title: _getRouteName(),
-        asset: Assets.assets_page_simple_function_domain_dart,
-      ),
-      body: NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [
-            SliverToBoxAdapter(
-              child: Container(
-                height: 100,
-                color: Sugar.ifEqualBool(
-                  innerBoxIsScrolled,
-                  trueValue: () => Colors.red,
-                  falseValue: () => Colors.blue,
-                ),
-              ),
-            ),
-          ];
-        },
-        body: RefreshIndicator(
-          onRefresh: () => Sugar.createFuture<void>(
-            function: _onRefresh,
-            argument: '可以传一些参数过去，多个参数用数组',
-          ),
-          child: CustomScrollView(slivers: [
-            const SliverToBoxAdapter(
-                child: ListTile(
-              title: Text(
-                'Fair当中支持的回调如下',
-                style: TextStyle(color: Colors.blue),
-              ),
-              subtitle: Text(
-                  '三方支持请参考 \'fair_gallery/lib/src/utils/dynamic_widget_builder.dart\' 中的实现。'),
-            )),
-            const SliverToBoxAdapter(
-                child: ListTile(
-              title: Text(
-                '无入参回调，int,double,bool,String,Widget，以及它们的空类型和List类型，',
-              ),
-              subtitle: Text('比如 int Function()'),
-            )),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(SugarString.concatenates(
-                            SugarNum.numToString(SugarNum.adds(index, 1)),
-                            '.')),
-                        const SizedBox(width: 5),
-                        Expanded(
-                            child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            HighlightView(
-                              _supportCaseTitle(index, 0),
-                              language: 'dart',
-                              theme: SugarCommon.vsTheme(),
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              _supportCaseTitle(index, 1),
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                          ],
-                        ))
-                      ],
-                    ),
-                  );
-                },
-                childCount: SugarList.length(_supportCases),
-              ),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return Card(
-                    child: Column(children: [
-                      Wrap(
-                        children: Sugar.mapEach(
-                            SugarList.generate(
-                              SugarNum.toInt(SugarNum.adds(index, 1)),
-                              (p0) => SugarString.concatenates(
-                                  '$index', '的item$p0'),
-                            ), (mapIndex, dynamic item) {
-                          return Container(
-                            width: 50,
-                            height: 50,
-                            alignment: Alignment.center,
-                            child: Text(
-                                SugarString.concatenates('$mapIndex', '$item')),
-                          );
-                        }),
-                      )
-                    ]),
-                  );
-                },
-                childCount: 10,
-              ),
-            ),
-          ]),
-        ),
-      ),
-    );
   }
 }

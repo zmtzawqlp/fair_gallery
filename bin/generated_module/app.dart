@@ -73,6 +73,7 @@ void main(List<String> args) async {
       'Widget Function(BuildContext, T, int)':
           'Widget Function(BuildContext, dynamic, int)',
       'T Function()': 'dynamic Function()',
+      'T Function(dynamic, dynamic)':'dynamic Function(dynamic, dynamic)',
     },
     // FunctionType 的 fullElement
     // 有些是不会用的，特别是一些泛型

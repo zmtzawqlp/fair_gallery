@@ -7,6 +7,7 @@ import 'package:fair_gallery/src/generated_module/packages.function.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:fair/fair.dart';
+import 'package:fair/src/extension.dart';
 
 class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder
     with
@@ -128,6 +129,35 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder
           );
         };
         return builder;
+      case 'SugarCore.mapForEachToList':
+        final source = pa0Value(pa0(map), methodMap, context, domain);
+        var children = [];
+        if (source is Map && source.isNotEmpty) {
+          final fairFunction = pa1(map);
+          // item
+          final functionParameters = FunctionDomain.pa(fairFunction);
+          assert(functionParameters.length == 2,
+              'SugarCore.mapForEachToList 的域入参个数不对');
+          for (final key in source.keys) {
+            children.add(
+              pa0Value(
+                FunctionDomain.getBody(fairFunction),
+                methodMap,
+                context,
+                FunctionDomain(
+                  {
+                    functionParameters[0]: key,
+                    functionParameters[1]: source[key],
+                  },
+                  parent: domain,
+                ),
+              ),
+            );
+          }
+        }
+
+        children = children.asIteratorOf<Widget>()?.toList() ?? children;
+        return children;
       default:
     }
 

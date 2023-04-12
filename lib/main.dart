@@ -19,9 +19,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:fair/src/internal/flexbuffer/fair_js_decoder.dart';
+import 'package:fair_version/src/widgets/version.dart' as fair_version;
+import 'package:fair_gallery/src/generated_module/flutter.bindings.dart'
+    as local_version;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  // mock 的 fair_version ，把本地的配置传给它
+  fair_version.fairVersion = '3.2.0';
+  fair_version.flutterVersion = local_version.flutterVersion;
+  fair_version.dartVersion = local_version.dartVersion;
+  fair_version.widgetCount = local_version.widgetCount;
+  fair_version.apiCount = local_version.apiCount;
+
   FairJSDecoder.resolve = (String? jsPath) async {
     return CustomFairJSDecoder().decode(jsPath);
   };

@@ -1,3 +1,6 @@
+// flutterVersion = '3.3.9'
+// dartVersion = '2.18.5'
+// functionCount = 148
 // ignore_for_file: deprecated_member_use, prefer_single_quotes, unused_element, unused_field, unused_import, unnecessary_import, implementation_imports, unused_shown_name, prefer_function_declarations_over_variables, void_checks, duplicate_import, no_duplicate_case_values
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
@@ -10,7 +13,7 @@ import 'package:vector_math/vector_math_64.dart' show Quad;
 
 import 'package:fair/fair.dart';
 
-/// FlutterFunction: 148
+/// FlutterFunctionDynamicWidgetBuilder
 mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
   dynamic convertFlutterFunction(BuildContext context, Map map, Map? methodMap,
       {Domain? domain}) {

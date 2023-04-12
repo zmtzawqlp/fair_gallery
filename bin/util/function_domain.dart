@@ -12,6 +12,7 @@ void createFunctionDomain({
   required Map<String, String> fixes,
   // FunctionType 的 fullElement
   required Set<String> skips,
+  required dynamic flutterVersion,
 }) {
   if (functions.isNotEmpty) {
     StringBuffer sb = StringBuffer();
@@ -144,6 +145,14 @@ void createFunctionDomain({
         .replaceAll(
           '{3}',
           '${functions.length}',
+        )
+        .replaceAll(
+          '{4}',
+          flutterVersion['frameworkVersion'],
+        )
+        .replaceAll(
+          '{5}',
+          flutterVersion['dartSdkVersion'],
         );
     fileContent = _dartFormatter.format(fileContent);
     final File file = File(path.join(projectDirectory.path, 'lib', 'src',
@@ -157,11 +166,14 @@ void createFunctionDomain({
 }
 
 String _template1 = '''
+// flutterVersion = '{4}'
+// dartVersion = '{5}'
+// functionCount = {3}
 // ignore_for_file: deprecated_member_use, prefer_single_quotes, unused_element, unused_field, unused_import, unnecessary_import, implementation_imports, unused_shown_name, prefer_function_declarations_over_variables, void_checks, duplicate_import, no_duplicate_case_values
 {2}
 import 'package:fair/fair.dart';
 
-/// {1}Function: {3}
+/// {1}FunctionDynamicWidgetBuilder
 mixin {1}FunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
 
   dynamic convert{1}Function(BuildContext context, Map map, Map? methodMap,
