@@ -603,7 +603,7 @@ Map<String, dynamic> flutterComponents = {
       ),
   'TickerFuture.complete': (props) => TickerFuture.complete(),
   'TickerCanceled': (props) => TickerCanceled(
-        props['pa'][0],
+        (props['pa'].length > 0 ? props['pa'][0] : null),
       ),
   'Priority.idle': Priority.idle,
   'Priority.animation': Priority.animation,
@@ -744,13 +744,13 @@ Map<String, dynamic> flutterComponents = {
         props['pa'][0],
       ),
   'ElasticInCurve': (props) => ElasticInCurve(
-        props['pa'][0]?.toDouble() ?? 0.4,
+        (props['pa'].length > 0 ? props['pa'][0] : null)?.toDouble() ?? 0.4,
       ),
   'ElasticOutCurve': (props) => ElasticOutCurve(
-        props['pa'][0]?.toDouble() ?? 0.4,
+        (props['pa'].length > 0 ? props['pa'][0] : null)?.toDouble() ?? 0.4,
       ),
   'ElasticInOutCurve': (props) => ElasticInOutCurve(
-        props['pa'][0]?.toDouble() ?? 0.4,
+        (props['pa'].length > 0 ? props['pa'][0] : null)?.toDouble() ?? 0.4,
       ),
   'Curves.linear': Curves.linear,
   'Curves.decelerate': Curves.decelerate,
@@ -798,7 +798,7 @@ Map<String, dynamic> flutterComponents = {
         props['pa'][0],
       ),
   'ProxyAnimation': (props) => ProxyAnimation(
-        props['pa'][0],
+        (props['pa'].length > 0 ? props['pa'][0] : null),
       ),
   'ReverseAnimation': (props) => ReverseAnimation(
         props['pa'][0],
@@ -1824,7 +1824,7 @@ Map<String, dynamic> flutterComponents = {
         props['pa'][2]?.toDouble(),
       ),
   'Accumulator': (props) => Accumulator(
-        props['pa'][0] ?? 0,
+        (props['pa'].length > 0 ? props['pa'][0] : null) ?? 0,
       ),
   'InlineSpanSemanticsInformation': (props) => InlineSpanSemanticsInformation(
         props['pa'][0],
@@ -1879,7 +1879,7 @@ Map<String, dynamic> flutterComponents = {
   'CircularNotchedRectangle': (props) => const CircularNotchedRectangle(),
   'AutomaticNotchedShape': (props) => AutomaticNotchedShape(
         props['pa'][0],
-        props['pa'][1],
+        (props['pa'].length > 1 ? props['pa'][1] : null),
       ),
   'MatrixUtils.getAsTranslation': (props) => MatrixUtils.getAsTranslation(
         props['pa'][0],
@@ -2697,7 +2697,7 @@ Map<String, dynamic> flutterComponents = {
         props['pa'][2]?.toDouble(),
       ),
   'RenderProxyBox': (props) => RenderProxyBox(
-        props['pa'][0],
+        (props['pa'].length > 0 ? props['pa'][0] : null),
       ),
   'RenderConstrainedBox': (props) => RenderConstrainedBox(
         child: props['child'],
@@ -3055,7 +3055,7 @@ Map<String, dynamic> flutterComponents = {
         props['pa'][0]?.toDouble(),
       ),
   'FlexColumnWidth': (props) => FlexColumnWidth(
-        props['pa'][0]?.toDouble() ?? 1.0,
+        (props['pa'].length > 0 ? props['pa'][0] : null)?.toDouble() ?? 1.0,
       ),
   'MaxColumnWidth': (props) => MaxColumnWidth(
         props['pa'][0],
@@ -3302,7 +3302,7 @@ Map<String, dynamic> flutterComponents = {
   'GrowthDirection.reverse': GrowthDirection.reverse,
   'GrowthDirection.values': GrowthDirection.values,
   'RenderErrorBox': (props) => RenderErrorBox(
-        props['pa'][0] ?? '',
+        (props['pa'].length > 0 ? props['pa'][0] : null) ?? '',
       ),
   'RenderErrorBox.padding': RenderErrorBox.padding,
   'RenderErrorBox.minimumWidth': RenderErrorBox.minimumWidth,
@@ -3389,7 +3389,7 @@ Map<String, dynamic> flutterComponents = {
       ),
   'AnnotationResult': (props) => AnnotationResult(),
   'LayerHandle': (props) => LayerHandle<Layer>(
-        props['pa'][0],
+        (props['pa'].length > 0 ? props['pa'][0] : null),
       ),
   'PictureLayer': (props) => PictureLayer(
         props['pa'][0],
@@ -9021,7 +9021,7 @@ Map<String, dynamic> flutterComponents = {
         props['pa'][0],
       ),
   'MaterialStatesController': (props) => MaterialStatesController(
-        props['pa'][0],
+        (props['pa'].length > 0 ? props['pa'][0] : null),
       ),
   'MaterialState.hovered': MaterialState.hovered,
   'MaterialState.focused': MaterialState.focused,
@@ -19797,18 +19797,21 @@ Map<String, dynamic> flutterComponents = {
       ),
   'MethodChannel': (props) => MethodChannel(
         props['pa'][0],
-        props['pa'][1] ?? const StandardMethodCodec(),
-        props['pa'][2],
+        (props['pa'].length > 1 ? props['pa'][1] : null) ??
+            const StandardMethodCodec(),
+        (props['pa'].length > 2 ? props['pa'][2] : null),
       ),
   'OptionalMethodChannel': (props) => OptionalMethodChannel(
         props['pa'][0],
-        props['pa'][1] ?? const StandardMethodCodec(),
-        props['pa'][2],
+        (props['pa'].length > 1 ? props['pa'][1] : null) ??
+            const StandardMethodCodec(),
+        (props['pa'].length > 2 ? props['pa'][2] : null),
       ),
   'EventChannel': (props) => EventChannel(
         props['pa'][0],
-        props['pa'][1] ?? const StandardMethodCodec(),
-        props['pa'][2],
+        (props['pa'].length > 1 ? props['pa'][1] : null) ??
+            const StandardMethodCodec(),
+        (props['pa'].length > 2 ? props['pa'][2] : null),
       ),
   'RawKeyEventDataAndroid': (props) => RawKeyEventDataAndroid(
         flags: props['flags'] ?? 0,
@@ -20093,7 +20096,7 @@ Map<String, dynamic> flutterComponents = {
       ),
   'LengthLimitingTextInputFormatter.getDefaultMaxLengthEnforcement': (props) =>
       LengthLimitingTextInputFormatter.getDefaultMaxLengthEnforcement(
-        props['pa'][0],
+        (props['pa'].length > 0 ? props['pa'][0] : null),
       ),
   'MaxLengthEnforcement.none': MaxLengthEnforcement.none,
   'MaxLengthEnforcement.enforced': MaxLengthEnforcement.enforced,
@@ -20394,7 +20397,8 @@ Map<String, dynamic> flutterComponents = {
   'JSONMethodCodec': (props) => const JSONMethodCodec(),
   'StandardMessageCodec': (props) => const StandardMessageCodec(),
   'StandardMethodCodec': (props) => StandardMethodCodec(
-        props['pa'][0] ?? const StandardMessageCodec(),
+        (props['pa'].length > 0 ? props['pa'][0] : null) ??
+            const StandardMessageCodec(),
       ),
   'AutofillHints.addressCity': AutofillHints.addressCity,
   'AutofillHints.addressCityAndState': AutofillHints.addressCityAndState,
@@ -20482,7 +20486,7 @@ Map<String, dynamic> flutterComponents = {
   'AutofillConfiguration.disabled': AutofillConfiguration.disabled,
   'MethodCall': (props) => MethodCall(
         props['pa'][0],
-        props['pa'][1],
+        (props['pa'].length > 1 ? props['pa'][1] : null),
       ),
   'PlatformException': (props) => PlatformException(
         code: props['code'],
@@ -20491,7 +20495,7 @@ Map<String, dynamic> flutterComponents = {
         stacktrace: props['stacktrace'],
       ),
   'MissingPluginException': (props) => MissingPluginException(
-        props['pa'][0],
+        (props['pa'].length > 0 ? props['pa'][0] : null),
       ),
   'DeferredComponent.installDeferredComponent': (props) =>
       DeferredComponent.installDeferredComponent(
@@ -21839,7 +21843,7 @@ Map<String, dynamic> flutterComponents = {
   'AsyncSnapshot.withError': (props) => AsyncSnapshot.withError(
         props['pa'][0],
         props['pa'][1],
-        props['pa'][2] ?? StackTrace.empty,
+        (props['pa'].length > 2 ? props['pa'][2] : null) ?? StackTrace.empty,
       ),
   'StreamBuilder': (props) => StreamBuilder(
         key: props['key'],
@@ -22490,11 +22494,11 @@ Map<String, dynamic> flutterComponents = {
       ),
   'Navigator.maybePop': (props) => Navigator.maybePop(
         props['pa'][0],
-        props['pa'][1],
+        (props['pa'].length > 1 ? props['pa'][1] : null),
       ),
   'Navigator.pop': (props) => Navigator.pop(
         props['pa'][0],
-        props['pa'][1],
+        (props['pa'].length > 1 ? props['pa'][1] : null),
       ),
   'Navigator.popUntil': (props) => Navigator.popUntil(
         props['pa'][0],
@@ -23262,18 +23266,18 @@ Map<String, dynamic> flutterComponents = {
       ),
   'KeySet': (props) => KeySet<KeyboardKey>(
         props['pa'][0],
-        props['pa'][1],
-        props['pa'][2],
-        props['pa'][3],
+        (props['pa'].length > 1 ? props['pa'][1] : null),
+        (props['pa'].length > 2 ? props['pa'][2] : null),
+        (props['pa'].length > 3 ? props['pa'][3] : null),
       ),
   'KeySet.fromSet': (props) => KeySet.fromSet(
         props['pa'][0],
       ),
   'LogicalKeySet': (props) => LogicalKeySet(
         props['pa'][0],
-        props['pa'][1],
-        props['pa'][2],
-        props['pa'][3],
+        (props['pa'].length > 1 ? props['pa'][1] : null),
+        (props['pa'].length > 2 ? props['pa'][2] : null),
+        (props['pa'].length > 3 ? props['pa'][3] : null),
       ),
   'LogicalKeySet.fromSet': (props) => LogicalKeySet.fromSet(
         props['pa'][0],
@@ -23962,7 +23966,7 @@ Map<String, dynamic> flutterComponents = {
         builder: props['builder'],
       ),
   'TransformationController': (props) => TransformationController(
-        props['pa'][0],
+        (props['pa'].length > 0 ? props['pa'][0] : null),
       ),
   'DisplayFeatureSubScreen': (props) => DisplayFeatureSubScreen(
         key: props['key'],
@@ -25005,7 +25009,7 @@ Map<String, dynamic> flutterComponents = {
       ),
   'FontFeature': (props) => FontFeature(
         props['pa'][0],
-        props['pa'][1] ?? 1,
+        (props['pa'].length > 1 ? props['pa'][1] : null) ?? 1,
       ),
   'FontFeature.enable': (props) => FontFeature.enable(
         props['pa'][0],
@@ -25035,7 +25039,7 @@ Map<String, dynamic> flutterComponents = {
         enable: props['enable'] ?? true,
       ),
   'FontFeature.notationalForms': (props) => FontFeature.notationalForms(
-        props['pa'][0] ?? 1,
+        (props['pa'].length > 0 ? props['pa'][0] : null) ?? 1,
       ),
   'FontFeature.numerators': (props) => const FontFeature.numerators(),
   'FontFeature.oldstyleFigures': (props) => const FontFeature.oldstyleFigures(),
@@ -25053,7 +25057,7 @@ Map<String, dynamic> flutterComponents = {
   'FontFeature.subscripts': (props) => const FontFeature.subscripts(),
   'FontFeature.superscripts': (props) => const FontFeature.superscripts(),
   'FontFeature.swash': (props) => FontFeature.swash(
-        props['pa'][0] ?? 1,
+        (props['pa'].length > 0 ? props['pa'][0] : null) ?? 1,
       ),
   'FontFeature.tabularFigures': (props) => const FontFeature.tabularFigures(),
   'FontFeature.slashedZero': (props) => const FontFeature.slashedZero(),
@@ -25321,7 +25325,7 @@ Map<String, dynamic> flutterComponents = {
       ),
   'Canvas': (props) => Canvas(
         props['pa'][0],
-        props['pa'][1],
+        (props['pa'].length > 1 ? props['pa'][1] : null),
       ),
   'PictureRecorder': (props) => PictureRecorder(),
   'Shadow': (props) => Shadow(
@@ -25517,7 +25521,7 @@ Map<String, dynamic> flutterComponents = {
       ),
   'Offset.fromDirection': (props) => Offset.fromDirection(
         props['pa'][0]?.toDouble(),
-        props['pa'][1]?.toDouble() ?? 1.0,
+        (props['pa'].length > 1 ? props['pa'][1] : null)?.toDouble() ?? 1.0,
       ),
   'Offset.zero': Offset.zero,
   'Offset.infinite': Offset.infinite,
@@ -25681,7 +25685,7 @@ Map<String, dynamic> flutterComponents = {
       ),
   'Locale': (props) => Locale(
         props['pa'][0],
-        props['pa'][1],
+        (props['pa'].length > 1 ? props['pa'][1] : null),
       ),
   'Locale.fromSubtags': (props) => Locale.fromSubtags(
         languageCode: props['languageCode'] ?? 'und',

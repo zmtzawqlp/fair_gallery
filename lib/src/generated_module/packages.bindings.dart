@@ -236,7 +236,7 @@ Map<String, dynamic> packagesComponents = {
         end: props['end'],
       ),
   'OvershootCurve': (props) => OvershootCurve(
-        props['pa'][0]?.toDouble() ?? 2.5,
+        (props['pa'].length > 0 ? props['pa'][0] : null)?.toDouble() ?? 2.5,
       ),
   'LikeCountClip': (props) => LikeCountClip(),
   'LikeCountAnimationType.none': LikeCountAnimationType.none,
@@ -1460,7 +1460,7 @@ Map<String, dynamic> packagesComponents = {
   'SyntaxHighlighterStyle.darkThemeStyle': (props) =>
       SyntaxHighlighterStyle.darkThemeStyle(),
   'DartSyntaxHighlighter': (props) => DartSyntaxHighlighter(
-        props['pa'][0],
+        (props['pa'].length > 0 ? props['pa'][0] : null),
       ),
   'WidgetWithCodeView': (props) => WidgetWithCodeView(
         key: props['key'],

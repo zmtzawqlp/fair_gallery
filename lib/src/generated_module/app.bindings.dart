@@ -1,7 +1,7 @@
 // flutterVersion = '3.3.9'
 // dartVersion = '2.18.5'
 // widgetCount = 10
-// apiCount = 280
+// apiCount = 279
 // ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors, invalid_use_of_visible_for_testing_member
 import 'package:extended_text_library/extended_text_library.dart'
     as extended_text_library;
@@ -25,7 +25,7 @@ import 'package:fair/fair.dart';
 const String flutterVersion = '3.3.9';
 const String dartVersion = '2.18.5';
 const int widgetCount = 10;
-const int apiCount = 280;
+const int apiCount = 279;
 
 /// appComponents
 Map<String, dynamic> appComponents = {
@@ -94,7 +94,6 @@ Map<String, dynamic> appComponents = {
   'Assets.assets_page_simple_sugar_dart': Assets.assets_page_simple_sugar_dart,
   'Assets.assets_plugin_fair_common_plugin_js':
       Assets.assets_plugin_fair_common_plugin_js,
-  'SugarCommon.test': SugarCommon.test,
   'SugarCommon.returnContainer': (props) => SugarCommon.returnContainer(
         props['pa'][0],
       ),
@@ -244,7 +243,7 @@ Map<String, dynamic> appComponents = {
       ),
   'SugarDouble.parse': (props) => SugarDouble.parse(
         props['pa'][0],
-        props['pa'][1],
+        (props['pa'].length > 1 ? props['pa'][1] : null),
       ),
   'SugarDouble.tryParse': (props) => SugarDouble.tryParse(
         props['pa'][0],
@@ -424,7 +423,7 @@ Map<String, dynamic> appComponents = {
       ),
   'SugarIterable.join': (props) => SugarIterable.join(
         props['pa'][0],
-        props['pa'][1] ?? "",
+        (props['pa'].length > 1 ? props['pa'][1] : null) ?? "",
       ),
   'SugarIterable.any': (props) => SugarIterable.any(
         props['pa'][0],
@@ -512,8 +511,8 @@ Map<String, dynamic> appComponents = {
         props['pa'][0],
         props['pa'][1],
         props['pa'][2],
-        props['pa'][3],
-        props['pa'][4],
+        (props['pa'].length > 3 ? props['pa'][3] : null),
+        (props['pa'].length > 4 ? props['pa'][4] : null),
       ),
   'SugarList.writeIterable': (props) => SugarList.writeIterable(
         props['pa'][0],
@@ -542,31 +541,31 @@ Map<String, dynamic> appComponents = {
       ),
   'SugarList.sort': (props) => SugarList.sort(
         props['pa'][0],
-        props['pa'][1],
+        (props['pa'].length > 1 ? props['pa'][1] : null),
       ),
   'SugarList.shuffle': (props) => SugarList.shuffle(
         props['pa'][0],
-        props['pa'][1],
+        (props['pa'].length > 1 ? props['pa'][1] : null),
       ),
   'SugarList.indexOf': (props) => SugarList.indexOf(
         props['pa'][0],
         props['pa'][1],
-        props['pa'][2] ?? 0,
+        (props['pa'].length > 2 ? props['pa'][2] : null) ?? 0,
       ),
   'SugarList.indexWhere': (props) => SugarList.indexWhere(
         props['pa'][0],
         props['pa'][1],
-        props['pa'][2] ?? 0,
+        (props['pa'].length > 2 ? props['pa'][2] : null) ?? 0,
       ),
   'SugarList.lastIndexWhere': (props) => SugarList.lastIndexWhere(
         props['pa'][0],
         props['pa'][1],
-        props['pa'][2] ?? 0,
+        (props['pa'].length > 2 ? props['pa'][2] : null) ?? 0,
       ),
   'SugarList.lastIndexOf': (props) => SugarList.lastIndexOf(
         props['pa'][0],
         props['pa'][1],
-        props['pa'][2] ?? 0,
+        (props['pa'].length > 2 ? props['pa'][2] : null) ?? 0,
       ),
   'SugarList.clear': (props) => SugarList.clear(
         props['pa'][0],
@@ -612,7 +611,7 @@ Map<String, dynamic> appComponents = {
   'SugarList.sublist': (props) => SugarList.sublist(
         props['pa'][0],
         props['pa'][1],
-        props['pa'][2],
+        (props['pa'].length > 2 ? props['pa'][2] : null),
       ),
   'SugarList.getRange': (props) => SugarList.getRange(
         props['pa'][0],
@@ -624,7 +623,7 @@ Map<String, dynamic> appComponents = {
         props['pa'][1],
         props['pa'][2],
         props['pa'][3],
-        props['pa'][4] ?? 0,
+        (props['pa'].length > 4 ? props['pa'][4] : null) ?? 0,
       ),
   'SugarList.removeRange': (props) => SugarList.removeRange(
         props['pa'][0],
@@ -635,7 +634,7 @@ Map<String, dynamic> appComponents = {
         props['pa'][0],
         props['pa'][1],
         props['pa'][2],
-        props['pa'][3],
+        (props['pa'].length > 3 ? props['pa'][3] : null),
       ),
   'SugarList.replaceRange': (props) => SugarList.replaceRange(
         props['pa'][0],
@@ -837,7 +836,7 @@ Map<String, dynamic> appComponents = {
       ),
   'SugarNum.toStringAsExponential': (props) => SugarNum.toStringAsExponential(
         props['pa'][0],
-        props['pa'][1],
+        (props['pa'].length > 1 ? props['pa'][1] : null),
       ),
   'SugarNum.toStringAsPrecision': (props) => SugarNum.toStringAsPrecision(
         props['pa'][0],
@@ -848,7 +847,7 @@ Map<String, dynamic> appComponents = {
       ),
   'SugarNum.parse': (props) => SugarNum.parse(
         props['pa'][0],
-        props['pa'][1],
+        (props['pa'].length > 1 ? props['pa'][1] : null),
       ),
   'SugarNum.tryParse': (props) => SugarNum.tryParse(
         props['pa'][0],
@@ -891,17 +890,17 @@ Map<String, dynamic> appComponents = {
   'SugarString.startsWith': (props) => SugarString.startsWith(
         props['pa'][0],
         props['pa'][1],
-        props['pa'][2] ?? 0,
+        (props['pa'].length > 2 ? props['pa'][2] : null) ?? 0,
       ),
   'SugarString.indexOf': (props) => SugarString.indexOf(
         props['pa'][0],
         props['pa'][1],
-        props['pa'][2] ?? 0,
+        (props['pa'].length > 2 ? props['pa'][2] : null) ?? 0,
       ),
   'SugarString.lastIndexOf': (props) => SugarString.lastIndexOf(
         props['pa'][0],
         props['pa'][1],
-        props['pa'][2] ?? 0,
+        (props['pa'].length > 2 ? props['pa'][2] : null) ?? 0,
       ),
   'SugarString.concatenates': (props) => SugarString.concatenates(
         props['pa'][0],
@@ -910,7 +909,7 @@ Map<String, dynamic> appComponents = {
   'SugarString.substring': (props) => SugarString.substring(
         props['pa'][0],
         props['pa'][1],
-        props['pa'][2],
+        (props['pa'].length > 2 ? props['pa'][2] : null),
       ),
   'SugarString.trim': (props) => SugarString.trim(
         props['pa'][0],
@@ -929,29 +928,29 @@ Map<String, dynamic> appComponents = {
   'SugarString.padLeft': (props) => SugarString.padLeft(
         props['pa'][0],
         props['pa'][1],
-        props['pa'][2] ?? ' ',
+        (props['pa'].length > 2 ? props['pa'][2] : null) ?? ' ',
       ),
   'SugarString.padRight': (props) => SugarString.padRight(
         props['pa'][0],
         props['pa'][1],
-        props['pa'][2] ?? ' ',
+        (props['pa'].length > 2 ? props['pa'][2] : null) ?? ' ',
       ),
   'SugarString.contains': (props) => SugarString.contains(
         props['pa'][0],
         props['pa'][1],
-        props['pa'][2] ?? 0,
+        (props['pa'].length > 2 ? props['pa'][2] : null) ?? 0,
       ),
   'SugarString.replaceFirst': (props) => SugarString.replaceFirst(
         props['pa'][0],
         props['pa'][1],
         props['pa'][2],
-        props['pa'][3] ?? 0,
+        (props['pa'].length > 3 ? props['pa'][3] : null) ?? 0,
       ),
   'SugarString.replaceFirstMapped': (props) => SugarString.replaceFirstMapped(
         props['pa'][0],
         props['pa'][1],
         props['pa'][2],
-        props['pa'][3] ?? 0,
+        (props['pa'].length > 3 ? props['pa'][3] : null) ?? 0,
       ),
   'SugarString.replaceAll': (props) => SugarString.replaceAll(
         props['pa'][0],
@@ -1109,7 +1108,6 @@ Map<String, bool> appMapping = {
   'Assets.assets_page_simple_plugin_dart': false,
   'Assets.assets_page_simple_sugar_dart': false,
   'Assets.assets_plugin_fair_common_plugin_js': false,
-  'SugarCommon.test': false,
   'SugarCommon.returnContainer': false,
   'SugarCommon.onImageStateChanged': false,
   'SugarCommon.colorComputeLuminance': false,

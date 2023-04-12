@@ -141,6 +141,4 @@ class SugarCommon {
     map.forEach(forEach);
     return list;
   }
-
-  static bool get test => true;
 }
