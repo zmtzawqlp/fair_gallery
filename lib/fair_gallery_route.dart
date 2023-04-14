@@ -177,7 +177,7 @@ FFRouteSettings getRouteSettings({
             safeArguments['key'],
           ),
         ),
-        routeName: 'PluginDemo',
+        routeName: 'FairPlugin 示例',
         description: '通过 FairPlugin 在 js 中与 Flutter 交互',
         exts: <String, dynamic>{
           ExtendedFairWidget.tag: true,

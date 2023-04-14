@@ -3,6 +3,7 @@
 import 'package:fair/fair.dart';
 import 'package:fair_gallery/assets.dart';
 import 'package:fair_gallery/src/plugin/fair_common_plugin.dart';
+import 'package:fair_gallery/src/sugar/common.dart';
 import 'package:fair_gallery/src/sugar/dart_core.dart';
 import 'package:fair_gallery/src/widget/app_bar.dart';
 import 'package:fair_gallery/src/widget/extended_fair_widget.dart';
@@ -12,7 +13,7 @@ import 'package:flutter/material.dart';
 @FairPatch()
 @FFRoute(
   name: 'fair://PluginDemo',
-  routeName: 'PluginDemo',
+  routeName: 'FairPlugin 示例',
   description: '通过 FairPlugin 在 js 中与 Flutter 交互',
   exts: <String, dynamic>{
     ExtendedFairWidget.tag: true,
@@ -35,6 +36,7 @@ class _PluginDemoState extends State<PluginDemo> {
   @override
   void initState() {
     super.initState();
+    onLoad();
   }
 
   String _getRouteName() {
@@ -123,6 +125,44 @@ class _PluginDemoState extends State<PluginDemo> {
     return '';
   }
 
+  String _getImageUrl(int index) {
+    if (index >= feedList.length) {
+      return '';
+    }
+    var item = feedList[index];
+    var images = item['images'];
+
+    if (images == null || images.length < 1) {
+      return '';
+    }
+
+    var image = images[0];
+
+    return 'https://photo.tuchong.com/' +
+        image['user_id'].toString() +
+        '/f/' +
+        image['img_id'].toString() +
+        '.jpg';
+  }
+
+  void _onImageSaveTap(int index) {
+    FairCommonPlugin().savePhoto({
+      // required
+      'pageName': _pageName,
+      // if need, add a callback
+      'callback': (dynamic result) {
+        var success = result['success'];
+        if (success == true) {
+          FairCommonPlugin().showToast({
+            'pageName': _pageName,
+            'msg': '图片保存成功',
+          });
+        }
+      },
+      'url': _getImageUrl(index),
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,12 +184,56 @@ class _PluginDemoState extends State<PluginDemo> {
             ),
             falseValue: () => ListView.builder(
               itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Text(_getContent(index)),
-                  ],
+                return Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              SugarString.concatenates(
+                                  SugarInt.intToString(index), '.'),
+                              style: const TextStyle(height: 1),
+                              strutStyle: const StrutStyle(height: 1.2),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: Text(
+                                _getContent(index),
+                                maxLines: 5,
+                                style: const TextStyle(height: 1),
+                                strutStyle: const StrutStyle(height: 1.2),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Sugar.ifEqual(
+                          _getImageUrl(index),
+                          '',
+                          trueValue: () => const SizedBox.shrink(),
+                          falseValue: () => GestureDetector(
+                            onTap: SugarCommon.voidCallBack(
+                              function: _onImageSaveTap,
+                              value: index,
+                            ),
+                            child: Image.network(
+                              _getImageUrl(index),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               },
+              itemCount: SugarList.length(feedList),
             ),
           ),
         ));
