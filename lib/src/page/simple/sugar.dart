@@ -1,6 +1,10 @@
+// ignore_for_file: unused_field
+
 import 'package:fair/fair.dart';
 import 'package:fair_gallery/assets.dart';
-import 'package:fair_gallery/src/plugin/fair_common_plugin.dart';
+
+import 'package:fair_gallery/src/sugar/common.dart';
+import 'package:fair_gallery/src/sugar/dart_core.dart';
 import 'package:fair_gallery/src/widget/app_bar.dart';
 import 'package:fair_gallery/src/widget/extended_fair_widget.dart';
 import 'package:ff_annotation_route_library/ff_annotation_route_library.dart';
@@ -10,8 +14,7 @@ import 'package:flutter/material.dart';
 @FFRoute(
   name: 'fair://SugarDemo',
   routeName: '语法糖例子',
-  description:
-      '语法糖例子(Sugar.ifEqual，Sugar.ifEqualBool，Sugar.ifRange，Sugar.map，Sugar.mapEach)',
+  description: '常用语法糖例子',
   exts: <String, dynamic>{
     ExtendedFairWidget.tag: true,
     'group': '简单',
@@ -34,7 +37,7 @@ class _SugarDemoState extends State<SugarDemo> {
   @FairProps()
   var fairProps;
   final String _pageName = '#FairKey#';
-  final _list = [];
+  var _data;
   @override
   void initState() {
     super.initState();
@@ -43,12 +46,11 @@ class _SugarDemoState extends State<SugarDemo> {
   }
 
   void onLoad() {
-    _list.add({'ddd': 1});
-    FairCommonPlugin().jsPrint({
-      'pageName': _pageName,
-      'value': _list,
-    });
-    setState(() {});
+    if (fairProps != null && fairProps['itemData'] != null) {
+      _data = fairProps['itemData'];
+
+      setState(() {});
+    }
   }
 
   String _getRouteName() {
@@ -58,152 +60,32 @@ class _SugarDemoState extends State<SugarDemo> {
     return '';
   }
 
-  // var _data = {
-  //   "post_id": 122416471,
-  //   "type": "multi-photo",
-  //   "url": "https://tuchong.com/2969032/122416471/",
-  //   "site_id": "2969032",
-  //   "author_id": "2969032",
-  //   "published_at": "2023-04-04 18:49:44",
-  //   "passed_time": "04月04日",
-  //   "excerpt": "「#西安写真」 「#婚纱写真」 「#情侣写真」",
-  //   "favorites": 23,
-  //   "comments": 0,
-  //   "rewardable": true,
-  //   "parent_comments": "0",
-  //   "rewards": "0",
-  //   "views": 1235,
-  //   "collected": false,
-  //   "shares": 0,
-  //   "recommend": true,
-  //   "delete": false,
-  //   "update": false,
-  //   "content": "#西安写真 #婚纱写真 #情侣写真",
-  //   "title": "化繁为简 | 时尚婚纱画报",
-  //   "image_count": 9,
-  //   "images": [
-  //     {
-  //       "img_id": 1059076220,
-  //       "img_id_str": "1059076220",
-  //       "user_id": 2969032,
-  //       "title": "224DDF23-206D-4E3D-ADC2-248B474E9706/L0/001",
-  //       "excerpt": "",
-  //       "width": 2587,
-  //       "height": 3449,
-  //       "description": ""
-  //     },
-  //     {
-  //       "img_id": 1193621544,
-  //       "img_id_str": "1193621544",
-  //       "user_id": 2969032,
-  //       "title": "6196696D-4902-4A30-9312-7C1F8214DFC9/L0/001",
-  //       "excerpt": "",
-  //       "width": 2587,
-  //       "height": 3449,
-  //       "description": ""
-  //     },
-  //     {
-  //       "img_id": 902576405,
-  //       "img_id_str": "902576405",
-  //       "user_id": 2969032,
-  //       "title": "7C5AB6E9-116A-4CFC-B677-B5B22469CA52/L0/001",
-  //       "excerpt": "",
-  //       "width": 2587,
-  //       "height": 3449,
-  //       "description": ""
-  //     },
-  //     {
-  //       "img_id": 1138833621,
-  //       "img_id_str": "1138833621",
-  //       "user_id": 2969032,
-  //       "title": "D860E3BF-17F0-4B54-AD6A-883C1BB8F345/L0/001",
-  //       "excerpt": "",
-  //       "width": 2299,
-  //       "height": 3065,
-  //       "description": ""
-  //     },
-  //     {
-  //       "img_id": 769865746,
-  //       "img_id_str": "769865746",
-  //       "user_id": 2969032,
-  //       "title": "76F28F2D-7B48-41E7-AECD-1DAF18B187C6/L0/001",
-  //       "excerpt": "",
-  //       "width": 2587,
-  //       "height": 3449,
-  //       "description": ""
-  //     },
-  //     {
-  //       "img_id": 691943554,
-  //       "img_id_str": "691943554",
-  //       "user_id": 2969032,
-  //       "title": "A6ECB9A3-2F43-4A00-9BCD-E54F0A279C58/L0/001",
-  //       "excerpt": "",
-  //       "width": 2587,
-  //       "height": 3449,
-  //       "description": ""
-  //     },
-  //     {
-  //       "img_id": 915028135,
-  //       "img_id_str": "915028135",
-  //       "user_id": 2969032,
-  //       "title": "17FD1B22-35F0-4F28-BFD8-752881C1C405/L0/001",
-  //       "excerpt": "",
-  //       "width": 2587,
-  //       "height": 3449,
-  //       "description": ""
-  //     },
-  //     {
-  //       "img_id": 685193320,
-  //       "img_id_str": "685193320",
-  //       "user_id": 2969032,
-  //       "title": "5AA04B11-B680-48FA-B884-C43DCC90282B/L0/001",
-  //       "excerpt": "",
-  //       "width": 2587,
-  //       "height": 3449,
-  //       "description": ""
-  //     },
-  //     {
-  //       "img_id": 842807354,
-  //       "img_id_str": "842807354",
-  //       "user_id": 2969032,
-  //       "title": "3C1B7086-35E6-48D4-B799-C48F4EC931E4/L0/001",
-  //       "excerpt": "",
-  //       "width": 2587,
-  //       "height": 3449,
-  //       "description": ""
-  //     }
-  //   ],
-  //   "title_image": null,
-  //   "tags": ["人像", "优雅", "团结", "城市", "孤立的", "寻找", "成就者", "手机", "抓拍", "时尚"],
-  //   "event_tags": [],
-  //   "favorite_list_prefix": [],
-  //   "reward_list_prefix": [],
-  //   "comment_list_prefix": [],
-  //   "poi_data": {"id": "22535660174084830", "name": "今世集画报摄影"},
-  //   "data_type": "post",
-  //   "created_at": "",
-  //   "sites": [],
-  //   "site": {
-  //     "site_id": 2969032,
-  //     "type": "user",
-  //     "name": "陈阿雪",
-  //     "domain": null,
-  //     "description": "微博：陈阿雪",
-  //     "followers": 1475,
-  //     "url": "https://tuchong.com/2969032/",
-  //     "icon": "https://p3-tuchong.byteimg.com/obj/tuchong-avatar/ll_2969032_1",
-  //     "is_bind_everphoto": true,
-  //     "has_everphoto_note": true,
-  //     "videos": 12,
-  //     "verified": false,
-  //     "verifications": 0,
-  //     "verification_list": [],
-  //     "is_following": false
-  //   },
-  //   "recom_type": "",
-  //   "rqt_id": "7ac42bfd42ddd7f3701f506690e8a148",
-  //   "is_favorite": false
-  // };
+  dynamic _getValue(String key, dynamic defaultValue) {
+    if (_data != null && _data[key] != null) {
+      return _data[key];
+    }
+    return defaultValue;
+  }
+
+  String _getImageUrl(int index) {
+    if (_data == null || _data['images'] == null) {
+      return '';
+    }
+
+    var images = _data['images'];
+
+    if (images.length < 1) {
+      return '';
+    }
+
+    var image = images[index];
+
+    return 'https://photo.tuchong.com/' +
+        image['user_id'].toString() +
+        '/f/' +
+        image['img_id'].toString() +
+        '.jpg';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,10 +94,147 @@ class _SugarDemoState extends State<SugarDemo> {
         title: _getRouteName(),
         asset: Assets.assets_page_simple_sugar_dart,
       ),
-      body: Column(
-        children: Sugar.map<Widget, dynamic>(_list, builder: (item) {
-          return Text('$item');
-        }),
+      body: Sugar.ifEqualBool(
+        SugarCommon.isNull(_data),
+        trueValue: () => const Center(
+          child: CircularProgressIndicator(
+            strokeWidth: 2.0,
+          ),
+        ),
+        falseValue: () => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Sugar.ifEqualBool(
+                      SugarNum.greaterThan(_getValue('views', 0), 1000),
+                      trueValue: () {
+                    return Container(
+                      margin: const EdgeInsets.all(11),
+                      padding: const EdgeInsets.all(8),
+                      decoration: const BoxDecoration(
+                          color: Colors.orange,
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                      child: const Text('热门',
+                          style: TextStyle(color: Colors.white)),
+                    );
+                  }, falseValue: () {
+                    return Container();
+                  }),
+                  Sugar.ifEqual(
+                    _getValue('type', ''),
+                    'multi-photo',
+                    trueValue: () {
+                      return Container(
+                        margin: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
+                        decoration: const BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        child: const Text('多图',
+                            style: TextStyle(color: Colors.white)),
+                      );
+                    },
+                    falseValue: () => Container(),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 11, right: 11, bottom: 11),
+                child: Wrap(
+                  runSpacing: 5.0,
+                  spacing: 5.0,
+                  children: Sugar.mapEach(
+                    SugarIterable.toList(
+                        SugarIterable.take(_getValue('tags', []), 6)),
+                    (index, item) => Container(
+                      padding: const EdgeInsets.all(3.0),
+                      decoration: BoxDecoration(
+                        color: SugarCommon.getRandomColor(index),
+                        border: Border.all(
+                          color: Sugar.colorsWithOpacity(Colors.grey, 0.4),
+                          width: 1.0,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(5.0),
+                        ),
+                      ),
+                      child: Text(
+                        '$item',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: SugarCommon.getLuminanceColor(
+                            SugarCommon.colorComputeLuminance(
+                              SugarCommon.getRandomColor(
+                                index,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Sugar.switchCase(
+                _getValue('image_count', 0),
+                [
+                  SugarSwitchCaseObj(
+                    sugarCase: () => 0,
+                    reValue: () => Container(),
+                  ),
+                  SugarSwitchCaseObj(
+                    sugarCase: () => 1,
+                    reValue: () => Image.network(_getImageUrl(0)),
+                  ),
+                ],
+                () => GridView(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(11),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                  ),
+                  children: Sugar.mapEach(
+                      SugarIterable.toList(SugarIterable.take(
+                        _getValue('images', []),
+                        9,
+                      )),
+                      (index, item) =>
+                          Image.network(_getImageUrl(index), frameBuilder: (
+                            context,
+                            child,
+                            frame,
+                            wasSynchronouslyLoaded,
+                          ) {
+                            return Sugar.ifEqualBool(
+                              wasSynchronouslyLoaded,
+                              trueValue: () => child,
+                              falseValue: () => AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 500),
+                                child: Sugar.ifEqualBool(
+                                  SugarCommon.isNull(frame),
+                                  trueValue: () => Container(
+                                    color: Sugar.colorsWithOpacity(
+                                      Colors.grey,
+                                      0.3,
+                                    ),
+                                  ),
+                                  falseValue: () => child,
+                                ),
+                              ),
+                            );
+                          })),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

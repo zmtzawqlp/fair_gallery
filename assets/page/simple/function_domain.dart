@@ -216,7 +216,8 @@ class _FunctionDomainDemoState extends State<FunctionDomainDemo> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('$index.'),
+                                Text(SugarString.concatenates(
+                                    SugarInt.intToString(index), '.')),
                                 const SizedBox(width: 5),
                                 Expanded(
                                   child: Wrap(

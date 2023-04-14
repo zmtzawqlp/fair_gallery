@@ -76,7 +76,7 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
   void _onImageTap() {
     FairCommonPlugin().navigate({
       // required
-      'pageName': '#FairKey#',
+      'pageName': _pageName,
       'method': 'pop',
     });
   }

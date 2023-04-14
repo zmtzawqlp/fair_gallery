@@ -399,7 +399,18 @@
                                                 {
                                                   "className": "Text",
                                                   "pa": [
-                                                    "#($index.)"
+                                                    {
+                                                      "className": "SugarString.concatenates",
+                                                      "pa": [
+                                                        {
+                                                          "className": "SugarInt.intToString",
+                                                          "pa": [
+                                                            "^(index)"
+                                                          ]
+                                                        },
+                                                        "."
+                                                      ]
+                                                    }
                                                   ]
                                                 },
                                                 {
