@@ -46,11 +46,22 @@ Future<void> createBindings({
           (transformer.skipSource
                   .indexWhere((skip) => filePath.endsWith(skip)) ==
               -1)) {
-        var w = await processFile(context, filePath, analysisAllClasses: true);
+        var w = await processFile(
+          context,
+          filePath,
+          analysisAllClasses: true,
+          skips: {
+            ...componentSkips,
+            // 跳过 dart:ui 里面的 TextStyle
+            if (dirname.endsWith('ui')) ...{
+              'TextStyle',
+              'StrutStyle',
+              'PlatformConfiguration',
+              'ViewConfiguration',
+            },
+          },
+        );
         if (w?.components?.isNotEmpty != true) {
-          continue;
-        }
-        if (componentSkips.contains(w?.clzName)) {
           continue;
         }
         components.add(w!);

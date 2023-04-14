@@ -45,20 +45,6 @@ class CustomDynamicWidgetBuilder extends DynamicWidgetBuilder
         }
         var tag = FunctionDomain.getTag(map);
         switch (tag) {
-          case 'String Function(int)':
-            List functionPaParameters = FunctionDomain.pa(map);
-            String Function(int) builder = (p0) {
-              return pa0Value(
-                FunctionDomain.getBody(map),
-                methodMap,
-                context,
-                FunctionDomain(
-                  {functionPaParameters[0]: p0},
-                  parent: domain,
-                ),
-              );
-            };
-            return builder;
           default:
         }
         break;

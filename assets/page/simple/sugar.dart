@@ -55,7 +55,7 @@ class _SugarDemoState extends State<SugarDemo> {
     if (fairProps != null && fairProps['routeName'] != null) {
       return fairProps['routeName'];
     }
-    return '语法糖例子1';
+    return '';
   }
 
   // var _data = {

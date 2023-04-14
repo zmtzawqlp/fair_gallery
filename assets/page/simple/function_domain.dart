@@ -96,10 +96,15 @@ class _FunctionDomainDemoState extends State<FunctionDomainDemo> {
             SliverPinnedToBoxAdapter(
               child: Container(
                 height: 100,
+                alignment: Alignment.center,
                 color: Sugar.ifEqualBool(
                   innerBoxIsScrolled,
                   trueValue: () => Colors.red,
                   falseValue: () => Colors.blue,
+                ),
+                child: Text(
+                  '作用域演示, innerBoxIsScrolled: $innerBoxIsScrolled',
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ),
@@ -110,88 +115,178 @@ class _FunctionDomainDemoState extends State<FunctionDomainDemo> {
             function: _onRefresh,
             argument: '可以传一些参数过去，多个参数用数组',
           ),
-          child: CustomScrollView(slivers: [
-            const SliverToBoxAdapter(
-                child: ListTile(
-              title: Text(
-                'Fair当中支持的回调如下',
-                style: TextStyle(color: Colors.blue),
+          child: DefaultTextStyle(
+            style: const TextStyle(height: 1, color: Colors.black),
+            child: CustomScrollView(slivers: [
+              const SliverToBoxAdapter(
+                  child: ListTile(
+                title: Text(
+                  'Fair当中支持的回调如下',
+                  style: TextStyle(color: Colors.blue),
+                ),
+                subtitle: Text(
+                    '三方支持请参考 \'fair_gallery/lib/src/utils/dynamic_widget_builder.dart\' 中的实现。'),
+              )),
+              SliverToBoxAdapter(
+                  child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      '0.',
+                    ),
+                    const SizedBox(width: 5),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            '无入参回调，int,double,bool,String,Widget，以及它们的空类型和List类型，',
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            '比如 int Function()',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(SugarString.concatenates(
+                              SugarNum.numToString(SugarNum.adds(index, 1)),
+                              '.')),
+                          const SizedBox(width: 5),
+                          Expanded(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              HighlightView(
+                                _supportCaseTitle(index, 0),
+                                language: 'dart',
+                                theme: SugarCommon.vsTheme(),
+                                textStyle: const TextStyle(height: 1),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                _supportCaseTitle(index, 1),
+                                style: const TextStyle(color: Colors.grey),
+                              ),
+                            ],
+                          ))
+                        ],
+                      ),
+                    );
+                  },
+                  childCount: SugarList.length(_supportCases),
+                ),
               ),
-              subtitle: Text(
-                  '三方支持请参考 \'fair_gallery/lib/src/utils/dynamic_widget_builder.dart\' 中的实现。'),
-            )),
-            const SliverToBoxAdapter(
-                child: ListTile(
-              title: Text(
-                '无入参回调，int,double,bool,String,Widget，以及它们的空类型和List类型，',
-              ),
-              subtitle: Text('比如 int Function()'),
-            )),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(SugarString.concatenates(
-                            SugarNum.numToString(SugarNum.adds(index, 1)),
-                            '.')),
-                        const SizedBox(width: 5),
-                        Expanded(
-                            child: Column(
+              const SliverToBoxAdapter(
+                  child: ListTile(
+                title: Text(
+                  '多层作用域的演示',
+                  style: TextStyle(color: Colors.blue),
+                ),
+                subtitle: Text('多层作用域，参数尽量不要写成相似的，FunctionDomain 的实现是字符串匹配'),
+              )),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            HighlightView(
-                              _supportCaseTitle(index, 0),
-                              language: 'dart',
-                              theme: SugarCommon.vsTheme(),
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              _supportCaseTitle(index, 1),
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                          ],
-                        ))
-                      ],
-                    ),
-                  );
-                },
-                childCount: SugarList.length(_supportCases),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('$index.'),
+                                const SizedBox(width: 5),
+                                Expanded(
+                                  child: Wrap(
+                                    spacing: 10,
+                                    runSpacing: 10,
+                                    children: Sugar.mapEach(
+                                      SugarList.generate(
+                                        SugarNum.toInt(SugarNum.adds(index, 1)),
+                                        (p0) =>
+                                            // 一定要用 asT
+                                            // 不然会生成 'Color Function(int)' 无法找到映射
+                                            //  'dynamic Function(int)':
+                                            Sugar.asT<dynamic>(Color.fromARGB(
+                                          255,
+                                          SugarNum.toInt(SugarNum.multiplies(
+                                            30,
+                                            SugarNum.adds(
+                                              index,
+                                              1,
+                                            ),
+                                          )),
+                                          SugarNum.toInt(SugarNum.multiplies(
+                                            10,
+                                            SugarNum.adds(
+                                              p0,
+                                              1,
+                                            ),
+                                          )),
+                                          SugarNum.toInt(SugarNum.multiplies(
+                                            10,
+                                            SugarNum.adds(
+                                              SugarNum.adds(index, p0),
+                                              1,
+                                            ),
+                                          )),
+                                        )),
+                                      ),
+                                      (mapIndex, dynamic item) {
+                                        return Container(
+                                          width: 50,
+                                          height: 50,
+                                          color: item,
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            '$mapIndex',
+                                            style: TextStyle(
+                                              color:
+                                                  SugarCommon.getLuminanceColor(
+                                                SugarCommon
+                                                    .colorComputeLuminance(
+                                                  item,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ]),
+                    );
+                  },
+                  childCount: 10,
+                ),
               ),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return Card(
-                    child: Column(children: [
-                      Wrap(
-                        children: Sugar.mapEach(
-                            SugarList.generate(
-                              SugarNum.toInt(SugarNum.adds(index, 1)),
-                              (p0) => SugarString.concatenates(
-                                  '$index', '的item$p0'),
-                            ), (mapIndex, dynamic item) {
-                          return Container(
-                            width: 50,
-                            height: 50,
-                            alignment: Alignment.center,
-                            child: Text(
-                                SugarString.concatenates('$mapIndex', '$item')),
-                          );
-                        }),
-                      )
-                    ]),
-                  );
-                },
-                childCount: 10,
-              ),
-            ),
-          ]),
+            ]),
+          ),
         ),
       ),
     );

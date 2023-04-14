@@ -1,7 +1,7 @@
 // flutterVersion = '3.3.9'
 // dartVersion = '2.18.5'
 // widgetCount = 498
-// apiCount = 12688
+// apiCount = 12681
 // ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors, invalid_use_of_visible_for_testing_member
 import 'package:flutter/rendering.dart';
 import 'package:flutter/gestures.dart';
@@ -593,7 +593,7 @@ int _kDefaultSemanticIndexCallback(Widget _, int localIndex) => localIndex;
 const String flutterVersion = '3.3.9';
 const String dartVersion = '2.18.5';
 const int widgetCount = 498;
-const int apiCount = 12688;
+const int apiCount = 12681;
 
 /// flutterComponents
 Map<String, dynamic> flutterComponents = {
@@ -38696,9 +38696,6 @@ Map<String, bool> flutterMapping = {
   'ColorFilter.matrix': false,
   'ColorFilter.linearToSrgbGamma': false,
   'ColorFilter.srgbToLinearGamma': false,
-  'Gradient.linear': false,
-  'Gradient.radial': false,
-  'Gradient.sweep': false,
   'ImageShader': false,
   'FragmentProgram.compile': false,
   'Vertices': false,
@@ -38892,7 +38889,6 @@ Map<String, bool> flutterMapping = {
   'RSTransform.fromComponents': false,
   'SceneBuilder': false,
   'PlatformDispatcher.instance': false,
-  'PlatformConfiguration': false,
   'FrameTiming': false,
   'WindowPadding.zero': false,
   'DisplayFeature': false,
