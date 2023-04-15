@@ -1,29 +1,29 @@
+// 由 bin/fair_common_plugin.dart 生成
 let FairCommonPlugin = function () {
     return {
-        // The same method name in FairCommonPlugin
-        savePhoto: function (resp) {
-            fairCommonPluginRequest(resp, 'savePhoto');
-        },
-        navigate: function (resp) {
-            fairCommonPluginRequest(resp, 'navigate');
-        },
-        showToast: function (resp) {
-            fairCommonPluginRequest(resp, 'showToast');
+        futureComplete: function (resp) {
+             fairCommonPluginRequest(resp, 'futureComplete');
         },
         launchUrl: function (resp) {
-            fairCommonPluginRequest(resp, 'launchUrl');
+             fairCommonPluginRequest(resp, 'launchUrl');
         },
-        futureComplete: function (resp) {
-            fairCommonPluginRequest(resp, 'futureComplete');
-        },
-        http: function (resp) {
-            fairCommonPluginRequest(resp, 'http');
+        savePhoto: function (resp) {
+             fairCommonPluginRequest(resp, 'savePhoto');
         },
         futureDelayed: function (resp) {
-            fairCommonPluginRequest(resp, 'futureDelayed');
+             fairCommonPluginRequest(resp, 'futureDelayed');
+        },
+        navigate: function (resp) {
+             fairCommonPluginRequest(resp, 'navigate');
+        },
+        showToast: function (resp) {
+             fairCommonPluginRequest(resp, 'showToast');
         },
         jsPrint: function (resp) {
-            fairCommonPluginRequest(resp, 'jsPrint');
-        }                         
+             fairCommonPluginRequest(resp, 'jsPrint');
+        },
+        http: function (resp) {
+             fairCommonPluginRequest(resp, 'http');
+        }                     
     }
 }

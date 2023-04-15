@@ -12,6 +12,31 @@ Fair 使用例子
 
 `FairBinding` 注解的用处
 
+## 自动生成与 js 交互的插件
+
+在 `lib/src/plugin` 中增加新的 `plugin`, 比如
+
+``` dart
+import 'package:fair/fair.dart';
+import 'package:flutter/foundation.dart';
+
+mixin DebugPlugin implements FairCommonPluginMixin {
+  Future<dynamic> jsPrint(dynamic map) => request(
+        map,
+        (dynamic requestMap) async {
+          if (kDebugMode) {
+            debugPrint('来自js的参数:$requestMap');
+          }
+          return null;
+        },
+      );
+}
+```
+
+运行 `bin/fair_common_plugin.dart`, 将自动生成 `fair_common_plugin.js` 和 `fair_common_plugin.dart`
+
+
+
 ## 一些脚本
 
 ### 生成 Dart 基础类型的语法糖

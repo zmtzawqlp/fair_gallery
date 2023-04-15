@@ -1,36 +1,38 @@
+// 由 bin/fair_common_plugin.dart 生成
 import 'package:fair/fair.dart';
-import 'package:fair_gallery/src/plugin/debug.dart';
-import 'package:fair_gallery/src/plugin/future.dart';
-import 'package:fair_gallery/src/plugin/http.dart';
-import 'package:fair_gallery/src/plugin/launch_url.dart';
-import 'package:fair_gallery/src/plugin/navigator.dart';
-import 'package:fair_gallery/src/plugin/photo.dart';
-import 'package:fair_gallery/src/plugin/totast.dart';
+import 'launch_url.dart';
+import 'photo.dart';
+import 'future.dart';
+import 'navigator.dart';
+import 'totast.dart';
+import 'debug.dart';
+import 'http.dart';
 
+/// 跟 js 交互的方法类
 class FairCommonPlugin extends IFairPlugin
     with
-        NavigatorPlugin,
-        PhotoPlugin,
-        ToastPlugin,
-        LaunchUrlPlugin,
         CompleterPlugin,
-        HttpPlugin,
+        LaunchUrlPlugin,
+        PhotoPlugin,
         FuturePlugin,
-        DebugPlugin {
+        NavigatorPlugin,
+        ToastPlugin,
+        DebugPlugin,
+        HttpPlugin {
   factory FairCommonPlugin() => _fairCommonPlugin;
   FairCommonPlugin._();
   static final FairCommonPlugin _fairCommonPlugin = FairCommonPlugin._();
   @override
   Map<String, Function> getRegisterMethods() {
     return <String, Function>{
+      'futureComplete': futureComplete,
+      'launchUrl': launchUrl,
       'savePhoto': savePhoto,
+      'futureDelayed': futureDelayed,
       'navigate': navigate,
       'showToast': showToast,
-      'launchUrl': launchUrl,
-      'futureComplete': futureComplete,
-      'http': http,
-      'futureDelayed': futureDelayed,
       'jsPrint': jsPrint,
+      'http': http,
     };
   }
 }
