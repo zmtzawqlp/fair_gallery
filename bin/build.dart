@@ -79,7 +79,7 @@ void main() async {
               assert(asset.length == 1);
               var pageName = sc.expression.toString();
               var comment = '';
-              if (pageName == '\'fair://PhotoGalleryPage1\'') {
+              if (asset.first.endsWith('json')) {
                 // json 嵌套层数过多，会导致 flatbuffers 生成 bin 文件失败(https://github.com/google/flatbuffers/issues/7895)
                 comment =
                     '''\n  // json 嵌套层数过多，会导致 flatbuffers 生成 bin 文件失败(https://github.com/google/flatbuffers/issues/7895)\n''';

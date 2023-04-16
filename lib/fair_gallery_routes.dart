@@ -156,13 +156,13 @@ class Routes {
   static const _FairSourceCodeViewPage fairSourceCodeViewPage =
       _FairSourceCodeViewPage();
 
-  /// '语法糖例子(Sugar.ifEqual，Sugar.ifEqualBool，Sugar.ifRange，Sugar.map，Sugar.mapEach)'
+  /// '常用语法糖例子'
   ///
   /// [name] : 'fair://SugarDemo'
   ///
   /// [routeName] : '语法糖例子'
   ///
-  /// [description] : '语法糖例子(Sugar.ifEqual，Sugar.ifEqualBool，Sugar.ifRange，Sugar.map，Sugar.mapEach)'
+  /// [description] : '常用语法糖例子'
   ///
   /// [constructors] :
   ///

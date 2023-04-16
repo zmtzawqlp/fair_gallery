@@ -8,9 +8,8 @@ final Map<String, String> _bundles = <String, String>{
       Assets.assets_fair_lib_src_page_complex_photo_gallery_item_fair_bin,
   'fair://PhotoGalleryPage':
       Assets.assets_fair_lib_src_page_complex_photo_gallery_fair_bin,
-  // json 嵌套层数过多，会导致 flatbuffers 生成 bin 文件失败(https://github.com/google/flatbuffers/issues/7895)
   'fair://PhotoGalleryPage1':
-      Assets.assets_fair_lib_src_page_complex_photo_gallery1_fair_json,
+      Assets.assets_fair_lib_src_page_complex_photo_gallery1_fair_bin,
   'fair://PhotoSwiper':
       Assets.assets_fair_lib_src_page_complex_photo_swiper_fair_bin,
   'fair://PluginDemo': Assets.assets_fair_lib_src_page_simple_plugin_fair_bin,

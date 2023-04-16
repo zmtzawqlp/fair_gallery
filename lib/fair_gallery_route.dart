@@ -218,8 +218,7 @@ FFRouteSettings getRouteSettings({
           )!,
         ),
         routeName: '语法糖例子',
-        description:
-            '语法糖例子(Sugar.ifEqual，Sugar.ifEqualBool，Sugar.ifRange，Sugar.map，Sugar.mapEach)',
+        description: '常用语法糖例子',
         exts: <String, dynamic>{
           ExtendedFairWidget.tag: true,
           'group': '简单',
