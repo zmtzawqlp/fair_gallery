@@ -561,6 +561,21 @@ void main(List<String> args) async {
   );
 
   await createBindings(
+    componentSkips: {
+      // dart:ui 里面的
+      'Gradient.linear',
+      'Gradient.radial',
+      'Gradient.sweep',
+      // 支持正则
+      // '^Icons.*',
+      // '^Diagnostic*',
+      // '^Render*',
+      // '^CupertinoIcons.*',
+      // '^RawKeyEventDataMacOs.*',
+      // '^RawKeyEventDataWeb.*',
+      // '^RawKeyEventDataWindows.*',
+      // '^RawKeyEventDataFuchsia.*',
+    },
     projectDirectory: projectDirectory,
     includedPaths: [
       path.join(
@@ -578,13 +593,7 @@ void main(List<String> args) async {
       ),
     ],
     fileName: 'Flutter',
-    componentSkips: {
-      'Gradient.linear',
-      'Gradient.radial',
-      'Gradient.sweep',
-      // 支持正则
-      // 'StrokeCap.[a-zA-Z0-9]*',
-    },
+
     imports: _imports,
     codes: _codes,
     fixes: _fixes,
