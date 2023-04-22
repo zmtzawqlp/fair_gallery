@@ -4,6 +4,7 @@ import 'launch_url.dart';
 import 'photo.dart';
 import 'future.dart';
 import 'navigator.dart';
+import 'listenable_scope.dart';
 import 'totast.dart';
 import 'debug.dart';
 import 'http.dart';
@@ -16,6 +17,7 @@ class FairCommonPlugin extends IFairPlugin
         PhotoPlugin,
         FuturePlugin,
         NavigatorPlugin,
+        ListenableScopePlugin,
         ToastPlugin,
         DebugPlugin,
         HttpPlugin {
@@ -30,6 +32,10 @@ class FairCommonPlugin extends IFairPlugin
       'savePhoto': savePhoto,
       'futureDelayed': futureDelayed,
       'navigate': navigate,
+      'scrollController': scrollController,
+      'animationController': animationController,
+      'tabController': tabController,
+      'valueNotifier': valueNotifier,
       'showToast': showToast,
       'jsPrint': jsPrint,
       'http': http,

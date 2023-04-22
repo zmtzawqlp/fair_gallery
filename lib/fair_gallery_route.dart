@@ -17,6 +17,7 @@ import 'src/page/complex/photo_gallery1.dart';
 import 'src/page/complex/photo_gallery_item.dart';
 import 'src/page/complex/photo_swiper.dart';
 import 'src/page/simple/function_domain.dart';
+import 'src/page/simple/listenable_scope.dart';
 import 'src/page/simple/plugin.dart';
 import 'src/page/simple/sugar.dart';
 import 'src/source_code_view_page.dart';
@@ -67,6 +68,26 @@ FFRouteSettings getRouteSettings({
           'order': 3,
           'ffRouteFileImport':
               'package:fair_gallery/src/page/simple/function_domain.dart',
+        },
+      );
+    case 'fair://ListenableScopeDemo':
+      return FFRouteSettings(
+        name: name,
+        arguments: arguments,
+        builder: () => ListenableScopeDemo(
+          key: asT<Key?>(
+            safeArguments['key'],
+          ),
+        ),
+        routeName: 'js 访问 Fair 中对象的例子',
+        description:
+            '如何在 Fair 中使用 ScrollController, AnimationController, TabController, ValueNotifier',
+        exts: <String, dynamic>{
+          ExtendedFairWidget.tag: true,
+          'group': '简单',
+          'order': 4,
+          'ffRouteFileImport':
+              'package:fair_gallery/src/page/simple/listenable_scope.dart',
         },
       );
     case 'fair://MainPage':

@@ -1,7 +1,7 @@
 // flutterVersion = '3.3.9'
 // dartVersion = '2.18.5'
-// widgetCount = 10
-// apiCount = 279
+// widgetCount = 12
+// apiCount = 285
 // ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors, invalid_use_of_visible_for_testing_member
 import 'package:extended_text_library/extended_text_library.dart'
     as extended_text_library;
@@ -20,12 +20,13 @@ import 'package:fair_gallery/src/utils/repository.dart';
 import 'package:fair_gallery/src/widget/frame_separate_widget.dart';
 import 'package:fair_gallery/src/widget/source_code_view_button.dart';
 import 'package:fair_gallery/src/widget/app_bar.dart';
+import 'package:fair_gallery/src/widget/listenable_scope.dart';
 import 'package:fair/fair.dart';
 
 const String flutterVersion = '3.3.9';
 const String dartVersion = '2.18.5';
-const int widgetCount = 10;
-const int apiCount = 279;
+const int widgetCount = 12;
+const int apiCount = 285;
 
 /// appComponents
 Map<String, dynamic> appComponents = {
@@ -59,6 +60,12 @@ Map<String, dynamic> appComponents = {
       Assets.assets_fair_lib_src_page_simple_function_domain_fair_js,
   'Assets.assets_fair_lib_src_page_simple_function_domain_fair_json':
       Assets.assets_fair_lib_src_page_simple_function_domain_fair_json,
+  'Assets.assets_fair_lib_src_page_simple_listenable_scope_fair_bin':
+      Assets.assets_fair_lib_src_page_simple_listenable_scope_fair_bin,
+  'Assets.assets_fair_lib_src_page_simple_listenable_scope_fair_js':
+      Assets.assets_fair_lib_src_page_simple_listenable_scope_fair_js,
+  'Assets.assets_fair_lib_src_page_simple_listenable_scope_fair_json':
+      Assets.assets_fair_lib_src_page_simple_listenable_scope_fair_json,
   'Assets.assets_fair_lib_src_page_simple_plugin_fair_bin':
       Assets.assets_fair_lib_src_page_simple_plugin_fair_bin,
   'Assets.assets_fair_lib_src_page_simple_plugin_fair_js':
@@ -89,6 +96,8 @@ Map<String, dynamic> appComponents = {
       Assets.assets_page_complex_photo_swiper_dart,
   'Assets.assets_page_simple_function_domain_dart':
       Assets.assets_page_simple_function_domain_dart,
+  'Assets.assets_page_simple_listenable_scope_dart':
+      Assets.assets_page_simple_listenable_scope_dart,
   'Assets.assets_page_simple_plugin_dart':
       Assets.assets_page_simple_plugin_dart,
   'Assets.assets_page_simple_sugar_dart': Assets.assets_page_simple_sugar_dart,
@@ -134,9 +143,6 @@ Map<String, dynamic> appComponents = {
   'SugarCommon.nullOrDefault': (props) => SugarCommon.nullOrDefault(
         props['pa'][0],
         props['pa'][1],
-      ),
-  'SugarCommon.dateTimeConvert': (props) => SugarCommon.dateTimeConvert(
-        props['pa'][0],
       ),
   'SugarCommon.vsTheme': (props) => SugarCommon.vsTheme(),
   'SugarCommon.isNull': (props) => SugarCommon.isNull(
@@ -1016,6 +1022,23 @@ Map<String, dynamic> appComponents = {
         slidePagekey: props['slidePagekey'],
         slideType: props['slideType'] ?? SlideType.onlyImage,
       ),
+  'ListenableScope': (props) => ListenableScope(
+        key: props['key'],
+        types: as<String>(props['types']) ?? const [],
+        onCreate: props['onCreate'],
+        addListener: props['addListener'],
+        uniqueKey: props['uniqueKey'],
+        onCreateKey: props['onCreateKey'],
+        builder: props['builder'],
+      ),
+  'ListenableScope.of': (props) => ListenableScope.of(
+        props['pa'][0],
+        props['pa'][1],
+      ),
+  'ListenableScope.get': (props) => ListenableScope.get(
+        props['pa'][0],
+        props['pa'][1],
+      ),
   'ShareDataWidget': (props) => ShareDataWidget(
         key: props['key'],
         child: props['child'],
@@ -1087,6 +1110,9 @@ Map<String, bool> appMapping = {
   'Assets.assets_fair_lib_src_page_simple_function_domain_fair_bin': false,
   'Assets.assets_fair_lib_src_page_simple_function_domain_fair_js': false,
   'Assets.assets_fair_lib_src_page_simple_function_domain_fair_json': false,
+  'Assets.assets_fair_lib_src_page_simple_listenable_scope_fair_bin': false,
+  'Assets.assets_fair_lib_src_page_simple_listenable_scope_fair_js': false,
+  'Assets.assets_fair_lib_src_page_simple_listenable_scope_fair_json': false,
   'Assets.assets_fair_lib_src_page_simple_plugin_fair_bin': false,
   'Assets.assets_fair_lib_src_page_simple_plugin_fair_js': false,
   'Assets.assets_fair_lib_src_page_simple_plugin_fair_json': false,
@@ -1105,6 +1131,7 @@ Map<String, bool> appMapping = {
   'Assets.assets_page_complex_photo_gallery_item_dart': false,
   'Assets.assets_page_complex_photo_swiper_dart': false,
   'Assets.assets_page_simple_function_domain_dart': false,
+  'Assets.assets_page_simple_listenable_scope_dart': false,
   'Assets.assets_page_simple_plugin_dart': false,
   'Assets.assets_page_simple_sugar_dart': false,
   'Assets.assets_plugin_fair_common_plugin_js': false,
@@ -1122,6 +1149,7 @@ Map<String, bool> appMapping = {
   'SugarCommon.vsTheme': false,
   'SugarCommon.isNull': false,
   'SugarCommon.mapForEachToList': false,
+  'SugarCommon.defaultTabController': true,
   'CommomAppBar': true,
   'SugarStringExtension.test': false,
   'SugarBool.invert': false,
@@ -1349,6 +1377,9 @@ Map<String, bool> appMapping = {
   'ImageGrid': true,
   'ImageGrid1': true,
   'HeroWidget': true,
+  'ListenableScope': true,
+  'ListenableScope.of': false,
+  'ListenableScope.jsOf': false,
   'ShareDataWidget': true,
   'ShareDataWidget.of': false,
   'ShareDataWidget.getIndex': false,

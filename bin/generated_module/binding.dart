@@ -11,6 +11,7 @@ import 'package:like_button/like_button.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
+import 'package:extended_tabs/extended_tabs.dart';
 // 项目中的文件
 import 'package:fair_gallery/src/sugar/common.dart';
 import 'package:fair_gallery/src/sugar/dart_core.dart';
@@ -25,3 +26,4 @@ import 'package:fair_gallery/src/utils/repository.dart';
 import 'package:fair_gallery/src/widget/frame_separate_widget.dart';
 import 'package:fair_gallery/src/widget/source_code_view_button.dart';
 import 'package:fair_gallery/src/widget/app_bar.dart';
+import 'package:fair_gallery/src/widget/listenable_scope.dart';

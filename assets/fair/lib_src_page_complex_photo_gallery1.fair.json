@@ -29,7 +29,7 @@
                       "pa": [
                         "^(info)",
                         {
-                          "className": "SugarCommon.dateTimeConvert",
+                          "className": "Sugar.dateTimeFromJs",
                           "pa": [
                             "^(lastRefreshTime)"
                           ]

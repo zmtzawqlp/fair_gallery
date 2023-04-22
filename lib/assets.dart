@@ -56,6 +56,17 @@ class Assets {
       assets_fair_lib_src_page_simple_function_domain_fair_json =
       'assets/fair/lib_src_page_simple_function_domain.fair.json';
 
+  static const String
+      assets_fair_lib_src_page_simple_listenable_scope_fair_bin =
+      'assets/fair/lib_src_page_simple_listenable_scope.fair.bin';
+
+  static const String assets_fair_lib_src_page_simple_listenable_scope_fair_js =
+      'assets/fair/lib_src_page_simple_listenable_scope.fair.js';
+
+  static const String
+      assets_fair_lib_src_page_simple_listenable_scope_fair_json =
+      'assets/fair/lib_src_page_simple_listenable_scope.fair.json';
+
   static const String assets_fair_lib_src_page_simple_plugin_fair_bin =
       'assets/fair/lib_src_page_simple_plugin.fair.bin';
 
@@ -112,6 +123,9 @@ class Assets {
   static const String assets_page_simple_function_domain_dart =
       'assets/page/simple/function_domain.dart';
 
+  static const String assets_page_simple_listenable_scope_dart =
+      'assets/page/simple/listenable_scope.dart';
+
   static const String assets_page_simple_plugin_dart =
       'assets/page/simple/plugin.dart';
 
@@ -138,6 +152,9 @@ final List<String> assetsArray = <String>[
   Assets.assets_fair_lib_src_page_simple_function_domain_fair_bin,
   Assets.assets_fair_lib_src_page_simple_function_domain_fair_js,
   Assets.assets_fair_lib_src_page_simple_function_domain_fair_json,
+  Assets.assets_fair_lib_src_page_simple_listenable_scope_fair_bin,
+  Assets.assets_fair_lib_src_page_simple_listenable_scope_fair_js,
+  Assets.assets_fair_lib_src_page_simple_listenable_scope_fair_json,
   Assets.assets_fair_lib_src_page_simple_plugin_fair_bin,
   Assets.assets_fair_lib_src_page_simple_plugin_fair_js,
   Assets.assets_fair_lib_src_page_simple_plugin_fair_json,
@@ -168,6 +185,7 @@ final List<String> assetsArray = <String>[
   Assets.assets_page_complex_photo_gallery_item_dart,
   Assets.assets_page_complex_photo_swiper_dart,
   Assets.assets_page_simple_function_domain_dart,
+  Assets.assets_page_simple_listenable_scope_dart,
   Assets.assets_page_simple_plugin_dart,
   Assets.assets_page_simple_sugar_dart,
   Assets.assets_plugin_fair_common_plugin_js,

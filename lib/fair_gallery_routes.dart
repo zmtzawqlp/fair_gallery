@@ -14,6 +14,7 @@ import 'package:flutter/foundation.dart';
 const List<String> routeNames = <String>[
   'fair://DemoGroupPage',
   'fair://FunctionDomainDemo',
+  'fair://ListenableScopeDemo',
   'fair://MainPage',
   'fair://PhotoGalleryItem',
   'fair://PhotoGalleryPage',
@@ -56,6 +57,18 @@ class Routes {
   /// [exts] : {ExtendedFairWidget.tag: true, 'group': '简单', 'order': 3, 'ffRouteFileImport': 'package:fair_gallery/src/page/simple/function_domain.dart'}
   static const _FairFunctionDomainDemo fairFunctionDomainDemo =
       _FairFunctionDomainDemo();
+
+  /// '如何在 Fair 中使用 ScrollController, AnimationController, TabController, ValueNotifier'
+  ///
+  /// [name] : 'fair://ListenableScopeDemo'
+  ///
+  /// [routeName] : 'js 访问 Fair 中对象的例子'
+  ///
+  /// [description] : '如何在 Fair 中使用 ScrollController, AnimationController, TabController, ValueNotifier'
+  ///
+  /// [exts] : {ExtendedFairWidget.tag: true, 'group': '简单', 'order': 4, 'ffRouteFileImport': 'package:fair_gallery/src/page/simple/listenable_scope.dart'}
+  static const _FairListenableScopeDemo fairListenableScopeDemo =
+      _FairListenableScopeDemo();
 
   /// 'MainPage'
   ///
@@ -202,6 +215,22 @@ class _FairFunctionDomainDemo {
       <String, dynamic>{
         'key': key,
         'fairProps': fairProps,
+      };
+
+  @override
+  String toString() => name;
+}
+
+class _FairListenableScopeDemo {
+  const _FairListenableScopeDemo();
+
+  String get name => 'fair://ListenableScopeDemo';
+
+  Map<String, dynamic> d({
+    Key? key,
+  }) =>
+      <String, dynamic>{
+        'key': key,
       };
 
   @override

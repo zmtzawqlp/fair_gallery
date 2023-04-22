@@ -16,6 +16,18 @@ let FairCommonPlugin = function () {
         navigate: function (resp) {
              fairCommonPluginRequest(resp, 'navigate');
         },
+        scrollController: function (resp) {
+             fairCommonPluginRequest(resp, 'scrollController');
+        },
+        animationController: function (resp) {
+             fairCommonPluginRequest(resp, 'animationController');
+        },
+        tabController: function (resp) {
+             fairCommonPluginRequest(resp, 'tabController');
+        },
+        valueNotifier: function (resp) {
+             fairCommonPluginRequest(resp, 'valueNotifier');
+        },
         showToast: function (resp) {
              fairCommonPluginRequest(resp, 'showToast');
         },
