@@ -1,6 +1,6 @@
 // flutterVersion = '3.3.9'
 // dartVersion = '2.18.5'
-// functionCount = 53
+// functionCount = 55
 // ignore_for_file: deprecated_member_use, prefer_single_quotes, unused_element, unused_field, unused_import, unnecessary_import, implementation_imports, unused_shown_name, prefer_function_declarations_over_variables, void_checks, duplicate_import, no_duplicate_case_values
 import 'package:extended_text_library/extended_text_library.dart'
     as extended_text_library;
@@ -129,6 +129,20 @@ import 'package:oktoast/src/core/position.dart';
 import 'package:oktoast/src/core/toast_manager.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 import 'package:flutter/cupertino.dart' show CupertinoDynamicColor;
+import 'package:extended_tabs/extended_tabs.dart';
+import 'package:sync_scroll_library/src/gesture/gesture_mixin.dart';
+import 'package:sync_scroll_library/src/drag_hold_controller.dart';
+import 'package:sync_scroll_library/src/sync/sync_controller.dart';
+import 'package:sync_scroll_library/src/link/link_scroll_state.dart';
+import 'package:sync_scroll_library/src/sync/sync_scroll_state.dart';
+import 'package:sync_scroll_library/src/link/link_controller.dart';
+import 'package:flutter/physics.dart';
+import 'package:sync_scroll_library/src/gesture/gesture_state_mixin.dart';
+import 'package:sync_scroll_library/sync_scroll_library.dart';
+import 'package:extended_tabs/src/tab_bar.dart';
+import 'package:extended_tabs/src/scrollable.dart';
+import 'package:extended_tabs/src/tab_indicator.dart';
+import 'package:extended_tabs/src/page_view.dart';
 import 'package:fair/fair.dart';
 
 /// PackagesFunctionDynamicWidgetBuilder
@@ -595,6 +609,38 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
               context,
               FunctionDomain(
                 {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ViewportBuilder = Widget Function(BuildContext context, ViewportOffset position)
+        // package:flutter/src/widgets/scrollable.dart
+        case 'Widget Function(BuildContext, ViewportOffset)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget Function(BuildContext, ViewportOffset) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ScrollIncrementCalculator = double Function(ScrollIncrementDetails details)
+        // package:flutter/src/widgets/scrollable.dart
+        case 'double Function(ScrollIncrementDetails)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          double Function(ScrollIncrementDetails) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
                 parent: domain,
               ),
             );

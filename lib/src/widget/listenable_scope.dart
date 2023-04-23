@@ -1,19 +1,25 @@
+// ignore_for_file: prefer_function_declarations_over_variables
+
 import 'package:fair/fair.dart';
 import 'package:flutter/material.dart';
 
-class ListenableScopeItem {
-  ListenableScopeItem({
+class ListenableScopeConfig {
+  ListenableScopeConfig({
     required this.type,
     this.addListener = false,
+    this.tag = '',
   });
   final String type;
   final bool addListener;
+
+  /// 区分多个相同类型
+  final String tag;
 }
 
 class ListenableScope extends StatefulWidget {
   const ListenableScope({
     super.key,
-    required this.items,
+    required this.configs,
     required this.onCreate,
     required this.addListener,
     required this.uniqueKey,
@@ -21,7 +27,7 @@ class ListenableScope extends StatefulWidget {
     required this.builder,
   });
   //  ScrollController, AnimationController, TabController, ValueNotifier
-  final List<ListenableScopeItem> items;
+  final List<ListenableScopeConfig> configs;
   final Listenable? Function(String key, TickerProvider vsync) onCreate;
   // List
   // 2个值，一个是 对应的 key ，一个是对应的 值，放在一个map里面
@@ -45,7 +51,7 @@ class ListenableScope extends StatefulWidget {
       <String, _ListenableScopeState>{};
 
   /// type 带后缀的
-  /// 比如 [items] = ['ScrollController','AnimationController']
+  /// 比如 [configs] = ['ScrollController','AnimationController']
   /// 这里的 type 就为 'ScrollController0', 'AnimationController1'
   /// 给 build 方法体里面使用的
   static T of<T extends Listenable>(BuildContext context, String type) {
@@ -78,15 +84,11 @@ class _ListenableScopeState extends State<ListenableScope>
   }
 
   void _create() {
-    for (var i = 0; i < widget.items.length; i++) {
-      var listenableType = widget.items[i];
-      var type = listenableType.type;
-      var key = type + i.toString();
-      var listenable = widget.onCreate(key, this);
-      if (listenable == null) {
-        continue;
-      }
-      late void Function() listener;
+    for (var config in widget.configs) {
+      var type = config.type;
+      var key = type + config.tag;
+      assert(!_listenables.containsKey(key), '有重复的类型$type,请用 tag 区分');
+
       var addListener = widget.addListener;
       switch (type) {
         case 'ScrollController':
@@ -97,20 +99,24 @@ class _ListenableScopeState extends State<ListenableScope>
         case 'TabController':
         case 'PageController':
         case 'LinkPageController':
+          var listenable = widget.onCreate(key, this);
+          if (listenable == null) {
+            continue;
+          }
           _listenables[key] = listenable;
-          listener = () {
-            addListener?.call([
-              key,
-              Sugar.dartObjectToMap(listenable),
-            ]);
-          };
+          if (addListener != null && config.addListener) {
+            void Function() listener = () {
+              addListener.call([
+                key,
+                Sugar.dartObjectToMap(listenable),
+              ]);
+            };
+            listenable.addListener(listener);
+            _listeners[key] = listener;
+          }
           break;
         default:
           assert(false, '不支持的类型$type');
-      }
-      if (addListener != null && listenableType.addListener) {
-        listenable.addListener(listener);
-        _listeners[key] = listener;
       }
     }
   }

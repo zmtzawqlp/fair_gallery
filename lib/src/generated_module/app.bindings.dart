@@ -1025,13 +1025,14 @@ Map<String, dynamic> appComponents = {
         slidePagekey: props['slidePagekey'],
         slideType: props['slideType'] ?? SlideType.onlyImage,
       ),
-  'ListenableScopeItem': (props) => ListenableScopeItem(
+  'ListenableScopeConfig': (props) => ListenableScopeConfig(
         type: props['type'],
         addListener: props['addListener'] ?? false,
+        tag: props['tag'] ?? '',
       ),
   'ListenableScope': (props) => ListenableScope(
         key: props['key'],
-        items: as<ListenableScopeItem>(props['items']) ?? const [],
+        configs: as<ListenableScopeConfig>(props['configs']) ?? const [],
         onCreate: props['onCreate'],
         addListener: props['addListener'],
         uniqueKey: props['uniqueKey'],
@@ -1383,7 +1384,7 @@ Map<String, bool> appMapping = {
   'ImageGrid': true,
   'ImageGrid1': true,
   'HeroWidget': true,
-  'ListenableScopeItem': false,
+  'ListenableScopeConfig': false,
   'ListenableScope': true,
   'ListenableScope.of': false,
   'ListenableScope.get': false,

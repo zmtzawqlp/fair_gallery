@@ -14,38 +14,40 @@
         "addListener": "@(_addListener)",
         "onCreateKey": "@(_onCreateKey)",
         "uniqueKey": "ListenableScopeDemo",
-        "items": [
+        "configs": [
           {
-            "className": "ListenableScopeItem",
+            "className": "ListenableScopeConfig",
             "na": {
               "type": "ScrollController"
             }
           },
           {
-            "className": "ListenableScopeItem",
+            "className": "ListenableScopeConfig",
             "na": {
               "type": "AnimationController",
               "addListener": true
             }
           },
           {
-            "className": "ListenableScopeItem",
+            "className": "ListenableScopeConfig",
             "na": {
               "type": "TabController",
-              "addListener": true
+              "addListener": true,
+              "tag": "0"
             }
           },
           {
-            "className": "ListenableScopeItem",
+            "className": "ListenableScopeConfig",
             "na": {
               "type": "ValueNotifier",
               "addListener": true
             }
           },
           {
-            "className": "ListenableScopeItem",
+            "className": "ListenableScopeConfig",
             "na": {
-              "type": "TabController"
+              "type": "TabController",
+              "tag": "1"
             }
           }
         ],
@@ -61,7 +63,7 @@
                   "na": {
                     "sugarCase": {
                       "className": "FairFunction",
-                      "body": "ScrollController0",
+                      "body": "ScrollController",
                       "tag": "String Function()",
                       "rt": "String"
                     },
@@ -80,7 +82,7 @@
                   "na": {
                     "sugarCase": {
                       "className": "FairFunction",
-                      "body": "AnimationController1",
+                      "body": "AnimationController",
                       "tag": "String Function()",
                       "rt": "String"
                     },
@@ -117,7 +119,7 @@
                   "na": {
                     "sugarCase": {
                       "className": "FairFunction",
-                      "body": "TabController2",
+                      "body": "TabController0",
                       "tag": "String Function()",
                       "rt": "String"
                     },
@@ -140,7 +142,7 @@
                   "na": {
                     "sugarCase": {
                       "className": "FairFunction",
-                      "body": "ValueNotifier3",
+                      "body": "ValueNotifier",
                       "tag": "String Function()",
                       "rt": "String"
                     },
@@ -162,7 +164,7 @@
                   "na": {
                     "sugarCase": {
                       "className": "FairFunction",
-                      "body": "TabController4",
+                      "body": "TabController1",
                       "tag": "String Function()",
                       "rt": "String"
                     },
@@ -294,7 +296,7 @@
                       "className": "ListenableScope.of",
                       "pa": [
                         "^(context)",
-                        "ValueNotifier3"
+                        "ValueNotifier"
                       ],
                       "ta": "ValueNotifier<dynamic>"
                     },
@@ -338,7 +340,7 @@
                               "className": "ListenableScope.of",
                               "pa": [
                                 "^(context)",
-                                "AnimationController1"
+                                "AnimationController"
                               ],
                               "ta": "AnimationController"
                             },
@@ -365,7 +367,7 @@
                                             "className": "ListenableScope.of",
                                             "pa": [
                                               "^(context)",
-                                              "AnimationController1"
+                                              "AnimationController"
                                             ],
                                             "ta": "AnimationController"
                                           }
@@ -453,7 +455,7 @@
                       "className": "ListenableScope.of",
                       "pa": [
                         "^(context)",
-                        "TabController2"
+                        "TabController0"
                       ],
                       "ta": "TabController"
                     }
@@ -463,13 +465,13 @@
                   "className": "Expanded",
                   "na": {
                     "child": {
-                      "className": "TabBarView",
+                      "className": "ExtendedTabBarView",
                       "na": {
                         "controller": {
                           "className": "ListenableScope.of",
                           "pa": [
                             "^(context)",
-                            "TabController2"
+                            "TabController0"
                           ],
                           "ta": "TabController"
                         },
@@ -510,7 +512,7 @@
                                           "className": "ListenableScope.of",
                                           "pa": [
                                             "^(context)",
-                                            "ScrollController0"
+                                            "ScrollController"
                                           ],
                                           "ta": "ScrollController"
                                         },
@@ -614,7 +616,7 @@
                                       "className": "ListenableScope.of",
                                       "pa": [
                                         "^(context)",
-                                        "TabController4"
+                                        "TabController1"
                                       ],
                                       "ta": "TabController"
                                     }
@@ -624,13 +626,13 @@
                                   "className": "Expanded",
                                   "na": {
                                     "child": {
-                                      "className": "TabBarView",
+                                      "className": "ExtendedTabBarView",
                                       "na": {
                                         "controller": {
                                           "className": "ListenableScope.of",
                                           "pa": [
                                             "^(context)",
-                                            "TabController4"
+                                            "TabController1"
                                           ],
                                           "ta": "TabController"
                                         },

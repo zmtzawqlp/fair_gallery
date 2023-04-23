@@ -1,7 +1,7 @@
 // flutterVersion = '3.3.9'
 // dartVersion = '2.18.5'
-// widgetCount = 48
-// apiCount = 145
+// widgetCount = 56
+// apiCount = 154
 // ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors, invalid_use_of_visible_for_testing_member
 import 'package:flutter/gestures.dart';
 import 'package:extended_text_library/extended_text_library.dart'
@@ -130,33 +130,31 @@ import 'package:oktoast/src/core/position.dart';
 import 'package:oktoast/src/core/toast_manager.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 import 'package:flutter/cupertino.dart' show CupertinoDynamicColor;
+import 'package:extended_tabs/extended_tabs.dart';
+import 'package:sync_scroll_library/src/gesture/gesture_mixin.dart';
+import 'package:sync_scroll_library/src/drag_hold_controller.dart';
+import 'package:sync_scroll_library/src/sync/sync_controller.dart';
+import 'package:sync_scroll_library/src/link/link_scroll_state.dart';
+import 'package:sync_scroll_library/src/sync/sync_scroll_state.dart';
+import 'package:sync_scroll_library/src/link/link_controller.dart';
+import 'package:flutter/physics.dart';
+import 'package:sync_scroll_library/src/gesture/gesture_state_mixin.dart';
+import 'package:sync_scroll_library/sync_scroll_library.dart';
+import 'package:extended_tabs/src/tab_bar.dart';
+import 'package:extended_tabs/src/scrollable.dart';
+import 'package:extended_tabs/src/tab_indicator.dart';
+import 'package:extended_tabs/src/page_view.dart';
 import 'package:fair/fair.dart';
 
 int _kDefaultSemanticIndexCallback(Widget _, int localIndex) => localIndex;
 
 const String flutterVersion = '3.3.9';
 const String dartVersion = '2.18.5';
-const int widgetCount = 48;
-const int apiCount = 145;
+const int widgetCount = 56;
+const int apiCount = 154;
 
 /// packagesComponents
 Map<String, dynamic> packagesComponents = {
-  'ToastPosition': (props) => ToastPosition(
-        align: props['align'] ?? Alignment.center,
-        offset: props['offset']?.toDouble() ?? 0.0,
-      ),
-  'ToastPosition.center': ToastPosition.center,
-  'ToastPosition.bottom': ToastPosition.bottom,
-  'ToastPosition.top': ToastPosition.top,
-  'OffsetAnimationBuilder': (props) => OffsetAnimationBuilder(
-        maxOffsetX: props['maxOffsetX']?.toDouble() ?? 0,
-        maxOffsetY: props['maxOffsetY']?.toDouble() ?? 100,
-      ),
-  'OpacityAnimationBuilder': (props) => const OpacityAnimationBuilder(),
-  'LayoutInfoNotification': (props) => LayoutInfoNotification(
-        props['pa'][0],
-        props['pa'][1],
-      ),
   'ItemSizeInfoNotifier': (props) => ItemSizeInfoNotifier(
         key: props['key'],
         index: props['index'],
@@ -166,6 +164,10 @@ Map<String, dynamic> packagesComponents = {
       InitialRenderSizeChangedWithCallback(
         child: props['child'],
         onLayoutChangedCallback: props['onLayoutChangedCallback'],
+      ),
+  'LayoutInfoNotification': (props) => LayoutInfoNotification(
+        props['pa'][0],
+        props['pa'][1],
       ),
   'SizeCacheWidget': (props) => SizeCacheWidget(
         key: props['key'],
@@ -190,6 +192,18 @@ Map<String, dynamic> packagesComponents = {
         placeHolder: props['placeHolder'],
         child: props['child'],
       ),
+  'ToastPosition': (props) => ToastPosition(
+        align: props['align'] ?? Alignment.center,
+        offset: props['offset']?.toDouble() ?? 0.0,
+      ),
+  'ToastPosition.center': ToastPosition.center,
+  'ToastPosition.bottom': ToastPosition.bottom,
+  'ToastPosition.top': ToastPosition.top,
+  'OffsetAnimationBuilder': (props) => OffsetAnimationBuilder(
+        maxOffsetX: props['maxOffsetX']?.toDouble() ?? 0,
+        maxOffsetY: props['maxOffsetY']?.toDouble() ?? 100,
+      ),
+  'OpacityAnimationBuilder': (props) => const OpacityAnimationBuilder(),
   'LikeButton': (props) => LikeButton(
         key: props['key'],
         size: props['size']?.toDouble() ?? 30.0,
@@ -309,6 +323,11 @@ Map<String, dynamic> packagesComponents = {
   'ActionType.pan': ActionType.pan,
   'ActionType.edit': ActionType.edit,
   'ActionType.values': ActionType.values,
+  'ExtendedImageBorderPainter': (props) => ExtendedImageBorderPainter(
+        border: props['border'],
+        shape: props['shape'] ?? BoxShape.rectangle,
+        borderRadius: props['borderRadius'],
+      ),
   'ExtendedImage': (props) => ExtendedImage(
         key: props['key'],
         image: props['image'],
@@ -557,17 +576,6 @@ Map<String, dynamic> packagesComponents = {
       ),
   'ExtendedImage.globalStateWidgetBuilder':
       ExtendedImage.globalStateWidgetBuilder,
-  'ExtendedImageBorderPainter': (props) => ExtendedImageBorderPainter(
-        border: props['border'],
-        shape: props['shape'] ?? BoxShape.rectangle,
-        borderRadius: props['borderRadius'],
-      ),
-  'ExtendedImageGesture': (props) => ExtendedImageGesture(
-        props['pa'][0],
-        imageBuilder: props['imageBuilder'],
-        canScaleImage: props['canScaleImage'],
-        key: props['key'],
-      ),
   'ExtendedRawImage': (props) => ExtendedRawImage(
         key: props['key'],
         image: props['image'],
@@ -592,6 +600,12 @@ Map<String, dynamic> packagesComponents = {
         isAntiAlias: props['isAntiAlias'] ?? false,
         debugImageLabel: props['debugImageLabel'],
         layoutInsets: props['layoutInsets'] ?? EdgeInsets.zero,
+      ),
+  'ExtendedImageGesture': (props) => ExtendedImageGesture(
+        props['pa'][0],
+        imageBuilder: props['imageBuilder'],
+        canScaleImage: props['canScaleImage'],
+        key: props['key'],
       ),
   'ExtendedImageSlidePage': (props) => ExtendedImageSlidePage(
         child: props['child'],
@@ -752,6 +766,152 @@ Map<String, dynamic> packagesComponents = {
         pageSpacing: props['pageSpacing']?.toDouble() ?? 0.0,
         shouldIgnorePointerWhenScrolling:
             props['shouldIgnorePointerWhenScrolling'] ?? false,
+      ),
+  'ExtendedTabBar': (props) => ExtendedTabBar(
+        key: props['key'],
+        tabs: as<Widget>(props['tabs']) ?? const [],
+        controller: props['controller'],
+        isScrollable: props['isScrollable'] ?? false,
+        indicatorColor: props['indicatorColor'],
+        automaticIndicatorColorAdjustment:
+            props['automaticIndicatorColorAdjustment'] ?? true,
+        indicatorWeight: props['indicatorWeight']?.toDouble() ?? 2.0,
+        indicatorPadding: props['indicatorPadding'] ?? EdgeInsets.zero,
+        indicator: props['indicator'],
+        indicatorSize: props['indicatorSize'],
+        labelColor: props['labelColor'],
+        labelStyle: props['labelStyle'],
+        labelPadding: props['labelPadding'],
+        unselectedLabelColor: props['unselectedLabelColor'],
+        unselectedLabelStyle: props['unselectedLabelStyle'],
+        dragStartBehavior:
+            props['dragStartBehavior'] ?? DragStartBehavior.start,
+        overlayColor: props['overlayColor'],
+        mouseCursor: props['mouseCursor'],
+        enableFeedback: props['enableFeedback'],
+        onTap: props['onTap'],
+        physics: props['physics'],
+        scrollDirection: props['scrollDirection'] ?? Axis.horizontal,
+        foregroundIndicator: props['foregroundIndicator'] ?? false,
+        strokeCap: props['strokeCap'] ?? StrokeCap.square,
+        mainAxisAlignment: props['mainAxisAlignment'],
+      ),
+  'ExtendedTab': (props) => ExtendedTab(
+        key: props['key'],
+        text: props['text'],
+        icon: props['icon'],
+        iconMargin: props['iconMargin'] ?? const EdgeInsets.only(bottom: 10.0),
+        child: props['child'],
+        scrollDirection: props['scrollDirection'],
+        size: props['size']?.toDouble(),
+        height: props['height']?.toDouble(),
+      ),
+  'ExtendedTabBarView': (props) => ExtendedTabBarView(
+        key: props['key'],
+        children: as<Widget>(props['children']) ?? const [],
+        controller: props['controller'],
+        physics: props['physics'],
+        dragStartBehavior:
+            props['dragStartBehavior'] ?? DragStartBehavior.start,
+        cacheExtent: props['cacheExtent'] ?? 0,
+        link: props['link'] ?? true,
+        scrollDirection: props['scrollDirection'] ?? Axis.horizontal,
+        pageController: props['pageController'],
+        shouldIgnorePointerWhenScrolling:
+            props['shouldIgnorePointerWhenScrolling'] ?? true,
+        viewportFraction: props['viewportFraction']?.toDouble() ?? 1.0,
+      ),
+  'ExtendedPageView': (props) => ExtendedPageView(
+        key: props['key'],
+        scrollDirection: props['scrollDirection'] ?? Axis.horizontal,
+        reverse: props['reverse'] ?? false,
+        controller: props['controller'],
+        physics: props['physics'],
+        pageSnapping: props['pageSnapping'] ?? true,
+        onPageChanged: props['onPageChanged'],
+        children: as<Widget>(props['children']) ?? const <Widget>[],
+        dragStartBehavior:
+            props['dragStartBehavior'] ?? DragStartBehavior.start,
+        allowImplicitScrolling: props['allowImplicitScrolling'] ?? false,
+        restorationId: props['restorationId'],
+        clipBehavior: props['clipBehavior'] ?? Clip.hardEdge,
+        cacheExtent: props['cacheExtent'] ?? 0,
+        shouldIgnorePointerWhenScrolling:
+            props['shouldIgnorePointerWhenScrolling'] ?? true,
+      ),
+  'ExtendedPageView.builder': (props) => ExtendedPageView.builder(
+        key: props['key'],
+        scrollDirection: props['scrollDirection'] ?? Axis.horizontal,
+        reverse: props['reverse'] ?? false,
+        controller: props['controller'],
+        physics: props['physics'],
+        pageSnapping: props['pageSnapping'] ?? true,
+        onPageChanged: props['onPageChanged'],
+        itemBuilder: props['itemBuilder'],
+        itemCount: props['itemCount'],
+        dragStartBehavior:
+            props['dragStartBehavior'] ?? DragStartBehavior.start,
+        allowImplicitScrolling: props['allowImplicitScrolling'] ?? false,
+        restorationId: props['restorationId'],
+        clipBehavior: props['clipBehavior'] ?? Clip.hardEdge,
+        cacheExtent: props['cacheExtent'] ?? 0,
+        shouldIgnorePointerWhenScrolling:
+            props['shouldIgnorePointerWhenScrolling'] ?? true,
+      ),
+  'ExtendedPageView.custom': (props) => ExtendedPageView.custom(
+        key: props['key'],
+        scrollDirection: props['scrollDirection'] ?? Axis.horizontal,
+        reverse: props['reverse'] ?? false,
+        controller: props['controller'],
+        physics: props['physics'],
+        pageSnapping: props['pageSnapping'] ?? true,
+        onPageChanged: props['onPageChanged'],
+        childrenDelegate: props['childrenDelegate'],
+        dragStartBehavior:
+            props['dragStartBehavior'] ?? DragStartBehavior.start,
+        allowImplicitScrolling: props['allowImplicitScrolling'] ?? false,
+        restorationId: props['restorationId'],
+        clipBehavior: props['clipBehavior'] ?? Clip.hardEdge,
+        cacheExtent: props['cacheExtent'] ?? 0,
+        shouldIgnorePointerWhenScrolling:
+            props['shouldIgnorePointerWhenScrolling'] ?? true,
+      ),
+  'ExtendedScrollable': (props) => ExtendedScrollable(
+        key: props['key'],
+        axisDirection: props['axisDirection'] ?? AxisDirection.down,
+        controller: props['controller'],
+        physics: props['physics'],
+        viewportBuilder: props['viewportBuilder'],
+        incrementCalculator: props['incrementCalculator'],
+        excludeFromSemantics: props['excludeFromSemantics'] ?? false,
+        semanticChildCount: props['semanticChildCount'],
+        dragStartBehavior:
+            props['dragStartBehavior'] ?? DragStartBehavior.start,
+        restorationId: props['restorationId'],
+        scrollBehavior: props['scrollBehavior'],
+        shouldIgnorePointerWhenScrolling:
+            props['shouldIgnorePointerWhenScrolling'] ?? true,
+      ),
+  'ColorTabIndicator': (props) => ColorTabIndicator(
+        props['pa'][0],
+      ),
+  'ExtendedUnderlineTabIndicator': (props) => ExtendedUnderlineTabIndicator(
+        borderSide: props['borderSide'] ??
+            const BorderSide(width: 2.0, color: Colors.white),
+        insets: props['insets'] ?? EdgeInsets.zero,
+        scrollDirection: props['scrollDirection'] ?? Axis.horizontal,
+        strokeCap: props['strokeCap'] ?? StrokeCap.square,
+        size: props['size']?.toDouble(),
+      ),
+  'CarouselIndicator': (props) => CarouselIndicator(
+        controller: props['controller'],
+        size: props['size'] ?? const Size(20, 5),
+        unselectedColor: props['unselectedColor'],
+        selectedColor: props['selectedColor'],
+        strokeCap: props['strokeCap'] ?? StrokeCap.square,
+        indicatorPadding: props['indicatorPadding'] ??
+            const EdgeInsets.symmetric(horizontal: 5),
+        tapEnable: props['tapEnable'] ?? false,
       ),
   'SliverPinnedPersistentHeader': (props) => SliverPinnedPersistentHeader(
         delegate: props['delegate'],
@@ -1247,6 +1407,12 @@ Map<String, dynamic> packagesComponents = {
         cacheRawData: props['cacheRawData'] ?? false,
         imageCacheName: props['imageCacheName'],
       ),
+  'ExtendedMemoryImageProvider': (props) => ExtendedMemoryImageProvider(
+        props['pa'][0],
+        scale: props['scale']?.toDouble() ?? 1.0,
+        cacheRawData: props['cacheRawData'] ?? false,
+        imageCacheName: props['imageCacheName'],
+      ),
   'ExtendedResizeImage': (props) => ExtendedResizeImage(
         props['pa'][0],
         compressionRatio: props['compressionRatio']?.toDouble(),
@@ -1264,12 +1430,6 @@ Map<String, dynamic> packagesComponents = {
         cacheHeight: props['cacheHeight'],
         compressionRatio: props['compressionRatio']?.toDouble(),
         maxBytes: props['maxBytes'] ?? 50 << 10,
-        cacheRawData: props['cacheRawData'] ?? false,
-        imageCacheName: props['imageCacheName'],
-      ),
-  'ExtendedMemoryImageProvider': (props) => ExtendedMemoryImageProvider(
-        props['pa'][0],
-        scale: props['scale']?.toDouble() ?? 1.0,
         cacheRawData: props['cacheRawData'] ?? false,
         imageCacheName: props['imageCacheName'],
       ),
@@ -1294,6 +1454,14 @@ Map<String, dynamic> packagesComponents = {
         scale: props['scale']?.toDouble() ?? 0,
         cacheRawData: props['cacheRawData'],
         imageCacheName: props['imageCacheName'],
+      ),
+  'HighlightView': (props) => HighlightView(
+        props['pa'][0],
+        language: props['language'],
+        theme: props['theme'] ?? const {},
+        padding: props['padding'],
+        textStyle: props['textStyle'],
+        tabSize: props['tabSize'] ?? 8,
       ),
   'ImageSpan': (props) => ImageSpan(
         props['pa'][0],
@@ -1339,17 +1507,6 @@ Map<String, dynamic> packagesComponents = {
         onExit: props['onExit'],
       ),
   'TextPainterHelper': (props) => TextPainterHelper(),
-  'ExtendedWidgetSpan': (props) => ExtendedWidgetSpan(
-        child: props['child'],
-        actualText: props['actualText'] ?? '\uFFFC',
-        start: props['start'] ?? 0,
-        deleteAll: props['deleteAll'] ?? true,
-        alignment: props['alignment'] ?? ui.PlaceholderAlignment.bottom,
-        baseline: props['baseline'],
-        style: props['style'],
-        hide: props['hide'] ?? false,
-      ),
-  'WidgetSpanSize': (props) => WidgetSpanSize(),
   'BackgroundTextSpan': (props) => BackgroundTextSpan(
         style: props['style'],
         text: props['text'],
@@ -1362,6 +1519,17 @@ Map<String, dynamic> packagesComponents = {
         deleteAll: props['deleteAll'] ?? false,
         semanticsLabel: props['semanticsLabel'],
       ),
+  'ExtendedWidgetSpan': (props) => ExtendedWidgetSpan(
+        child: props['child'],
+        actualText: props['actualText'] ?? '\uFFFC',
+        start: props['start'] ?? 0,
+        deleteAll: props['deleteAll'] ?? true,
+        alignment: props['alignment'] ?? ui.PlaceholderAlignment.bottom,
+        baseline: props['baseline'],
+        style: props['style'],
+        hide: props['hide'] ?? false,
+      ),
+  'WidgetSpanSize': (props) => WidgetSpanSize(),
   'ScribbleFocusable': (props) => ScribbleFocusable(
         child: props['child'],
         focusNode: props['focusNode'],
@@ -1437,14 +1605,31 @@ Map<String, dynamic> packagesComponents = {
       ),
   'SelectionOverlay.fadeDuration':
       extended_text_library.SelectionOverlay.fadeDuration,
-  'HighlightView': (props) => HighlightView(
+  'NeverScrollableClampingScrollPhysics': (props) =>
+      const NeverScrollableClampingScrollPhysics(),
+  'LessSpringClampingScrollPhysics': (props) =>
+      const LessSpringClampingScrollPhysics(),
+  'DragHoldController': (props) => DragHoldController(
         props['pa'][0],
-        language: props['language'],
-        theme: props['theme'] ?? const {},
-        padding: props['padding'],
-        textStyle: props['textStyle'],
-        tabSize: props['tabSize'] ?? 8,
       ),
+  'LinkScrollController': (props) => LinkScrollController(
+        initialScrollOffset: props['initialScrollOffset']?.toDouble() ?? 0.0,
+        keepScrollOffset: props['keepScrollOffset'] ?? true,
+        debugLabel: props['debugLabel'],
+        parent: props['parent'],
+      ),
+  'LinkPageController': (props) => LinkPageController(
+        initialPage: props['initialPage'] ?? 0,
+        keepPage: props['keepPage'] ?? true,
+        viewportFraction: props['viewportFraction']?.toDouble() ?? 1.0,
+        parent: props['parent'],
+      ),
+  'SyncScrollController': (props) => SyncScrollController(
+        initialScrollOffset: props['initialScrollOffset']?.toDouble() ?? 0.0,
+        keepScrollOffset: props['keepScrollOffset'] ?? true,
+        debugLabel: props['debugLabel'],
+      ),
+  'SyncScrollHandler': (props) => SyncScrollHandler(),
   'SyntaxHighlighterStyle': (props) => SyntaxHighlighterStyle(
         baseStyle: props['baseStyle'],
         numberStyle: props['numberStyle'],
@@ -1540,20 +1725,20 @@ Map<String, dynamic> packagesComponents = {
 
 /// packagesMapping
 Map<String, bool> packagesMapping = {
+  'ItemSizeInfoNotifier': true,
+  'InitialRenderSizeChangedWithCallback': false,
+  'LayoutInfoNotification': false,
+  'SizeCacheWidget': true,
+  'SizeCacheWidget.of': false,
+  'FrameSeparateTaskQueue.instance': false,
+  'TaskEntry': false,
+  'FrameSeparateWidget': true,
   'ToastPosition': false,
   'ToastPosition.center': false,
   'ToastPosition.bottom': false,
   'ToastPosition.top': false,
   'OffsetAnimationBuilder': false,
   'OpacityAnimationBuilder': false,
-  'LayoutInfoNotification': false,
-  'ItemSizeInfoNotifier': true,
-  'InitialRenderSizeChangedWithCallback': false,
-  'SizeCacheWidget': true,
-  'SizeCacheWidget.of': false,
-  'FrameSeparateTaskQueue.instance': false,
-  'TaskEntry': false,
-  'FrameSeparateWidget': true,
   'LikeButton': true,
   'BubblesColor': false,
   'CircleColor': false,
@@ -1595,15 +1780,15 @@ Map<String, bool> packagesMapping = {
   'ActionType.pan': false,
   'ActionType.edit': false,
   'ActionType.values': false,
+  'ExtendedImageBorderPainter': false,
   'ExtendedImage': true,
   'ExtendedImage.asset': true,
   'ExtendedImage.file': true,
   'ExtendedImage.memory': true,
   'ExtendedImage.network': true,
   'ExtendedImage.globalStateWidgetBuilder': false,
-  'ExtendedImageBorderPainter': false,
-  'ExtendedImageGesture': true,
   'ExtendedRawImage': true,
+  'ExtendedImageGesture': true,
   'ExtendedImageSlidePage': true,
   'SlideAxis.both': false,
   'SlideAxis.horizontal': false,
@@ -1635,6 +1820,16 @@ Map<String, bool> packagesMapping = {
   'ExtendedSliverFillViewport': true,
   'ExtendedRenderSliverFillViewport': false,
   'ExtendedPageController': false,
+  'ExtendedTabBar': true,
+  'ExtendedTab': true,
+  'ExtendedTabBarView': true,
+  'ExtendedPageView': true,
+  'ExtendedPageView.builder': true,
+  'ExtendedPageView.custom': true,
+  'ExtendedScrollable': true,
+  'ColorTabIndicator': false,
+  'ExtendedUnderlineTabIndicator': false,
+  'CarouselIndicator': true,
   'SliverPinnedPersistentHeader': true,
   'SliverPinnedPersistentHeaderRenderObjectWidget': true,
   'SliverPinnedToBoxAdapter': true,
@@ -1685,19 +1880,20 @@ Map<String, bool> packagesMapping = {
   'LastChildLayoutType.foot': false,
   'LastChildLayoutType.values': false,
   'ExtendedFileImageProvider': false,
+  'ExtendedMemoryImageProvider': false,
   'ExtendedResizeImage': false,
   'ExtendedResizeImage.resizeIfNeeded': false,
-  'ExtendedMemoryImageProvider': false,
   'ExtendedExactAssetImageProvider': false,
   'ExtendedAssetImageProvider': false,
   'ExtendedAssetBundleImageKey': false,
+  'HighlightView': true,
   'ImageSpan': false,
   'TextHighlightPainter': false,
   'SpecialTextSpan': false,
   'TextPainterHelper': false,
+  'BackgroundTextSpan': false,
   'ExtendedWidgetSpan': false,
   'WidgetSpanSize': false,
-  'BackgroundTextSpan': false,
   'ScribbleFocusable': true,
   'ScribblePlaceholder': false,
   'ExtendedTextSelectionGestureDetectorBuilder': false,
@@ -1705,7 +1901,13 @@ Map<String, bool> packagesMapping = {
   'ExtendedTextSelectionOverlay': false,
   'SelectionOverlay': false,
   'SelectionOverlay.fadeDuration': false,
-  'HighlightView': true,
+  'NeverScrollableClampingScrollPhysics': false,
+  'LessSpringClampingScrollPhysics': false,
+  'DragHoldController': false,
+  'LinkScrollController': false,
+  'LinkPageController': false,
+  'SyncScrollController': false,
+  'SyncScrollHandler': false,
   'SyntaxHighlighterStyle': false,
   'SyntaxHighlighterStyle.lightThemeStyle': false,
   'SyntaxHighlighterStyle.darkThemeStyle': false,

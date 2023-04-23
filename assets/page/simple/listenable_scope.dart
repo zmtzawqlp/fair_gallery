@@ -1,3 +1,4 @@
+import 'package:extended_tabs/extended_tabs.dart';
 import 'package:fair/fair.dart';
 import 'package:fair_gallery/assets.dart';
 import 'package:fair_gallery/src/plugin/fair_common_plugin.dart';
@@ -64,7 +65,7 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
     FairCommonPlugin().tabController({
       'pageName': _pageName,
       'uniqueKey': _uniqueKey,
-      'type': 'TabController2',
+      'type': 'TabController0',
       'method': 'set',
       'parameter': index,
     });
@@ -74,7 +75,7 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
     FairCommonPlugin().tabController({
       'pageName': _pageName,
       'uniqueKey': _uniqueKey,
-      'type': 'TabController2',
+      'type': 'TabController0',
       'method': 'animateTo',
       'parameter': index,
     });
@@ -84,14 +85,14 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
     FairCommonPlugin().scrollController({
       'pageName': _pageName,
       'uniqueKey': _uniqueKey,
-      'type': 'ScrollController0',
+      'type': 'ScrollController',
       'method': 'get',
       'callback': (values) {
         if (values['hasClients'] == true) {
           FairCommonPlugin().scrollController({
             'pageName': _pageName,
             'uniqueKey': _uniqueKey,
-            'type': 'ScrollController0',
+            'type': 'ScrollController',
             'method': 'animateTo',
             'parameter': {
               'offset': offset,
@@ -108,7 +109,7 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
     FairCommonPlugin().valueNotifier({
       'pageName': _pageName,
       'uniqueKey': _uniqueKey,
-      'type': 'ValueNotifier3',
+      'type': 'ValueNotifier',
       'method': 'set',
       'parameter': value,
     });
@@ -118,7 +119,7 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
     FairCommonPlugin().animationController({
       'pageName': _pageName,
       'uniqueKey': _uniqueKey,
-      'type': 'AnimationController1',
+      'type': 'AnimationController',
       'method': 'get',
       'callback': (values) {
         if (values['isAnimating'] == true) {
@@ -131,7 +132,7 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
         FairCommonPlugin().animationController({
           'pageName': _pageName,
           'uniqueKey': _uniqueKey,
-          'type': 'AnimationController1',
+          'type': 'AnimationController',
           'method': method,
         });
       }
@@ -149,23 +150,38 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
         addListener: _addListener,
         onCreateKey: _onCreateKey,
         uniqueKey: 'ListenableScopeDemo',
-        items: [
-          ListenableScopeItem(type: 'ScrollController'),
-          ListenableScopeItem(type: 'AnimationController', addListener: true),
-          ListenableScopeItem(type: 'TabController', addListener: true),
-          ListenableScopeItem(type: 'ValueNotifier', addListener: true),
-          ListenableScopeItem(type: 'TabController'),
+        configs: [
+          ListenableScopeConfig(type: 'ScrollController'),
+          ListenableScopeConfig(
+            type: 'AnimationController',
+            addListener: true,
+          ),
+          // 有重复的类型，请用 tag 区分
+          ListenableScopeConfig(
+            type: 'TabController',
+            addListener: true,
+            tag: '0',
+          ),
+          ListenableScopeConfig(
+            type: 'ValueNotifier',
+            addListener: true,
+          ),
+          // 有重复的类型，请用 tag 区分
+          ListenableScopeConfig(
+            type: 'TabController',
+            tag: '1',
+          ),
         ],
         onCreate: (String key, TickerProvider vsync) {
           return Sugar.switchCase(
             key,
             [
               SugarSwitchCaseObj(
-                sugarCase: () => 'ScrollController0',
+                sugarCase: () => 'ScrollController',
                 reValue: () => ScrollController(),
               ),
               SugarSwitchCaseObj(
-                sugarCase: () => 'AnimationController1',
+                sugarCase: () => 'AnimationController',
                 reValue: () => AnimationController(
                   vsync: vsync,
                   value: 50.0,
@@ -176,15 +192,15 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
                 ),
               ),
               SugarSwitchCaseObj(
-                sugarCase: () => 'TabController2',
+                sugarCase: () => 'TabController0',
                 reValue: () => TabController(vsync: vsync, length: 2),
               ),
               SugarSwitchCaseObj(
-                sugarCase: () => 'ValueNotifier3',
+                sugarCase: () => 'ValueNotifier',
                 reValue: () => ValueNotifier(1.0),
               ),
               SugarSwitchCaseObj(
-                sugarCase: () => 'TabController4',
+                sugarCase: () => 'TabController1',
                 reValue: () => TabController(vsync: vsync, length: 3),
               ),
             ],
@@ -231,7 +247,7 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
               ValueListenableBuilder(
                 valueListenable: ListenableScope.of<ValueNotifier>(
                   context,
-                  'ValueNotifier3',
+                  'ValueNotifier',
                 ),
                 builder: (context, dynamic value, child) {
                   return Text(
@@ -248,7 +264,7 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
                   child: AnimatedBuilder(
                     animation: ListenableScope.of<AnimationController>(
                       context,
-                      'AnimationController1',
+                      'AnimationController',
                     ),
                     builder: (BuildContext context, Widget? child) {
                       return Container(
@@ -259,7 +275,7 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
                           Sugar.dartObjectToMap(
                             ListenableScope.of<AnimationController>(
                               context,
-                              'AnimationController1',
+                              'AnimationController',
                             ),
                           ),
                           'value',
@@ -293,14 +309,14 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
                 ],
                 controller: ListenableScope.of<TabController>(
                   context,
-                  'TabController2',
+                  'TabController0',
                 ),
               ),
               Expanded(
-                child: TabBarView(
+                child: ExtendedTabBarView(
                   controller: ListenableScope.of<TabController>(
                     context,
-                    'TabController2',
+                    'TabController0',
                   ),
                   children: [
                     Column(
@@ -318,7 +334,7 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
                             itemExtent: 60,
                             controller: ListenableScope.of<ScrollController>(
                               context,
-                              'ScrollController0',
+                              'ScrollController',
                             ),
                             itemBuilder: (context, index) {
                               return Center(
@@ -355,14 +371,14 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
                           ],
                           controller: ListenableScope.of<TabController>(
                             context,
-                            'TabController4',
+                            'TabController1',
                           ),
                         ),
                         Expanded(
-                          child: TabBarView(
+                          child: ExtendedTabBarView(
                             controller: ListenableScope.of<TabController>(
                               context,
-                              'TabController4',
+                              'TabController1',
                             ),
                             children: [
                               Container(
