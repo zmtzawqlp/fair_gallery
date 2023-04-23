@@ -14,12 +14,40 @@
         "addListener": "@(_addListener)",
         "onCreateKey": "@(_onCreateKey)",
         "uniqueKey": "ListenableScopeDemo",
-        "types": [
-          "ScrollController",
-          "AnimationController",
-          "TabController",
-          "ValueNotifier",
-          "TabController"
+        "items": [
+          {
+            "className": "ListenableScopeItem",
+            "na": {
+              "type": "ScrollController"
+            }
+          },
+          {
+            "className": "ListenableScopeItem",
+            "na": {
+              "type": "AnimationController",
+              "addListener": true
+            }
+          },
+          {
+            "className": "ListenableScopeItem",
+            "na": {
+              "type": "TabController",
+              "addListener": true
+            }
+          },
+          {
+            "className": "ListenableScopeItem",
+            "na": {
+              "type": "ValueNotifier",
+              "addListener": true
+            }
+          },
+          {
+            "className": "ListenableScopeItem",
+            "na": {
+              "type": "TabController"
+            }
+          }
         ],
         "onCreate": {
           "className": "FairFunction",
@@ -328,10 +356,10 @@
                                   "alignment": "#(Alignment.center)",
                                   "height": 50,
                                   "width": {
-                                    "className": "SugarMap.get",
+                                    "className": "Sugar.mapGet",
                                     "pa": [
                                       {
-                                        "className": "Sugar.animationControllerToMap",
+                                        "className": "Sugar.dartObjectToMap",
                                         "pa": [
                                           {
                                             "className": "ListenableScope.of",

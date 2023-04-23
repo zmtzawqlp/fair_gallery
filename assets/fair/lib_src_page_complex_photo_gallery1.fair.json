@@ -489,7 +489,7 @@
                                                                           "className": "SugarIterable.take",
                                                                           "pa": [
                                                                             {
-                                                                              "className": "SugarMap.get",
+                                                                              "className": "Sugar.mapGet",
                                                                               "pa": [
                                                                                 "^(loadingMoreItem)",
                                                                                 "tags"
@@ -601,7 +601,7 @@
                                                               "className": "SugarList.length",
                                                               "pa": [
                                                                 {
-                                                                  "className": "SugarMap.get",
+                                                                  "className": "Sugar.mapGet",
                                                                   "pa": [
                                                                     "^(loadingMoreItem)",
                                                                     "images"
@@ -1031,7 +1031,7 @@
                                                                                           "className": "SugarList.length",
                                                                                           "pa": [
                                                                                             {
-                                                                                              "className": "SugarMap.get",
+                                                                                              "className": "Sugar.mapGet",
                                                                                               "pa": [
                                                                                                 "^(loadingMoreItem)",
                                                                                                 "images"
@@ -1197,7 +1197,7 @@
                                                                                                               "className": "SugarList.length",
                                                                                                               "pa": [
                                                                                                                 {
-                                                                                                                  "className": "SugarMap.get",
+                                                                                                                  "className": "Sugar.mapGet",
                                                                                                                   "pa": [
                                                                                                                     "^(loadingMoreItem)",
                                                                                                                     "images"
@@ -1401,7 +1401,7 @@
                                                                                   "className": "SugarCommon.nullOrDefault",
                                                                                   "pa": [
                                                                                     {
-                                                                                      "className": "SugarMap.get",
+                                                                                      "className": "Sugar.mapGet",
                                                                                       "pa": [
                                                                                         "^(loadingMoreItem)",
                                                                                         "comments"
@@ -1437,7 +1437,7 @@
                                                                         "className": "SugarCommon.nullOrDefault",
                                                                         "pa": [
                                                                           {
-                                                                            "className": "SugarMap.get",
+                                                                            "className": "Sugar.mapGet",
                                                                             "pa": [
                                                                               "^(loadingMoreItem)",
                                                                               "is_favorite"
@@ -1450,7 +1450,7 @@
                                                                         "className": "SugarCommon.nullOrDefault",
                                                                         "pa": [
                                                                           {
-                                                                            "className": "SugarMap.get",
+                                                                            "className": "Sugar.mapGet",
                                                                             "pa": [
                                                                               "^(loadingMoreItem)",
                                                                               "favorites"

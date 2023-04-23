@@ -1,9 +1,19 @@
+import 'package:fair/fair.dart';
 import 'package:flutter/material.dart';
+
+class ListenableScopeItem {
+  ListenableScopeItem({
+    required this.type,
+    this.addListener = false,
+  });
+  final String type;
+  final bool addListener;
+}
 
 class ListenableScope extends StatefulWidget {
   const ListenableScope({
     super.key,
-    required this.types,
+    required this.items,
     required this.onCreate,
     required this.addListener,
     required this.uniqueKey,
@@ -11,7 +21,7 @@ class ListenableScope extends StatefulWidget {
     required this.builder,
   });
   //  ScrollController, AnimationController, TabController, ValueNotifier
-  final List<String> types;
+  final List<ListenableScopeItem> items;
   final Listenable? Function(String key, TickerProvider vsync) onCreate;
   // List
   // 2个值，一个是 对应的 key ，一个是对应的 值，放在一个map里面
@@ -35,7 +45,7 @@ class ListenableScope extends StatefulWidget {
       <String, _ListenableScopeState>{};
 
   /// type 带后缀的
-  /// 比如 [types] = ['ScrollController','AnimationController']
+  /// 比如 [items] = ['ScrollController','AnimationController']
   /// 这里的 type 就为 'ScrollController0', 'AnimationController1'
   /// 给 build 方法体里面使用的
   static T of<T extends Listenable>(BuildContext context, String type) {
@@ -68,8 +78,9 @@ class _ListenableScopeState extends State<ListenableScope>
   }
 
   void _create() {
-    for (var i = 0; i < widget.types.length; i++) {
-      var type = widget.types[i];
+    for (var i = 0; i < widget.items.length; i++) {
+      var listenableType = widget.items[i];
+      var type = listenableType.type;
       var key = type + i.toString();
       var listenable = widget.onCreate(key, this);
       if (listenable == null) {
@@ -81,87 +92,27 @@ class _ListenableScopeState extends State<ListenableScope>
         case 'ScrollController':
         case 'SyncScrollController':
         case 'LinkScrollController':
-          _listenables[key] = listenable as ScrollController;
-          listener = () {
-            addListener?.call([
-              key,
-              {
-                'offset': listenable.offset,
-                'maxScrollExtent': listenable.position.maxScrollExtent,
-                'minScrollExtent': listenable.position.minScrollExtent,
-              },
-            ]);
-          };
-          break;
         case 'AnimationController':
-          _listenables[key] = listenable as AnimationController;
-          listener = () {
-            addListener?.call([
-              key,
-              {
-                'isAnimating': listenable.isAnimating,
-                'value': listenable.value,
-                'lowerBound': listenable.lowerBound,
-                'upperBound': listenable.upperBound,
-                'animationBehavior': listenable.animationBehavior.name,
-                'isCompleted': listenable.isCompleted,
-                'isDismissed': listenable.isDismissed,
-                'velocity': listenable.velocity,
-              }
-            ]);
-          };
-          break;
         case 'ValueNotifier':
-          _listenables[key] = listenable as ValueNotifier;
-          listener = () {
-            addListener?.call([
-              key,
-              {
-                'value': listenable.value,
-              },
-            ]);
-          };
-          break;
         case 'TabController':
-          _listenables[key] = listenable as TabController;
-          listener = () {
-            addListener?.call([
-              key,
-              {
-                'index': listenable.index,
-                'indexIsChanging': listenable.indexIsChanging,
-                'offset': listenable.offset,
-                'previousIndex': listenable.previousIndex,
-                'length': listenable.length,
-              },
-            ]);
-          };
-          break;
         case 'PageController':
         case 'LinkPageController':
-          _listenables[key] = listenable as PageController;
+          _listenables[key] = listenable;
           listener = () {
             addListener?.call([
               key,
-              {
-                'page': listenable.page,
-              },
+              Sugar.dartObjectToMap(listenable),
             ]);
           };
           break;
         default:
           assert(false, '不支持的类型$type');
       }
-      if (addListener != null) {
+      if (addListener != null && listenableType.addListener) {
         listenable.addListener(listener);
         _listeners[key] = listener;
       }
     }
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
   }
 
   @override

@@ -497,7 +497,7 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
                                       spacing: 5.0,
                                       children: Sugar.mapEach(
                                         SugarIterable.toList(SugarIterable.take(
-                                            SugarMap.get(
+                                            Sugar.mapGet(
                                                 loadingMoreItem, 'tags'),
                                             //tags,
                                             6)),
@@ -538,7 +538,7 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
                                 Sugar.switchCase(
                                   // SugarList.length(images),
                                   SugarList.length(
-                                    SugarMap.get(loadingMoreItem, 'images'),
+                                    Sugar.mapGet(loadingMoreItem, 'images'),
                                   ),
                                   [
                                     SugarSwitchCaseObj(
@@ -704,7 +704,7 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
                                         child: Sugar.ifEqualBool(
                                             SugarBool.and(
                                               SugarNum.greaterThan(
-                                                SugarList.length(SugarMap.get(
+                                                SugarList.length(Sugar.mapGet(
                                                     loadingMoreItem, 'images')),
                                                 9,
                                               ),
@@ -775,7 +775,7 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
                                                                     .numToString(
                                                                   SugarNum
                                                                       .subtracts(
-                                                                    SugarList.length(SugarMap.get(
+                                                                    SugarList.length(Sugar.mapGet(
                                                                         loadingMoreItem,
                                                                         'images')),
                                                                     9,
@@ -856,7 +856,7 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
                                           Text(
                                             SugarInt.intToString(
                                               SugarCommon.nullOrDefault(
-                                                SugarMap.get(loadingMoreItem,
+                                                Sugar.mapGet(loadingMoreItem,
                                                     'comments'),
                                                 0,
                                               ),
@@ -871,14 +871,14 @@ class _PhotoGalleryPage1State extends State<PhotoGalleryPage1> {
                                       LikeButton(
                                         size: 18.0,
                                         isLiked: SugarCommon.nullOrDefault(
-                                          SugarMap.get(
+                                          Sugar.mapGet(
                                             loadingMoreItem,
                                             'is_favorite',
                                           ),
                                           false,
                                         ),
                                         likeCount: SugarCommon.nullOrDefault(
-                                          SugarMap.get(
+                                          Sugar.mapGet(
                                             loadingMoreItem,
                                             'favorites',
                                           ),

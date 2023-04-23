@@ -1,7 +1,7 @@
 // flutterVersion = '3.3.9'
 // dartVersion = '2.18.5'
-// widgetCount = 12
-// apiCount = 285
+// widgetCount = 11
+// apiCount = 286
 // ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors, invalid_use_of_visible_for_testing_member
 import 'package:extended_text_library/extended_text_library.dart'
     as extended_text_library;
@@ -25,8 +25,8 @@ import 'package:fair/fair.dart';
 
 const String flutterVersion = '3.3.9';
 const String dartVersion = '2.18.5';
-const int widgetCount = 12;
-const int apiCount = 285;
+const int widgetCount = 11;
+const int apiCount = 286;
 
 /// appComponents
 Map<String, dynamic> appComponents = {
@@ -151,6 +151,9 @@ Map<String, dynamic> appComponents = {
   'SugarCommon.mapForEachToList': (props) => SugarCommon.mapForEachToList(
         props['pa'][0],
         props['pa'][1],
+      ),
+  'SugarCommon.dartObjectToMap': (props) => SugarCommon.dartObjectToMap(
+        props['pa'][0],
       ),
   'CommomAppBar': (props) => CommomAppBar(
         key: props['key'],
@@ -1022,9 +1025,13 @@ Map<String, dynamic> appComponents = {
         slidePagekey: props['slidePagekey'],
         slideType: props['slideType'] ?? SlideType.onlyImage,
       ),
+  'ListenableScopeItem': (props) => ListenableScopeItem(
+        type: props['type'],
+        addListener: props['addListener'] ?? false,
+      ),
   'ListenableScope': (props) => ListenableScope(
         key: props['key'],
-        types: as<String>(props['types']) ?? const [],
+        items: as<ListenableScopeItem>(props['items']) ?? const [],
         onCreate: props['onCreate'],
         addListener: props['addListener'],
         uniqueKey: props['uniqueKey'],
@@ -1145,11 +1152,10 @@ Map<String, bool> appMapping = {
   'SugarCommon.onSlidingPage': false,
   'SugarCommon.loadingMoreIndicatorBuilder': false,
   'SugarCommon.nullOrDefault': false,
-  'SugarCommon.dateTimeConvert': false,
   'SugarCommon.vsTheme': false,
   'SugarCommon.isNull': false,
   'SugarCommon.mapForEachToList': false,
-  'SugarCommon.defaultTabController': true,
+  'SugarCommon.dartObjectToMap': false,
   'CommomAppBar': true,
   'SugarStringExtension.test': false,
   'SugarBool.invert': false,
@@ -1377,9 +1383,10 @@ Map<String, bool> appMapping = {
   'ImageGrid': true,
   'ImageGrid1': true,
   'HeroWidget': true,
+  'ListenableScopeItem': false,
   'ListenableScope': true,
   'ListenableScope.of': false,
-  'ListenableScope.jsOf': false,
+  'ListenableScope.get': false,
   'ShareDataWidget': true,
   'ShareDataWidget.of': false,
   'ShareDataWidget.getIndex': false,

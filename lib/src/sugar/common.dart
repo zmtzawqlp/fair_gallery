@@ -126,4 +126,9 @@ class SugarCommon {
     map.forEach(forEach);
     return list;
   }
+
+  static Map<String, dynamic> dartObjectToMap(dynamic dartObject) {
+    // 可以增加自己的判断
+    return Sugar.dartObjectToMap(dartObject);
+  }
 }

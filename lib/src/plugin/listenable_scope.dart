@@ -40,11 +40,7 @@ mixin ListenableScopePlugin implements FairCommonPluginMixin {
                 scrollController.jumpTo(parameter.toDouble());
                 break;
               case 'get':
-                return {
-                  'offset': scrollController.offset,
-                  'maxScrollExtent': scrollController.position.maxScrollExtent,
-                  'minScrollExtent': scrollController.position.minScrollExtent,
-                };
+                return Sugar.dartObjectToMap(scrollController);
               default:
             }
           }
@@ -68,7 +64,7 @@ mixin ListenableScopePlugin implements FairCommonPluginMixin {
                 animationController.value = parameter?.toDouble();
                 break;
               case 'get':
-                return Sugar.animationControllerToMap(animationController);
+                return Sugar.dartObjectToMap(animationController);
               case 'reset':
                 animationController.reset();
                 break;
@@ -164,13 +160,7 @@ mixin ListenableScopePlugin implements FairCommonPluginMixin {
                 tabController.index = parameter;
                 break;
               case 'get':
-                return {
-                  'index': tabController.index,
-                  'indexIsChanging': tabController.indexIsChanging,
-                  'offset': tabController.offset,
-                  'previousIndex': tabController.previousIndex,
-                  'length': tabController.length,
-                };
+                return Sugar.dartObjectToMap(tabController);
               default:
             }
           }
@@ -197,9 +187,7 @@ mixin ListenableScopePlugin implements FairCommonPluginMixin {
                 valueNotifier.value = parameter;
                 break;
               case 'get':
-                return {
-                  'value': valueNotifier.value,
-                };
+                return Sugar.dartObjectToMap(valueNotifier);
               default:
             }
           }

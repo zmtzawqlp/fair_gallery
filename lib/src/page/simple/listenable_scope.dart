@@ -34,7 +34,7 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
   final String _pageName = '#FairKey#';
 
   // 用于去内存里面获取 ListenableScope
-  String uniqueKey = '';
+  String _uniqueKey = '';
 
   String _getRouteName() {
     if (fairProps != null && fairProps['routeName'] != null) {
@@ -44,7 +44,7 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
   }
 
   void _onCreateKey(String key) {
-    uniqueKey = key;
+    _uniqueKey = key;
   }
 
   void _addListener(dynamic value) {
@@ -63,7 +63,7 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
   void _onTabControllerSetIndex(int index) {
     FairCommonPlugin().tabController({
       'pageName': _pageName,
-      'uniqueKey': uniqueKey,
+      'uniqueKey': _uniqueKey,
       'type': 'TabController2',
       'method': 'set',
       'parameter': index,
@@ -73,7 +73,7 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
   void _onTabControllerAnimateTo(int index) {
     FairCommonPlugin().tabController({
       'pageName': _pageName,
-      'uniqueKey': uniqueKey,
+      'uniqueKey': _uniqueKey,
       'type': 'TabController2',
       'method': 'animateTo',
       'parameter': index,
@@ -83,21 +83,31 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
   void _onScrollControllerAnimateTo(double offset) {
     FairCommonPlugin().scrollController({
       'pageName': _pageName,
-      'uniqueKey': uniqueKey,
+      'uniqueKey': _uniqueKey,
       'type': 'ScrollController0',
-      'method': 'animateTo',
-      'parameter': {
-        'offset': offset,
-        'duration': const Duration(seconds: 1),
-        'curve': 'Curves.bounceIn',
-      },
+      'method': 'get',
+      'callback': (values) {
+        if (values['hasClients'] == true) {
+          FairCommonPlugin().scrollController({
+            'pageName': _pageName,
+            'uniqueKey': _uniqueKey,
+            'type': 'ScrollController0',
+            'method': 'animateTo',
+            'parameter': {
+              'offset': offset,
+              'duration': const Duration(seconds: 1),
+              'curve': 'Curves.bounceIn',
+            },
+          });
+        }
+      }
     });
   }
 
   void _onValueNotifierSetValue(double value) {
     FairCommonPlugin().valueNotifier({
       'pageName': _pageName,
-      'uniqueKey': uniqueKey,
+      'uniqueKey': _uniqueKey,
       'type': 'ValueNotifier3',
       'method': 'set',
       'parameter': value,
@@ -107,17 +117,20 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
   void _onAnimationControllerStart() {
     FairCommonPlugin().animationController({
       'pageName': _pageName,
-      'uniqueKey': uniqueKey,
+      'uniqueKey': _uniqueKey,
       'type': 'AnimationController1',
       'method': 'get',
       'callback': (values) {
+        if (values['isAnimating'] == true) {
+          return;
+        }
         var method = 'forward';
         if (values['isCompleted'] == true) {
           method = 'reverse';
         }
         FairCommonPlugin().animationController({
           'pageName': _pageName,
-          'uniqueKey': uniqueKey,
+          'uniqueKey': _uniqueKey,
           'type': 'AnimationController1',
           'method': method,
         });
@@ -136,12 +149,12 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
         addListener: _addListener,
         onCreateKey: _onCreateKey,
         uniqueKey: 'ListenableScopeDemo',
-        types: const [
-          'ScrollController',
-          'AnimationController',
-          'TabController',
-          'ValueNotifier',
-          'TabController',
+        items: [
+          ListenableScopeItem(type: 'ScrollController'),
+          ListenableScopeItem(type: 'AnimationController', addListener: true),
+          ListenableScopeItem(type: 'TabController', addListener: true),
+          ListenableScopeItem(type: 'ValueNotifier', addListener: true),
+          ListenableScopeItem(type: 'TabController'),
         ],
         onCreate: (String key, TickerProvider vsync) {
           return Sugar.switchCase(
@@ -242,8 +255,8 @@ class _ListenableScopeDemoState extends State<ListenableScopeDemo> {
                         padding: const EdgeInsets.all(8),
                         alignment: Alignment.center,
                         height: 50,
-                        width: SugarMap.get(
-                          Sugar.animationControllerToMap(
+                        width: Sugar.mapGet(
+                          Sugar.dartObjectToMap(
                             ListenableScope.of<AnimationController>(
                               context,
                               'AnimationController1',
