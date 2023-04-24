@@ -21,7 +21,7 @@ class ListenableScope extends StatefulWidget {
     super.key,
     required this.configs,
     required this.onCreate,
-    required this.addListener,
+    this.addListener,
     required this.uniqueKey,
     required this.onCreateKey,
     required this.builder,
