@@ -147,6 +147,7 @@ class _ListenableScopeState extends State<ListenableScope>
         listenable.dispose();
       }
     }
+    _listenables.clear();
   }
 
   @override
