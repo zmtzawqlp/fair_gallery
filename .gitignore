@@ -42,5 +42,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
+.vscode
 /lib/assets.preview.dart

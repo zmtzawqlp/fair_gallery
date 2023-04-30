@@ -36,10 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   fair:
     git:
-      #url: https://github.com/wuba/Fair.git
-      #ref: fair-release-zmtzawqlp         
-      url: https://github.com/zmtzawqlp/fair.git
-      ref: fixed
+      url: https://github.com/wuba/Fair.git
+      ref: fair-release-zmtzawqlp         
+      # url: https://github.com/zmtzawqlp/fair.git
+      # ref: fixed
       path: fair
   extended_image: any
   oktoast: any
@@ -71,10 +71,10 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
   fair_compiler:
     git:
-      #url: https://github.com/wuba/Fair.git
-      #ref: fair-release-zmtzawqlp      
-      url: https://github.com/zmtzawqlp/fair.git
-      ref: fixed
+      url: https://github.com/wuba/Fair.git
+      ref: fair-release-zmtzawqlp      
+      # url: https://github.com/zmtzawqlp/fair.git
+      # ref: fixed
       path: compiler 
   yaml: 3.1.1
   package_config: any
@@ -83,24 +83,24 @@ dependency_overrides:
   build_runner: 2.3.3
   fair_version:
     git:
-      #url: https://github.com/wuba/Fair.git
-      #ref: fair-release-zmtzawqlp      
-      url: https://github.com/zmtzawqlp/fair.git
-      ref: fixed
+      url: https://github.com/wuba/Fair.git
+      ref: fair-release-zmtzawqlp      
+      # url: https://github.com/zmtzawqlp/fair.git
+      # ref: fixed
       path: flutter_version/flutter_mock
   fair_dart2dsl:
     git:
-      #url: https://github.com/wuba/Fair.git
-      #ref: fair-release-zmtzawqlp
-      url: https://github.com/zmtzawqlp/fair.git
-      ref: fixed
+      url: https://github.com/wuba/Fair.git
+      ref: fair-release-zmtzawqlp
+      # url: https://github.com/zmtzawqlp/fair.git
+      # ref: fixed
       path: dart2dsl
   fair_dart2js:
     git:
-      #url: https://github.com/wuba/Fair.git
-      #ref: fair-release-zmtzawqlp      
-      url: https://github.com/zmtzawqlp/fair.git
-      ref: fixed
+      url: https://github.com/wuba/Fair.git
+      ref: fair-release-zmtzawqlp      
+      # url: https://github.com/zmtzawqlp/fair.git
+      # ref: fixed
       path: dart2js      
   # 如果你是 3.3.0 以下的版本，需要 override collection
   collection: 1.17.0

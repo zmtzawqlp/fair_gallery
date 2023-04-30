@@ -48,10 +48,13 @@ void main(List<String> args) async {
       assert(uriString.startsWith('package:'));
       var resolve = packageConfig.resolve(Uri.parse(uriString));
       // 项目里面文件
-      if (resolve!.path.startsWith(projectDirectory.path)) {
+
+      if (resolve!
+          .toFilePath(windows: Platform.isWindows)
+          .startsWith(projectDirectory.path)) {
         var resolve = packageConfig.resolve(Uri.parse(uriString));
         if (resolve != null) {
-          includedPaths.add(resolve.path);
+          includedPaths.add(resolve.toFilePath(windows: Platform.isWindows));
           _imports.add(child.toString());
         }
       }

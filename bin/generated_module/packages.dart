@@ -50,7 +50,10 @@ void main(List<String> args) async {
       uriString = uriString.substring(1, uriString.length - 1);
       assert(uriString.startsWith('package:'));
       var resolve = packageConfig.resolve(Uri.parse(uriString));
-      if (!resolve!.path.startsWith(projectDirectory.path)) {
+
+      if (!resolve!
+          .toFilePath(windows: Platform.isWindows)
+          .startsWith(projectDirectory.path)) {
         Uri uri = Uri.parse(uriString);
         var resolve = packageConfig.resolve(Uri.parse(uriString));
         var resolvePackage = packageConfig[uri.path.split('/').first];

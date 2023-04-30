@@ -773,54 +773,6 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef LastChildLayoutTypeBuilder = LastChildLayoutType Function(int index)
-        // package:extended_list_library/src/typedef.dart
-        case 'LastChildLayoutType Function(int)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          LastChildLayoutType Function(int) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef CollectGarbage = void Function(List<int> garbages)
-        // package:extended_list_library/src/typedef.dart
-        case 'void Function(List<int>)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(List<int>) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef ViewportBuilder = void Function(int firstIndex, int lastIndex)
-        // package:extended_list_library/src/typedef.dart
-        case 'void Function(int, int)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(int, int) builder = (p0, p1) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
 
         case 'bool Function(ScrollNotification)':
           List functionPaParameters = FunctionDomain.pa(map);
@@ -892,6 +844,54 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
         case 'int? Function(Widget, int)':
           List functionPaParameters = FunctionDomain.pa(map);
           int? Function(Widget, int) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef LastChildLayoutTypeBuilder = LastChildLayoutType Function(int index)
+        // package:extended_list_library/src/typedef.dart
+        case 'LastChildLayoutType Function(int)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          LastChildLayoutType Function(int) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef CollectGarbage = void Function(List<int> garbages)
+        // package:extended_list_library/src/typedef.dart
+        case 'void Function(List<int>)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(List<int>) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ViewportBuilder = void Function(int firstIndex, int lastIndex)
+        // package:extended_list_library/src/typedef.dart
+        case 'void Function(int, int)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(int, int) builder = (p0, p1) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,

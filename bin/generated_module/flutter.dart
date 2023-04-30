@@ -492,36 +492,52 @@ final Animatable<double> _dialogScaleTween = Tween<double>(begin: 1.3, end: 1.0)
   return child;
 }
 NavigatorState _defaultNavigatorFinder(BuildContext context) => Navigator.of(context);
-int _kDefaultSemanticIndexCallback(Widget _, int localIndex) => localIndex;  
+int _kDefaultSemanticIndexCallback(Widget _, int localIndex) => localIndex;
+const BoxDecoration _kDefaultRoundedBorderDecoration = BoxDecoration(
+  color: CupertinoDynamicColor.withBrightness(
+    color: CupertinoColors.white,
+    darkColor: CupertinoColors.black,
+  ),
+  border: _kDefaultRoundedBorder,
+  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+);
+// Value inspected from Xcode 11 & iOS 13.0 Simulator.
+const BorderSide _kDefaultRoundedBorderSide = BorderSide(
+  color: CupertinoDynamicColor.withBrightness(
+    color: Color(0x33000000),
+    darkColor: Color(0x33FFFFFF),
+  ),
+  width: 0.0,
+);
+const Border _kDefaultRoundedBorder = Border(
+  top: _kDefaultRoundedBorderSide,
+  bottom: _kDefaultRoundedBorderSide,
+  left: _kDefaultRoundedBorderSide,
+  right: _kDefaultRoundedBorderSide,
+);
 ''';
 
 Map<String, String> _fixes = <String, String>{
-  '(props) => DiagnosticableNode(':
-      '(props) => DiagnosticableNode<Diagnosticable>(',
-  '(props) => HitTestEntry(': '(props) => HitTestEntry<HitTestTarget>(',
-  '(props) => RenderAnnotatedRegion(':
-      '(props) => RenderAnnotatedRegion<Object>(',
-  '(props) => LayerHandle(': '(props) => LayerHandle<Layer>(',
-  '(props) => AnnotatedRegionLayer(':
-      '(props) => AnnotatedRegionLayer<Object>(',
-  '(props) => Actions.handler(': '(props) => Actions.handler<Intent>(',
-  '(props) => Actions.find(': '(props) => Actions.find<Intent>(',
-  '(props) => Actions.maybeFind(': '(props) => Actions.maybeFind<Intent>(',
-  '(props) => Actions.maybeInvoke(': '(props) => Actions.maybeInvoke<Intent>(',
+  ' DiagnosticableNode(': ' DiagnosticableNode<Diagnosticable>(',
+  ' HitTestEntry(': ' HitTestEntry<HitTestTarget>(',
+  ' RenderAnnotatedRegion(': ' RenderAnnotatedRegion<Object>(',
+  ' LayerHandle(': ' LayerHandle<Layer>(',
+  ' AnnotatedRegionLayer(': ' AnnotatedRegionLayer<Object>(',
+  ' Actions.handler(': ' Actions.handler<Intent>(',
+  ' Actions.find(': ' Actions.find<Intent>(',
+  ' Actions.maybeFind(': ' Actions.maybeFind<Intent>(',
+  ' Actions.maybeInvoke(': ' Actions.maybeInvoke<Intent>(',
   'Actions.invoke(': 'Actions.invoke<Intent>(',
-  '(props) => AnnotatedRegion(': '(props) => AnnotatedRegion<Object>(',
-  '(props) => SharedAppData.getValue(':
-      '(props) => SharedAppData.getValue<Object, dynamic>(',
-  '(props) => SharedAppData.setValue(':
-      '(props) => SharedAppData.setValue<Object, dynamic>(',
-  'children: as<List>(props[\'children\']),':
-      'children: as<List<RenderBox>>(props[\'children\']),',
-  '(props) => KeySet(': '(props) => KeySet<KeyboardKey>(',
-  '(props) => IndexedSlot(': '(props) => IndexedSlot<Element?>(',
-  '(props) => DisposableBuildContext(':
-      '(props) => DisposableBuildContext<State>(',
-  '(props) => RestorableNumN(': '(props) => RestorableNumN<num?>(',
-  '(props) => RestorableNum(': '(props) => RestorableNum<num>(',
+  ' AnnotatedRegion(': ' AnnotatedRegion<Object>(',
+  ' SharedAppData.getValue(': ' SharedAppData.getValue<Object, dynamic>(',
+  ' SharedAppData.setValue(': ' SharedAppData.setValue<Object, dynamic>(',
+  'children: as<List>(props[\'children\'])':
+      'children: as<List<RenderBox>>(props[\'children\'])',
+  ' KeySet(': ' KeySet<KeyboardKey>(',
+  ' IndexedSlot(': ' IndexedSlot<Element?>(',
+  ' DisposableBuildContext(': ' DisposableBuildContext<State>(',
+  ' RestorableNumN(': ' RestorableNumN<num?>(',
+  ' RestorableNum(': ' RestorableNum<num>(',
   '?? null': '',
   '''import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;''': '',
 };

@@ -70,8 +70,11 @@ class MyApp extends StatelessWidget {
             name: settings.name!,
             arguments: settings.arguments as Map<String, dynamic>?,
           );
+
           final WidgetBuilder builder = (BuildContext context) {
-            if (ExtendedFairWidget.fairEnable(ffRouteSettings.exts)) {
+            if (ExtendedFairWidget.fairEnable(ffRouteSettings.exts) ||
+                // maybe new fair page
+                ffRouteSettings.name == FFRoute.notFoundName) {
               Widget page = ExtendedFairWidget(
                 name: ffRouteSettings.name!,
                 fairProps: settings.arguments as Map<String, dynamic>?,
@@ -79,26 +82,6 @@ class MyApp extends StatelessWidget {
                   return ffRouteSettings.builder();
                 },
               );
-              // var package =
-              //     ffRouteSettings.exts?[ffRouteFileImport]?.toString();
-
-              // if (package != null &&
-              //     ffRouteSettings.name != Routes.fairPhotoSwiper.name) {
-              //   var filePath = codeSources.firstWhere(
-              //       (element) => package.endsWith(element),
-              //       orElse: () => '');
-              //   if (filePath.isNotEmpty) {
-              //     page = Scaffold(
-              //       appBar: AppBar(
-              //         title: Text(ffRouteSettings.routeName!),
-              //       ),
-              //       body: WidgetWithCodeView(
-              //         filePath: 'assets/' + filePath,
-              //         child: page,
-              //       ),
-              //     );
-              //   }
-              // }
 
               return page;
             }

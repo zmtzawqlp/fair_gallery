@@ -16,7 +16,9 @@ void createFunctionDomain({
 }) {
   if (functions.isNotEmpty) {
     StringBuffer sb = StringBuffer();
-    for (var key in functions.keys) {
+    var keys = functions.keys;
+    keys.toList().sort();
+    for (var key in keys) {
       var functionType = functions[key]!;
       var fullElement = functionType.alias?.element.toString();
       if (skips.contains(fullElement)) {

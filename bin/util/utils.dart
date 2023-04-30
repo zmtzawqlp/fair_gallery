@@ -10,7 +10,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 String processRun({
   required String executable,
   required String arguments,
-  bool runInShell = false,
+  bool runInShell = true,
   String? workingDirectory,
 }) {
   final ProcessResult result = Process.runSync(
@@ -168,9 +168,10 @@ Future<void> getIncludedPaths({
                 depth: depth - 1,
                 includedPaths: includedPaths,
                 imports: imports,
-                filePath: resolve.path,
+                filePath: resolve.toFilePath(windows: Platform.isWindows),
                 packageName: resolvePackage.name,
-                packageRoot: resolvePackage.root.path,
+                packageRoot:
+                    resolvePackage.root.toFilePath(windows: Platform.isWindows),
                 packageConfig: packageConfig,
                 projectDirectory: projectDirectory,
               );
@@ -232,7 +233,7 @@ Future<void> resolveCopyPackage(
     copyAndPackageGet(
       projectDirectory: projectDirectory,
       packageName: resolvePackage.name,
-      copyForm: resolvePackage.root.path,
+      copyForm: resolvePackage.root.toFilePath(windows: Platform.isWindows),
     );
   }
 
@@ -243,7 +244,8 @@ Future<void> resolveCopyPackage(
     imports: imports,
     filePath: path.join(
       copyPackageRoot,
-      resolve.path.replaceAll(resolvePackage.root.path, ''),
+      resolve.toFilePath(windows: Platform.isWindows).replaceAll(
+          resolvePackage.root.toFilePath(windows: Platform.isWindows), ''),
     ),
     packageName: resolvePackage.name,
     packageRoot: copyPackageRoot,

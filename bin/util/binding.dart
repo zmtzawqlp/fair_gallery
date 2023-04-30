@@ -9,7 +9,10 @@ import 'package:fair_dart2dsl/src/transformer.dart';
 import 'package:analyzer/dart/analysis/analysis_context.dart';
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/element/type.dart';
-
+import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/analysis/features.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
 import 'function_domain.dart';
 import 'utils.dart';
 
@@ -64,15 +67,22 @@ Future<void> createBindings({
         if (w?.components?.isNotEmpty != true) {
           continue;
         }
+        //w?.components?.sort((a, b) => a.name!.compareTo(b.name!));
         components.add(w!);
       }
     }
   }
+  // // sort
+  // components.sort((a, b) {
+  //   return a.components!.first.name!.compareTo(b.components!.first.name!);
+  // });
 
   Set<String> allImports = <String>{};
   Set<String> lines = <String>{};
-  Set<String> flutterMapping = <String>{};
-  Set<String> flutterComponents = <String>{};
+  // Set<String> flutterMapping = <String>{};
+  Map<String, String> flutterMapping = <String, String>{};
+  // Set<String> flutterComponents = <String>{};
+  Map<String, String> flutterComponents = <String, String>{};
   Map<String, FunctionType> functions = <String, FunctionType>{};
   int widgetCount = 0;
   int apiCount = 0;
@@ -84,7 +94,8 @@ Future<void> createBindings({
         } else {
           apiCount++;
         }
-        flutterMapping.add('\'${element.name}\': ${element.isWidget},');
+        flutterMapping[element.name!] =
+            '\'${element.name}\': ${element.isWidget},';
       }
     }
 
@@ -101,7 +112,22 @@ Future<void> createBindings({
     }
 
     if (component.body != null) {
-      flutterComponents.add(component.body!);
+      List<MapLiteralEntry> entries = [];
+      // 为了排序
+      parseString(
+        content: 'var map ={${component.body}};',
+        featureSet: FeatureSet.latestLanguageVersion(),
+      ).unit.visitChildren(_GeneralizingAstVisitor(entries));
+
+      for (var entry in entries) {
+        var full = entry.toString();
+        // if (full.endsWith(')') &&
+        //     full[full.length - 2] != '(' &&
+        //     full[full.length - 2] != ',') {
+        //   full = full.substring(0, full.length - 1) + ',)';
+        // }
+        flutterComponents[entry.key.toString()] = full + ',';
+      }
     }
 
     for (var element in component.functionParameters) {
@@ -145,6 +171,14 @@ Future<void> createBindings({
 
   allImports.addAll(imports.split('\n'));
 
+  // sort
+
+  var sortFlutterComponents = flutterComponents.entries.toList()
+    ..sort((a, b) => a.key.compareTo(b.key));
+
+  var sortFlutterMapping = flutterMapping.entries.toList()
+    ..sort((a, b) => a.key.compareTo(b.key));
+
   var fileContent = _template
       .replaceAll(
         '{0}',
@@ -160,11 +194,11 @@ Future<void> createBindings({
       )
       .replaceAll(
         '{3}',
-        flutterComponents.join('\n'),
+        sortFlutterComponents.map((e) => e.value).join('\n'),
       )
       .replaceAll(
         '{4}',
-        flutterMapping.join('\n'),
+        sortFlutterMapping.map((e) => e.value).join('\n'),
       )
       .replaceAll(
         '{5}',
@@ -234,3 +268,13 @@ Map<String, bool> {9}Mapping= {
   {4}
 };
 ''';
+
+class _GeneralizingAstVisitor extends GeneralizingAstVisitor<void> {
+  _GeneralizingAstVisitor(this.entries);
+  final List<MapLiteralEntry> entries;
+  @override
+  void visitMapLiteralEntry(MapLiteralEntry node) {
+    entries.add(node);
+    // super.visitMapLiteralEntry(node);
+  }
+}
