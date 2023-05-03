@@ -1,5 +1,7 @@
 # fair_gallery
 
+[掘金文章地址](https://juejin.cn/post/7228967938473394213)
+
 Fair 使用例子
 
 ## 映射自定义
