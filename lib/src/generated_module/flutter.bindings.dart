@@ -3,8 +3,8 @@
 // widgetCount = 498
 // apiCount = 12681
 // ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors, invalid_use_of_visible_for_testing_member
-import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/gestures.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'dart:ui';

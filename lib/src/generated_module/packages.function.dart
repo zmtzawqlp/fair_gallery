@@ -153,403 +153,6 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
     if (name == 'FairFunction') {
       var tag = FunctionDomain.getTag(map);
       switch (tag) {
-        case 'dynamic Function(Size)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          dynamic Function(Size) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef TaskCallback<out T> = T Function()
-        // package:flutter/src/scheduler/binding.dart
-        case 'dynamic Function()':
-          dynamic Function() builder = () {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              domain,
-            );
-          };
-          return builder;
-        // typedef ValueGetter<out T> = T Function()
-        // package:flutter/src/foundation/basic_types.dart
-        case 'bool Function()':
-          bool Function() builder = () {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              domain,
-            );
-          };
-          return builder;
-        // typedef LikeWidgetBuilder = Widget? Function(bool isLiked)
-        // package:like_button/src/utils/like_button_typedef.dart
-        case 'Widget? Function(bool)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          Widget? Function(bool) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef LikeCountWidgetBuilder = Widget? Function(int? likeCount, bool isLiked, String text)
-        // package:like_button/src/utils/like_button_typedef.dart
-        case 'Widget? Function(int?, bool, String)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          Widget? Function(int?, bool, String) builder = (p0, p1, p2) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {
-                  functionPaParameters[0]: p0,
-                  functionPaParameters[1]: p1,
-                  functionPaParameters[2]: p2
-                },
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef LikeButtonTapCallback = Future<bool?> Function(bool isLiked)
-        // package:like_button/src/utils/like_button_typedef.dart
-        case 'Future<bool?> Function(bool)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          Future<bool?> Function(bool) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef CountDecoration = Widget? Function(Widget count, int? likeCount)
-        // package:like_button/src/utils/like_button_typedef.dart
-        case 'Widget? Function(Widget, int?)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          Widget? Function(Widget, int?) builder = (p0, p1) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'dynamic Function(LikeButtonState)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          dynamic Function(LikeButtonState) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef GestureDetailsIsChanged = void Function(GestureDetails? details)
-        // package:extended_image/src/typedef.dart
-        case 'void Function(GestureDetails?)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(GestureDetails?) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef GestureOffsetAnimationCallBack = void Function(Offset offset)
-        // package:extended_image/src/typedef.dart
-        case 'void Function(Offset)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(Offset) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef ScrollOffsetChanged = void Function(double offset)
-        // package:extended_sliver/src/rendering.dart
-        case 'void Function(double)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(double) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef LoadStateChanged = Widget? Function(ExtendedImageState state)
-        // package:extended_image/src/typedef.dart
-        case 'Widget? Function(ExtendedImageState)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          Widget? Function(ExtendedImageState) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef BeforePaintImage = bool Function(Canvas canvas, Rect rect, Image image, Paint paint)
-        // package:extended_image/src/typedef.dart
-        case 'bool Function(Canvas, Rect, Image, Paint)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          bool Function(Canvas, Rect, Image, Paint) builder = (p0, p1, p2, p3) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {
-                  functionPaParameters[0]: p0,
-                  functionPaParameters[1]: p1,
-                  functionPaParameters[2]: p2,
-                  functionPaParameters[3]: p3
-                },
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef AfterPaintImage = void Function(Canvas canvas, Rect rect, Image image, Paint paint)
-        // package:extended_image/src/typedef.dart
-        case 'void Function(Canvas, Rect, Image, Paint)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(Canvas, Rect, Image, Paint) builder = (p0, p1, p2, p3) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {
-                  functionPaParameters[0]: p0,
-                  functionPaParameters[1]: p1,
-                  functionPaParameters[2]: p2,
-                  functionPaParameters[3]: p3
-                },
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef DoubleTap = void Function(ExtendedImageGestureState state)
-        // package:extended_image/src/typedef.dart
-        case 'void Function(ExtendedImageGestureState)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(ExtendedImageGestureState) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef InitGestureConfigHandler = GestureConfig Function(ExtendedImageState state)
-        // package:extended_image/src/typedef.dart
-        case 'GestureConfig Function(ExtendedImageState)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          GestureConfig Function(ExtendedImageState) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef InitEditorConfigHandler = EditorConfig? Function(ExtendedImageState? state)
-        // package:extended_image/src/typedef.dart
-        case 'EditorConfig? Function(ExtendedImageState?)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          EditorConfig? Function(ExtendedImageState?) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef HeroBuilderForSlidingPage = Widget Function(Widget widget)
-        // package:extended_image/src/typedef.dart
-        case 'Widget Function(Widget)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          Widget Function(Widget) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef CanScrollPage = bool Function(GestureDetails? gestureDetails)
-        // package:extended_image/src/typedef.dart
-        case 'bool Function(GestureDetails?)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          bool Function(GestureDetails?) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef SlidePageBackgroundHandler = Color Function(Offset offset, Size pageSize)
-        // package:extended_image/src/typedef.dart
-        case 'Color Function(Offset, Size)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          Color Function(Offset, Size) builder = (p0, p1) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef SlideScaleHandler = double? Function(Offset offset, {ExtendedImageSlidePageState state})
-        // package:extended_image/src/typedef.dart
-        case 'double? Function(Offset, {ExtendedImageSlidePageState state})':
-          List functionPaParameters = FunctionDomain.pa(map);
-          double? Function(Offset, {ExtendedImageSlidePageState state})
-              builder = (p0, {ExtendedImageSlidePageState? state}) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, 'state': state},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef SlideOffsetHandler = Offset? Function(Offset offset, {ExtendedImageSlidePageState state})
-        // package:extended_image/src/typedef.dart
-        case 'Offset? Function(Offset, {ExtendedImageSlidePageState state})':
-          List functionPaParameters = FunctionDomain.pa(map);
-          Offset? Function(Offset, {ExtendedImageSlidePageState state})
-              builder = (p0, {ExtendedImageSlidePageState? state}) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, 'state': state},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef SlideEndHandler = bool? Function(Offset offset, {ExtendedImageSlidePageState state, ScaleEndDetails details})
-        // package:extended_image/src/typedef.dart
-        case 'bool? Function(Offset, {ScaleEndDetails details, ExtendedImageSlidePageState state})':
-          List functionPaParameters = FunctionDomain.pa(map);
-          bool? Function(Offset,
-                  {ScaleEndDetails details, ExtendedImageSlidePageState state})
-              builder = (p0,
-                  {ScaleEndDetails? details,
-                  ExtendedImageSlidePageState? state}) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {
-                  functionPaParameters[0]: p0,
-                  'details': details,
-                  'state': state
-                },
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef OnSlidingPage = void Function(ExtendedImageSlidePageState state)
-        // package:extended_image/src/typedef.dart
-        case 'void Function(ExtendedImageSlidePageState)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(ExtendedImageSlidePageState) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
         // typedef EditorMaskColorHandler = Color Function(BuildContext context, bool pointerDown)
         // package:extended_image/src/typedef.dart
         case 'Color Function(BuildContext, bool)':
@@ -566,155 +169,17 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef EditActionDetailsIsChanged = void Function(EditActionDetails? details)
+        // typedef SlidePageBackgroundHandler = Color Function(Offset offset, Size pageSize)
         // package:extended_image/src/typedef.dart
-        case 'void Function(EditActionDetails?)':
+        case 'Color Function(Offset, Size)':
           List functionPaParameters = FunctionDomain.pa(map);
-          void Function(EditActionDetails?) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef ValueChanged<in T> = void Function(T value)
-        // package:flutter/src/foundation/basic_types.dart
-        case 'void Function(int)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(int) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index)
-        // package:flutter/src/widgets/framework.dart
-        case 'Widget Function(BuildContext, int)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          Widget Function(BuildContext, int) builder = (p0, p1) {
+          Color Function(Offset, Size) builder = (p0, p1) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
               context,
               FunctionDomain(
                 {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef ViewportBuilder = Widget Function(BuildContext context, ViewportOffset position)
-        // package:flutter/src/widgets/scrollable.dart
-        case 'Widget Function(BuildContext, ViewportOffset)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          Widget Function(BuildContext, ViewportOffset) builder = (p0, p1) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef ScrollIncrementCalculator = double Function(ScrollIncrementDetails details)
-        // package:flutter/src/widgets/scrollable.dart
-        case 'double Function(ScrollIncrementDetails)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          double Function(ScrollIncrementDetails) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef OnSliverPinnedPersistentHeaderDelegateBuild = void Function(BuildContext context, double shrinkOffset, double? minExtent, double maxExtent, bool overlapsContent)
-        // package:extended_sliver/src/widget.dart
-        case 'void Function(BuildContext, double, double?, double, bool)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(BuildContext, double, double?, double, bool) builder =
-              (p0, p1, p2, p3, p4) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {
-                  functionPaParameters[0]: p0,
-                  functionPaParameters[1]: p1,
-                  functionPaParameters[2]: p2,
-                  functionPaParameters[3]: p3,
-                  functionPaParameters[4]: p4
-                },
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef SpecialTextGestureTapCallback = void Function(dynamic parameter)
-        // package:extended_text_library/src/extended_text_typedef.dart
-        case 'void Function(dynamic)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(dynamic) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef VoidCallback = void Function()
-        // dart:ui/platform_dispatcher.dart
-        case 'void Function()':
-          void Function() builder = () {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              domain,
-            );
-          };
-          return builder;
-        // typedef ShouldShowSelectionHandlesCallback = bool Function(SelectionChangedCause? cause, CommonTextSelectionGestureDetectorBuilder selectionGestureDetectorBuilder, TextEditingValue editingValue)
-        // package:extended_text_library/src/selection/typedef.dart
-        case 'bool Function(SelectionChangedCause?, CommonTextSelectionGestureDetectorBuilder, TextEditingValue)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          bool Function(
-              SelectionChangedCause?,
-              CommonTextSelectionGestureDetectorBuilder,
-              TextEditingValue) builder = (p0, p1, p2) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {
-                  functionPaParameters[0]: p0,
-                  functionPaParameters[1]: p1,
-                  functionPaParameters[2]: p2
-                },
                 parent: domain,
               ),
             );
@@ -757,11 +222,11 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef TextSelectionPointerHandlerWidgetBuilder = Widget Function(List<ExtendedTextSelectionState> state)
-        // package:extended_text/src/extended_text_typedef.dart
-        case 'Widget Function(List<ExtendedTextSelectionState>)':
+        // typedef InitEditorConfigHandler = EditorConfig? Function(ExtendedImageState? state)
+        // package:extended_image/src/typedef.dart
+        case 'EditorConfig? Function(ExtendedImageState?)':
           List functionPaParameters = FunctionDomain.pa(map);
-          Widget Function(List<ExtendedTextSelectionState>) builder = (p0) {
+          EditorConfig? Function(ExtendedImageState?) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
@@ -773,10 +238,23 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-
-        case 'bool Function(ScrollNotification)':
+        // typedef RefreshCallback = Future<bool> Function()
+        // package:pull_to_refresh_notification/src/pull_to_refresh_notification.dart
+        case 'Future<bool> Function()':
+          Future<bool> Function() builder = () {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              domain,
+            );
+          };
+          return builder;
+        // typedef LikeButtonTapCallback = Future<bool?> Function(bool isLiked)
+        // package:like_button/src/utils/like_button_typedef.dart
+        case 'Future<bool?> Function(bool)':
           List functionPaParameters = FunctionDomain.pa(map);
-          bool Function(ScrollNotification) builder = (p0) {
+          Future<bool?> Function(bool) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
@@ -785,6 +263,67 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
                 {functionPaParameters[0]: p0},
                 parent: domain,
               ),
+            );
+          };
+          return builder;
+        // typedef InitGestureConfigHandler = GestureConfig Function(ExtendedImageState state)
+        // package:extended_image/src/typedef.dart
+        case 'GestureConfig Function(ExtendedImageState)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          GestureConfig Function(ExtendedImageState) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef LastChildLayoutTypeBuilder = LastChildLayoutType Function(int index)
+        // package:extended_list_library/src/typedef.dart
+        case 'LastChildLayoutType Function(int)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          LastChildLayoutType Function(int) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef SlideOffsetHandler = Offset? Function(Offset offset, {ExtendedImageSlidePageState state})
+        // package:extended_image/src/typedef.dart
+        case 'Offset? Function(Offset, {ExtendedImageSlidePageState state})':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Offset? Function(Offset, {ExtendedImageSlidePageState state})
+              builder = (p0, {ExtendedImageSlidePageState? state}) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, 'state': state},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef TaskCallback<out T> = T Function()
+        // package:flutter/src/scheduler/binding.dart
+        case 'dynamic Function()':
+          dynamic Function() builder = () {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              domain,
             );
           };
           return builder;
@@ -808,90 +347,11 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef LoadingMoreIndicatorBuilder = Widget? Function(BuildContext context, IndicatorStatus status)
-        // package:loading_more_list/src/list_config/loading_more_list_config.dart
-        case 'Widget? Function(BuildContext, IndicatorStatus)':
+        // typedef ViewportBuilder = Widget Function(BuildContext context, ViewportOffset position)
+        // package:flutter/src/widgets/scrollable.dart
+        case 'Widget Function(BuildContext, ViewportOffset)':
           List functionPaParameters = FunctionDomain.pa(map);
-          Widget? Function(BuildContext, IndicatorStatus) builder = (p0, p1) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'int Function(int)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          int Function(int) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef SemanticIndexCallback = int? Function(Widget widget, int localIndex)
-        // package:flutter/src/widgets/sliver.dart
-        case 'int? Function(Widget, int)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          int? Function(Widget, int) builder = (p0, p1) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef LastChildLayoutTypeBuilder = LastChildLayoutType Function(int index)
-        // package:extended_list_library/src/typedef.dart
-        case 'LastChildLayoutType Function(int)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          LastChildLayoutType Function(int) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef CollectGarbage = void Function(List<int> garbages)
-        // package:extended_list_library/src/typedef.dart
-        case 'void Function(List<int>)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(List<int>) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef ViewportBuilder = void Function(int firstIndex, int lastIndex)
-        // package:extended_list_library/src/typedef.dart
-        case 'void Function(int, int)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(int, int) builder = (p0, p1) {
+          Widget Function(BuildContext, ViewportOffset) builder = (p0, p1) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
@@ -946,11 +406,27 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef PointerEnterEventListener = void Function(PointerEnterEvent event)
-        // package:flutter/src/services/mouse_tracking.dart
-        case 'void Function(PointerEnterEvent)':
+        // typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index)
+        // package:flutter/src/widgets/framework.dart
+        case 'Widget Function(BuildContext, int)':
           List functionPaParameters = FunctionDomain.pa(map);
-          void Function(PointerEnterEvent) builder = (p0) {
+          Widget Function(BuildContext, int) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef TextSelectionPointerHandlerWidgetBuilder = Widget Function(List<ExtendedTextSelectionState> state)
+        // package:extended_text/src/extended_text_typedef.dart
+        case 'Widget Function(List<ExtendedTextSelectionState>)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget Function(List<ExtendedTextSelectionState>) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
@@ -962,11 +438,11 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef PointerExitEventListener = void Function(PointerExitEvent event)
-        // package:flutter/src/services/mouse_tracking.dart
-        case 'void Function(PointerExitEvent)':
+        // typedef PullToRefreshContainerBuilder = Widget Function(PullToRefreshScrollNotificationInfo? info)
+        // package:pull_to_refresh_notification/src/pull_to_refresh_notification.dart
+        case 'Widget Function(PullToRefreshScrollNotificationInfo?)':
           List functionPaParameters = FunctionDomain.pa(map);
-          void Function(PointerExitEvent) builder = (p0) {
+          Widget Function(PullToRefreshScrollNotificationInfo?) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
@@ -975,6 +451,118 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
                 {functionPaParameters[0]: p0},
                 parent: domain,
               ),
+            );
+          };
+          return builder;
+        // typedef HeroBuilderForSlidingPage = Widget Function(Widget widget)
+        // package:extended_image/src/typedef.dart
+        case 'Widget Function(Widget)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget Function(Widget) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef LoadingMoreIndicatorBuilder = Widget? Function(BuildContext context, IndicatorStatus status)
+        // package:loading_more_list/src/list_config/loading_more_list_config.dart
+        case 'Widget? Function(BuildContext, IndicatorStatus)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget? Function(BuildContext, IndicatorStatus) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef LoadStateChanged = Widget? Function(ExtendedImageState state)
+        // package:extended_image/src/typedef.dart
+        case 'Widget? Function(ExtendedImageState)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget? Function(ExtendedImageState) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef CountDecoration = Widget? Function(Widget count, int? likeCount)
+        // package:like_button/src/utils/like_button_typedef.dart
+        case 'Widget? Function(Widget, int?)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget? Function(Widget, int?) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef LikeWidgetBuilder = Widget? Function(bool isLiked)
+        // package:like_button/src/utils/like_button_typedef.dart
+        case 'Widget? Function(bool)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget? Function(bool) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef LikeCountWidgetBuilder = Widget? Function(int? likeCount, bool isLiked, String text)
+        // package:like_button/src/utils/like_button_typedef.dart
+        case 'Widget? Function(int?, bool, String)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget? Function(int?, bool, String) builder = (p0, p1, p2) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  functionPaParameters[1]: p1,
+                  functionPaParameters[2]: p2
+                },
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ValueGetter<out T> = T Function()
+        // package:flutter/src/foundation/basic_types.dart
+        case 'bool Function()':
+          bool Function() builder = () {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              domain,
             );
           };
           return builder;
@@ -1000,6 +588,271 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
                   'endOffset': endOffset,
                   'wholeTextPainter': wholeTextPainter
                 },
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef BeforePaintImage = bool Function(Canvas canvas, Rect rect, Image image, Paint paint)
+        // package:extended_image/src/typedef.dart
+        case 'bool Function(Canvas, Rect, Image, Paint)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          bool Function(Canvas, Rect, Image, Paint) builder = (p0, p1, p2, p3) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  functionPaParameters[1]: p1,
+                  functionPaParameters[2]: p2,
+                  functionPaParameters[3]: p3
+                },
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef CanScrollPage = bool Function(GestureDetails? gestureDetails)
+        // package:extended_image/src/typedef.dart
+        case 'bool Function(GestureDetails?)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          bool Function(GestureDetails?) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'bool Function(ScrollNotification)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          bool Function(ScrollNotification) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ShouldShowSelectionHandlesCallback = bool Function(SelectionChangedCause? cause, CommonTextSelectionGestureDetectorBuilder selectionGestureDetectorBuilder, TextEditingValue editingValue)
+        // package:extended_text_library/src/selection/typedef.dart
+        case 'bool Function(SelectionChangedCause?, CommonTextSelectionGestureDetectorBuilder, TextEditingValue)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          bool Function(
+              SelectionChangedCause?,
+              CommonTextSelectionGestureDetectorBuilder,
+              TextEditingValue) builder = (p0, p1, p2) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  functionPaParameters[1]: p1,
+                  functionPaParameters[2]: p2
+                },
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef SlideEndHandler = bool? Function(Offset offset, {ExtendedImageSlidePageState state, ScaleEndDetails details})
+        // package:extended_image/src/typedef.dart
+        case 'bool? Function(Offset, {ScaleEndDetails details, ExtendedImageSlidePageState state})':
+          List functionPaParameters = FunctionDomain.pa(map);
+          bool? Function(Offset,
+                  {ScaleEndDetails details, ExtendedImageSlidePageState state})
+              builder = (p0,
+                  {ScaleEndDetails? details,
+                  ExtendedImageSlidePageState? state}) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  'details': details,
+                  'state': state
+                },
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ScrollIncrementCalculator = double Function(ScrollIncrementDetails details)
+        // package:flutter/src/widgets/scrollable.dart
+        case 'double Function(ScrollIncrementDetails)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          double Function(ScrollIncrementDetails) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef SlideScaleHandler = double? Function(Offset offset, {ExtendedImageSlidePageState state})
+        // package:extended_image/src/typedef.dart
+        case 'double? Function(Offset, {ExtendedImageSlidePageState state})':
+          List functionPaParameters = FunctionDomain.pa(map);
+          double? Function(Offset, {ExtendedImageSlidePageState state})
+              builder = (p0, {ExtendedImageSlidePageState? state}) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, 'state': state},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'dynamic Function(LikeButtonState)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          dynamic Function(LikeButtonState) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'dynamic Function(Size)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          dynamic Function(Size) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'int Function(int)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          int Function(int) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef SemanticIndexCallback = int? Function(Widget widget, int localIndex)
+        // package:flutter/src/widgets/sliver.dart
+        case 'int? Function(Widget, int)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          int? Function(Widget, int) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef VoidCallback = void Function()
+        // dart:ui/platform_dispatcher.dart
+        case 'void Function()':
+          void Function() builder = () {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              domain,
+            );
+          };
+          return builder;
+        // typedef OnSliverPinnedPersistentHeaderDelegateBuild = void Function(BuildContext context, double shrinkOffset, double? minExtent, double maxExtent, bool overlapsContent)
+        // package:extended_sliver/src/widget.dart
+        case 'void Function(BuildContext, double, double?, double, bool)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(BuildContext, double, double?, double, bool) builder =
+              (p0, p1, p2, p3, p4) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  functionPaParameters[1]: p1,
+                  functionPaParameters[2]: p2,
+                  functionPaParameters[3]: p3,
+                  functionPaParameters[4]: p4
+                },
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef AfterPaintImage = void Function(Canvas canvas, Rect rect, Image image, Paint paint)
+        // package:extended_image/src/typedef.dart
+        case 'void Function(Canvas, Rect, Image, Paint)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(Canvas, Rect, Image, Paint) builder = (p0, p1, p2, p3) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  functionPaParameters[1]: p1,
+                  functionPaParameters[2]: p2,
+                  functionPaParameters[3]: p3
+                },
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ValueChanged<in T> = void Function(T value)
+        // package:flutter/src/foundation/basic_types.dart
+        case 'void Function(DragEndDetails)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(DragEndDetails) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
                 parent: domain,
               ),
             );
@@ -1037,11 +890,123 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef ValueChanged<in T> = void Function(T value)
-        // package:flutter/src/foundation/basic_types.dart
-        case 'void Function(DragEndDetails)':
+        // typedef EditActionDetailsIsChanged = void Function(EditActionDetails? details)
+        // package:extended_image/src/typedef.dart
+        case 'void Function(EditActionDetails?)':
           List functionPaParameters = FunctionDomain.pa(map);
-          void Function(DragEndDetails) builder = (p0) {
+          void Function(EditActionDetails?) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef DoubleTap = void Function(ExtendedImageGestureState state)
+        // package:extended_image/src/typedef.dart
+        case 'void Function(ExtendedImageGestureState)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(ExtendedImageGestureState) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef OnSlidingPage = void Function(ExtendedImageSlidePageState state)
+        // package:extended_image/src/typedef.dart
+        case 'void Function(ExtendedImageSlidePageState)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(ExtendedImageSlidePageState) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef GestureDetailsIsChanged = void Function(GestureDetails? details)
+        // package:extended_image/src/typedef.dart
+        case 'void Function(GestureDetails?)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(GestureDetails?) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef CollectGarbage = void Function(List<int> garbages)
+        // package:extended_list_library/src/typedef.dart
+        case 'void Function(List<int>)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(List<int>) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef GestureOffsetAnimationCallBack = void Function(Offset offset)
+        // package:extended_image/src/typedef.dart
+        case 'void Function(Offset)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(Offset) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef PointerEnterEventListener = void Function(PointerEnterEvent event)
+        // package:flutter/src/services/mouse_tracking.dart
+        case 'void Function(PointerEnterEvent)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(PointerEnterEvent) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef PointerExitEventListener = void Function(PointerExitEvent event)
+        // package:flutter/src/services/mouse_tracking.dart
+        case 'void Function(PointerExitEvent)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(PointerExitEvent) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
@@ -1068,29 +1033,65 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef RefreshCallback = Future<bool> Function()
-        // package:pull_to_refresh_notification/src/pull_to_refresh_notification.dart
-        case 'Future<bool> Function()':
-          Future<bool> Function() builder = () {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              domain,
-            );
-          };
-          return builder;
-        // typedef PullToRefreshContainerBuilder = Widget Function(PullToRefreshScrollNotificationInfo? info)
-        // package:pull_to_refresh_notification/src/pull_to_refresh_notification.dart
-        case 'Widget Function(PullToRefreshScrollNotificationInfo?)':
+        // typedef ScrollOffsetChanged = void Function(double offset)
+        // package:extended_sliver/src/rendering.dart
+        case 'void Function(double)':
           List functionPaParameters = FunctionDomain.pa(map);
-          Widget Function(PullToRefreshScrollNotificationInfo?) builder = (p0) {
+          void Function(double) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
               context,
               FunctionDomain(
                 {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef SpecialTextGestureTapCallback = void Function(dynamic parameter)
+        // package:extended_text_library/src/extended_text_typedef.dart
+        case 'void Function(dynamic)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(dynamic) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ValueChanged<in T> = void Function(T value)
+        // package:flutter/src/foundation/basic_types.dart
+        case 'void Function(int)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(int) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ViewportBuilder = void Function(int firstIndex, int lastIndex)
+        // package:extended_list_library/src/typedef.dart
+        case 'void Function(int, int)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(int, int) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
                 parent: domain,
               ),
             );

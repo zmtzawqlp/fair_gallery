@@ -25,17 +25,66 @@ import 'package:flutter/services.dart';
 ''';
 
 String _codes = '''
-double _inverseLerp(double min, double max, double t) {
- assert(min <= max);
- double value = (t - min) / (max - min);
+const double _kDefaultIndicatorRadius = 10.0;
+const Color _kDefaultTabBarInactiveColor = CupertinoColors.inactiveGray;
+const Color _kDefaultTabBarBorderColor = CupertinoDynamicColor.withBrightness(
+  color: Color(0x4C000000),
+  darkColor: Color(0x29000000),
+);
 
- // If the device incorrectly reports a pressure outside of pressureMin
- // and pressureMax, we still want this recognizer to respond normally.
- if (!value.isNaN) {
-   value = clampDouble(value, 0.0, 1.0);
- }
- return value;
+const double kMinInteractiveDimensionCupertino = 44.0;
+const Color _kDefaultNavBarBorderColor = Color(0x4D000000);
+const Border _kDefaultNavBarBorder = Border(
+  bottom: BorderSide(
+    color: _kDefaultNavBarBorderColor,
+    width: 0.0, // One physical pixel.
+    style: BorderStyle.solid,
+  ),
+);
+const _defaultHeroTag = "";
+const double _kDefaultDiameterRatio = 1.07;
+const double _kSqueeze = 1.45;
+const double _defaultRefreshTriggerPullDistance = 100.0;
+const double _defaultRefreshIndicatorExtent = 60.0;
+var buildRefreshIndicator = CupertinoSliverRefreshControl.buildRefreshIndicator;
+const CupertinoDynamicColor _kThumbColor = CupertinoDynamicColor.withBrightness(
+  color: Color(0xFFFFFFFF),
+  darkColor: Color(0xFF636366),
+);
+const EdgeInsetsGeometry _kHorizontalItemPadding =
+    EdgeInsets.symmetric(vertical: 2, horizontal: 3);
+const Color _kColor = Color(0xA0B71C1C);
+const double _kHeight = 12.0; // height of banner
+const TextStyle _kTextStyle = TextStyle(
+  color: Color(0xFFFFFFFF),
+  fontSize: _kHeight * 0.85,
+  fontWeight: FontWeight.w900,
+  height: 1.0,
+);
+
+class _DefaultHeroTag {
+  const _DefaultHeroTag();
+  @override
+  String toString() => '<default FloatingActionButton tag>';
 }
+
+const int defaultRowsPerPage = 10;
+const double _kMenuDividerHeight = 16.0;
+const Duration _snackBarDisplayDuration = Duration(milliseconds: 4000);
+const double kMiddleSpacing = 16.0;
+
+double _inverseLerp(double min, double max, double t) {
+  assert(min <= max);
+  double value = (t - min) / (max - min);
+
+  // If the device incorrectly reports a pressure outside of pressureMin
+  // and pressureMax, we still want this recognizer to respond normally.
+  if (!value.isNaN) {
+    value = clampDouble(value, 0.0, 1.0);
+  }
+  return value;
+}
+
 const double _epsilonDefault = 1e-3;
 const TextStyle _kDefaultPlaceholderStyle = TextStyle(
   fontWeight: FontWeight.w400,
@@ -290,11 +339,14 @@ const EdgeInsetsDirectional _kDefaultInsetGroupedRowsMargin =
 
 /// Default value for [thickness] if it's not specified in [CupertinoScrollbar].
 const double defaultThickness = 3;
+
 /// Default value for [thicknessWhileDragging] if it's not specified in
 /// [CupertinoScrollbar].
 const double defaultThicknessWhileDragging = 8.0;
+
 /// Default value for [radius] if it's not specified in [CupertinoScrollbar].
 const Radius defaultRadius = Radius.circular(1.5);
+
 /// Default value for [radiusWhileDragging] if it's not specified in
 /// [CupertinoScrollbar].
 const Radius defaultRadiusWhileDragging = Radius.circular(4.0);
@@ -305,6 +357,7 @@ mixin _ScrollUnderFlexibleConfig {
   EdgeInsetsGeometry? get collapsedCenteredTitlePadding;
   EdgeInsetsGeometry? get expandedTitlePadding;
 }
+
 // Variant configuration
 class _MediumScrollUnderFlexibleConfig with _ScrollUnderFlexibleConfig {
   _MediumScrollUnderFlexibleConfig(this.context);
@@ -315,23 +368,26 @@ class _MediumScrollUnderFlexibleConfig with _ScrollUnderFlexibleConfig {
   late final TextTheme _textTheme = _theme.textTheme;
 
   static const double collapsedHeight = 64.0;
-  
+
   @override
   TextStyle? get collapsedTextStyle =>
-    _textTheme.titleLarge?.apply(color: _colors.onSurface);
+      _textTheme.titleLarge?.apply(color: _colors.onSurface);
 
   @override
   TextStyle? get expandedTextStyle =>
-    _textTheme.headlineSmall?.apply(color: _colors.onSurface);
+      _textTheme.headlineSmall?.apply(color: _colors.onSurface);
 
   @override
-  EdgeInsetsGeometry? get collapsedTitlePadding => const EdgeInsetsDirectional.fromSTEB(48, 0, 16, 0);
+  EdgeInsetsGeometry? get collapsedTitlePadding =>
+      const EdgeInsetsDirectional.fromSTEB(48, 0, 16, 0);
 
   @override
-  EdgeInsetsGeometry? get collapsedCenteredTitlePadding => const EdgeInsets.fromLTRB(16, 0, 16, 0);
+  EdgeInsetsGeometry? get collapsedCenteredTitlePadding =>
+      const EdgeInsets.fromLTRB(16, 0, 16, 0);
 
   @override
-  EdgeInsetsGeometry? get expandedTitlePadding => const EdgeInsets.fromLTRB(16, 0, 16, 20);
+  EdgeInsetsGeometry? get expandedTitlePadding =>
+      const EdgeInsets.fromLTRB(16, 0, 16, 20);
 }
 
 class _LargeScrollUnderFlexibleConfig with _ScrollUnderFlexibleConfig {
@@ -346,29 +402,37 @@ class _LargeScrollUnderFlexibleConfig with _ScrollUnderFlexibleConfig {
 
   @override
   TextStyle? get collapsedTextStyle =>
-    _textTheme.titleLarge?.apply(color: _colors.onSurface);
+      _textTheme.titleLarge?.apply(color: _colors.onSurface);
 
   @override
   TextStyle? get expandedTextStyle =>
-    _textTheme.headlineMedium?.apply(color: _colors.onSurface);
+      _textTheme.headlineMedium?.apply(color: _colors.onSurface);
 
   @override
-  EdgeInsetsGeometry? get collapsedTitlePadding => const EdgeInsetsDirectional.fromSTEB(48, 0, 16, 0);
+  EdgeInsetsGeometry? get collapsedTitlePadding =>
+      const EdgeInsetsDirectional.fromSTEB(48, 0, 16, 0);
 
   @override
-  EdgeInsetsGeometry? get collapsedCenteredTitlePadding => const EdgeInsets.fromLTRB(16, 0, 16, 0);
+  EdgeInsetsGeometry? get collapsedCenteredTitlePadding =>
+      const EdgeInsets.fromLTRB(16, 0, 16, 0);
 
   @override
-  EdgeInsetsGeometry? get expandedTitlePadding => const EdgeInsets.fromLTRB(16, 0, 16, 28);
+  EdgeInsetsGeometry? get expandedTitlePadding =>
+      const EdgeInsets.fromLTRB(16, 0, 16, 28);
 }
 
-Widget _defaultFieldViewBuilder(BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
+Widget _defaultFieldViewBuilder(
+    BuildContext context,
+    TextEditingController textEditingController,
+    FocusNode focusNode,
+    VoidCallback onFieldSubmitted) {
   return _AutocompleteField(
     focusNode: focusNode,
     textEditingController: textEditingController,
     onFieldSubmitted: onFieldSubmitted,
   );
 }
+
 // The default Material-style Autocomplete text field.
 class _AutocompleteField extends StatelessWidget {
   const _AutocompleteField({
@@ -394,6 +458,7 @@ class _AutocompleteField extends StatelessWidget {
     );
   }
 }
+
 /// Default stroke width.
 const double defaultStrokeWidth = 2.5;
 const double _kMinThumbExtent = 18.0;
@@ -405,6 +470,7 @@ const Set<TargetPlatform> _kMobilePlatforms = <TargetPlatform>{
   TargetPlatform.iOS,
   TargetPlatform.fuchsia,
 };
+
 /// The default way to convert an option to a string in
 /// [displayStringForOption].
 ///
@@ -412,8 +478,13 @@ const Set<TargetPlatform> _kMobilePlatforms = <TargetPlatform>{
 String defaultStringForOption(dynamic option) {
   return option.toString();
 }
+
 const int _kColorDefault = 0xFF000000;
-Widget _buildCupertinoDialogTransitions(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+Widget _buildCupertinoDialogTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child) {
   final CurvedAnimation fadeAnimation = CurvedAnimation(
     parent: animation,
     curve: Curves.easeInOut,
@@ -433,7 +504,7 @@ Widget _buildCupertinoDialogTransitions(BuildContext context, Animation<double> 
   );
 }
 
-const List<BoxShadow> _kSwitchBoxShadows = <BoxShadow> [
+const List<BoxShadow> _kSwitchBoxShadows = <BoxShadow>[
   BoxShadow(
     color: Color(0x26000000),
     offset: Offset(0, 3),
@@ -446,7 +517,7 @@ const List<BoxShadow> _kSwitchBoxShadows = <BoxShadow> [
   ),
 ];
 
-const List<BoxShadow> _kSliderBoxShadows = <BoxShadow> [
+const List<BoxShadow> _kSliderBoxShadows = <BoxShadow>[
   BoxShadow(
     color: Color(0x26000000),
     offset: Offset(0, 3),
@@ -464,7 +535,8 @@ const List<BoxShadow> _kSliderBoxShadows = <BoxShadow> [
   ),
 ];
 
-const Map<TargetPlatform, PageTransitionsBuilder> _defaultBuilders = <TargetPlatform, PageTransitionsBuilder>{
+const Map<TargetPlatform, PageTransitionsBuilder> _defaultBuilders =
+    <TargetPlatform, PageTransitionsBuilder>{
   TargetPlatform.android: ZoomPageTransitionsBuilder(),
   TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
   TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
@@ -478,20 +550,26 @@ const double _kDefaultAutoScrollVelocityScalar = 7;
 // they reuse the same animation curve that was modeled after native page
 // transitions.
 final Animatable<double> _dialogScaleTween = Tween<double>(begin: 1.3, end: 1.0)
-  .chain(CurveTween(curve: Curves.linearToEaseOut));
+    .chain(CurveTween(curve: Curves.linearToEaseOut));
 
- // Modifier key masks.
+// Modifier key masks.
 
- /// No modifier keys are pressed in the [metaState] field.
- ///
- /// Use this value if you need to decode the [metaState] field yourself, but
- /// it's much easier to use [isModifierPressed] if you just want to know if
- /// a modifier is pressed.
- const int modifierNone = 0;
- Widget _defaultTransitionsBuilder(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+/// No modifier keys are pressed in the [metaState] field.
+///
+/// Use this value if you need to decode the [metaState] field yourself, but
+/// it's much easier to use [isModifierPressed] if you just want to know if
+/// a modifier is pressed.
+const int modifierNone = 0;
+Widget _defaultTransitionsBuilder(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child) {
   return child;
 }
-NavigatorState _defaultNavigatorFinder(BuildContext context) => Navigator.of(context);
+
+NavigatorState _defaultNavigatorFinder(BuildContext context) =>
+    Navigator.of(context);
 int _kDefaultSemanticIndexCallback(Widget _, int localIndex) => localIndex;
 const BoxDecoration _kDefaultRoundedBorderDecoration = BoxDecoration(
   color: CupertinoDynamicColor.withBrightness(

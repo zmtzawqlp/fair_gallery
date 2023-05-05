@@ -30,133 +30,6 @@ mixin AppFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
     if (name == 'FairFunction') {
       var tag = FunctionDomain.getTag(map);
       switch (tag) {
-        case 'Widget Function()':
-          Widget Function() builder = () {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              domain,
-            );
-          };
-          return builder;
-
-        case 'Widget? Function(LoadState)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          Widget? Function(LoadState) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'dynamic Function(bool)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          dynamic Function(bool) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'dynamic Function(dynamic, dynamic)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          dynamic Function(dynamic, dynamic) builder = (p0, p1) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'bool Function()':
-          bool Function() builder = () {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              domain,
-            );
-          };
-          return builder;
-
-        case 'double Function(String)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          double Function(String) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'int Function(String)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          int Function(String) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'dynamic Function(dynamic)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          dynamic Function(dynamic) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'bool Function(dynamic)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          bool Function(dynamic) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
         case 'Iterable<Object> Function(dynamic)':
           List functionPaParameters = FunctionDomain.pa(map);
           Iterable<Object> Function(dynamic) builder = (p0) {
@@ -172,146 +45,15 @@ mixin AppFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
           };
           return builder;
 
-        case 'void Function(dynamic)':
+        case 'Listenable? Function(String, TickerProvider)':
           List functionPaParameters = FunctionDomain.pa(map);
-          void Function(dynamic) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'dynamic Function(dynamic, dynamic)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          dynamic Function(dynamic, dynamic) builder = (p0, p1) {
+          Listenable? Function(String, TickerProvider) builder = (p0, p1) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
               context,
               FunctionDomain(
                 {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'dynamic Function(dynamic, dynamic)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          dynamic Function(dynamic, dynamic) builder = (p0, p1) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'dynamic Function()':
-          dynamic Function() builder = () {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              domain,
-            );
-          };
-          return builder;
-
-        case 'dynamic Function(int)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          dynamic Function(int) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'int Function(dynamic, dynamic)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          int Function(dynamic, dynamic) builder = (p0, p1) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'dynamic Function(dynamic)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          dynamic Function(dynamic) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'bool Function(dynamic, dynamic)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          bool Function(dynamic, dynamic) builder = (p0, p1) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'void Function(dynamic, dynamic)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(dynamic, dynamic) builder = (p0, p1) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'num Function(String)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          num Function(String) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
                 parent: domain,
               ),
             );
@@ -348,6 +90,265 @@ mixin AppFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
           };
           return builder;
 
+        case 'dynamic Function(dynamic, dynamic)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          dynamic Function(dynamic, dynamic) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'dynamic Function(dynamic)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          dynamic Function(dynamic) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'dynamic Function(dynamic, dynamic)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          dynamic Function(dynamic, dynamic) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'Widget Function()':
+          Widget Function() builder = () {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              domain,
+            );
+          };
+          return builder;
+        // typedef WidgetBuilder = Widget Function(BuildContext context)
+        // package:flutter/src/widgets/framework.dart
+        case 'Widget Function(BuildContext)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget Function(BuildContext) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'Widget? Function(LoadState)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget? Function(LoadState) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'bool Function()':
+          bool Function() builder = () {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              domain,
+            );
+          };
+          return builder;
+
+        case 'bool Function(dynamic)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          bool Function(dynamic) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'bool Function(dynamic, dynamic)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          bool Function(dynamic, dynamic) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'double Function(String)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          double Function(String) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'dynamic Function()':
+          dynamic Function() builder = () {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              domain,
+            );
+          };
+          return builder;
+
+        case 'dynamic Function(bool)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          dynamic Function(bool) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'dynamic Function(dynamic)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          dynamic Function(dynamic) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'dynamic Function(dynamic, dynamic)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          dynamic Function(dynamic, dynamic) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'dynamic Function(int)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          dynamic Function(int) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'int Function(String)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          int Function(String) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'int Function(dynamic, dynamic)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          int Function(dynamic, dynamic) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'num Function(String)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          num Function(String) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
         case 'void Function(Map<dynamic, dynamic>)':
           List functionPaParameters = FunctionDomain.pa(map);
           void Function(Map<dynamic, dynamic>) builder = (p0) {
@@ -357,36 +358,6 @@ mixin AppFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
               context,
               FunctionDomain(
                 {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'void Function(int)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(int) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'Listenable? Function(String, TickerProvider)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          Listenable? Function(String, TickerProvider) builder = (p0, p1) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
                 parent: domain,
               ),
             );
@@ -407,11 +378,40 @@ mixin AppFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef WidgetBuilder = Widget Function(BuildContext context)
-        // package:flutter/src/widgets/framework.dart
-        case 'Widget Function(BuildContext)':
+
+        case 'void Function(dynamic)':
           List functionPaParameters = FunctionDomain.pa(map);
-          Widget Function(BuildContext) builder = (p0) {
+          void Function(dynamic) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'void Function(dynamic, dynamic)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(dynamic, dynamic) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'void Function(int)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(int) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,

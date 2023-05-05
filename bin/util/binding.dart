@@ -72,16 +72,11 @@ Future<void> createBindings({
       }
     }
   }
-  // // sort
-  // components.sort((a, b) {
-  //   return a.components!.first.name!.compareTo(b.components!.first.name!);
-  // });
+ 
 
   Set<String> allImports = <String>{};
-  Set<String> lines = <String>{};
-  // Set<String> flutterMapping = <String>{};
+  // Set<String> lines = <String>{};
   Map<String, String> flutterMapping = <String, String>{};
-  // Set<String> flutterComponents = <String>{};
   Map<String, String> flutterComponents = <String, String>{};
   Map<String, FunctionType> functions = <String, FunctionType>{};
   int widgetCount = 0;
@@ -105,11 +100,11 @@ Future<void> createBindings({
       }
     }
 
-    if (component.lines != null) {
-      for (var line in component.lines!) {
-        lines.add(line);
-      }
-    }
+    // if (component.lines != null) {
+    //   for (var line in component.lines!) {
+    //     lines.add(line);
+    //   }
+    // }
 
     if (component.body != null) {
       List<MapLiteralEntry> entries = [];
@@ -121,11 +116,6 @@ Future<void> createBindings({
 
       for (var entry in entries) {
         var full = entry.toString();
-        // if (full.endsWith(')') &&
-        //     full[full.length - 2] != '(' &&
-        //     full[full.length - 2] != ',') {
-        //   full = full.substring(0, full.length - 1) + ',)';
-        // }
         flutterComponents[entry.key.toString()] = full + ',';
       }
     }
@@ -165,9 +155,9 @@ Future<void> createBindings({
     flutterVersion: flutterVersion,
   );
 
-  var sortLines = lines.toList()
-    ..sort((a, b) =>
-        a.startsWith('import') ? -1 : (b.startsWith('import') ? 1 : 0));
+  // var sortLines = lines.toList()
+  //   ..sort((a, b) =>
+  //       a.startsWith('import') ? -1 : (b.startsWith('import') ? 1 : 0));
 
   allImports.addAll(imports.split('\n'));
 
@@ -186,7 +176,8 @@ Future<void> createBindings({
       )
       .replaceAll(
         '{1}',
-        sortLines.join('\n'),
+        '',
+        // sortLines.join('\n'),
       )
       .replaceAll(
         '{2}',
