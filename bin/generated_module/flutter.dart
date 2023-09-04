@@ -685,6 +685,22 @@ void main(List<String> args) async {
         'lib',
         'ui',
       ),
+      path.join(
+        projectDirectory.path,
+        '.dart_tool',
+        'sky_engine',
+        'lib',
+        'core',
+        'date_time.dart',
+      ),
+      path.join(
+        projectDirectory.path,
+        '.dart_tool',
+        'sky_engine',
+        'lib',
+        'core',
+        'duration.dart',
+      ),
     ],
     fileName: 'Flutter',
 

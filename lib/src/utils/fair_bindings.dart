@@ -17,20 +17,11 @@ class FairBindings {
     // widgetNames.addAll(flutterMapping);
     BindingProvider.specialBinding.clear();
     BindingProvider.specialBinding.addAll({
-      'Duration': (props) {
-        return Duration(
-          days: props['days'] ?? 0,
-          hours: props['hours'] ?? 0,
-          minutes: props['minutes'] ?? 0,
-          seconds: props['seconds'] ?? 0,
-          milliseconds: props['milliseconds'] ?? 0,
-          microseconds: props['microseconds'] ?? 0,
-        );
-      },
       ...fair_flow.provider(),
       ...fair_common.provider()
         ..remove('OutlineInputBorder')
-        ..remove('BorderSide'),
+        ..remove('BorderSide')
+        ..remove('InputDecoration'),
     });
   }
 }

@@ -54,7 +54,28 @@ void main(List<String> args) async {
           .startsWith(projectDirectory.path)) {
         var resolve = packageConfig.resolve(Uri.parse(uriString));
         if (resolve != null) {
-          includedPaths.add(resolve.toFilePath(windows: Platform.isWindows));
+          final path = resolve.toFilePath(windows: Platform.isWindows);
+          final result = parseFile(
+            path: path,
+            featureSet: FeatureSet.latestLanguageVersion(),
+          );
+
+          for (final child in result.unit.directives) {
+            if (child is NamespaceDirective) {
+              var uri = child.uri.toString();
+              uri = uri.substring(1, uri.length - 1);
+              if (child is ExportDirective) {
+                final resolve = packageConfig.resolve(Uri.parse(uri));
+
+                if (resolve != null) {
+                  final path1 = resolve.toFilePath(windows: Platform.isWindows);
+                  includedPaths.add(path1);
+                }
+              }
+            }
+          }
+
+          includedPaths.add(path);
           _imports.add(child.toString());
         }
       }
