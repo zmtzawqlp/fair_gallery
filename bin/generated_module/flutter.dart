@@ -332,10 +332,6 @@ const Radius _kToolbarBorderRadius = Radius.circular(8);
 // Standard iOS 10 tab bar height.
 const double _kTabBarHeight = 50.0;
 
-// Used for iOS "Inset Grouped" margin, determined from SwiftUI's Forms in
-// iOS 14.2 SDK.
-const EdgeInsetsDirectional _kDefaultInsetGroupedRowsMargin =
-    EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 10.0);
 
 /// Default value for [thickness] if it's not specified in [CupertinoScrollbar].
 const double defaultThickness = 3;
@@ -593,6 +589,197 @@ const Border _kDefaultRoundedBorder = Border(
   left: _kDefaultRoundedBorderSide,
   right: _kDefaultRoundedBorderSide,
 );
+  /// The border is drawn fully inside of the border path.
+  ///
+  /// This is a constant for use with [strokeAlign].
+  ///
+  /// This is the default value for [strokeAlign].
+  const double strokeAlignInside = -1.0;
+  /// The indicator stroke is drawn on the center of the indicator path,
+  /// with half of the [strokeWidth] on the inside, and the other half
+  /// on the outside of the path.
+  ///
+  /// This is a constant for use with [strokeAlign].
+  ///
+  /// This is the default value for [strokeAlign].
+  const double strokeAlignCenter = 0.0;  
+  // The ratio for the borderRadius of the context menu preview image. This value
+  // was eyeballed by overlapping the CupertinoContextMenu with a context menu
+  // from iOS 16.0 in the XCode iPhone simulator.
+  const double _previewBorderRadiusRatio = 12.0;
+  /// The default preview builder if none is provided. It makes a rectangle
+  /// around the child widget with rounded borders, matching the iOS 16 opened
+  /// context menu eyeballed on the XCode iOS simulator.
+   Widget _defaultPreviewBuilder(BuildContext context, Animation<double> animation, Widget child) {
+    return FittedBox(
+      fit: BoxFit.cover,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(_previewBorderRadiusRatio * animation.value),
+        child: child,
+      ),
+    );
+  }
+  // Values derived from https://developer.apple.com/design/resources/ and on iOS
+  // simulators with "Debug View Hierarchy".
+  const double _kItemExtent = 32.0;
+
+// Margin on top of the list section. This was eyeballed from iOS 14.4 Simulator
+// and should be always present on top of the edge-to-edge variant.
+const double _kMarginTop = 22.0;
+
+// Standard header margin, determined from SwiftUI's Forms in iOS 14.2 SDK.
+const EdgeInsetsDirectional _kDefaultHeaderMargin = EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 6.0);
+
+// Header margin for inset grouped variant, determined from iOS 14.4 Simulator.
+const EdgeInsetsDirectional _kInsetGroupedDefaultHeaderMargin = EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 6.0);
+
+// Standard footer margin, determined from SwiftUI's Forms in iOS 14.2 SDK.
+const EdgeInsetsDirectional _kDefaultFooterMargin = EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0);
+
+// Footer margin for inset grouped variant, determined from iOS 14.4 Simulator.
+const EdgeInsetsDirectional _kInsetGroupedDefaultFooterMargin = EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 10.0);
+
+// Margin around children in edge-to-edge variant, determined from iOS 14.4
+// Simulator.
+const EdgeInsets _kDefaultRowsMargin = EdgeInsets.only(bottom: 8.0);
+
+// Used for iOS "Inset Grouped" margin, determined from SwiftUI's Forms in
+// iOS 14.2 SDK.
+const EdgeInsetsDirectional _kDefaultInsetGroupedRowsMargin = EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 10.0);
+
+// Used for iOS "Inset Grouped" margin, determined from SwiftUI's Forms in
+// iOS 14.2 SDK.
+const EdgeInsetsDirectional _kDefaultInsetGroupedRowsMarginWithHeader = EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 10.0);
+
+// Used for iOS "Inset Grouped" border radius, estimated from SwiftUI's Forms in
+// iOS 14.2 SDK.
+// TODO(edrisian): This should be a rounded rectangle once that shape is added.
+const BorderRadius _kDefaultInsetGroupedBorderRadius = BorderRadius.all(Radius.circular(10.0));
+
+// The margin of divider used in base list section. Estimated from iOS 14.4 SDK
+// Settings app.
+const double _kBaseDividerMargin = 20.0;
+
+// Additional margin of divider used in base list section with list tiles with
+// leading widgets. Estimated from iOS 14.4 SDK Settings app.
+const double _kBaseAdditionalDividerMargin = 44.0;
+
+// The margin of divider used in inset grouped version of list section.
+// Estimated from iOS 14.4 SDK Reminders app.
+const double _kInsetDividerMargin = 14.0;
+
+// Additional margin of divider used in inset grouped version of list section.
+// Estimated from iOS 14.4 SDK Reminders app.
+const double _kInsetAdditionalDividerMargin = 42.0;
+
+// Additional margin of divider used in inset grouped version of list section
+// when there is no leading widgets. Estimated from iOS 14.4 SDK Notes app.
+const double _kInsetAdditionalDividerMarginWithoutLeading = 14.0;
+
+// Used for iOS "Inset Grouped" margin, determined from SwiftUI's Forms in
+// iOS 14.2 SDK.
+const EdgeInsetsDirectional _kFormDefaultInsetGroupedRowsMargin = EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 10.0);
+// These constants were eyeballed from iOS 14.4 Settings app for base, Notes for
+// notched without leading, and Reminders app for notched with leading.
+const double _kLeadingSize = 28.0;
+const double _kNotchedLeadingSize = 30.0;
+const double _kMinHeight = _kLeadingSize + 2 * 8.0;
+const double _kMinHeightWithSubtitle = _kLeadingSize + 2 * 10.0;
+const double _kNotchedMinHeight = _kNotchedLeadingSize + 2 * 12.0;
+const double _kNotchedMinHeightWithoutLeading = _kNotchedLeadingSize + 2 * 10.0;
+const EdgeInsetsDirectional _kPadding = EdgeInsetsDirectional.only(start: 20.0, end: 14.0);
+const EdgeInsetsDirectional _kPaddingWithSubtitle = EdgeInsetsDirectional.only(start: 20.0, end: 14.0);
+const EdgeInsets _kNotchedPadding = EdgeInsets.symmetric(horizontal: 14.0);
+const EdgeInsetsDirectional _kNotchedPaddingWithoutLeading = EdgeInsetsDirectional.fromSTEB(28.0, 10.0, 14.0, 10.0);
+const double _kLeadingToTitle = 16.0;
+const double _kNotchedLeadingToTitle = 12.0;
+const double _kNotchedTitleToSubtitle = 3.0;
+const double _kAdditionalInfoToTrailing = 6.0;
+const double _kNotchedTitleWithSubtitleFontSize = 16.0;
+const double _kSubtitleFontSize = 12.0;
+const double _kNotchedSubtitleFontSize = 14.0;
+const Size kDefaultSize = Size(80, 47.5);
+  // Used as the coefficient of friction in the inertial translation animation.
+  // This value was eyeballed to give a feel similar to Google Photos.
+  const double _kDrag = 0.0000135;
+  const double _borderRadius = 40; 
+ Widget defaultLabelBuilder(
+    BuildContext context,
+    String label,
+    int index,
+  ) {
+    if (index < 0) {
+      return Text(label);
+    }
+    final TextStyle defaultStyle = DefaultTextStyle.of(context).style;
+    final Characters characters = label.characters;
+    return RichText(
+      text: TextSpan(
+        children: <TextSpan>[
+          if (index > 0)
+            TextSpan(text: characters.getRange(0, index).toString(), style: defaultStyle),
+          TextSpan(
+            text: characters.getRange(index, index + 1).toString(),
+            style: defaultStyle.copyWith(decoration: TextDecoration.underline),
+          ),
+          if (index < characters.length - 1)
+            TextSpan(text: characters.getRange(index + 1).toString(), style: defaultStyle),
+        ],
+      ),
+    );
+  }  
+const double _kIndicatorHeight = 32;
+const double _kIndicatorWidth = 64;  
+
+Widget _defaultContextMenuBuilder(BuildContext context, EditableTextState editableTextState) {
+  return AdaptiveTextSelectionToolbar.editableText(
+    editableTextState: editableTextState,
+  );
+}
+
+Widget _defaultCupertinoContextMenuBuilder(BuildContext context, EditableTextState editableTextState) {
+  return CupertinoAdaptiveTextSelectionToolbar.editableText(
+    editableTextState: editableTextState,
+  );
+}
+
+class _DefaultSnapshotPainter implements SnapshotPainter {
+  const _DefaultSnapshotPainter();
+
+  @override
+  void addListener(ui.VoidCallback listener) { }
+
+  @override
+  void dispose() { }
+
+  @override
+  bool get hasListeners => false;
+
+  @override
+  void notifyListeners() { }
+
+  @override
+  void paint(PaintingContext context, ui.Offset offset, ui.Size size, PaintingContextCallback painter) {
+    painter(context, offset);
+  }
+
+  @override
+  void paintSnapshot(PaintingContext context, ui.Offset offset, ui.Size size, ui.Image image, Size sourceSize, double pixelRatio) {
+    final Rect src = Rect.fromLTWH(0, 0, sourceSize.width, sourceSize.height);
+    final Rect dst = Rect.fromLTWH(offset.dx, offset.dy, size.width, size.height);
+    final Paint paint = Paint()
+      ..filterQuality = FilterQuality.low;
+    context.canvas.drawImageRect(image, src, dst, paint);
+  }
+
+  @override
+  void removeListener(ui.VoidCallback listener) { }
+
+  @override
+  bool shouldRepaint(covariant _DefaultSnapshotPainter oldPainter) => false;
+}
+
+
 ''';
 
 Map<String, String> _fixes = <String, String>{
@@ -618,6 +805,39 @@ Map<String, String> _fixes = <String, String>{
   ' RestorableNum(': ' RestorableNum<num>(',
   '?? null': '',
   '''import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;''': '',
+  ''''BackgroundIsolateBinaryMessenger': (props) =>
+      BackgroundIsolateBinaryMessenger(),''': '',
+  '''  'DomCSSStyleDeclaration': (props) => DomCSSStyleDeclaration(),
+  'DomCSSStyleSheet': (props) => DomCSSStyleSheet(),
+  'DomDocument': (props) => DomDocument(),
+  'DomElement': (props) => DomElement(),
+  'DomEvent': (props) => DomEvent(),
+  'DomEventListener': (props) => DomEventListener(),
+  'DomEventTarget': (props) => DomEventTarget(),
+  'DomHTMLDivElement': (props) => DomHTMLDivElement(),
+  'DomHTMLElement': (props) => DomHTMLElement(),
+  'DomHTMLHeadElement': (props) => DomHTMLHeadElement(),
+  'DomHTMLStyleElement': (props) => DomHTMLStyleElement(),
+  'DomMediaQueryList': (props) => DomMediaQueryList(),
+  'DomMouseEvent': (props) => DomMouseEvent(),
+  'DomNavigator': (props) => DomNavigator(),
+  'DomNode': (props) => DomNode(),
+  'DomProgressEvent': (props) => DomProgressEvent(),
+  'DomRange': (props) => DomRange(),
+  'DomSelection': (props) => DomSelection(),
+  'DomStyleSheet': (props) => DomStyleSheet(),
+  'DomTokenList': (props) => DomTokenList(),
+  'DomUIEvent': (props) => DomUIEvent(),
+  'DomWindow': (props) => DomWindow(),
+  'DomXMLHttpRequest': (props) => DomXMLHttpRequest(),''': '',
+  '''  'Image.onCreate': Image.onCreate,
+  'Image.onDispose': Image.onDispose,''': '',
+  '''  'TwoDimensionalChildListDelegate': (props) => TwoDimensionalChildListDelegate(
+      addRepaintBoundaries: props['addRepaintBoundaries'] ?? true,
+      children: as<List<RenderBox>>(props['children']) ?? const []),''':
+      '''  'TwoDimensionalChildListDelegate': (props) => TwoDimensionalChildListDelegate(
+      addRepaintBoundaries: props['addRepaintBoundaries'] ?? true,
+      children: as<List<Widget>>(props['children']) ?? const []),'''
 };
 
 void main(List<String> args) async {
@@ -660,6 +880,11 @@ void main(List<String> args) async {
       'Gradient.linear',
       'Gradient.radial',
       'Gradient.sweep',
+      '^Restorable.*',
+      'BackgroundIsolateBinaryMessenger.instance',
+      'BaseTapAndDragGestureRecognizer',
+      'BindingBase.checkInstance',
+
       // 支持正则
       // '^Icons.*',
       // '^Diagnostic*',
@@ -708,6 +933,7 @@ void main(List<String> args) async {
     codes: _codes,
     fixes: _fixes,
     functionDomainImports: '''
+import 'dart:ui';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -723,6 +949,10 @@ import 'package:vector_math/vector_math_64.dart' show Quad;
       'V Function()': 'dynamic Function()',
       'Widget? Function(BuildContext, {required int currentLength, required bool isFocused, required int? maxLength})':
           'Widget? Function(BuildContext, {required int currentLength, required int? maxLength, required bool isFocused})',
+      'bool Function(T?, T)': 'bool Function(dynamic, dynamic)',
+      'T? Function(T?, T?, double)':
+          'dynamic Function(dynamic, dynamic, double)',
+      'T Function(Set<MaterialState>)': 'dynamic Function(Set<MaterialState>)',
     },
     // FunctionType 的 fullElement
     // 有些是不会用的，特别是一些泛型

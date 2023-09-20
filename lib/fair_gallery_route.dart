@@ -79,7 +79,7 @@ FFRouteSettings getRouteSettings({
             safeArguments['key'],
           ),
         ),
-        routeName: 'js 访问 Fair 中对象的例子',
+        routeName: 'js 访问 Flutter 中对象的例子',
         description:
             '如何在 Fair 中使用 ScrollController, AnimationController, TabController, ValueNotifier',
         exts: <String, dynamic>{

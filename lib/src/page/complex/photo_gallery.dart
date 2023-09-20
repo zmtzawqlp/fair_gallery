@@ -1,4 +1,3 @@
-import 'package:extended_text/extended_text.dart';
 import 'package:fair/fair.dart';
 import 'package:fair_gallery/assets.dart';
 import 'package:fair_gallery/fair_gallery_routes.dart';
@@ -193,46 +192,44 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
           ),
           Expanded(
             child: SizeCacheWidget(
-              child: ExtendedTextSelectionPointerHandler(
-                child: LoadingMoreList(
-                  ListConfig(
-                    itemBuilder: _itemBuilder,
-                    sourceList: LoadingMoreRepository.onLoadData(
-                      _repository,
-                      _onLoadData,
-                      maxLength: 300,
-                    ),
-                    cacheExtent: SugarNum.toDouble(
-                        SugarNum.multiplies(Sugar.height(context), 2)),
-                    physics: const BouncingScrollPhysics(),
-                    indicatorBuilder: SugarCommon.loadingMoreIndicatorBuilder(
-                      [
-                        SugarSwitchCaseObj(
-                          sugarCase: () => IndicatorStatus.fullScreenBusying,
-                          reValue: () => const Align(
-                            alignment: Alignment.center,
-                            child: Text('不要着急，正在加载中...'),
-                          ),
+              child: LoadingMoreList(
+                ListConfig(
+                  itemBuilder: _itemBuilder,
+                  sourceList: LoadingMoreRepository.onLoadData(
+                    _repository,
+                    _onLoadData,
+                    maxLength: 300,
+                  ),
+                  cacheExtent: SugarNum.toDouble(
+                      SugarNum.multiplies(Sugar.height(context), 2)),
+                  physics: const BouncingScrollPhysics(),
+                  indicatorBuilder: SugarCommon.loadingMoreIndicatorBuilder(
+                    [
+                      SugarSwitchCaseObj(
+                        sugarCase: () => IndicatorStatus.fullScreenBusying,
+                        reValue: () => const Align(
+                          alignment: Alignment.center,
+                          child: Text('不要着急，正在加载中...'),
                         ),
-                        SugarSwitchCaseObj(
-                          sugarCase: () => IndicatorStatus.loadingMoreBusying,
-                          reValue: () => Container(
-                            height: 35.0,
-                            alignment: Alignment.center,
-                            child: const Text('不要拖了，正在加载更多...'),
-                          ),
+                      ),
+                      SugarSwitchCaseObj(
+                        sugarCase: () => IndicatorStatus.loadingMoreBusying,
+                        reValue: () => Container(
+                          height: 35.0,
+                          alignment: Alignment.center,
+                          child: const Text('不要拖了，正在加载更多...'),
                         ),
-                        SugarSwitchCaseObj(
-                          sugarCase: () => IndicatorStatus.noMoreLoad,
-                          reValue: () => Container(
-                            height: 35.0,
-                            alignment: Alignment.center,
-                            child: const Text('拖不动了，没有更多了！'),
-                          ),
+                      ),
+                      SugarSwitchCaseObj(
+                        sugarCase: () => IndicatorStatus.noMoreLoad,
+                        reValue: () => Container(
+                          height: 35.0,
+                          alignment: Alignment.center,
+                          child: const Text('拖不动了，没有更多了！'),
                         ),
-                      ],
-                      isSliver: false,
-                    ),
+                      ),
+                    ],
+                    isSliver: false,
                   ),
                 ),
               ),

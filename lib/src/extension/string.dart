@@ -1,3 +1,3 @@
 extension StringExtension on String {
-  String test() => '${this} abc';
+  String test() => '$this abc';
 }

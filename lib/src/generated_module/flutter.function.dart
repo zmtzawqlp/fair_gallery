@@ -1,7 +1,8 @@
-// flutterVersion = '3.3.9'
-// dartVersion = '2.18.5'
-// functionCount = 148
+// flutterVersion = '3.13.4'
+// dartVersion = '3.1.2'
+// functionCount = 187
 // ignore_for_file: deprecated_member_use, prefer_single_quotes, unused_element, unused_field, unused_import, unnecessary_import, implementation_imports, unused_shown_name, prefer_function_declarations_over_variables, void_checks, duplicate_import, no_duplicate_case_values
+import 'dart:ui';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -21,6 +22,22 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
     if (name == 'FairFunction') {
       var tag = FunctionDomain.getTag(map);
       switch (tag) {
+        // typedef MaterialPropertyResolver<out T> = T Function(Set<MaterialState> states)
+        // package:flutter/src/material/material_state.dart
+        case 'BorderSide? Function(Set<MaterialState>)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          BorderSide? Function(Set<MaterialState>) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
         // typedef BoxConstraintsTransform = BoxConstraints Function(BoxConstraints )
         // package:flutter/src/rendering/shifted_box.dart
         case 'BoxConstraints Function(BoxConstraints)':
@@ -34,6 +51,34 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
                 {functionPaParameters[0]: p0},
                 parent: domain,
               ),
+            );
+          };
+          return builder;
+        // typedef MaterialPropertyResolver<out T> = T Function(Set<MaterialState> states)
+        // package:flutter/src/material/material_state.dart
+        case 'Color Function(Set<MaterialState>)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Color Function(Set<MaterialState>) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef AppExitRequestCallback = Future<AppExitResponse> Function()
+        // package:flutter/src/widgets/app_lifecycle_listener.dart
+        case 'Future<AppExitResponse> Function()':
+          Future<AppExitResponse> Function() builder = () {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              domain,
             );
           };
           return builder;
@@ -98,6 +143,66 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
         case 'FutureOr<Iterable<Object>> Function(TextEditingValue)':
           List functionPaParameters = FunctionDomain.pa(map);
           FutureOr<Iterable<Object>> Function(TextEditingValue) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef SuggestionsBuilder = FutureOr<Iterable<Widget>> Function(BuildContext context, SearchController controller)
+        // package:flutter/src/material/search_anchor.dart
+        case 'FutureOr<Iterable<Widget>> Function(BuildContext, SearchController)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          FutureOr<Iterable<Widget>> Function(BuildContext, SearchController)
+              builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'FutureOr<void> Function()':
+          FutureOr<void> Function() builder = () {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              domain,
+            );
+          };
+          return builder;
+        // typedef MouseTrackerHitTest = HitTestResult Function(Offset offset, int viewId)
+        // package:flutter/src/rendering/mouse_tracker.dart
+        case 'HitTestResult Function(Offset, int)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          HitTestResult Function(Offset, int) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef MaterialPropertyResolver<out T> = T Function(Set<MaterialState> states)
+        // package:flutter/src/material/material_state.dart
+        case 'InputBorder Function(Set<MaterialState>)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          InputBorder Function(Set<MaterialState>) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
@@ -549,6 +654,22 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
+        // typedef MaterialPropertyResolver<out T> = T Function(Set<MaterialState> states)
+        // package:flutter/src/material/material_state.dart
+        case 'dynamic Function(Set<MaterialState>)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          dynamic Function(Set<MaterialState>) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
         // typedef ComputePropertyValueCallback<out T> = T? Function()
         // package:flutter/src/foundation/diagnostics.dart
         case 'dynamic Function()':
@@ -558,6 +679,58 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
               methodMap,
               context,
               domain,
+            );
+          };
+          return builder;
+
+        case 'dynamic Function(dynamic, dynamic, double)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          dynamic Function(dynamic, dynamic, double) builder = (p0, p1, p2) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  functionPaParameters[1]: p1,
+                  functionPaParameters[2]: p2
+                },
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef TextInputFormatFunction = TextEditingValue Function(TextEditingValue oldValue, TextEditingValue newValue)
+        // package:flutter/src/services/text_formatter.dart
+        case 'TextEditingValue Function(TextEditingValue, TextEditingValue)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          TextEditingValue Function(TextEditingValue, TextEditingValue)
+              builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef MaterialPropertyResolver<out T> = T Function(Set<MaterialState> states)
+        // package:flutter/src/material/material_state.dart
+        case 'TextStyle Function(Set<MaterialState>)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          TextStyle Function(Set<MaterialState>) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
             );
           };
           return builder;
@@ -625,6 +798,22 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
               context,
               FunctionDomain(
                 {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef CupertinoContextMenuBuilder = Widget Function(BuildContext context, Animation<double> animation)
+        // package:flutter/src/cupertino/context_menu.dart
+        case 'Widget Function(BuildContext, Animation<double>)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget Function(BuildContext, Animation<double>) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
                 parent: domain,
               ),
             );
@@ -787,11 +976,48 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
+        // typedef EditableTextContextMenuBuilder = Widget Function(BuildContext context, EditableTextState editableTextState)
+        // package:flutter/src/widgets/editable_text.dart
+        case 'Widget Function(BuildContext, EditableTextState)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget Function(BuildContext, EditableTextState) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
         // typedef DragTargetBuilder<in T> = Widget Function(BuildContext context, List<T?> candidateData, List<dynamic> rejectedData)
         // package:flutter/src/widgets/drag_target.dart
         case 'Widget Function(BuildContext, List<dynamic>, List<dynamic>)':
           List functionPaParameters = FunctionDomain.pa(map);
           Widget Function(BuildContext, List<dynamic>, List<dynamic>) builder =
+              (p0, p1, p2) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  functionPaParameters[1]: p1,
+                  functionPaParameters[2]: p2
+                },
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef MenuAnchorChildBuilder = Widget Function(BuildContext context, MenuController controller, Widget? child)
+        // package:flutter/src/material/menu_anchor.dart
+        case 'Widget Function(BuildContext, MenuController, Widget?)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget Function(BuildContext, MenuController, Widget?) builder =
               (p0, p1, p2) {
             return pa0Value(
               FunctionDomain.getBody(map),
@@ -940,6 +1166,39 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
+        // typedef SearchAnchorChildBuilder = Widget Function(BuildContext context, SearchController controller)
+        // package:flutter/src/material/search_anchor.dart
+        case 'Widget Function(BuildContext, SearchController)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget Function(BuildContext, SearchController) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef SelectableRegionContextMenuBuilder = Widget Function(BuildContext context, SelectableRegionState selectableRegionState)
+        // package:flutter/src/widgets/selectable_region.dart
+        case 'Widget Function(BuildContext, SelectableRegionState)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget Function(BuildContext, SelectableRegionState) builder =
+              (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
         // typedef HeroPlaceholderBuilder = Widget Function(BuildContext context, Size heroSize, Widget child)
         // package:flutter/src/widgets/heroes.dart
         case 'Widget Function(BuildContext, Size, Widget)':
@@ -970,6 +1229,26 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
               context,
               FunctionDomain(
                 {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef MenuAcceleratorChildBuilder = Widget Function(BuildContext context, String label, int index)
+        // package:flutter/src/material/menu_anchor.dart
+        case 'Widget Function(BuildContext, String, int)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget Function(BuildContext, String, int) builder = (p0, p1, p2) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  functionPaParameters[1]: p1,
+                  functionPaParameters[2]: p2
+                },
                 parent: domain,
               ),
             );
@@ -1029,6 +1308,27 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
               context,
               FunctionDomain(
                 {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef TwoDimensionalViewportBuilder = Widget Function(BuildContext context, ViewportOffset verticalPosition, ViewportOffset horizontalPosition)
+        // package:flutter/src/widgets/scrollable.dart
+        case 'Widget Function(BuildContext, ViewportOffset, ViewportOffset)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget Function(BuildContext, ViewportOffset, ViewportOffset)
+              builder = (p0, p1, p2) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  functionPaParameters[1]: p1,
+                  functionPaParameters[2]: p2
+                },
                 parent: domain,
               ),
             );
@@ -1141,8 +1441,8 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef AnimatedListItemBuilder = Widget Function(BuildContext context, int index, Animation<double> animation)
-        // package:flutter/src/widgets/animated_list.dart
+        // typedef AnimatedItemBuilder = Widget Function(BuildContext context, int index, Animation<double> animation)
+        // package:flutter/src/widgets/animated_scroll_view.dart
         case 'Widget Function(BuildContext, int, Animation<double>)':
           List functionPaParameters = FunctionDomain.pa(map);
           Widget Function(BuildContext, int, Animation<double>) builder =
@@ -1232,6 +1532,22 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
+        // typedef ViewBuilder = Widget Function(Iterable<Widget> suggestions)
+        // package:flutter/src/material/search_anchor.dart
+        case 'Widget Function(Iterable<Widget>)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget Function(Iterable<Widget>) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
         // typedef AnimatedSwitcherTransitionBuilder = Widget Function(Widget child, Animation<double> animation)
         // package:flutter/src/widgets/animated_switcher.dart
         case 'Widget Function(Widget, Animation<double>)':
@@ -1306,6 +1622,43 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
+        // typedef TwoDimensionalIndexedWidgetBuilder = Widget? Function(BuildContext , ChildVicinity vicinity)
+        // package:flutter/src/widgets/two_dimensional_viewport.dart
+        case 'Widget? Function(BuildContext, ChildVicinity)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget? Function(BuildContext, ChildVicinity) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef MagnifierBuilder = Widget? Function(BuildContext context, MagnifierController controller, ValueNotifier<MagnifierInfo> magnifierInfo)
+        // package:flutter/src/widgets/magnifier.dart
+        case 'Widget? Function(BuildContext, MagnifierController, ValueNotifier<MagnifierInfo>)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget? Function(BuildContext, MagnifierController,
+              ValueNotifier<MagnifierInfo>) builder = (p0, p1, p2) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  functionPaParameters[1]: p1,
+                  functionPaParameters[2]: p2
+                },
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
         // typedef NullableIndexedWidgetBuilder = Widget? Function(BuildContext context, int index)
         // package:flutter/src/widgets/framework.dart
         case 'Widget? Function(BuildContext, int)':
@@ -1350,11 +1703,43 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
+        // typedef StepIconBuilder = Widget? Function(int stepIndex, StepState stepState)
+        // package:flutter/src/material/stepper.dart
+        case 'Widget? Function(int, StepState)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget? Function(int, StepState) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
         // typedef SelectableDayPredicate = bool Function(DateTime day)
         // package:flutter/src/material/date.dart
         case 'bool Function(DateTime)':
           List functionPaParameters = FunctionDomain.pa(map);
           bool Function(DateTime) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ConditionalElementVisitor = bool Function(Element element)
+        // package:flutter/src/widgets/framework.dart
+        case 'bool Function(Element)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          bool Function(Element) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
@@ -1447,6 +1832,37 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
           };
           return builder;
 
+        case 'bool Function(dynamic, dynamic)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          bool Function(dynamic, dynamic) builder = (p0, p1) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef AllowedButtonsFilter = bool Function(int buttons)
+        // package:flutter/src/gestures/recognizer.dart
+        case 'bool Function(int)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          bool Function(int) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
         case 'double Function(RenderBox)':
           List functionPaParameters = FunctionDomain.pa(map);
           double Function(RenderBox) builder = (p0) {
@@ -1462,7 +1878,7 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
           };
           return builder;
         // typedef ScrollIncrementCalculator = double Function(ScrollIncrementDetails details)
-        // package:flutter/src/widgets/scrollable.dart
+        // package:flutter/src/widgets/scrollable_helpers.dart
         case 'double Function(ScrollIncrementDetails)':
           List functionPaParameters = FunctionDomain.pa(map);
           double Function(ScrollIncrementDetails) builder = (p0) {
@@ -1509,11 +1925,27 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef MenuItemSerializableIdGenerator = int Function(MenuItem item)
-        // package:flutter/src/widgets/platform_menu_bar.dart
-        case 'int Function(MenuItem)':
+        // typedef DevicePixelRatioGetter = double? Function(int viewId)
+        // package:flutter/src/gestures/converter.dart
+        case 'double? Function(int)':
           List functionPaParameters = FunctionDomain.pa(map);
-          int Function(MenuItem) builder = (p0) {
+          double? Function(int) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef MenuItemSerializableIdGenerator = int Function(PlatformMenuItem item)
+        // package:flutter/src/widgets/platform_menu_bar.dart
+        case 'int Function(PlatformMenuItem)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          int Function(PlatformMenuItem) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
@@ -1526,7 +1958,7 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
           };
           return builder;
         // typedef ChildIndexGetter = int? Function(Key key)
-        // package:flutter/src/widgets/sliver.dart
+        // package:flutter/src/widgets/scroll_delegate.dart
         case 'int? Function(Key)':
           List functionPaParameters = FunctionDomain.pa(map);
           int? Function(Key) builder = (p0) {
@@ -1542,7 +1974,7 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
           };
           return builder;
         // typedef SemanticIndexCallback = int? Function(Widget widget, int localIndex)
-        // package:flutter/src/widgets/sliver.dart
+        // package:flutter/src/widgets/scroll_delegate.dart
         case 'int? Function(Widget, int)':
           List functionPaParameters = FunctionDomain.pa(map);
           int? Function(Widget, int) builder = (p0, p1) {
@@ -1574,6 +2006,38 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
         case 'void Function(Action<Intent>)':
           List functionPaParameters = FunctionDomain.pa(map);
           void Function(Action<Intent>) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ValueChanged<in T> = void Function(T value)
+        // package:flutter/src/foundation/basic_types.dart
+        case 'void Function(AppLifecycleState)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(AppLifecycleState) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ValueChanged<in T> = void Function(T value)
+        // package:flutter/src/foundation/basic_types.dart
+        case 'void Function(DatePickerEntryMode)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(DatePickerEntryMode) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
@@ -1649,8 +2113,8 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef GestureDragEndCallback = void Function(DragEndDetails details)
-        // package:flutter/src/gestures/monodrag.dart
+        // typedef ValueChanged<in T> = void Function(T value)
+        // package:flutter/src/foundation/basic_types.dart
         case 'void Function(DragEndDetails)':
           List functionPaParameters = FunctionDomain.pa(map);
           void Function(DragEndDetails) builder = (p0) {
@@ -1682,8 +2146,8 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef GestureDragStartCallback = void Function(DragStartDetails details)
-        // package:flutter/src/gestures/drag_details.dart
+        // typedef ValueChanged<in T> = void Function(T value)
+        // package:flutter/src/foundation/basic_types.dart
         case 'void Function(DragStartDetails)':
           List functionPaParameters = FunctionDomain.pa(map);
           void Function(DragStartDetails) builder = (p0) {
@@ -1693,23 +2157,6 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
               context,
               FunctionDomain(
                 {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef DragSelectionUpdateCallback = void Function(DragStartDetails startDetails, DragUpdateDetails updateDetails)
-        // package:flutter/src/widgets/text_selection.dart
-        case 'void Function(DragStartDetails, DragUpdateDetails)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(DragStartDetails, DragUpdateDetails) builder =
-              (p0, p1) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
                 parent: domain,
               ),
             );
@@ -1779,6 +2226,53 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
+        // typedef ElementVisitor = void Function(Element element)
+        // package:flutter/src/widgets/framework.dart
+        case 'void Function(Element)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(Element) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef TraversalRequestFocusCallback = void Function(FocusNode node, {ScrollPositionAlignmentPolicy? alignmentPolicy, double? alignment, Duration? duration, Curve? curve})
+        // package:flutter/src/widgets/focus_traversal.dart
+        case 'void Function(FocusNode, {double? alignment, ScrollPositionAlignmentPolicy? alignmentPolicy, Curve? curve, Duration? duration})':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(FocusNode,
+                  {double? alignment,
+                  ScrollPositionAlignmentPolicy? alignmentPolicy,
+                  Curve? curve,
+                  Duration? duration}) builder =
+              (p0,
+                  {double? alignment,
+                  ScrollPositionAlignmentPolicy? alignmentPolicy,
+                  Curve? curve,
+                  Duration? duration}) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  'alignment': alignment,
+                  'alignmentPolicy': alignmentPolicy,
+                  'curve': curve,
+                  'duration': duration
+                },
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
         // typedef GestureForcePressEndCallback = void Function(ForcePressDetails details)
         // package:flutter/src/gestures/force_press.dart
         case 'void Function(ForcePressDetails)':
@@ -1832,6 +2326,22 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
         case 'void Function(KeyEvent)':
           List functionPaParameters = FunctionDomain.pa(map);
           void Function(KeyEvent) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ValueChanged<in T> = void Function(T value)
+        // package:flutter/src/foundation/basic_types.dart
+        case 'void Function(KeyboardInsertedContent)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(KeyboardInsertedContent) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
@@ -1923,6 +2433,27 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
+        // typedef DebugPaintCallback = void Function(PaintingContext context, Offset offset, RenderView renderView)
+        // package:flutter/src/rendering/view.dart
+        case 'void Function(PaintingContext, Offset, RenderView)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(PaintingContext, Offset, RenderView) builder =
+              (p0, p1, p2) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  functionPaParameters[1]: p1,
+                  functionPaParameters[2]: p2
+                },
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
         // typedef PointerCancelEventListener = void Function(PointerCancelEvent event)
         // package:flutter/src/rendering/proxy_box.dart
         case 'void Function(PointerCancelEvent)':
@@ -1939,8 +2470,8 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef PointerDownEventListener = void Function(PointerDownEvent event)
-        // package:flutter/src/rendering/proxy_box.dart
+        // typedef TapRegionCallback = void Function(PointerDownEvent event)
+        // package:flutter/src/widgets/tap_region.dart
         case 'void Function(PointerDownEvent)':
           List functionPaParameters = FunctionDomain.pa(map);
           void Function(PointerDownEvent) builder = (p0) {
@@ -2131,22 +2662,6 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef CaretChangedHandler = void Function(Rect caretRect)
-        // package:flutter/src/rendering/editable.dart
-        case 'void Function(Rect)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(Rect) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
         // typedef GestureScaleEndCallback = void Function(ScaleEndDetails details)
         // package:flutter/src/gestures/scale.dart
         case 'void Function(ScaleEndDetails)':
@@ -2184,6 +2699,69 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
         case 'void Function(ScaleUpdateDetails)':
           List functionPaParameters = FunctionDomain.pa(map);
           void Function(ScaleUpdateDetails) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ScrollControllerCallback = void Function(ScrollPosition position)
+        // package:flutter/src/widgets/scroll_controller.dart
+        case 'void Function(ScrollPosition)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(ScrollPosition) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef ValueChanged<in T> = void Function(T value)
+        // package:flutter/src/foundation/basic_types.dart
+        case 'void Function(SelectedContent?)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(SelectedContent?) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef SemanticsUpdateCallback = void Function(SemanticsUpdate update)
+        // package:flutter/src/semantics/semantics.dart
+        case 'void Function(SemanticsUpdate)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(SemanticsUpdate) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+
+        case 'void Function(Set<Object>)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(Set<Object>) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,
@@ -2280,6 +2858,86 @@ mixin FlutterFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
         case 'void Function(TapDownDetails)':
           List functionPaParameters = FunctionDomain.pa(map);
           void Function(TapDownDetails) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef GestureTapDragDownCallback = void Function(TapDragDownDetails details)
+        // package:flutter/src/widgets/tap_and_drag_gestures.dart
+        case 'void Function(TapDragDownDetails)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(TapDragDownDetails) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef GestureTapDragEndCallback = void Function(TapDragEndDetails endDetails)
+        // package:flutter/src/widgets/tap_and_drag_gestures.dart
+        case 'void Function(TapDragEndDetails)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(TapDragEndDetails) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef GestureTapDragStartCallback = void Function(TapDragStartDetails details)
+        // package:flutter/src/widgets/tap_and_drag_gestures.dart
+        case 'void Function(TapDragStartDetails)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(TapDragStartDetails) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef GestureTapDragUpCallback = void Function(TapDragUpDetails details)
+        // package:flutter/src/widgets/tap_and_drag_gestures.dart
+        case 'void Function(TapDragUpDetails)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(TapDragUpDetails) builder = (p0) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {functionPaParameters[0]: p0},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef GestureTapDragUpdateCallback = void Function(TapDragUpdateDetails details)
+        // package:flutter/src/widgets/tap_and_drag_gestures.dart
+        case 'void Function(TapDragUpdateDetails)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          void Function(TapDragUpdateDetails) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,

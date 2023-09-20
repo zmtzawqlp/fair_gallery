@@ -9,9 +9,6 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 analyzer:
-  strong-mode:
-    implicit-casts: true
-    implicit-dynamic: true
   exclude:
     - "lib/fair_gallery_routes.dart"
     - "assets/page/*.dart"    

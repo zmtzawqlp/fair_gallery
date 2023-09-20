@@ -1,6 +1,6 @@
-// flutterVersion = '3.3.9'
-// dartVersion = '2.18.5'
-// functionCount = 27
+// flutterVersion = '3.13.4'
+// dartVersion = '3.1.2'
+// functionCount = 25
 // ignore_for_file: deprecated_member_use, prefer_single_quotes, unused_element, unused_field, unused_import, unnecessary_import, implementation_imports, unused_shown_name, prefer_function_declarations_over_variables, void_checks, duplicate_import, no_duplicate_case_values
 import 'package:extended_text_library/extended_text_library.dart'
     as extended_text_library;
@@ -20,6 +20,7 @@ import 'package:fair_gallery/src/widget/frame_separate_widget.dart';
 import 'package:fair_gallery/src/widget/source_code_view_button.dart';
 import 'package:fair_gallery/src/widget/app_bar.dart';
 import 'package:fair_gallery/src/widget/listenable_scope.dart';
+import 'package:fair_gallery/src/utils/text/selection_area.dart';
 import 'package:fair/fair.dart';
 
 /// AppFunctionDynamicWidgetBuilder
@@ -218,21 +219,6 @@ mixin AppFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
           };
           return builder;
 
-        case 'double Function(String)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          double Function(String) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
         case 'dynamic Function()':
           dynamic Function() builder = () {
             return pa0Value(
@@ -292,21 +278,6 @@ mixin AppFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
         case 'dynamic Function(int)':
           List functionPaParameters = FunctionDomain.pa(map);
           dynamic Function(int) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-
-        case 'int Function(String)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          int Function(String) builder = (p0) {
             return pa0Value(
               FunctionDomain.getBody(map),
               methodMap,

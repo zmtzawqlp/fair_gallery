@@ -1,7 +1,7 @@
-// flutterVersion = '3.3.9'
-// dartVersion = '2.18.5'
-// widgetCount = 11
-// apiCount = 286
+// flutterVersion = '3.13.4'
+// dartVersion = '3.1.2'
+// widgetCount = 12
+// apiCount = 290
 // ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors, invalid_use_of_visible_for_testing_member
 import 'package:extended_text_library/extended_text_library.dart'
     as extended_text_library;
@@ -21,12 +21,13 @@ import 'package:fair_gallery/src/widget/frame_separate_widget.dart';
 import 'package:fair_gallery/src/widget/source_code_view_button.dart';
 import 'package:fair_gallery/src/widget/app_bar.dart';
 import 'package:fair_gallery/src/widget/listenable_scope.dart';
+import 'package:fair_gallery/src/utils/text/selection_area.dart';
 import 'package:fair/fair.dart';
 
-const String flutterVersion = '3.3.9';
-const String dartVersion = '2.18.5';
-const int widgetCount = 11;
-const int apiCount = 286;
+const String flutterVersion = '3.13.4';
+const String dartVersion = '3.1.2';
+const int widgetCount = 12;
+const int apiCount = 290;
 
 /// appComponents
 Map<String, dynamic> appComponents = {
@@ -105,6 +106,10 @@ Map<String, dynamic> appComponents = {
       Assets.assets_plugin_fair_common_plugin_js,
   'CommomAppBar': (props) => CommomAppBar(
       key: props['key'], title: props['title'], asset: props['asset']),
+  'CommonSelectionArea': (props) => CommonSelectionArea(
+      key: props['key'],
+      child: props['child'],
+      joinZeroWidthSpace: props['joinZeroWidthSpace'] ?? false),
   'ExtendedFairWidget': (props) => ExtendedFairWidget(
       key: props['key'],
       builder: props['builder'],
@@ -190,6 +195,10 @@ Map<String, dynamic> appComponents = {
   'SugarBool.inclusiveOr': (props) =>
       SugarBool.inclusiveOr(props['pa'][0], props['pa'][1]),
   'SugarBool.invert': (props) => SugarBool.invert(props['pa'][0]),
+  'SugarBool.parse': (props) => SugarBool.parse(props['pa'][0],
+      caseSensitive: props['caseSensitive'] ?? true),
+  'SugarBool.tryParse': (props) => SugarBool.tryParse(props['pa'][0],
+      caseSensitive: props['caseSensitive'] ?? true),
   'SugarCommon.colorComputeLuminance': (props) =>
       SugarCommon.colorComputeLuminance(props['pa'][0]),
   'SugarCommon.dartObjectToMap': (props) =>
@@ -245,8 +254,7 @@ Map<String, dynamic> appComponents = {
   'SugarDouble.negation': (props) =>
       SugarDouble.negation(props['pa'][0]?.toDouble()),
   'SugarDouble.negativeInfinity': (props) => SugarDouble.negativeInfinity(),
-  'SugarDouble.parse': (props) => SugarDouble.parse(
-      props['pa'][0], (props['pa'].length > 1 ? props['pa'][1] : null)),
+  'SugarDouble.parse': (props) => SugarDouble.parse(props['pa'][0]),
   'SugarDouble.remainder': (props) =>
       SugarDouble.remainder(props['pa'][0]?.toDouble(), props['pa'][1]),
   'SugarDouble.round': (props) => SugarDouble.round(props['pa'][0]?.toDouble()),
@@ -284,8 +292,8 @@ Map<String, dynamic> appComponents = {
   'SugarInt.negate': (props) => SugarInt.negate(props['pa'][0]),
   'SugarInt.negation': (props) => SugarInt.negation(props['pa'][0]),
   'SugarInt.or': (props) => SugarInt.or(props['pa'][0], props['pa'][1]),
-  'SugarInt.parse': (props) => SugarInt.parse(props['pa'][0],
-      radix: props['radix'], onError: props['onError']),
+  'SugarInt.parse': (props) =>
+      SugarInt.parse(props['pa'][0], radix: props['radix']),
   'SugarInt.rightShift': (props) =>
       SugarInt.rightShift(props['pa'][0], props['pa'][1]),
   'SugarInt.round': (props) => SugarInt.round(props['pa'][0]),
@@ -329,6 +337,16 @@ Map<String, dynamic> appComponents = {
   'SugarIterable.isEmpty': (props) => SugarIterable.isEmpty(props['pa'][0]),
   'SugarIterable.isNotEmpty': (props) =>
       SugarIterable.isNotEmpty(props['pa'][0]),
+  'SugarIterable.iterableToFullString': (props) =>
+      SugarIterable.iterableToFullString(
+          props['pa'][0],
+          (props['pa'].length > 1 ? props['pa'][1] : null) ?? '(',
+          (props['pa'].length > 2 ? props['pa'][2] : null) ?? ')'),
+  'SugarIterable.iterableToShortString': (props) =>
+      SugarIterable.iterableToShortString(
+          props['pa'][0],
+          (props['pa'].length > 1 ? props['pa'][1] : null) ?? '(',
+          (props['pa'].length > 2 ? props['pa'][2] : null) ?? ')'),
   'SugarIterable.iterableToString': (props) =>
       SugarIterable.iterableToString(props['pa'][0]),
   'SugarIterable.iterator': (props) => SugarIterable.iterator(props['pa'][0]),
@@ -635,6 +653,7 @@ Map<String, bool> appMapping = {
   'Assets.assets_page_simple_sugar_dart': false,
   'Assets.assets_plugin_fair_common_plugin_js': false,
   'CommomAppBar': true,
+  'CommonSelectionArea': true,
   'ExtendedFairWidget': true,
   'ExtendedFairWidget.enable': false,
   'ExtendedFairWidget.fairEnable': false,
@@ -661,6 +680,8 @@ Map<String, bool> appMapping = {
   'SugarBool.exclusiveOr': false,
   'SugarBool.inclusiveOr': false,
   'SugarBool.invert': false,
+  'SugarBool.parse': false,
+  'SugarBool.tryParse': false,
   'SugarCommon.colorComputeLuminance': false,
   'SugarCommon.dartObjectToMap': false,
   'SugarCommon.getLuminanceColor': false,
@@ -745,6 +766,8 @@ Map<String, bool> appMapping = {
   'SugarIterable.forEach': false,
   'SugarIterable.isEmpty': false,
   'SugarIterable.isNotEmpty': false,
+  'SugarIterable.iterableToFullString': false,
+  'SugarIterable.iterableToShortString': false,
   'SugarIterable.iterableToString': false,
   'SugarIterable.iterator': false,
   'SugarIterable.join': false,

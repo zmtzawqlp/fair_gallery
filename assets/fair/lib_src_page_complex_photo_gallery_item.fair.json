@@ -171,53 +171,38 @@
         "className": "Padding",
         "na": {
           "child": {
-            "className": "ExtendedText",
-            "pa": [
-              "%(_getContent)"
-            ],
+            "className": "CommonSelectionArea",
             "na": {
-              "onSpecialTextTap": "@(_onSpecialTextTap)",
-              "specialTextSpanBuilder": {
-                "className": "MySpecialTextSpanBuilder"
-              },
-              "style": {
-                "className": "TextStyle",
+              "child": {
+                "className": "ExtendedText",
+                "pa": [
+                  "%(_getContent)"
+                ],
                 "na": {
-                  "fontSize": 14,
-                  "color": "#(Colors.grey)"
-                }
-              },
-              "maxLines": 5,
-              "overflowWidget": {
-                "className": "TextOverflowWidget",
-                "na": {
-                  "child": {
-                    "className": "Row",
+                  "onSpecialTextTap": "@(_onSpecialTextTap)",
+                  "specialTextSpanBuilder": {
+                    "className": "MySpecialTextSpanBuilder"
+                  },
+                  "style": {
+                    "className": "TextStyle",
                     "na": {
-                      "mainAxisSize": "#(MainAxisSize.min)",
-                      "children": [
-                        {
-                          "className": "Text",
-                          "pa": [
-                            "… "
-                          ],
-                          "na": {
-                            "style": {
-                              "className": "TextStyle",
-                              "na": {
-                                "fontSize": 14,
-                                "height": 1.2
-                              }
-                            }
-                          }
-                        },
-                        {
-                          "className": "GestureDetector",
-                          "na": {
-                            "child": {
+                      "fontSize": 14,
+                      "color": "#(Colors.grey)"
+                    }
+                  },
+                  "maxLines": 5,
+                  "overflowWidget": {
+                    "className": "TextOverflowWidget",
+                    "na": {
+                      "child": {
+                        "className": "Row",
+                        "na": {
+                          "mainAxisSize": "#(MainAxisSize.min)",
+                          "children": [
+                            {
                               "className": "Text",
                               "pa": [
-                                "更多"
+                                "… "
                               ],
                               "na": {
                                 "style": {
@@ -229,17 +214,33 @@
                                 }
                               }
                             },
-                            "onTap": "@(_onTextMoreTap)"
-                          }
+                            {
+                              "className": "GestureDetector",
+                              "na": {
+                                "child": {
+                                  "className": "Text",
+                                  "pa": [
+                                    "更多"
+                                  ],
+                                  "na": {
+                                    "style": {
+                                      "className": "TextStyle",
+                                      "na": {
+                                        "fontSize": 14,
+                                        "height": 1.2
+                                      }
+                                    }
+                                  }
+                                },
+                                "onTap": "@(_onTextMoreTap)"
+                              }
+                            }
+                          ]
                         }
-                      ]
+                      }
                     }
                   }
                 }
-              },
-              "selectionEnabled": true,
-              "selectionControls": {
-                "className": "MyTextSelectionControls"
               }
             }
           },
@@ -381,7 +382,7 @@
                         "item"
                       ]
                     },
-                    "tag": "Widget Function(int, Object?)",
+                    "tag": "Widget Function(int, dynamic)",
                     "rt": "Widget"
                   }
                 ]
@@ -649,11 +650,11 @@
                                     "child": {
                                       "className": "Hero",
                                       "na": {
-                                        "tag": "#($imageItem)",
+                                        "tag": "^(imageItem)",
                                         "child": {
                                           "className": "ExtendedImage.network",
                                           "pa": [
-                                            "#($imageItem)"
+                                            "^(imageItem)"
                                           ],
                                           "na": {
                                             "fit": "#(BoxFit.cover)",
@@ -754,7 +755,7 @@
                                     "imageItem"
                                   ]
                                 },
-                                "tag": "Widget Function(int, Object?)",
+                                "tag": "Widget Function(int, String)",
                                 "rt": "Widget"
                               }
                             ]
@@ -869,11 +870,11 @@
                                           "child": {
                                             "className": "Hero",
                                             "na": {
-                                              "tag": "#($imageItem)",
+                                              "tag": "^(imageItem)",
                                               "child": {
                                                 "className": "ExtendedImage.network",
                                                 "pa": [
-                                                  "#($imageItem)"
+                                                  "^(imageItem)"
                                                 ],
                                                 "na": {
                                                   "fit": "#(BoxFit.cover)",
@@ -1041,11 +1042,11 @@
                                 "body": {
                                   "className": "Hero",
                                   "na": {
-                                    "tag": "#($imageItem)",
+                                    "tag": "^(imageItem)",
                                     "child": {
                                       "className": "ExtendedImage.network",
                                       "pa": [
-                                        "#($imageItem)"
+                                        "^(imageItem)"
                                       ],
                                       "na": {
                                         "fit": "#(BoxFit.cover)",
@@ -1151,7 +1152,7 @@
                           "imageItem"
                         ]
                       },
-                      "tag": "Widget Function(int, Object?)",
+                      "tag": "Widget Function(int, String)",
                       "rt": "Widget"
                     }
                   ]
@@ -1262,5 +1263,6 @@
       }
     ]
   },
-  "methodMap": {}
+  "methodMap": {},
+  "digest": "8177594b60aeeb85fd2e253b8df5cb6e"
 }

@@ -18,8 +18,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.6 <3.0.0"
-
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.13.0'
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
@@ -36,25 +36,25 @@ dependencies:
   cupertino_icons: ^1.0.2
   fair:
     git:
-      url: https://github.com/wuba/Fair.git
-      ref: fair-release-zmtzawqlp         
-      # url: https://github.com/zmtzawqlp/fair.git
-      # ref: fixed
+      # url: https://github.com/wuba/Fair.git
+      # ref: fair-release-zmtzawqlp         
+      url: https://github.com/zmtzawqlp/fair.git
+      ref: fixed
       path: fair
-  extended_image: any
+  extended_image: 8.1.1   
   oktoast: any
   extended_sliver: any
   extended_text: any
   like_button: any
   loading_more_list: any
-  http_client_helper: any
+  http_client_helper: 3.0.0
   keframe: any
   pull_to_refresh_notification: any
-  intl: any
+  intl: 0.18.1
   ff_annotation_route_library: any
   photo_manager: any
   flutter_highlight: any
-  widget_with_codeview: any
+  widget_with_codeview: 3.1.0
   extended_tabs: any  
 dev_dependencies:
   flutter_test:
@@ -71,45 +71,52 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
   fair_compiler:
     git:
-      url: https://github.com/wuba/Fair.git
-      ref: fair-release-zmtzawqlp      
-      # url: https://github.com/zmtzawqlp/fair.git
-      # ref: fixed
+      # url: https://github.com/wuba/Fair.git
+      # ref: fair-release-zmtzawqlp      
+      url: https://github.com/zmtzawqlp/fair.git
+      ref: fixed
       path: compiler 
-  yaml: 3.1.1
+  yaml: ^3.1.2
   package_config: any
 
 dependency_overrides:
-  build_runner: 2.3.3
+  build_runner: ^2.3.3
+  intl: 0.18.1
+  http: 1.0.0
+  analyzer: 5.6.0
+  dart_style: 2.2.5
   fair_version:
     git:
-      url: https://github.com/wuba/Fair.git
-      ref: fair-release-zmtzawqlp      
-      # url: https://github.com/zmtzawqlp/fair.git
-      # ref: fixed
+      # url: https://github.com/wuba/Fair.git
+      # ref: fair-release-zmtzawqlp      
+      url: https://github.com/zmtzawqlp/fair.git
+      ref: fixed
       path: flutter_version/flutter_mock
-  fair_dart2dsl:
-    git:
-      url: https://github.com/wuba/Fair.git
-      ref: fair-release-zmtzawqlp
-      # url: https://github.com/zmtzawqlp/fair.git
-      # ref: fixed
-      path: dart2dsl
-  fair_dart2js:
-    git:
-      url: https://github.com/wuba/Fair.git
-      ref: fair-release-zmtzawqlp      
-      # url: https://github.com/zmtzawqlp/fair.git
-      # ref: fixed
-      path: dart2js      
+  # fair_dart2dsl:
+  #   git:
+  #     # url: https://github.com/wuba/Fair.git
+  #     # ref: fair-release-zmtzawqlp
+  #     url: https://github.com/zmtzawqlp/fair.git
+  #     ref: fixed
+  #     path: dart2dsl
+  # fair_dart2js:
+  #   git:
+  #     # url: https://github.com/wuba/Fair.git
+  #     # ref: fair-release-zmtzawqlp      
+  #     url: https://github.com/zmtzawqlp/fair.git
+  #     ref: fixed
+  #     path: dart2js      
   # 如果你是 3.3.0 以下的版本，需要 override collection
-  collection: 1.17.0
+  # collection: 1.17.0
+  watcher: 1.1.0
   # fair:
   #   path: ../Fair/fair  
   # fair_compiler:
   #   path: ../Fair/compiler
   # fair_dart2dsl:
-  #   path: ../Fair/dart2dsl         
+  #   path: ../Fair/dart2dsl
+  # fair_dart2js:
+  #   path: ../Fair/dart2js           
 # The following section is specific to Flutter packages.
 flutter:
 

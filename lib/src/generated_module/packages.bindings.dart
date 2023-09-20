@@ -1,16 +1,25 @@
-// flutterVersion = '3.3.9'
-// dartVersion = '2.18.5'
-// widgetCount = 56
-// apiCount = 154
+// flutterVersion = '3.13.4'
+// dartVersion = '3.1.2'
+// widgetCount = 62
+// apiCount = 163
 // ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors, invalid_use_of_visible_for_testing_member
 import 'package:flutter/gestures.dart';
 import 'package:extended_text_library/extended_text_library.dart'
     as extended_text_library;
+import 'package:oktoast/src/core/toast.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:highlight/highlight.dart' show highlight, Node;
 import 'package:widget_with_codeview/widget_with_codeview.dart';
+import 'dart:math';
+import 'package:flutter/services.dart';
+import 'package:flutter_highlight/themes/atom-one-dark.dart';
+import 'package:flutter_highlight/themes/atom-one-light.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:selectable/selectable.dart';
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 import 'package:widget_with_codeview/src/source_code_view.dart';
 import 'package:string_scanner/string_scanner.dart';
 import 'package:widget_with_codeview/src/syntax_highlighter.dart';
@@ -20,7 +29,6 @@ import 'package:http_client_helper/http_client_helper.dart';
 import 'dart:async';
 import 'dart:ui' as ui show Codec;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:extended_image_library/src/extended_image_provider.dart';
 import 'package:flutter/widgets.dart' hide FileImage;
 import 'package:extended_image_library/src/platform.dart';
@@ -28,10 +36,9 @@ import 'dart:typed_data';
 import 'dart:ui' as ui show Codec, ImmutableBuffer;
 import 'package:extended_image_library/src/extended_resize_image_provider.dart';
 import 'package:flutter/painting.dart' hide imageCache;
-import 'package:flutter/painting.dart';
-import 'package:extended_image_library/src/_network_image_io.dart';
-import 'dart:math';
 import 'dart:ui';
+import 'package:flutter/painting.dart';
+import 'package:extended_image_library/src/network/network_image_io.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:extended_image_library/extended_image_library.dart';
@@ -47,13 +54,14 @@ import 'package:extended_image/src/border_painter.dart';
 import 'package:extended_image/src/gesture/gesture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Image;
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/semantics.dart';
 import 'package:extended_image/src/editor/editor.dart';
 import 'package:extended_image/src/gesture/slide_page.dart';
 import 'package:extended_image/src/gesture/slide_page_handler.dart';
 import 'package:extended_image/src/gesture/utils.dart';
 import 'package:extended_image/src/gesture/page_view/gesture_page_view.dart';
-import 'package:extended_image/src/gesture_detector/drag.dart';
+import 'package:extended_image/src/gesture_detector/official.dart';
 import 'dart:math' as math;
 import 'package:extended_image/src/gesture/page_view/rendering/sliver_fill.dart';
 import 'dart:ui' as ui show Image;
@@ -65,33 +73,18 @@ import 'package:extended_sliver/src/rendering.dart';
 import 'package:extended_text/extended_text.dart';
 import 'package:extended_text_library/src/special_text_span.dart';
 import 'package:extended_text_library/src/text_painter_helper.dart';
-import 'package:extended_text_library/extended_text_library.dart';
-import 'dart:ui' as ui show PlaceholderAlignment, ParagraphBuilder;
-import 'package:extended_text_library/src/special_inline_span_base.dart';
-import 'package:extended_text_library/src/extended_text_utils.dart';
-import 'dart:ui' as ui show PlaceholderAlignment;
+import 'package:extended_text_library/src/background_text_span.dart';
 import 'package:extended_text_library/src/extended_widget_span.dart';
-import 'dart:ui' as ui show PlaceholderAlignment, BoxWidthStyle, BoxHeightStyle;
-import 'package:extended_text_library/src/render_object/extended_text_selection_render_object.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:extended_text_library/src/special_inline_span_base.dart';
+import 'dart:ui' as ui show PlaceholderAlignment, ParagraphBuilder;
+import 'dart:ui' as ui show PlaceholderAlignment;
 import 'package:extended_text_library/src/extended_text_typedef.dart';
-import 'dart:collection';
-import 'dart:ui' as ui
-    show
-        Gradient,
-        Shader,
-        TextBox,
-        TextHeightBehavior,
-        BoxWidthStyle,
-        BoxHeightStyle;
-import 'package:extended_text/src/text_overflow_widget.dart';
-import 'dart:ui' as ui show TextHeightBehavior, BoxWidthStyle, BoxHeightStyle;
-import 'package:extended_text/src/extended_rich_text.dart';
-import 'package:extended_text/src/selection/extended_text_selection.dart';
-import 'package:extended_text/src/extended_render_paragraph.dart';
-import 'package:extended_text/src/selection/extended_text_selection_pointer_handler.dart';
-import 'package:extended_text/src/extended_text_typedef.dart';
+import 'package:extended_text_library/extended_text_library.dart';
+import 'package:extended_text/src/extended/rendering/paragraph.dart';
+import 'package:extended_text/src/extended/widgets/text_overflow_widget.dart';
+import 'package:extended_text/src/extended/widgets/rich_text.dart';
 import 'package:keframe/keframe.dart';
+import 'dart:collection';
 import 'dart:developer';
 import 'package:keframe/src/logcat.dart';
 import 'package:keframe/src/frame_separate_task.dart';
@@ -137,7 +130,7 @@ import 'package:sync_scroll_library/src/sync/sync_controller.dart';
 import 'package:sync_scroll_library/src/link/link_scroll_state.dart';
 import 'package:sync_scroll_library/src/sync/sync_scroll_state.dart';
 import 'package:sync_scroll_library/src/link/link_controller.dart';
-import 'package:flutter/physics.dart';
+import 'package:flutter/physics.dart' as physics;
 import 'package:sync_scroll_library/src/gesture/gesture_state_mixin.dart';
 import 'package:sync_scroll_library/sync_scroll_library.dart';
 import 'package:extended_tabs/src/tab_bar.dart';
@@ -147,11 +140,23 @@ import 'package:extended_tabs/src/page_view.dart';
 import 'package:fair/fair.dart';
 
 int _kDefaultSemanticIndexCallback(Widget _, int localIndex) => localIndex;
+Widget _defaultBuildAnimation(
+  BuildContext context,
+  Widget child,
+  AnimationController controller,
+  double percent,
+) {
+  return Opacity(opacity: percent, child: child);
+}
 
-const String flutterVersion = '3.3.9';
-const String dartVersion = '2.18.5';
-const int widgetCount = 56;
-const int apiCount = 154;
+const Duration _defaultDuration = Duration(milliseconds: 2300);
+const Duration _defaultAnimDuration = Duration(milliseconds: 250);
+const Color _defaultBackgroundColor = Color(0xDD000000);
+
+const String flutterVersion = '3.13.4';
+const String dartVersion = '3.1.2';
+const int widgetCount = 62;
+const int apiCount = 163;
 
 /// packagesComponents
 Map<String, dynamic> packagesComponents = {
@@ -194,14 +199,6 @@ Map<String, dynamic> packagesComponents = {
   'CircleColor': (props) =>
       CircleColor(start: props['start'], end: props['end']),
   'ColorTabIndicator': (props) => ColorTabIndicator(props['pa'][0]),
-  'CommonTextSelectionGestureDetectorBuilder': (props) =>
-      CommonTextSelectionGestureDetectorBuilder(
-          delegate: props['delegate'],
-          showToolbar: props['showToolbar'],
-          hideToolbar: props['hideToolbar'],
-          onTap: props['onTap'],
-          context: props['context'],
-          requestKeyboard: props['requestKeyboard']),
   'CountPostion.bottom': CountPostion.bottom,
   'CountPostion.left': CountPostion.left,
   'CountPostion.right': CountPostion.right,
@@ -538,8 +535,7 @@ Map<String, dynamic> packagesComponents = {
       pageSnapping: props['pageSnapping'] ?? true,
       onPageChanged: props['onPageChanged'],
       children: as<Widget>(props['children']) ?? const <Widget>[],
-      canScrollPage: props['canScrollPage'],
-      preloadPagesCount: props['preloadPagesCount'] ?? 0),
+      canScrollPage: props['canScrollPage']),
   'ExtendedImageGesturePageView.builder': (props) =>
       ExtendedImageGesturePageView.builder(
           key: props['key'],
@@ -551,8 +547,7 @@ Map<String, dynamic> packagesComponents = {
           onPageChanged: props['onPageChanged'],
           itemBuilder: props['itemBuilder'],
           itemCount: props['itemCount'],
-          canScrollPage: props['canScrollPage'],
-          preloadPagesCount: props['preloadPagesCount'] ?? 0),
+          canScrollPage: props['canScrollPage']),
   'ExtendedImageGesturePageView.custom': (props) =>
       ExtendedImageGesturePageView.custom(
           key: props['key'],
@@ -562,8 +557,7 @@ Map<String, dynamic> packagesComponents = {
           pageSnapping: props['pageSnapping'] ?? true,
           onPageChanged: props['onPageChanged'],
           canScrollPage: props['canScrollPage'],
-          childrenDelegate: props['childrenDelegate'],
-          preloadPagesCount: props['preloadPagesCount'] ?? 0),
+          childrenDelegate: props['childrenDelegate']),
   'ExtendedImageMode.editor': ExtendedImageMode.editor,
   'ExtendedImageMode.gesture': ExtendedImageMode.gesture,
   'ExtendedImageMode.none': ExtendedImageMode.none,
@@ -598,9 +592,9 @@ Map<String, dynamic> packagesComponents = {
       initialPage: props['initialPage'] ?? 0,
       keepPage: props['keepPage'] ?? true,
       viewportFraction: props['viewportFraction']?.toDouble() ?? 1.0,
-      pageSpacing: props['pageSpacing']?.toDouble() ?? 0.0,
       shouldIgnorePointerWhenScrolling:
-          props['shouldIgnorePointerWhenScrolling'] ?? false),
+          props['shouldIgnorePointerWhenScrolling'] ?? false,
+      pageSpacing: props['pageSpacing']?.toDouble() ?? 0.0),
   'ExtendedPageView': (props) => ExtendedPageView(
       key: props['key'],
       scrollDirection: props['scrollDirection'] ?? Axis.horizontal,
@@ -698,29 +692,6 @@ Map<String, dynamic> packagesComponents = {
       gestureDetails: props['gestureDetails'],
       editActionDetails: props['editActionDetails'],
       layoutInsets: props['layoutInsets'] ?? EdgeInsets.zero),
-  'ExtendedRenderParagraph': (props) => ExtendedRenderParagraph(props['pa'][0],
-      textAlign: props['textAlign'] ?? TextAlign.start,
-      textDirection: props['textDirection'],
-      softWrap: props['softWrap'] ?? true,
-      overflow: props['overflow'] ?? TextOverflow.clip,
-      textScaleFactor: props['textScaleFactor']?.toDouble() ?? 1.0,
-      maxLines: props['maxLines'],
-      textWidthBasis: props['textWidthBasis'] ?? TextWidthBasis.parent,
-      locale: props['locale'],
-      startHandleLayerLink: props['startHandleLayerLink'],
-      endHandleLayerLink: props['endHandleLayerLink'],
-      selectionColor: props['selectionColor'],
-      selection: props['selection'],
-      strutStyle: props['strutStyle'],
-      children: as<RenderBox>(props['children']),
-      textHeightBehavior: props['textHeightBehavior'],
-      selectionHeightStyle:
-          props['selectionHeightStyle'] ?? ui.BoxHeightStyle.tight,
-      selectionWidthStyle:
-          props['selectionWidthStyle'] ?? ui.BoxWidthStyle.tight,
-      overflowWidget: props['overflowWidget'],
-      textSelectionDelegate: props['textSelectionDelegate'],
-      hasFocus: props['hasFocus']),
   'ExtendedRenderSliverFillViewport': (props) =>
       ExtendedRenderSliverFillViewport(
           childManager: props['childManager'],
@@ -733,7 +704,8 @@ Map<String, dynamic> packagesComponents = {
       height: props['height'],
       allowUpscaling: props['allowUpscaling'] ?? false,
       cacheRawData: props['cacheRawData'] ?? false,
-      imageCacheName: props['imageCacheName']),
+      imageCacheName: props['imageCacheName'],
+      policy: props['policy'] ?? ResizeImagePolicy.exact),
   'ExtendedResizeImage.resizeIfNeeded': (props) =>
       ExtendedResizeImage.resizeIfNeeded(
           provider: props['provider'],
@@ -743,6 +715,23 @@ Map<String, dynamic> packagesComponents = {
           maxBytes: props['maxBytes'] ?? 50 << 10,
           cacheRawData: props['cacheRawData'] ?? false,
           imageCacheName: props['imageCacheName']),
+  'ExtendedRichText': (props) => ExtendedRichText(
+      key: props['key'],
+      text: props['text'],
+      textAlign: props['textAlign'] ?? TextAlign.start,
+      textDirection: props['textDirection'],
+      softWrap: props['softWrap'] ?? true,
+      overflow: props['overflow'] ?? TextOverflow.clip,
+      textScaleFactor: props['textScaleFactor']?.toDouble() ?? 1.0,
+      maxLines: props['maxLines'],
+      locale: props['locale'],
+      strutStyle: props['strutStyle'],
+      textWidthBasis: props['textWidthBasis'] ?? TextWidthBasis.parent,
+      textHeightBehavior: props['textHeightBehavior'],
+      selectionRegistrar: props['selectionRegistrar'],
+      selectionColor: props['selectionColor'],
+      overflowWidget: props['overflowWidget'],
+      canSelectPlaceholderSpan: props['canSelectPlaceholderSpan'] ?? true),
   'ExtendedScrollable': (props) => ExtendedScrollable(
       key: props['key'],
       axisDirection: props['axisDirection'] ?? AxisDirection.down,
@@ -841,22 +830,12 @@ Map<String, dynamic> packagesComponents = {
       semanticsLabel: props['semanticsLabel'],
       textWidthBasis: props['textWidthBasis'],
       textHeightBehavior: props['textHeightBehavior'],
-      specialTextSpanBuilder: props['specialTextSpanBuilder'],
-      onSpecialTextTap: props['onSpecialTextTap'],
-      selectionEnabled: props['selectionEnabled'] ?? false,
-      onTap: props['onTap'],
       selectionColor: props['selectionColor'],
-      dragStartBehavior: props['dragStartBehavior'] ?? DragStartBehavior.start,
-      selectionControls: props['selectionControls'],
-      selectionHeightStyle:
-          props['selectionHeightStyle'] ?? ui.BoxHeightStyle.tight,
-      selectionWidthStyle:
-          props['selectionWidthStyle'] ?? ui.BoxWidthStyle.tight,
-      overflowWidget: props['overflowWidget'],
       joinZeroWidthSpace: props['joinZeroWidthSpace'] ?? false,
-      shouldShowSelectionHandles: props['shouldShowSelectionHandles'],
-      textSelectionGestureDetectorBuilder:
-          props['textSelectionGestureDetectorBuilder']),
+      onSpecialTextTap: props['onSpecialTextTap'],
+      overflowWidget: props['overflowWidget'],
+      specialTextSpanBuilder: props['specialTextSpanBuilder'],
+      canSelectPlaceholderSpan: props['canSelectPlaceholderSpan'] ?? true),
   'ExtendedText.rich': (props) => ExtendedText.rich(props['pa'][0],
       key: props['key'],
       style: props['style'],
@@ -871,68 +850,71 @@ Map<String, dynamic> packagesComponents = {
       semanticsLabel: props['semanticsLabel'],
       textWidthBasis: props['textWidthBasis'],
       textHeightBehavior: props['textHeightBehavior'],
-      onSpecialTextTap: props['onSpecialTextTap'],
-      selectionEnabled: props['selectionEnabled'] ?? false,
-      onTap: props['onTap'],
       selectionColor: props['selectionColor'],
-      dragStartBehavior: props['dragStartBehavior'] ?? DragStartBehavior.start,
-      selectionControls: props['selectionControls'],
-      selectionHeightStyle:
-          props['selectionHeightStyle'] ?? ui.BoxHeightStyle.tight,
-      selectionWidthStyle:
-          props['selectionWidthStyle'] ?? ui.BoxWidthStyle.tight,
-      overflowWidget: props['overflowWidget'],
       joinZeroWidthSpace: props['joinZeroWidthSpace'] ?? false,
-      shouldShowSelectionHandles: props['shouldShowSelectionHandles'],
-      textSelectionGestureDetectorBuilder:
-          props['textSelectionGestureDetectorBuilder']),
-  'ExtendedTextSelection': (props) => ExtendedTextSelection(
-      onTap: props['onTap'],
-      softWrap: props['softWrap'],
-      locale: props['locale'],
-      textDirection: props['textDirection'],
-      textAlign: props['textAlign'],
-      maxLines: props['maxLines'],
-      textScaleFactor: props['textScaleFactor']?.toDouble(),
-      overflow: props['overflow'],
-      text: props['text'],
-      selectionColor: props['selectionColor'],
-      dragStartBehavior: props['dragStartBehavior'] ?? DragStartBehavior.start,
-      data: props['data'],
-      textSelectionControls: props['textSelectionControls'],
-      textWidthBasis: props['textWidthBasis'],
-      textHeightBehavior: props['textHeightBehavior'],
-      selectionHeightStyle:
-          props['selectionHeightStyle'] ?? BoxHeightStyle.tight,
-      selectionWidthStyle: props['selectionWidthStyle'] ?? BoxWidthStyle.tight,
-      overFlowWidget: props['overFlowWidget'],
-      strutStyle: props['strutStyle'],
-      shouldShowSelectionHandles: props['shouldShowSelectionHandles'],
-      textSelectionGestureDetectorBuilder:
-          props['textSelectionGestureDetectorBuilder'],
-      key: props['key']),
-  'ExtendedTextSelectionGestureDetectorBuilder': (props) =>
-      ExtendedTextSelectionGestureDetectorBuilder(
-          delegate: props['delegate'],
-          showToolbar: props['showToolbar'],
-          hideToolbar: props['hideToolbar']),
-  'ExtendedTextSelectionOverlay': (props) => ExtendedTextSelectionOverlay(
-      value: props['value'],
-      context: props['context'],
-      debugRequiredFor: props['debugRequiredFor'],
-      toolbarLayerLink: props['toolbarLayerLink'],
-      startHandleLayerLink: props['startHandleLayerLink'],
-      endHandleLayerLink: props['endHandleLayerLink'],
-      renderObject: props['renderObject'],
-      selectionControls: props['selectionControls'],
-      handlesVisible: props['handlesVisible'] ?? false,
-      selectionDelegate: props['selectionDelegate'],
-      dragStartBehavior: props['dragStartBehavior'] ?? DragStartBehavior.start,
-      onSelectionHandleTapped: props['onSelectionHandleTapped'],
-      clipboardStatus: props['clipboardStatus']),
-  'ExtendedTextSelectionPointerHandler': (props) =>
-      ExtendedTextSelectionPointerHandler(
-          child: props['child'], builder: props['builder']),
+      onSpecialTextTap: props['onSpecialTextTap'],
+      overflowWidget: props['overflowWidget'],
+      specialTextSpanBuilder: props['specialTextSpanBuilder'],
+      canSelectPlaceholderSpan: props['canSelectPlaceholderSpan'] ?? true),
+  'ExtendedTextLibraryUtils.convertKeyboardMoveSelection': (props) =>
+      ExtendedTextLibraryUtils.convertKeyboardMoveSelection(
+          props['pa'][0], props['pa'][1]),
+  'ExtendedTextLibraryUtils.convertKeyboardMoveTextPostion': (props) =>
+      ExtendedTextLibraryUtils.convertKeyboardMoveTextPostion(
+          props['pa'][0], props['pa'][1]),
+  'ExtendedTextLibraryUtils.convertTextInputPostionToTextPainterPostion':
+      (props) =>
+          ExtendedTextLibraryUtils.convertTextInputPostionToTextPainterPostion(
+              props['pa'][0], props['pa'][1]),
+  'ExtendedTextLibraryUtils.convertTextInputSelectionToTextPainterSelection':
+      (props) => ExtendedTextLibraryUtils
+          .convertTextInputSelectionToTextPainterSelection(
+              props['pa'][0], props['pa'][1]),
+  'ExtendedTextLibraryUtils.convertTextPainterPostionToTextInputPostion':
+      (props) =>
+          ExtendedTextLibraryUtils.convertTextPainterPostionToTextInputPostion(
+              props['pa'][0], props['pa'][1],
+              end: props['end']),
+  'ExtendedTextLibraryUtils.convertTextPainterSelectionToTextInputSelection':
+      (props) => ExtendedTextLibraryUtils
+          .convertTextPainterSelectionToTextInputSelection(
+              props['pa'][0], props['pa'][1],
+              selectWord: props['selectWord'] ?? false),
+  'ExtendedTextLibraryUtils.correctCaretOffset': (props) =>
+      ExtendedTextLibraryUtils.correctCaretOffset(
+          props['pa'][0], props['pa'][1], props['pa'][2],
+          oldValue: props['oldValue']),
+  'ExtendedTextLibraryUtils.getCaretOffset': (props) =>
+      ExtendedTextLibraryUtils.getCaretOffset(
+          props['pa'][0], props['pa'][1], props['pa'][2],
+          caretHeightCallBack: props['caretHeightCallBack'],
+          effectiveOffset: props['effectiveOffset'],
+          caretPrototype: props['caretPrototype'] ?? Rect.zero,
+          boxHeightStyle: props['boxHeightStyle'] ?? ui.BoxHeightStyle.tight,
+          boxWidthStyle: props['boxWidthStyle'] ?? ui.BoxWidthStyle.tight),
+  'ExtendedTextLibraryUtils.getInlineOffset': (props) =>
+      ExtendedTextLibraryUtils.getInlineOffset(props['pa'][0]),
+  'ExtendedTextLibraryUtils.handleSpecialTextSpanDelete': (props) =>
+      ExtendedTextLibraryUtils.handleSpecialTextSpanDelete(
+          props['pa'][0], props['pa'][1], props['pa'][2], props['pa'][3]),
+  'ExtendedTextLibraryUtils.hasSpecialText': (props) =>
+      ExtendedTextLibraryUtils.hasSpecialText(props['pa'][0]),
+  'ExtendedTextLibraryUtils.hasT': (props) =>
+      ExtendedTextLibraryUtils.hasT(props['pa'][0]),
+  'ExtendedTextLibraryUtils.hitTestChild': (props) =>
+      ExtendedTextLibraryUtils.hitTestChild(
+          props['pa'][0], props['pa'][1], props['pa'][2],
+          position: props['position']),
+  'ExtendedTextLibraryUtils.joinChar': (props) =>
+      ExtendedTextLibraryUtils.joinChar(
+          props['pa'][0], props['pa'][1], props['pa'][2]),
+  'ExtendedTextLibraryUtils.makeSureCaretNotInSpecialText': (props) =>
+      ExtendedTextLibraryUtils.makeSureCaretNotInSpecialText(
+          props['pa'][0], props['pa'][1]),
+  'ExtendedTextLibraryUtils.textSpanToActualText': (props) =>
+      ExtendedTextLibraryUtils.textSpanToActualText(props['pa'][0]),
+  'ExtendedTextLibraryUtils.zeroWidthSpace':
+      ExtendedTextLibraryUtils.zeroWidthSpace,
   'ExtendedUnderlineTabIndicator': (props) => ExtendedUnderlineTabIndicator(
       borderSide: props['borderSide'] ??
           const BorderSide(width: 2.0, color: Colors.white),
@@ -981,6 +963,55 @@ Map<String, dynamic> packagesComponents = {
       gestureDetails: props['gestureDetails'],
       actionType: props['actionType'] ?? ActionType.pan,
       userOffset: props['userOffset'] ?? true),
+  'GesturePageView': (props) => GesturePageView(
+      key: props['key'],
+      scrollDirection: props['scrollDirection'] ?? Axis.horizontal,
+      reverse: props['reverse'] ?? false,
+      controller: props['controller'],
+      physics: props['physics'],
+      pageSnapping: props['pageSnapping'] ?? true,
+      onPageChanged: props['onPageChanged'],
+      children: as<Widget>(props['children']) ?? const <Widget>[],
+      dragStartBehavior: props['dragStartBehavior'] ?? DragStartBehavior.start,
+      allowImplicitScrolling: props['allowImplicitScrolling'] ?? false,
+      restorationId: props['restorationId'],
+      clipBehavior: props['clipBehavior'] ?? Clip.hardEdge,
+      scrollBehavior: props['scrollBehavior'],
+      padEnds: props['padEnds'] ?? true,
+      preloadPagesCount: props['preloadPagesCount'] ?? 0),
+  'GesturePageView.builder': (props) => GesturePageView.builder(
+      key: props['key'],
+      scrollDirection: props['scrollDirection'] ?? Axis.horizontal,
+      reverse: props['reverse'] ?? false,
+      controller: props['controller'],
+      physics: props['physics'],
+      pageSnapping: props['pageSnapping'] ?? true,
+      onPageChanged: props['onPageChanged'],
+      itemBuilder: props['itemBuilder'],
+      itemCount: props['itemCount'],
+      dragStartBehavior: props['dragStartBehavior'] ?? DragStartBehavior.start,
+      allowImplicitScrolling: props['allowImplicitScrolling'] ?? false,
+      restorationId: props['restorationId'],
+      clipBehavior: props['clipBehavior'] ?? Clip.hardEdge,
+      scrollBehavior: props['scrollBehavior'],
+      padEnds: props['padEnds'] ?? true,
+      preloadPagesCount: props['preloadPagesCount'] ?? 0),
+  'GesturePageView.custom': (props) => GesturePageView.custom(
+      key: props['key'],
+      scrollDirection: props['scrollDirection'] ?? Axis.horizontal,
+      reverse: props['reverse'] ?? false,
+      controller: props['controller'],
+      physics: props['physics'],
+      pageSnapping: props['pageSnapping'] ?? true,
+      onPageChanged: props['onPageChanged'],
+      childrenDelegate: props['childrenDelegate'],
+      dragStartBehavior: props['dragStartBehavior'] ?? DragStartBehavior.start,
+      allowImplicitScrolling: props['allowImplicitScrolling'] ?? false,
+      restorationId: props['restorationId'],
+      clipBehavior: props['clipBehavior'] ?? Clip.hardEdge,
+      scrollBehavior: props['scrollBehavior'],
+      padEnds: props['padEnds'] ?? true,
+      preloadPagesCount: props['preloadPagesCount'] ?? 0),
   'GlowNotificationWidget': (props) => GlowNotificationWidget(props['pa'][0],
       showGlowLeading: props['showGlowLeading'] ?? false,
       showGlowTrailing: props['showGlowTrailing'] ?? false),
@@ -1180,6 +1211,23 @@ Map<String, dynamic> packagesComponents = {
       LoadingMoreSliverList(props['pa'][0], key: props['key']),
   'NeverScrollableClampingScrollPhysics': (props) =>
       const NeverScrollableClampingScrollPhysics(),
+  'OKToast': (props) => OKToast(
+      key: props['key'],
+      child: props['child'],
+      textStyle: props['textStyle'],
+      radius: props['radius']?.toDouble() ?? 10.0,
+      position: props['position'] ?? ToastPosition.center,
+      textDirection: props['textDirection'] ?? TextDirection.ltr,
+      dismissOtherOnShow: props['dismissOtherOnShow'] ?? false,
+      movingOnWindowChange: props['movingOnWindowChange'] ?? true,
+      backgroundColor: props['backgroundColor'],
+      textPadding: props['textPadding'],
+      textAlign: props['textAlign'],
+      handleTouch: props['handleTouch'] ?? false,
+      animationBuilder: props['animationBuilder'],
+      animationDuration: props['animationDuration'] ?? _defaultAnimDuration,
+      animationCurve: props['animationCurve'],
+      duration: props['duration']),
   'OffsetAnimationBuilder': (props) => OffsetAnimationBuilder(
       maxOffsetX: props['maxOffsetX']?.toDouble() ?? 0,
       maxOffsetY: props['maxOffsetY']?.toDouble() ?? 100),
@@ -1226,46 +1274,6 @@ Map<String, dynamic> packagesComponents = {
           props['pa'][1]?.toDouble(), props['pa'][2], props['pa'][3]),
   'RenderSliverWaterfallFlow': (props) => RenderSliverWaterfallFlow(
       childManager: props['childManager'], gridDelegate: props['gridDelegate']),
-  'ScribbleFocusable': (props) => ScribbleFocusable(
-      child: props['child'],
-      focusNode: props['focusNode'],
-      editableKey: props['editableKey'],
-      updateSelectionRects: props['updateSelectionRects'],
-      enabled: props['enabled']),
-  'ScribblePlaceholder': (props) => ScribblePlaceholder(
-      child: props['child'],
-      alignment: props['alignment'] ?? ui.PlaceholderAlignment.bottom,
-      baseline: props['baseline'],
-      size: props['size']),
-  'SelectionOverlay': (props) => extended_text_library.SelectionOverlay(
-      context: props['context'],
-      debugRequiredFor: props['debugRequiredFor'],
-      startHandleType: props['startHandleType'],
-      lineHeightAtStart: props['lineHeightAtStart']?.toDouble() ?? 0,
-      startHandlesVisible: props['startHandlesVisible'],
-      onStartHandleDragStart: props['onStartHandleDragStart'],
-      onStartHandleDragUpdate: props['onStartHandleDragUpdate'],
-      onStartHandleDragEnd: props['onStartHandleDragEnd'],
-      endHandleType: props['endHandleType'],
-      lineHeightAtEnd: props['lineHeightAtEnd']?.toDouble() ?? 0,
-      endHandlesVisible: props['endHandlesVisible'],
-      onEndHandleDragStart: props['onEndHandleDragStart'],
-      onEndHandleDragUpdate: props['onEndHandleDragUpdate'],
-      onEndHandleDragEnd: props['onEndHandleDragEnd'],
-      toolbarVisible: props['toolbarVisible'],
-      selectionEndPoints:
-          as<TextSelectionPoint>(props['selectionEndPoints']) ?? const [],
-      selectionControls: props['selectionControls'],
-      selectionDelegate: props['selectionDelegate'],
-      clipboardStatus: props['clipboardStatus'],
-      startHandleLayerLink: props['startHandleLayerLink'],
-      endHandleLayerLink: props['endHandleLayerLink'],
-      toolbarLayerLink: props['toolbarLayerLink'],
-      dragStartBehavior: props['dragStartBehavior'] ?? DragStartBehavior.start,
-      onSelectionHandleTapped: props['onSelectionHandleTapped'],
-      toolbarLocation: props['toolbarLocation']),
-  'SelectionOverlay.fadeDuration':
-      extended_text_library.SelectionOverlay.fadeDuration,
   'SizeCacheWidget': (props) => SizeCacheWidget(
       key: props['key'],
       child: props['child'],
@@ -1355,6 +1363,20 @@ Map<String, dynamic> packagesComponents = {
           viewportBuilder: props['viewportBuilder'],
           closeToTrailing: props['closeToTrailing'] ?? false),
   'SliverWaterfallFlowParentData': (props) => SliverWaterfallFlowParentData(),
+  'SourceCodeView': (props) => SourceCodeView(
+      key: props['key'],
+      filePath: props['filePath'],
+      codeContent: props['codeContent'],
+      codeLinkPrefix: props['codeLinkPrefix'],
+      showLabelText: props['showLabelText'] ?? false,
+      iconBackgroundColor: props['iconBackgroundColor'],
+      iconForegroundColor: props['iconForegroundColor'],
+      labelBackgroundColor: props['labelBackgroundColor'],
+      labelTextStyle: props['labelTextStyle'],
+      headerWidget: props['headerWidget'],
+      footerWidget: props['footerWidget'],
+      lightTheme: props['lightTheme'],
+      darkTheme: props['darkTheme']),
   'SpecialTextSpan': (props) => SpecialTextSpan(
       style: props['style'],
       text: props['text'],
@@ -1388,9 +1410,6 @@ Map<String, dynamic> packagesComponents = {
   'TaskEntry': (props) => TaskEntry(props['pa'][0], props['pa'][1],
       props['pa'][2], props['pa'][3], props['pa'][4],
       id: props['id']),
-  'TextHighlightPainter': (props) => TextHighlightPainter(
-      highlightedRange: props['highlightedRange'],
-      highlightColor: props['highlightColor']),
   'TextOverflowAlign.center': TextOverflowAlign.center,
   'TextOverflowAlign.left': TextOverflowAlign.left,
   'TextOverflowAlign.right': TextOverflowAlign.right,
@@ -1410,12 +1429,41 @@ Map<String, dynamic> packagesComponents = {
       debugOverflowRectColor: props['debugOverflowRectColor'],
       clearType: props['clearType'] ?? TextOverflowClearType.blendModeClear),
   'TextPainterHelper': (props) => TextPainterHelper(),
+  'ToastContainer': (props) => ToastContainer(
+      key: props['key'],
+      duration: props['duration'],
+      child: props['child'],
+      position: props['position'],
+      animationBuilder: props['animationBuilder'],
+      animationDuration: props['animationDuration'],
+      animationCurve: props['animationCurve'],
+      movingOnWindowChange: props['movingOnWindowChange'] ?? false),
   'ToastPosition': (props) => ToastPosition(
       align: props['align'] ?? Alignment.center,
       offset: props['offset']?.toDouble() ?? 0.0),
   'ToastPosition.bottom': ToastPosition.bottom,
   'ToastPosition.center': ToastPosition.center,
   'ToastPosition.top': ToastPosition.top,
+  'ToastTheme': (props) => ToastTheme(
+      key: props['key'],
+      textStyle: props['textStyle'],
+      textDirection: props['textDirection'],
+      handleTouch: props['handleTouch'],
+      radius: props['radius']?.toDouble() ?? 0,
+      position: props['position'],
+      child: props['child'],
+      backgroundColor: props['backgroundColor'] ?? Colors.black,
+      dismissOtherOnShow: props['dismissOtherOnShow'] ?? true,
+      movingOnWindowChange: props['movingOnWindowChange'] ?? true,
+      animationBuilder: props['animationBuilder'] ?? _defaultBuildAnimation,
+      animationDuration: props['animationDuration'] ?? _defaultAnimDuration,
+      animationCurve: props['animationCurve'] ?? Curves.easeIn,
+      duration: props['duration'] ?? _defaultDuration,
+      textPadding: props['textPadding'],
+      textAlign: props['textAlign'],
+      textMaxLines: props['textMaxLines'],
+      textOverflow: props['textOverflow']),
+  'ToastTheme.of': (props) => ToastTheme.of(props['pa'][0]),
   'WaterfallFlow': (props) => WaterfallFlow(
       key: props['key'],
       scrollDirection: props['scrollDirection'] ?? Axis.vertical,
@@ -1534,6 +1582,7 @@ Map<String, dynamic> packagesComponents = {
   'WidgetWithCodeView': (props) => WidgetWithCodeView(
       key: props['key'],
       filePath: props['filePath'],
+      codeContent: props['codeContent'],
       child: props['child'],
       tabChangeListener: props['tabChangeListener'],
       codeLinkPrefix: props['codeLinkPrefix'],
@@ -1561,7 +1610,6 @@ Map<String, bool> packagesMapping = {
   'CarouselIndicator': true,
   'CircleColor': false,
   'ColorTabIndicator': false,
-  'CommonTextSelectionGestureDetectorBuilder': false,
   'CountPostion.bottom': false,
   'CountPostion.left': false,
   'CountPostion.right': false,
@@ -1612,10 +1660,10 @@ Map<String, bool> packagesMapping = {
   'ExtendedPageView.custom': true,
   'ExtendedRawImage': true,
   'ExtendedRenderImage': false,
-  'ExtendedRenderParagraph': false,
   'ExtendedRenderSliverFillViewport': false,
   'ExtendedResizeImage': false,
   'ExtendedResizeImage.resizeIfNeeded': false,
+  'ExtendedRichText': true,
   'ExtendedScrollable': true,
   'ExtendedSliverAppbar': true,
   'ExtendedSliverFillViewport': true,
@@ -1624,10 +1672,25 @@ Map<String, bool> packagesMapping = {
   'ExtendedTabBarView': true,
   'ExtendedText': true,
   'ExtendedText.rich': true,
-  'ExtendedTextSelection': true,
-  'ExtendedTextSelectionGestureDetectorBuilder': false,
-  'ExtendedTextSelectionOverlay': false,
-  'ExtendedTextSelectionPointerHandler': true,
+  'ExtendedTextLibraryUtils.convertKeyboardMoveSelection': false,
+  'ExtendedTextLibraryUtils.convertKeyboardMoveTextPostion': false,
+  'ExtendedTextLibraryUtils.convertTextInputPostionToTextPainterPostion': false,
+  'ExtendedTextLibraryUtils.convertTextInputSelectionToTextPainterSelection':
+      false,
+  'ExtendedTextLibraryUtils.convertTextPainterPostionToTextInputPostion': false,
+  'ExtendedTextLibraryUtils.convertTextPainterSelectionToTextInputSelection':
+      false,
+  'ExtendedTextLibraryUtils.correctCaretOffset': false,
+  'ExtendedTextLibraryUtils.getCaretOffset': false,
+  'ExtendedTextLibraryUtils.getInlineOffset': false,
+  'ExtendedTextLibraryUtils.handleSpecialTextSpanDelete': false,
+  'ExtendedTextLibraryUtils.hasSpecialText': false,
+  'ExtendedTextLibraryUtils.hasT': false,
+  'ExtendedTextLibraryUtils.hitTestChild': false,
+  'ExtendedTextLibraryUtils.joinChar': false,
+  'ExtendedTextLibraryUtils.makeSureCaretNotInSpecialText': false,
+  'ExtendedTextLibraryUtils.textSpanToActualText': false,
+  'ExtendedTextLibraryUtils.zeroWidthSpace': false,
   'ExtendedUnderlineTabIndicator': false,
   'ExtendedWidgetSpan': false,
   'FixedOverscrollBouncingScrollPhysics': false,
@@ -1636,6 +1699,9 @@ Map<String, bool> packagesMapping = {
   'GestureAnimation': false,
   'GestureConfig': false,
   'GestureDetails': false,
+  'GesturePageView': true,
+  'GesturePageView.builder': true,
+  'GesturePageView.custom': true,
   'GlowNotificationWidget': true,
   'HighlightView': true,
   'ImageSpan': false,
@@ -1687,6 +1753,7 @@ Map<String, bool> packagesMapping = {
   'LoadingMoreListConfig': false,
   'LoadingMoreSliverList': true,
   'NeverScrollableClampingScrollPhysics': false,
+  'OKToast': true,
   'OffsetAnimationBuilder': false,
   'OpacityAnimationBuilder': false,
   'OvershootCurve': false,
@@ -1704,10 +1771,6 @@ Map<String, bool> packagesMapping = {
   'PullToRefreshNotification': true,
   'PullToRefreshScrollNotificationInfo': false,
   'RenderSliverWaterfallFlow': false,
-  'ScribbleFocusable': true,
-  'ScribblePlaceholder': false,
-  'SelectionOverlay': false,
-  'SelectionOverlay.fadeDuration': false,
   'SizeCacheWidget': true,
   'SizeCacheWidget.of': false,
   'SlideAxis.both': false,
@@ -1728,6 +1791,7 @@ Map<String, bool> packagesMapping = {
   'SliverWaterfallFlowDelegateWithFixedCrossAxisCount': false,
   'SliverWaterfallFlowDelegateWithMaxCrossAxisExtent': false,
   'SliverWaterfallFlowParentData': false,
+  'SourceCodeView': true,
   'SpecialTextSpan': false,
   'SyncScrollController': false,
   'SyncScrollHandler': false,
@@ -1735,7 +1799,6 @@ Map<String, bool> packagesMapping = {
   'SyntaxHighlighterStyle.darkThemeStyle': false,
   'SyntaxHighlighterStyle.lightThemeStyle': false,
   'TaskEntry': false,
-  'TextHighlightPainter': false,
   'TextOverflowAlign.center': false,
   'TextOverflowAlign.left': false,
   'TextOverflowAlign.right': false,
@@ -1749,10 +1812,13 @@ Map<String, bool> packagesMapping = {
   'TextOverflowPosition.values': false,
   'TextOverflowWidget': true,
   'TextPainterHelper': false,
+  'ToastContainer': true,
   'ToastPosition': false,
   'ToastPosition.bottom': false,
   'ToastPosition.center': false,
   'ToastPosition.top': false,
+  'ToastTheme': true,
+  'ToastTheme.of': true,
   'WaterfallFlow': true,
   'WaterfallFlow.builder': true,
   'WaterfallFlow.count': true,

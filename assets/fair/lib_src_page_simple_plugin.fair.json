@@ -224,5 +224,6 @@
     "_getContent": {
       "className": "index.toString"
     }
-  }
+  },
+  "digest": "3e7c957955c53791b551a4d048fce6ea"
 }

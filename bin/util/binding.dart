@@ -72,7 +72,6 @@ Future<void> createBindings({
       }
     }
   }
- 
 
   Set<String> allImports = <String>{};
   // Set<String> lines = <String>{};

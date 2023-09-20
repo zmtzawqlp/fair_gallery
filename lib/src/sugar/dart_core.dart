@@ -2,12 +2,1008 @@
 
 import 'dart:math';
 
+/// Iterable Sugar
+class SugarIterable {
+  SugarIterable._();
+
+  /// A new `Iterator` that allows iterating the elements of this `Iterable`.
+  ///
+  /// Iterable classes may specify the iteration order of their elements
+  /// (for example [List] always iterate in index order),
+  /// or they may leave it unspecified (for example a hash-based [Set]
+  /// may iterate in any order).
+  ///
+  /// Each time `iterator` is read, it returns a new iterator,
+  /// which can be used to iterate through all the elements again.
+  /// The iterators of the same iterable can be stepped through independently,
+  /// but should return the same elements in the same order,
+  /// as long as the underlying collection isn't changed.
+  ///
+  /// Modifying the collection may cause new iterators to produce
+  /// different elements, and may change the order of existing elements.
+  /// A [List] specifies its iteration order precisely,
+  /// so modifying the list changes the iteration order predictably.
+  /// A hash-based [Set] may change its iteration order completely
+  /// when adding a new element to the set.
+  ///
+  /// Modifying the underlying collection after creating the new iterator
+  /// may cause an error the next time [Iterator.moveNext] is called
+  /// on that iterator.
+  /// Any *modifiable* iterable class should specify which operations will
+  /// break iteration.
+  static Iterator<dynamic> iterator(Iterable input) => input.iterator;
+
+  /// The number of elements in [this].
+  ///
+  /// Counting all elements may involve iterating through all elements and can
+  /// therefore be slow.
+  /// Some iterables have a more efficient way to find the number of elements.
+  /// These *must* override the default implementation of `length`.
+  static int length(Iterable input) => input.length;
+
+  /// Whether this collection has no elements.
+  ///
+  /// May be computed by checking if `iterator.moveNext()` returns `false`.
+  ///
+  /// Example:
+  /// ```dart
+  /// final emptyList = <int>[];
+  /// print(emptyList.isEmpty); // true;
+  /// print(emptyList.iterator.moveNext()); // false
+  /// ```
+  static bool isEmpty(Iterable input) => input.isEmpty;
+
+  /// Whether this collection has at least one element.
+  ///
+  /// May be computed by checking if `iterator.moveNext()` returns `true`.
+  ///
+  /// Example:
+  /// ```dart
+  /// final numbers = <int>{1, 2, 3};
+  /// print(numbers.isNotEmpty); // true;
+  /// print(numbers.iterator.moveNext()); // true
+  /// ```
+  static bool isNotEmpty(Iterable input) => input.isNotEmpty;
+
+  /// The first element.
+  ///
+  /// Throws a [StateError] if `this` is empty.
+  /// Otherwise returns the first element in the iteration order,
+  /// equivalent to `this.elementAt(0)`.
+  static dynamic first(Iterable input) => input.first;
+
+  /// The last element.
+  ///
+  /// Throws a [StateError] if `this` is empty.
+  /// Otherwise may iterate through the elements and returns the last one
+  /// seen.
+  /// Some iterables may have more efficient ways to find the last element
+  /// (for example a list can directly access the last element,
+  /// without iterating through the previous ones).
+  static dynamic last(Iterable input) => input.last;
+
+  /// Checks that this iterable has only one element, and returns that element.
+  ///
+  /// Throws a [StateError] if `this` is empty or has more than one element.
+  /// This operation will not iterate past the second element.
+  static dynamic single(Iterable input) => input.single;
+
+  /// Adapts [source] to be an `Iterable<T>`.
+  ///
+  /// Any time the iterable would produce an element that is not a [T],
+  /// the element access will throw. If all elements of [source] are actually
+  /// instances of [T], or if only elements that are actually instances of [T]
+  /// are accessed, then the resulting iterable can be used as an `Iterable<T>`.
+  static Iterable<T> castFrom<S, T>(Iterable<S> source) => Iterable.castFrom(
+        source,
+      );
+
+  /// A view of this iterable as an iterable of [R] instances.
+  ///
+  /// If this iterable only contains instances of [R], all operations
+  /// will work correctly. If any operation tries to access an element
+  /// that is not an instance of [R], the access will throw instead.
+  ///
+  /// When the returned iterable creates a new object that depends on
+  /// the type [R], e.g., from [toList], it will have exactly the type [R].
+  static Iterable<R> cast<R>(
+    Iterable input,
+  ) =>
+      input.cast();
+
+  /// Creates the lazy concatenation of this iterable and [other].
+  ///
+  /// The returned iterable will provide the same elements as this iterable,
+  /// and, after that, the elements of [other], in the same order as in the
+  /// original iterables.
+  ///
+  /// Example:
+  /// ```dart
+  /// var planets = <String>['Earth', 'Jupiter'];
+  /// var updated = planets.followedBy(['Mars', 'Venus']);
+  /// print(updated); // (Earth, Jupiter, Mars, Venus)
+  /// ```
+  static Iterable<dynamic> followedBy(
+          Iterable input, Iterable<dynamic> other) =>
+      input.followedBy(
+        other,
+      );
+
+  /// The current elements of this iterable modified by [toElement].
+  ///
+  /// Returns a new lazy [Iterable] with elements that are created by
+  /// calling `toElement` on each element of this `Iterable` in
+  /// iteration order.
+  ///
+  /// The returned iterable is lazy, so it won't iterate the elements of
+  /// this iterable until it is itself iterated, and then it will apply
+  /// [toElement] to create one element at a time.
+  /// The converted elements are not cached.
+  /// Iterating multiple times over the returned [Iterable]
+  /// will invoke the supplied [toElement] function once per element
+  /// for on each iteration.
+  ///
+  /// Methods on the returned iterable are allowed to omit calling `toElement`
+  /// on any element where the result isn't needed.
+  /// For example, [elementAt] may call `toElement` only once.
+  ///
+  /// Equivalent to:
+  /// ```
+  /// Iterable<T> map<T>(T toElement(E e)) sync* {
+  ///   for (var value in this) {
+  ///     yield toElement(value);
+  ///   }
+  /// }
+  /// ```
+  /// Example:
+  /// ```dart import:convert
+  /// var products = jsonDecode('''
+  /// [
+  ///   {"name": "Screwdriver", "price": 42.00},
+  ///   {"name": "Wingnut", "price": 0.50}
+  /// ]
+  /// ''');
+  /// var values = products.map((product) => product['price'] as double);
+  /// var totalPrice = values.fold(0.0, (a, b) => a + b); // 42.5.
+  /// ```
+  static Iterable<T> map<T>(Iterable input, T Function(dynamic) toElement) =>
+      input.map(
+        toElement,
+      );
+
+  /// Creates a new lazy [Iterable] with all elements that satisfy the
+  /// predicate [test].
+  ///
+  /// The matching elements have the same order in the returned iterable
+  /// as they have in [iterator].
+  ///
+  /// This method returns a view of the mapped elements.
+  /// As long as the returned [Iterable] is not iterated over,
+  /// the supplied function [test] will not be invoked.
+  /// Iterating will not cache results, and thus iterating multiple times over
+  /// the returned [Iterable] may invoke the supplied
+  /// function [test] multiple times on the same element.
+  ///
+  /// Example:
+  /// ```dart
+  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
+  /// var result = numbers.where((x) => x < 5); // (1, 2, 3)
+  /// result = numbers.where((x) => x > 5); // (6, 7)
+  /// result = numbers.where((x) => x.isEven); // (2, 6)
+  /// ```
+  static Iterable<dynamic> where(Iterable input, bool Function(dynamic) test) =>
+      input.where(
+        test,
+      );
+
+  /// Creates a new lazy [Iterable] with all elements that have type [T].
+  ///
+  /// The matching elements have the same order in the returned iterable
+  /// as they have in [iterator].
+  ///
+  /// This method returns a view of the mapped elements.
+  /// Iterating will not cache results, and thus iterating multiple times over
+  /// the returned [Iterable] may yield different results,
+  /// if the underlying elements change between iterations.
+  static Iterable<T> whereType<T>(
+    Iterable input,
+  ) =>
+      input.whereType();
+
+  /// Expands each element of this [Iterable] into zero or more elements.
+  ///
+  /// The resulting Iterable runs through the elements returned
+  /// by [toElements] for each element of this, in iteration order.
+  ///
+  /// The returned [Iterable] is lazy, and calls [toElements] for each element
+  /// of this iterable every time the returned iterable is iterated.
+  ///
+  /// Example:
+  /// ```dart
+  /// Iterable<int> count(int n) sync* {
+  ///   for (var i = 1; i <= n; i++) {
+  ///     yield i;
+  ///    }
+  ///  }
+  ///
+  /// var numbers = [1, 3, 0, 2];
+  /// print(numbers.expand(count)); // (1, 1, 2, 3, 1, 2)
+  /// ```
+  ///
+  /// Equivalent to:
+  /// ```
+  /// Iterable<T> expand<T>(Iterable<T> toElements(E e)) sync* {
+  ///   for (var value in this) {
+  ///     yield* toElements(value);
+  ///   }
+  /// }
+  /// ```
+  static Iterable<T> expand<T>(
+          Iterable input, Iterable<T> Function(dynamic) toElements) =>
+      input.expand(
+        toElements,
+      );
+
+  /// Whether the collection contains an element equal to [element].
+  ///
+  /// This operation will check each element in order for being equal to
+  /// [element], unless it has a more efficient way to find an element
+  /// equal to [element].
+  /// Stops iterating on the first equal element.
+  ///
+  /// The equality used to determine whether [element] is equal to an element of
+  /// the iterable defaults to the [Object.==] of the element.
+  ///
+  /// Some types of iterable may have a different equality used for its elements.
+  /// For example, a [Set] may have a custom equality
+  /// (see [Set.identity]) that its `contains` uses.
+  /// Likewise the `Iterable` returned by a [Map.keys] call
+  /// should use the same equality that the `Map` uses for keys.
+  ///
+  /// Example:
+  /// ```dart
+  /// final gasPlanets = <int, String>{1: 'Jupiter', 2: 'Saturn'};
+  /// final containsOne = gasPlanets.keys.contains(1); // true
+  /// final containsFive = gasPlanets.keys.contains(5); // false
+  /// final containsJupiter = gasPlanets.values.contains('Jupiter'); // true
+  /// final containsMercury = gasPlanets.values.contains('Mercury'); // false
+  /// ```
+  static bool contains(Iterable input, Object? element) => input.contains(
+        element,
+      );
+
+  /// Invokes [action] on each element of this iterable in iteration order.
+  ///
+  /// Example:
+  /// ```dart
+  /// final numbers = <int>[1, 2, 6, 7];
+  /// numbers.forEach(print);
+  /// // 1
+  /// // 2
+  /// // 6
+  /// // 7
+  /// ```
+  static void forEach(Iterable input, void Function(dynamic) action) =>
+      input.forEach(
+        action,
+      );
+
+  /// Reduces a collection to a single value by iteratively combining elements
+  /// of the collection using the provided function.
+  ///
+  /// The iterable must have at least one element.
+  /// If it has only one element, that element is returned.
+  ///
+  /// Otherwise this method starts with the first element from the iterator,
+  /// and then combines it with the remaining elements in iteration order,
+  /// as if by:
+  /// ```
+  /// E value = iterable.first;
+  /// iterable.skip(1).forEach((element) {
+  ///   value = combine(value, element);
+  /// });
+  /// return value;
+  /// ```
+  /// Example of calculating the sum of an iterable:
+  /// ```dart
+  /// final numbers = <double>[10, 2, 5, 0.5];
+  /// final result = numbers.reduce((value, element) => value + element);
+  /// print(result); // 17.5
+  /// ```
+  static dynamic reduce(
+          Iterable input, dynamic Function(dynamic, dynamic) combine) =>
+      input.reduce(
+        combine,
+      );
+
+  /// Reduces a collection to a single value by iteratively combining each
+  /// element of the collection with an existing value
+  ///
+  /// Uses [initialValue] as the initial value,
+  /// then iterates through the elements and updates the value with
+  /// each element using the [combine] function, as if by:
+  /// ```
+  /// var value = initialValue;
+  /// for (E element in this) {
+  ///   value = combine(value, element);
+  /// }
+  /// return value;
+  /// ```
+  /// Example of calculating the sum of an iterable:
+  /// ```dart
+  /// final numbers = <double>[10, 2, 5, 0.5];
+  /// const initialValue = 100.0;
+  /// final result = numbers.fold<double>(
+  ///     initialValue, (previousValue, element) => previousValue + element);
+  /// print(result); // 117.5
+  /// ```
+  static T fold<T>(
+          Iterable input, T initialValue, T Function(T, dynamic) combine) =>
+      input.fold(
+        initialValue,
+        combine,
+      );
+
+  /// Checks whether every element of this iterable satisfies [test].
+  ///
+  /// Checks every element in iteration order, and returns `false` if
+  /// any of them make [test] return `false`, otherwise returns `true`.
+  ///
+  /// Example:
+  /// ```dart
+  /// final planetsByMass = <double, String>{0.06: 'Mercury', 0.81: 'Venus',
+  ///   0.11: 'Mars'};
+  /// // Checks whether all keys are smaller than 1.
+  /// final every = planetsByMass.keys.every((key) => key < 1.0); // true
+  /// ```
+  static bool every(Iterable input, bool Function(dynamic) test) => input.every(
+        test,
+      );
+
+  /// Converts each element to a [String] and concatenates the strings.
+  ///
+  /// Iterates through elements of this iterable,
+  /// converts each one to a [String] by calling [Object.toString],
+  /// and then concatenates the strings, with the
+  /// [separator] string interleaved between the elements.
+  ///
+  /// Example:
+  /// ```dart
+  /// final planetsByMass = <double, String>{0.06: 'Mercury', 0.81: 'Venus',
+  ///   0.11: 'Mars'};
+  /// final joinedNames = planetsByMass.values.join('-'); // Mercury-Venus-Mars
+  /// ```
+  static String join(Iterable input, [String separator = ""]) => input.join(
+        separator,
+      );
+
+  /// Checks whether any element of this iterable satisfies [test].
+  ///
+  /// Checks every element in iteration order, and returns `true` if
+  /// any of them make [test] return `true`, otherwise returns false.
+  ///
+  /// Example:
+  /// ```dart
+  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
+  /// var result = numbers.any((element) => element >= 5); // true;
+  /// result = numbers.any((element) => element >= 10); // false;
+  /// ```
+  static bool any(Iterable input, bool Function(dynamic) test) => input.any(
+        test,
+      );
+
+  /// Creates a [List] containing the elements of this [Iterable].
+  ///
+  /// The elements are in iteration order.
+  /// The list is fixed-length if [growable] is false.
+  ///
+  /// Example:
+  /// ```dart
+  /// final planets = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Mars'};
+  /// final keysList = planets.keys.toList(growable: false); // [1, 2, 3]
+  /// final valuesList =
+  ///     planets.values.toList(growable: false); // [Mercury, Venus, Mars]
+  /// ```
+  static List<dynamic> toList(Iterable input, {bool growable = true}) =>
+      input.toList(
+        growable: growable,
+      );
+
+  /// Creates a [Set] containing the same elements as this iterable.
+  ///
+  /// The set may contain fewer elements than the iterable,
+  /// if the iterable contains an element more than once,
+  /// or it contains one or more elements that are equal.
+  /// The order of the elements in the set is not guaranteed to be the same
+  /// as for the iterable.
+  ///
+  /// Example:
+  /// ```dart
+  /// final planets = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Mars'};
+  /// final valueSet = planets.values.toSet(); // {Mercury, Venus, Mars}
+  /// ```
+  static Set<dynamic> toSet(
+    Iterable input,
+  ) =>
+      input.toSet();
+
+  /// Creates a lazy iterable of the [count] first elements of this iterable.
+  ///
+  /// The returned `Iterable` may contain fewer than `count` elements, if `this`
+  /// contains fewer than `count` elements.
+  ///
+  /// The elements can be computed by stepping through [iterator] until [count]
+  /// elements have been seen.
+  ///
+  /// The `count` must not be negative.
+  ///
+  /// Example:
+  /// ```dart
+  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
+  /// final result = numbers.take(4); // (1, 2, 3, 5)
+  /// final takeAll = numbers.take(100); // (1, 2, 3, 5, 6, 7)
+  /// ```
+  static Iterable<dynamic> take(Iterable input, int count) => input.take(
+        count,
+      );
+
+  /// Creates a lazy iterable of the leading elements satisfying [test].
+  ///
+  /// The filtering happens lazily. Every new iterator of the returned
+  /// iterable starts iterating over the elements of `this`.
+  ///
+  /// The elements can be computed by stepping through [iterator] until an
+  /// element is found where `test(element)` is false. At that point,
+  /// the returned iterable stops (its `moveNext()` returns false).
+  ///
+  /// Example:
+  /// ```dart
+  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
+  /// var result = numbers.takeWhile((x) => x < 5); // (1, 2, 3)
+  /// result = numbers.takeWhile((x) => x != 3); // (1, 2)
+  /// result = numbers.takeWhile((x) => x != 4); // (1, 2, 3, 5, 6, 7)
+  /// result = numbers.takeWhile((x) => x.isOdd); // (1)
+  /// ```
+  static Iterable<dynamic> takeWhile(
+          Iterable input, bool Function(dynamic) test) =>
+      input.takeWhile(
+        test,
+      );
+
+  /// Creates an [Iterable] that provides all but the first [count] elements.
+  ///
+  /// When the returned iterable is iterated, it starts iterating over `this`,
+  /// first skipping past the initial [count] elements.
+  /// If `this` has fewer than `count` elements, then the resulting Iterable is
+  /// empty.
+  /// After that, the remaining elements are iterated in the same order as
+  /// in this iterable.
+  ///
+  /// Some iterables may be able to find later elements without first iterating
+  /// through earlier elements, for example when iterating a [List].
+  /// Such iterables are allowed to ignore the initial skipped elements.
+  ///
+  /// Example:
+  /// ```dart
+  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
+  /// final result = numbers.skip(4); // (6, 7)
+  /// final skipAll = numbers.skip(100); // () - no elements.
+  /// ```
+  ///
+  /// The [count] must not be negative.
+  static Iterable<dynamic> skip(Iterable input, int count) => input.skip(
+        count,
+      );
+
+  /// Creates an `Iterable` that skips leading elements while [test] is satisfied.
+  ///
+  /// The filtering happens lazily. Every new [Iterator] of the returned
+  /// iterable iterates over all elements of `this`.
+  ///
+  /// The returned iterable provides elements by iterating this iterable,
+  /// but skipping over all initial elements where `test(element)` returns
+  /// true. If all elements satisfy `test` the resulting iterable is empty,
+  /// otherwise it iterates the remaining elements in their original order,
+  /// starting with the first element for which `test(element)` returns `false`.
+  ///
+  /// Example:
+  /// ```dart
+  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
+  /// var result = numbers.skipWhile((x) => x < 5); // (5, 6, 7)
+  /// result = numbers.skipWhile((x) => x != 3); // (3, 5, 6, 7)
+  /// result = numbers.skipWhile((x) => x != 4); // ()
+  /// result = numbers.skipWhile((x) => x.isOdd); // (2, 3, 5, 6, 7)
+  /// ```
+  static Iterable<dynamic> skipWhile(
+          Iterable input, bool Function(dynamic) test) =>
+      input.skipWhile(
+        test,
+      );
+
+  /// The first element that satisfies the given predicate [test].
+  ///
+  /// Iterates through elements and returns the first to satisfy [test].
+  ///
+  /// Example:
+  /// ```dart
+  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
+  /// var result = numbers.firstWhere((element) => element < 5); // 1
+  /// result = numbers.firstWhere((element) => element > 5); // 6
+  /// result =
+  ///     numbers.firstWhere((element) => element > 10, orElse: () => -1); // -1
+  /// ```
+  ///
+  /// If no element satisfies [test], the result of invoking the [orElse]
+  /// function is returned.
+  /// If [orElse] is omitted, it defaults to throwing a [StateError].
+  /// Stops iterating on the first matching element.
+  static dynamic firstWhere(Iterable input, bool Function(dynamic) test,
+          {dynamic Function()? orElse}) =>
+      input.firstWhere(
+        test,
+        orElse: orElse,
+      );
+
+  /// The last element that satisfies the given predicate [test].
+  ///
+  /// An iterable that can access its elements directly may check its
+  /// elements in any order (for example a list starts by checking the
+  /// last element and then moves towards the start of the list).
+  /// The default implementation iterates elements in iteration order,
+  /// checks `test(element)` for each,
+  /// and finally returns that last one that matched.
+  ///
+  /// Example:
+  /// ```dart
+  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
+  /// var result = numbers.lastWhere((element) => element < 5); // 3
+  /// result = numbers.lastWhere((element) => element > 5); // 7
+  /// result = numbers.lastWhere((element) => element > 10,
+  ///     orElse: () => -1); // -1
+  /// ```
+  ///
+  /// If no element satisfies [test], the result of invoking the [orElse]
+  /// function is returned.
+  /// If [orElse] is omitted, it defaults to throwing a [StateError].
+  static dynamic lastWhere(Iterable input, bool Function(dynamic) test,
+          {dynamic Function()? orElse}) =>
+      input.lastWhere(
+        test,
+        orElse: orElse,
+      );
+
+  /// The single element that satisfies [test].
+  ///
+  /// Checks elements to see if `test(element)` returns true.
+  /// If exactly one element satisfies [test], that element is returned.
+  /// If more than one matching element is found, throws [StateError].
+  /// If no matching element is found, returns the result of [orElse].
+  /// If [orElse] is omitted, it defaults to throwing a [StateError].
+  ///
+  /// Example:
+  /// ```dart
+  /// final numbers = <int>[2, 2, 10];
+  /// var result = numbers.singleWhere((element) => element > 5); // 10
+  /// ```
+  /// When no matching element is found, the result of calling [orElse] is
+  /// returned instead.
+  /// ```dart continued
+  /// result = numbers.singleWhere((element) => element == 1,
+  ///     orElse: () => -1); // -1
+  /// ```
+  /// There must not be more than one matching element.
+  /// ```dart continued
+  /// result = numbers.singleWhere((element) => element == 2); // Throws Error.
+  /// ```
+  static dynamic singleWhere(Iterable input, bool Function(dynamic) test,
+          {dynamic Function()? orElse}) =>
+      input.singleWhere(
+        test,
+        orElse: orElse,
+      );
+
+  /// Returns the [index]th element.
+  ///
+  /// The [index] must be non-negative and less than [length].
+  /// Index zero represents the first element (so `iterable.elementAt(0)` is
+  /// equivalent to `iterable.first`).
+  ///
+  /// May iterate through the elements in iteration order, ignoring the
+  /// first [index] elements and then returning the next.
+  /// Some iterables may have a more efficient way to find the element.
+  ///
+  /// Example:
+  /// ```dart
+  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
+  /// final elementAt = numbers.elementAt(4); // 6
+  /// ```
+  static dynamic elementAt(Iterable input, int index) => input.elementAt(
+        index,
+      );
+
+  /// Returns a string representation of (some of) the elements of `this`.
+  ///
+  /// Elements are represented by their own `toString` results.
+  ///
+  /// The default representation always contains the first three elements.
+  /// If there are less than a hundred elements in the iterable, it also
+  /// contains the last two elements.
+  ///
+  /// If the resulting string isn't above 80 characters, more elements are
+  /// included from the start of the iterable.
+  ///
+  /// The conversion may omit calling `toString` on some elements if they
+  /// are known to not occur in the output, and it may stop iterating after
+  /// a hundred elements.
+  static String iterableToString(
+    Iterable input,
+  ) =>
+      input.toString();
+
+  /// Convert an `Iterable` to a string like [Iterable.toString].
+  ///
+  /// Allows using other delimiters than '(' and ')'.
+  ///
+  /// Handles circular references where converting one of the elements
+  /// to a string ends up converting [iterable] to a string again.
+  static String iterableToShortString(Iterable<dynamic> iterable,
+          [String leftDelimiter = '(', String rightDelimiter = ')']) =>
+      Iterable.iterableToShortString(
+        iterable,
+        leftDelimiter,
+        rightDelimiter,
+      );
+
+  /// Converts an `Iterable` to a string.
+  ///
+  /// Converts each elements to a string, and separates the results by ", ".
+  /// Then wraps the result in [leftDelimiter] and [rightDelimiter].
+  ///
+  /// Unlike [iterableToShortString], this conversion doesn't omit any
+  /// elements or puts any limit on the size of the result.
+  ///
+  /// Handles circular references where converting one of the elements
+  /// to a string ends up converting [iterable] to a string again.
+  static String iterableToFullString(Iterable<dynamic> iterable,
+          [String leftDelimiter = '(', String rightDelimiter = ')']) =>
+      Iterable.iterableToFullString(
+        iterable,
+        leftDelimiter,
+        rightDelimiter,
+      );
+}
+
+/// Map Sugar
+class SugarMap {
+  SugarMap._();
+
+  /// The map entries of [this].
+  static Iterable<MapEntry<dynamic, dynamic>> entries(Map input) =>
+      input.entries;
+
+  /// The keys of [this].
+  ///
+  /// The returned iterable has efficient `length` and `contains` operations,
+  /// based on [length] and [containsKey] of the map.
+  ///
+  /// The order of iteration is defined by the individual `Map` implementation,
+  /// but must be consistent between changes to the map.
+  ///
+  /// Modifying the map while iterating the keys may break the iteration.
+  static Iterable<dynamic> keys(Map input) => input.keys;
+
+  /// The values of [this].
+  ///
+  /// The values are iterated in the order of their corresponding keys.
+  /// This means that iterating [keys] and [values] in parallel will
+  /// provide matching pairs of keys and values.
+  ///
+  /// The returned iterable has an efficient `length` method based on the
+  /// [length] of the map. Its [Iterable.contains] method is based on
+  /// `==` comparison.
+  ///
+  /// Modifying the map while iterating the values may break the iteration.
+  static Iterable<dynamic> values(Map input) => input.values;
+
+  /// The number of key/value pairs in the map.
+  static int length(Map input) => input.length;
+
+  /// Whether there is no key/value pair in the map.
+  static bool isEmpty(Map input) => input.isEmpty;
+
+  /// Whether there is at least one key/value pair in the map.
+  static bool isNotEmpty(Map input) => input.isNotEmpty;
+
+  /// Whether this map contains the given [value].
+  ///
+  /// Returns true if any of the values in the map are equal to `value`
+  /// according to the `==` operator.
+  /// ```dart
+  /// final moonCount = <String, int>{'Mercury': 0, 'Venus': 0, 'Earth': 1,
+  ///   'Mars': 2, 'Jupiter': 79, 'Saturn': 82, 'Uranus': 27, 'Neptune': 14 };
+  /// final moons3 = moonCount.containsValue(3); // false
+  /// final moons82 = moonCount.containsValue(82); // true
+  /// ```
+  static bool containsValue(Map input, Object? value) => input.containsValue(
+        value,
+      );
+
+  /// Whether this map contains the given [key].
+  ///
+  /// Returns true if any of the keys in the map are equal to `key`
+  /// according to the equality used by the map.
+  /// ```dart
+  /// final moonCount = <String, int>{'Mercury': 0, 'Venus': 0, 'Earth': 1,
+  ///   'Mars': 2, 'Jupiter': 79, 'Saturn': 82, 'Uranus': 27, 'Neptune': 14 };
+  /// final containsUranus = moonCount.containsKey('Uranus'); // true
+  /// final containsPluto = moonCount.containsKey('Pluto'); // false
+  /// ```
+  static bool containsKey(Map input, Object? key) => input.containsKey(
+        key,
+      );
+
+  /// The value for the given [key], or `null` if [key] is not in the map.
+  ///
+  /// Some maps allow `null` as a value.
+  /// For those maps, a lookup using this operator cannot distinguish between a
+  /// key not being in the map, and the key being there with a `null` value.
+  /// Methods like [containsKey] or [putIfAbsent] can be used if the distinction
+  /// is important.
+  static dynamic get(Map input, Object? key) => input[key];
+
+  /// Associates the [key] with the given [value].
+  ///
+  /// If the key was already in the map, its associated value is changed.
+  /// Otherwise the key/value pair is added to the map.
+  static void set(Map input, dynamic key, dynamic value) => input[key] = value;
+
+  /// Adds all key/value pairs of [newEntries] to this map.
+  ///
+  /// If a key of [newEntries] is already in this map,
+  /// the corresponding value is overwritten.
+  ///
+  /// The operation is equivalent to doing `this[entry.key] = entry.value`
+  /// for each [MapEntry] of the iterable.
+  /// ```dart
+  /// final planets = <int, String>{1: 'Mercury', 2: 'Venus',
+  ///   3: 'Earth', 4: 'Mars'};
+  /// final gasGiants = <int, String>{5: 'Jupiter', 6: 'Saturn'};
+  /// final iceGiants = <int, String>{7: 'Uranus', 8: 'Neptune'};
+  /// planets.addEntries(gasGiants.entries);
+  /// planets.addEntries(iceGiants.entries);
+  /// print(planets);
+  /// // {1: Mercury, 2: Venus, 3: Earth, 4: Mars, 5: Jupiter, 6: Saturn,
+  /// //  7: Uranus, 8: Neptune}
+  /// ```
+  static void addEntries(
+          Map input, Iterable<MapEntry<dynamic, dynamic>> newEntries) =>
+      input.addEntries(
+        newEntries,
+      );
+
+  /// Updates the value for the provided [key].
+  ///
+  /// Returns the new value associated with the key.
+  ///
+  /// If the key is present, invokes [update] with the current value and stores
+  /// the new value in the map.
+  ///
+  /// If the key is not present and [ifAbsent] is provided, calls [ifAbsent]
+  /// and adds the key with the returned value to the map.
+  ///
+  /// If the key is not present, [ifAbsent] must be provided.
+  /// ```dart
+  /// final planetsFromSun = <int, String>{1: 'Mercury', 2: 'unknown',
+  ///   3: 'Earth'};
+  /// // Update value for known key value 2.
+  /// planetsFromSun.update(2, (value) => 'Venus');
+  /// print(planetsFromSun); // {1: Mercury, 2: Venus, 3: Earth}
+  ///
+  /// final largestPlanets = <int, String>{1: 'Jupiter', 2: 'Saturn',
+  ///   3: 'Neptune'};
+  /// // Key value 8 is missing from list, add it using [ifAbsent].
+  /// largestPlanets.update(8, (value) => 'New', ifAbsent: () => 'Mercury');
+  /// print(largestPlanets); // {1: Jupiter, 2: Saturn, 3: Neptune, 8: Mercury}
+  /// ```
+  static dynamic update(
+          Map input, dynamic key, dynamic Function(dynamic) update,
+          {dynamic Function()? ifAbsent}) =>
+      input.update(
+        key,
+        update,
+        ifAbsent: ifAbsent,
+      );
+
+  /// Updates all values.
+  ///
+  /// Iterates over all entries in the map and updates them with the result
+  /// of invoking [update].
+  /// ```dart
+  /// final terrestrial = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
+  /// terrestrial.updateAll((key, value) => value.toUpperCase());
+  /// print(terrestrial); // {1: MERCURY, 2: VENUS, 3: EARTH}
+  /// ```
+  static void updateAll(Map input, dynamic Function(dynamic, dynamic) update) =>
+      input.updateAll(
+        update,
+      );
+
+  /// Removes all entries of this map that satisfy the given [test].
+  /// ```dart
+  /// final terrestrial = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
+  /// terrestrial.removeWhere((key, value) => value.startsWith('E'));
+  /// print(terrestrial); // {1: Mercury, 2: Venus}
+  /// ```
+  static void removeWhere(Map input, bool Function(dynamic, dynamic) test) =>
+      input.removeWhere(
+        test,
+      );
+
+  /// Look up the value of [key], or add a new entry if it isn't there.
+  ///
+  /// Returns the value associated to [key], if there is one.
+  /// Otherwise calls [ifAbsent] to get a new value, associates [key] to
+  /// that value, and then returns the new value.
+  /// ```dart
+  /// final diameters = <num, String>{1.0: 'Earth'};
+  /// final otherDiameters = <double, String>{0.383: 'Mercury', 0.949: 'Venus'};
+  ///
+  /// for (final item in otherDiameters.entries) {
+  ///   diameters.putIfAbsent(item.key, () => item.value);
+  /// }
+  /// print(diameters); // {1.0: Earth, 0.383: Mercury, 0.949: Venus}
+  ///
+  /// // If the key already exists, the current value is returned.
+  /// final result = diameters.putIfAbsent(0.383, () => 'Random');
+  /// print(result); // Mercury
+  /// print(diameters); // {1.0: Earth, 0.383: Mercury, 0.949: Venus}
+  /// ```
+  /// Calling [ifAbsent] must not add or remove keys from the map.
+  static dynamic putIfAbsent(
+          Map input, dynamic key, dynamic Function() ifAbsent) =>
+      input.putIfAbsent(
+        key,
+        ifAbsent,
+      );
+
+  /// Adds all key/value pairs of [other] to this map.
+  ///
+  /// If a key of [other] is already in this map, its value is overwritten.
+  ///
+  /// The operation is equivalent to doing `this[key] = value` for each key
+  /// and associated value in other. It iterates over [other], which must
+  /// therefore not change during the iteration.
+  /// ```dart
+  /// final planets = <int, String>{1: 'Mercury', 2: 'Earth'};
+  /// planets.addAll({5: 'Jupiter', 6: 'Saturn'});
+  /// print(planets); // {1: Mercury, 2: Earth, 5: Jupiter, 6: Saturn}
+  /// ```
+  static void addAll(Map input, Map<dynamic, dynamic> other) => input.addAll(
+        other,
+      );
+
+  /// Removes [key] and its associated value, if present, from the map.
+  ///
+  /// Returns the value associated with `key` before it was removed.
+  /// Returns `null` if `key` was not in the map.
+  ///
+  /// Note that some maps allow `null` as a value,
+  /// so a returned `null` value doesn't always mean that the key was absent.
+  /// ```dart
+  /// final terrestrial = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
+  /// final removedValue = terrestrial.remove(2); // Venus
+  /// print(terrestrial); // {1: Mercury, 3: Earth}
+  /// ```
+  static dynamic remove(Map input, Object? key) => input.remove(
+        key,
+      );
+
+  /// Removes all entries from the map.
+  ///
+  /// After this, the map is empty.
+  /// ```dart
+  /// final planets = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
+  /// planets.clear(); // {}
+  /// ```
+  static void clear(
+    Map input,
+  ) =>
+      input.clear();
+
+  /// Applies [action] to each key/value pair of the map.
+  ///
+  /// Calling `action` must not add or remove keys from the map.
+  /// ```dart
+  /// final planetsByMass = <num, String>{0.81: 'Venus', 1: 'Earth',
+  ///   0.11: 'Mars', 17.15: 'Neptune'};
+  ///
+  /// planetsByMass.forEach((key, value) {
+  ///   print('$key: $value');
+  ///   // 0.81: Venus
+  ///   // 1: Earth
+  ///   // 0.11: Mars
+  ///   // 17.15: Neptune
+  /// });
+  /// ```
+  static void forEach(Map input, void Function(dynamic, dynamic) action) =>
+      input.forEach(
+        action,
+      );
+}
+
 /// Bool Sugar
 class SugarBool {
   SugarBool._();
 
   // !input
   static bool invert(bool input) => !input;
+
+  /// Parses [source] as an, optionally case-insensitive, boolean literal.
+  ///
+  /// If [caseSensitive] is `true`, which is the default,
+  /// the only accepted inputs are the strings `"true"` and `"false"`,
+  /// which returns the results `true` and `false` respectively.
+  ///
+  /// If [caseSensitive] is `false`, any combination of upper and lower case
+  /// ASCII letters in the words `"true"` and `"false"` are accepted,
+  /// as if the input was first lower-cased.
+  ///
+  /// Throws a [FormatException] if the [source] string does not contain
+  /// a valid boolean literal.
+  ///
+  /// Rather than throwing and immediately catching the [FormatException],
+  /// instead use [tryParse] to handle a potential parsing error.
+  ///
+  /// Example:
+  /// ```dart
+  /// print(bool.parse('true')); // true
+  /// print(bool.parse('false')); // false
+  /// print(bool.parse('TRUE')); // throws FormatException
+  /// print(bool.parse('TRUE', caseSensitive: false)); // true
+  /// print(bool.parse('FALSE', caseSensitive: false)); // false
+  /// print(bool.parse('NO')); // throws FormatException
+  /// print(bool.parse('YES')); // throws FormatException
+  /// print(bool.parse('0')); // throws FormatException
+  /// print(bool.parse('1')); // throws FormatException
+  /// ```
+  static bool parse(String source, {bool caseSensitive = true}) => bool.parse(
+        source,
+        caseSensitive: caseSensitive,
+      );
+
+  /// Parses [source] as an, optionally case-insensitive, boolean literal.
+  ///
+  /// If [caseSensitive] is `true`, which is the default,
+  /// the only accepted inputs are the strings `"true"` and `"false"`,
+  /// which returns the results `true` and `false` respectively.
+  ///
+  /// If [caseSensitive] is `false`, any combination of upper and lower case
+  /// ASCII letters in the words `"true"` and `"false"` are accepted,
+  /// as if the input was first lower-cased.
+  ///
+  /// Returns `null` if the [source] string does not contain a valid
+  /// boolean literal.
+  ///
+  /// If the input can be assumed to be valid, use [bool.parse] to avoid
+  /// having to deal with a possible `null` result.
+  ///
+  /// Example:
+  /// ```dart
+  /// print(bool.tryParse('true')); // true
+  /// print(bool.tryParse('false')); // false
+  /// print(bool.tryParse('TRUE')); // null
+  /// print(bool.tryParse('TRUE', caseSensitive: false)); // true
+  /// print(bool.tryParse('FALSE', caseSensitive: false)); // false
+  /// print(bool.tryParse('NO')); // null
+  /// print(bool.tryParse('YES')); // null
+  /// print(bool.tryParse('0')); // null
+  /// print(bool.tryParse('1')); // null
+  /// ```
+  static bool? tryParse(String source, {bool caseSensitive = true}) =>
+      bool.tryParse(
+        source,
+        caseSensitive: caseSensitive,
+      );
 
   /// The logical conjunction ("and") of this and [other].
   ///
@@ -273,11 +1269,11 @@ class SugarDouble {
   ///
   /// Leading and trailing whitespace is ignored.
   ///
-  /// If the [source] string is not a valid double literal, the [onError]
-  /// is called with the [source] as argument, and its return value is
-  /// used instead.
-  /// Throws a [FormatException] if the [source] string is not valid
-  /// and no `onError` is provided.
+  /// Throws a [FormatException] if the [source] string is not
+  /// a valid double literal.
+  ///
+  /// Rather than throwing and immediately catching the [FormatException],
+  /// instead use [tryParse] to handle a potential parsing error.
   ///
   /// Examples of accepted strings:
   /// ```
@@ -290,13 +1286,8 @@ class SugarDouble {
   /// "+.12e-9"
   /// "-NaN"
   /// ```
-  /// The [onError] parameter is deprecated and will be removed.
-  /// Instead of `double.parse(string, (string) { ... })`,
-  /// you should use `double.tryParse(string) ?? (...)`.
-  static double parse(String source, [double Function(String)? onError]) =>
-      double.parse(
+  static double parse(String source) => double.parse(
         source,
-        onError,
       );
 
   /// Parse [source] as a double literal and return its value.
@@ -699,11 +1690,10 @@ class SugarInt {
   /// `n == int.parse(n.toRadixString(r), radix: r)`.
   ///
   /// If the [source] string does not contain a valid integer literal,
-  /// optionally prefixed by a sign, a [FormatException] is thrown
-  /// (unless the deprecated [onError] parameter is used, see below).
+  /// optionally prefixed by a sign, a [FormatException] is thrown.
   ///
-  /// Instead of throwing and immediately catching the [FormatException],
-  /// instead use [tryParse] to handle a parsing error.
+  /// Rather than throwing and immediately catching the [FormatException],
+  /// instead use [tryParse] to handle a potential parsing error.
   ///
   /// Example:
   /// ```dart
@@ -713,21 +1703,9 @@ class SugarInt {
   ///   // ...
   /// }
   /// ```
-  ///
-  /// The [onError] parameter is deprecated and will be removed.
-  /// Instead of `int.parse(string, onError: (string) => ...)`,
-  /// you should use `int.tryParse(string) ?? (...)`.
-  ///
-  /// When the source string is not valid and [onError] is provided,
-  /// whenever a [FormatException] would be thrown,
-  /// [onError] is instead called with [source] as argument,
-  /// and the result of that call is returned by [parse].
-  static int parse(String source,
-          {int? radix, int Function(String)? onError}) =>
-      int.parse(
+  static int parse(String source, {int? radix}) => int.parse(
         source,
         radix: radix,
-        onError: onError,
       );
 
   /// Parse [source] as a, possibly signed, integer literal.
@@ -762,642 +1740,6 @@ class SugarInt {
         source,
         radix: radix,
       );
-}
-
-/// Iterable Sugar
-class SugarIterable {
-  SugarIterable._();
-
-  /// Returns a new `Iterator` that allows iterating the elements of this
-  /// `Iterable`.
-  ///
-  /// Iterable classes may specify the iteration order of their elements
-  /// (for example [List] always iterate in index order),
-  /// or they may leave it unspecified (for example a hash-based [Set]
-  /// may iterate in any order).
-  ///
-  /// Each time `iterator` is read, it returns a new iterator,
-  /// which can be used to iterate through all the elements again.
-  /// The iterators of the same iterable can be stepped through independently,
-  /// but should return the same elements in the same order,
-  /// as long as the underlying collection isn't changed.
-  ///
-  /// Modifying the collection may cause new iterators to produce
-  /// different elements, and may change the order of existing elements.
-  /// A [List] specifies its iteration order precisely,
-  /// so modifying the list changes the iteration order predictably.
-  /// A hash-based [Set] may change its iteration order completely
-  /// when adding a new element to the set.
-  ///
-  /// Modifying the underlying collection after creating the new iterator
-  /// may cause an error the next time [Iterator.moveNext] is called
-  /// on that iterator.
-  /// Any *modifiable* iterable class should specify which operations will
-  /// break iteration.
-  static Iterator<dynamic> iterator(Iterable input) => input.iterator;
-
-  /// Returns the number of elements in [this].
-  ///
-  /// Counting all elements may involve iterating through all elements and can
-  /// therefore be slow.
-  /// Some iterables have a more efficient way to find the number of elements.
-  static int length(Iterable input) => input.length;
-
-  /// Whether this collection has no elements.
-  ///
-  /// May be computed by checking if `iterator.moveNext()` returns `false`.
-  ///
-  /// Example:
-  /// ```dart
-  /// final emptyList = <int>[];
-  /// print(emptyList.isEmpty); // true;
-  /// print(emptyList.iterator.moveNext()); // false
-  /// ```
-  static bool isEmpty(Iterable input) => input.isEmpty;
-
-  /// Whether this collection has at least one element.
-  ///
-  /// May be computed by checking if `iterator.moveNext()` returns `true`.
-  ///
-  /// Example:
-  /// ```dart
-  /// final numbers = <int>{1, 2, 3};
-  /// print(numbers.isNotEmpty); // true;
-  /// print(numbers.iterator.moveNext()); // true
-  /// ```
-  static bool isNotEmpty(Iterable input) => input.isNotEmpty;
-
-  /// Returns the first element.
-  ///
-  /// Throws a [StateError] if `this` is empty.
-  /// Otherwise returns the first element in the iteration order,
-  /// equivalent to `this.elementAt(0)`.
-  static dynamic first(Iterable input) => input.first;
-
-  /// Returns the last element.
-  ///
-  /// Throws a [StateError] if `this` is empty.
-  /// Otherwise may iterate through the elements and returns the last one
-  /// seen.
-  /// Some iterables may have more efficient ways to find the last element
-  /// (for example a list can directly access the last element,
-  /// without iterating through the previous ones).
-  static dynamic last(Iterable input) => input.last;
-
-  /// Checks that this iterable has only one element, and returns that element.
-  ///
-  /// Throws a [StateError] if `this` is empty or has more than one element.
-  static dynamic single(Iterable input) => input.single;
-
-  /// Adapts [source] to be an `Iterable<T>`.
-  ///
-  /// Any time the iterable would produce an element that is not a [T],
-  /// the element access will throw. If all elements of [source] are actually
-  /// instances of [T], or if only elements that are actually instances of [T]
-  /// are accessed, then the resulting iterable can be used as an `Iterable<T>`.
-  static Iterable<T> castFrom<S, T>(Iterable<S> source) => Iterable.castFrom(
-        source,
-      );
-
-  /// Provides a view of this iterable as an iterable of [R] instances.
-  ///
-  /// If this iterable only contains instances of [R], all operations
-  /// will work correctly. If any operation tries to access an element
-  /// that is not an instance of [R], the access will throw instead.
-  ///
-  /// When the returned iterable creates a new object that depends on
-  /// the type [R], e.g., from [toList], it will have exactly the type [R].
-  static Iterable<R> cast<R>(
-    Iterable input,
-  ) =>
-      input.cast();
-
-  /// Returns the lazy concatenation of this iterable and [other].
-  ///
-  /// The returned iterable will provide the same elements as this iterable,
-  /// and, after that, the elements of [other], in the same order as in the
-  /// original iterables.
-  ///
-  /// Example:
-  /// ```dart
-  /// var planets = <String>['Earth', 'Jupiter'];
-  /// var updated = planets.followedBy(['Mars', 'Venus']);
-  /// print(updated); // (Earth, Jupiter, Mars, Venus)
-  /// ```
-  static Iterable<dynamic> followedBy(
-          Iterable input, Iterable<dynamic> other) =>
-      input.followedBy(
-        other,
-      );
-
-  /// The current elements of this iterable modified by [toElement].
-  ///
-  /// Returns a new lazy [Iterable] with elements that are created by
-  /// calling `toElement` on each element of this `Iterable` in
-  /// iteration order.
-  ///
-  /// The returned iterable is lazy, so it won't iterate the elements of
-  /// this iterable until it is itself iterated, and then it will apply
-  /// [toElement] to create one element at a time.
-  /// The converted elements are not cached.
-  /// Iterating multiple times over the returned [Iterable]
-  /// will invoke the supplied [toElement] function once per element
-  /// for on each iteration.
-  ///
-  /// Methods on the returned iterable are allowed to omit calling `toElement`
-  /// on any element where the result isn't needed.
-  /// For example, [elementAt] may call `toElement` only once.
-  ///
-  /// Equivalent to:
-  /// ```
-  /// Iterable<T> map<T>(T toElement(E e)) sync* {
-  ///   for (var value in this) {
-  ///     yield toElement(value);
-  ///   }
-  /// }
-  /// ```
-  /// Example:
-  /// ```dart import:convert
-  /// var products = jsonDecode('''
-  /// [
-  ///   {"name": "Screwdriver", "price": 42.00},
-  ///   {"name": "Wingnut", "price": 0.50}
-  /// ]
-  /// ''');
-  /// var values = products.map((product) => product['price'] as double);
-  /// var totalPrice = values.fold(0.0, (a, b) => a + b); // 42.5.
-  /// ```
-  static Iterable<T> map<T>(Iterable input, T Function(dynamic) toElement) =>
-      input.map(
-        toElement,
-      );
-
-  /// Returns a new lazy [Iterable] with all elements that satisfy the
-  /// predicate [test].
-  ///
-  /// The matching elements have the same order in the returned iterable
-  /// as they have in [iterator].
-  ///
-  /// This method returns a view of the mapped elements.
-  /// As long as the returned [Iterable] is not iterated over,
-  /// the supplied function [test] will not be invoked.
-  /// Iterating will not cache results, and thus iterating multiple times over
-  /// the returned [Iterable] may invoke the supplied
-  /// function [test] multiple times on the same element.
-  ///
-  /// Example:
-  /// ```dart
-  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
-  /// var result = numbers.where((x) => x < 5); // (1, 2, 3)
-  /// result = numbers.where((x) => x > 5); // (6, 7)
-  /// result = numbers.where((x) => x.isEven); // (2, 6)
-  /// ```
-  static Iterable<dynamic> where(Iterable input, bool Function(dynamic) test) =>
-      input.where(
-        test,
-      );
-
-  /// Returns a new lazy [Iterable] with all elements that have type [T].
-  ///
-  /// The matching elements have the same order in the returned iterable
-  /// as they have in [iterator].
-  ///
-  /// This method returns a view of the mapped elements.
-  /// Iterating will not cache results, and thus iterating multiple times over
-  /// the returned [Iterable] may yield different results,
-  /// if the underlying elements change between iterations.
-  static Iterable<T> whereType<T>(
-    Iterable input,
-  ) =>
-      input.whereType();
-
-  /// Expands each element of this [Iterable] into zero or more elements.
-  ///
-  /// The resulting Iterable runs through the elements returned
-  /// by [toElements] for each element of this, in iteration order.
-  ///
-  /// The returned [Iterable] is lazy, and calls [toElements] for each element
-  /// of this iterable every time the returned iterable is iterated.
-  ///
-  /// Example:
-  /// ```dart
-  /// Iterable<int> count(int n) sync* {
-  ///   for (var i = 1; i <= n; i++) {
-  ///     yield i;
-  ///    }
-  ///  }
-  ///
-  /// var numbers = [1, 3, 0, 2];
-  /// print(numbers.expand(count)); // (1, 1, 2, 3, 1, 2)
-  /// ```
-  ///
-  /// Equivalent to:
-  /// ```
-  /// Iterable<T> expand<T>(Iterable<T> toElements(E e)) sync* {
-  ///   for (var value in this) {
-  ///     yield* toElements(value);
-  ///   }
-  /// }
-  /// ```
-  static Iterable<T> expand<T>(
-          Iterable input, Iterable<T> Function(dynamic) toElements) =>
-      input.expand(
-        toElements,
-      );
-
-  /// Whether the collection contains an element equal to [element].
-  ///
-  /// This operation will check each element in order for being equal to
-  /// [element], unless it has a more efficient way to find an element
-  /// equal to [element].
-  ///
-  /// The equality used to determine whether [element] is equal to an element of
-  /// the iterable defaults to the [Object.==] of the element.
-  ///
-  /// Some types of iterable may have a different equality used for its elements.
-  /// For example, a [Set] may have a custom equality
-  /// (see [Set.identity]) that its `contains` uses.
-  /// Likewise the `Iterable` returned by a [Map.keys] call
-  /// should use the same equality that the `Map` uses for keys.
-  ///
-  /// Example:
-  /// ```dart
-  /// final gasPlanets = <int, String>{1: 'Jupiter', 2: 'Saturn'};
-  /// final containsOne = gasPlanets.keys.contains(1); // true
-  /// final containsFive = gasPlanets.keys.contains(5); // false
-  /// final containsJupiter = gasPlanets.values.contains('Jupiter'); // true
-  /// final containsMercury = gasPlanets.values.contains('Mercury'); // false
-  /// ```
-  static bool contains(Iterable input, Object? element) => input.contains(
-        element,
-      );
-
-  /// Invokes [action] on each element of this iterable in iteration order.
-  ///
-  /// Example:
-  /// ```dart
-  /// final numbers = <int>[1, 2, 6, 7];
-  /// numbers.forEach(print);
-  /// // 1
-  /// // 2
-  /// // 6
-  /// // 7
-  /// ```
-  static void forEach(Iterable input, void Function(dynamic) action) =>
-      input.forEach(
-        action,
-      );
-
-  /// Reduces a collection to a single value by iteratively combining elements
-  /// of the collection using the provided function.
-  ///
-  /// The iterable must have at least one element.
-  /// If it has only one element, that element is returned.
-  ///
-  /// Otherwise this method starts with the first element from the iterator,
-  /// and then combines it with the remaining elements in iteration order,
-  /// as if by:
-  /// ```
-  /// E value = iterable.first;
-  /// iterable.skip(1).forEach((element) {
-  ///   value = combine(value, element);
-  /// });
-  /// return value;
-  /// ```
-  /// Example of calculating the sum of an iterable:
-  /// ```dart
-  /// final numbers = <double>[10, 2, 5, 0.5];
-  /// final result = numbers.reduce((value, element) => value + element);
-  /// print(result); // 17.5
-  /// ```
-  static dynamic reduce(
-          Iterable input, dynamic Function(dynamic, dynamic) combine) =>
-      input.reduce(
-        combine,
-      );
-
-  /// Reduces a collection to a single value by iteratively combining each
-  /// element of the collection with an existing value
-  ///
-  /// Uses [initialValue] as the initial value,
-  /// then iterates through the elements and updates the value with
-  /// each element using the [combine] function, as if by:
-  /// ```
-  /// var value = initialValue;
-  /// for (E element in this) {
-  ///   value = combine(value, element);
-  /// }
-  /// return value;
-  /// ```
-  /// Example of calculating the sum of an iterable:
-  /// ```dart
-  /// final numbers = <double>[10, 2, 5, 0.5];
-  /// const initialValue = 100.0;
-  /// final result = numbers.fold<double>(
-  ///     initialValue, (previousValue, element) => previousValue + element);
-  /// print(result); // 117.5
-  /// ```
-  static T fold<T>(
-          Iterable input, T initialValue, T Function(T, dynamic) combine) =>
-      input.fold(
-        initialValue,
-        combine,
-      );
-
-  /// Checks whether every element of this iterable satisfies [test].
-  ///
-  /// Checks every element in iteration order, and returns `false` if
-  /// any of them make [test] return `false`, otherwise returns `true`.
-  ///
-  /// Example:
-  /// ```dart
-  /// final planetsByMass = <double, String>{0.06: 'Mercury', 0.81: 'Venus',
-  ///   0.11: 'Mars'};
-  /// // Checks whether all keys are smaller than 1.
-  /// final every = planetsByMass.keys.every((key) => key < 1.0); // true
-  /// ```
-  static bool every(Iterable input, bool Function(dynamic) test) => input.every(
-        test,
-      );
-
-  /// Converts each element to a [String] and concatenates the strings.
-  ///
-  /// Iterates through elements of this iterable,
-  /// converts each one to a [String] by calling [Object.toString],
-  /// and then concatenates the strings, with the
-  /// [separator] string interleaved between the elements.
-  ///
-  /// Example:
-  /// ```dart
-  /// final planetsByMass = <double, String>{0.06: 'Mercury', 0.81: 'Venus',
-  ///   0.11: 'Mars'};
-  /// final joinedNames = planetsByMass.values.join('-'); // Mercury-Venus-Mars
-  /// ```
-  static String join(Iterable input, [String separator = ""]) => input.join(
-        separator,
-      );
-
-  /// Checks whether any element of this iterable satisfies [test].
-  ///
-  /// Checks every element in iteration order, and returns `true` if
-  /// any of them make [test] return `true`, otherwise returns false.
-  ///
-  /// Example:
-  /// ```dart
-  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
-  /// var result = numbers.any((element) => element >= 5); // true;
-  /// result = numbers.any((element) => element >= 10); // false;
-  /// ```
-  static bool any(Iterable input, bool Function(dynamic) test) => input.any(
-        test,
-      );
-
-  /// Creates a [List] containing the elements of this [Iterable].
-  ///
-  /// The elements are in iteration order.
-  /// The list is fixed-length if [growable] is false.
-  ///
-  /// Example:
-  /// ```dart
-  /// final planets = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Mars'};
-  /// final keysList = planets.keys.toList(growable: false); // [1, 2, 3]
-  /// final valuesList =
-  ///     planets.values.toList(growable: false); // [Mercury, Venus, Mars]
-  /// ```
-  static List<dynamic> toList(Iterable input, {bool growable = true}) =>
-      input.toList(
-        growable: growable,
-      );
-
-  /// Creates a [Set] containing the same elements as this iterable.
-  ///
-  /// The set may contain fewer elements than the iterable,
-  /// if the iterable contains an element more than once,
-  /// or it contains one or more elements that are equal.
-  /// The order of the elements in the set is not guaranteed to be the same
-  /// as for the iterable.
-  ///
-  /// Example:
-  /// ```dart
-  /// final planets = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Mars'};
-  /// final valueSet = planets.values.toSet(); // {Mercury, Venus, Mars}
-  /// ```
-  static Set<dynamic> toSet(
-    Iterable input,
-  ) =>
-      input.toSet();
-
-  /// Returns a lazy iterable of the [count] first elements of this iterable.
-  ///
-  /// The returned `Iterable` may contain fewer than `count` elements, if `this`
-  /// contains fewer than `count` elements.
-  ///
-  /// The elements can be computed by stepping through [iterator] until [count]
-  /// elements have been seen.
-  ///
-  /// The `count` must not be negative.
-  ///
-  /// Example:
-  /// ```dart
-  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
-  /// final result = numbers.take(4); // (1, 2, 3, 5)
-  /// final takeAll = numbers.take(100); // (1, 2, 3, 5, 6, 7)
-  /// ```
-  static Iterable<dynamic> take(Iterable input, int count) => input.take(
-        count,
-      );
-
-  /// Returns a lazy iterable of the leading elements satisfying [test].
-  ///
-  /// The filtering happens lazily. Every new iterator of the returned
-  /// iterable starts iterating over the elements of `this`.
-  ///
-  /// The elements can be computed by stepping through [iterator] until an
-  /// element is found where `test(element)` is false. At that point,
-  /// the returned iterable stops (its `moveNext()` returns false).
-  ///
-  /// Example:
-  /// ```dart
-  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
-  /// var result = numbers.takeWhile((x) => x < 5); // (1, 2, 3)
-  /// result = numbers.takeWhile((x) => x != 3); // (1, 2)
-  /// result = numbers.takeWhile((x) => x != 4); // (1, 2, 3, 5, 6, 7)
-  /// result = numbers.takeWhile((x) => x.isOdd); // (1)
-  /// ```
-  static Iterable<dynamic> takeWhile(
-          Iterable input, bool Function(dynamic) test) =>
-      input.takeWhile(
-        test,
-      );
-
-  /// Returns an [Iterable] that provides all but the first [count] elements.
-  ///
-  /// When the returned iterable is iterated, it starts iterating over `this`,
-  /// first skipping past the initial [count] elements.
-  /// If `this` has fewer than `count` elements, then the resulting Iterable is
-  /// empty.
-  /// After that, the remaining elements are iterated in the same order as
-  /// in this iterable.
-  ///
-  /// Some iterables may be able to find later elements without first iterating
-  /// through earlier elements, for example when iterating a [List].
-  /// Such iterables are allowed to ignore the initial skipped elements.
-  ///
-  /// Example:
-  /// ```dart
-  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
-  /// final result = numbers.skip(4); // (6, 7)
-  /// final skipAll = numbers.skip(100); // () - no elements.
-  /// ```
-  ///
-  /// The [count] must not be negative.
-  static Iterable<dynamic> skip(Iterable input, int count) => input.skip(
-        count,
-      );
-
-  /// Returns an `Iterable` that skips leading elements while [test] is satisfied.
-  ///
-  /// The filtering happens lazily. Every new [Iterator] of the returned
-  /// iterable iterates over all elements of `this`.
-  ///
-  /// The returned iterable provides elements by iterating this iterable,
-  /// but skipping over all initial elements where `test(element)` returns
-  /// true. If all elements satisfy `test` the resulting iterable is empty,
-  /// otherwise it iterates the remaining elements in their original order,
-  /// starting with the first element for which `test(element)` returns `false`.
-  ///
-  /// Example:
-  /// ```dart
-  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
-  /// var result = numbers.skipWhile((x) => x < 5); // (5, 6, 7)
-  /// result = numbers.skipWhile((x) => x != 3); // (3, 5, 6, 7)
-  /// result = numbers.skipWhile((x) => x != 4); // ()
-  /// result = numbers.skipWhile((x) => x.isOdd); // (2, 3, 5, 6, 7)
-  /// ```
-  static Iterable<dynamic> skipWhile(
-          Iterable input, bool Function(dynamic) test) =>
-      input.skipWhile(
-        test,
-      );
-
-  /// Returns the first element that satisfies the given predicate [test].
-  ///
-  /// Iterates through elements and returns the first to satisfy [test].
-  ///
-  /// Example:
-  /// ```dart
-  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
-  /// var result = numbers.firstWhere((element) => element < 5); // 1
-  /// result = numbers.firstWhere((element) => element > 5); // 6
-  /// result =
-  ///     numbers.firstWhere((element) => element > 10, orElse: () => -1); // -1
-  /// ```
-  ///
-  /// If no element satisfies [test], the result of invoking the [orElse]
-  /// function is returned.
-  /// If [orElse] is omitted, it defaults to throwing a [StateError].
-  static dynamic firstWhere(Iterable input, bool Function(dynamic) test,
-          {dynamic Function()? orElse}) =>
-      input.firstWhere(
-        test,
-        orElse: orElse,
-      );
-
-  /// Returns the last element that satisfies the given predicate [test].
-  ///
-  /// An iterable that can access its elements directly may check its
-  /// elements in any order (for example a list starts by checking the
-  /// last element and then moves towards the start of the list).
-  /// The default implementation iterates elements in iteration order,
-  /// checks `test(element)` for each,
-  /// and finally returns that last one that matched.
-  ///
-  /// Example:
-  /// ```dart
-  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
-  /// var result = numbers.lastWhere((element) => element < 5); // 3
-  /// result = numbers.lastWhere((element) => element > 5); // 7
-  /// result = numbers.lastWhere((element) => element > 10,
-  ///     orElse: () => -1); // -1
-  /// ```
-  ///
-  /// If no element satisfies [test], the result of invoking the [orElse]
-  /// function is returned.
-  /// If [orElse] is omitted, it defaults to throwing a [StateError].
-  static dynamic lastWhere(Iterable input, bool Function(dynamic) test,
-          {dynamic Function()? orElse}) =>
-      input.lastWhere(
-        test,
-        orElse: orElse,
-      );
-
-  /// Returns the single element that satisfies [test].
-  ///
-  /// Checks elements to see if `test(element)` returns true.
-  /// If exactly one element satisfies [test], that element is returned.
-  /// If more than one matching element is found, throws [StateError].
-  /// If no matching element is found, returns the result of [orElse].
-  /// If [orElse] is omitted, it defaults to throwing a [StateError].
-  ///
-  /// Example:
-  /// ```dart
-  /// final numbers = <int>[2, 2, 10];
-  /// var result = numbers.singleWhere((element) => element > 5); // 10
-  /// ```
-  /// When no matching element is found, the result of calling [orElse] is
-  /// returned instead.
-  /// ```dart continued
-  /// result = numbers.singleWhere((element) => element == 1,
-  ///     orElse: () => -1); // -1
-  /// ```
-  /// There must not be more than one matching element.
-  /// ```dart continued
-  /// result = numbers.singleWhere((element) => element == 2); // Throws Error.
-  /// ```
-  static dynamic singleWhere(Iterable input, bool Function(dynamic) test,
-          {dynamic Function()? orElse}) =>
-      input.singleWhere(
-        test,
-        orElse: orElse,
-      );
-
-  /// Returns the [index]th element.
-  ///
-  /// The [index] must be non-negative and less than [length].
-  /// Index zero represents the first element (so `iterable.elementAt(0)` is
-  /// equivalent to `iterable.first`).
-  ///
-  /// May iterate through the elements in iteration order, ignoring the
-  /// first [index] elements and then returning the next.
-  /// Some iterables may have a more efficient way to find the element.
-  ///
-  /// Example:
-  /// ```dart
-  /// final numbers = <int>[1, 2, 3, 5, 6, 7];
-  /// final elementAt = numbers.elementAt(4); // 6
-  /// ```
-  static dynamic elementAt(Iterable input, int index) => input.elementAt(
-        index,
-      );
-
-  /// Returns a string representation of (some of) the elements of `this`.
-  ///
-  /// Elements are represented by their own `toString` results.
-  ///
-  /// The default representation always contains the first three elements.
-  /// If there are less than a hundred elements in the iterable, it also
-  /// contains the last two elements.
-  ///
-  /// If the resulting string isn't above 80 characters, more elements are
-  /// included from the start of the iterable.
-  ///
-  /// The conversion may omit calling `toString` on some elements if they
-  /// are known to not occur in the output, and it may stop iterating after
-  /// a hundred elements.
-  static String iterableToString(
-    Iterable input,
-  ) =>
-      input.toString();
 }
 
 /// List Sugar
@@ -2204,264 +2546,6 @@ class SugarList {
   static bool equalTo(List input, Object other) => input == other;
 }
 
-/// Map Sugar
-class SugarMap {
-  SugarMap._();
-
-  /// The map entries of [this].
-  static Iterable<MapEntry<dynamic, dynamic>> entries(Map input) =>
-      input.entries;
-
-  /// The keys of [this].
-  ///
-  /// The returned iterable has efficient `length` and `contains` operations,
-  /// based on [length] and [containsKey] of the map.
-  ///
-  /// The order of iteration is defined by the individual `Map` implementation,
-  /// but must be consistent between changes to the map.
-  ///
-  /// Modifying the map while iterating the keys may break the iteration.
-  static Iterable<dynamic> keys(Map input) => input.keys;
-
-  /// The values of [this].
-  ///
-  /// The values are iterated in the order of their corresponding keys.
-  /// This means that iterating [keys] and [values] in parallel will
-  /// provide matching pairs of keys and values.
-  ///
-  /// The returned iterable has an efficient `length` method based on the
-  /// [length] of the map. Its [Iterable.contains] method is based on
-  /// `==` comparison.
-  ///
-  /// Modifying the map while iterating the values may break the iteration.
-  static Iterable<dynamic> values(Map input) => input.values;
-
-  /// The number of key/value pairs in the map.
-  static int length(Map input) => input.length;
-
-  /// Whether there is no key/value pair in the map.
-  static bool isEmpty(Map input) => input.isEmpty;
-
-  /// Whether there is at least one key/value pair in the map.
-  static bool isNotEmpty(Map input) => input.isNotEmpty;
-
-  /// Whether this map contains the given [value].
-  ///
-  /// Returns true if any of the values in the map are equal to `value`
-  /// according to the `==` operator.
-  /// ```dart
-  /// final moonCount = <String, int>{'Mercury': 0, 'Venus': 0, 'Earth': 1,
-  ///   'Mars': 2, 'Jupiter': 79, 'Saturn': 82, 'Uranus': 27, 'Neptune': 14 };
-  /// final moons3 = moonCount.containsValue(3); // false
-  /// final moons82 = moonCount.containsValue(82); // true
-  /// ```
-  static bool containsValue(Map input, Object? value) => input.containsValue(
-        value,
-      );
-
-  /// Whether this map contains the given [key].
-  ///
-  /// Returns true if any of the keys in the map are equal to `key`
-  /// according to the equality used by the map.
-  /// ```dart
-  /// final moonCount = <String, int>{'Mercury': 0, 'Venus': 0, 'Earth': 1,
-  ///   'Mars': 2, 'Jupiter': 79, 'Saturn': 82, 'Uranus': 27, 'Neptune': 14 };
-  /// final containsUranus = moonCount.containsKey('Uranus'); // true
-  /// final containsPluto = moonCount.containsKey('Pluto'); // false
-  /// ```
-  static bool containsKey(Map input, Object? key) => input.containsKey(
-        key,
-      );
-
-  /// The value for the given [key], or `null` if [key] is not in the map.
-  ///
-  /// Some maps allow `null` as a value.
-  /// For those maps, a lookup using this operator cannot distinguish between a
-  /// key not being in the map, and the key being there with a `null` value.
-  /// Methods like [containsKey] or [putIfAbsent] can be used if the distinction
-  /// is important.
-  static dynamic get(Map input, Object? key) => input[key];
-
-  /// Associates the [key] with the given [value].
-  ///
-  /// If the key was already in the map, its associated value is changed.
-  /// Otherwise the key/value pair is added to the map.
-  static void set(Map input, dynamic key, dynamic value) => input[key] = value;
-
-  /// Adds all key/value pairs of [newEntries] to this map.
-  ///
-  /// If a key of [newEntries] is already in this map,
-  /// the corresponding value is overwritten.
-  ///
-  /// The operation is equivalent to doing `this[entry.key] = entry.value`
-  /// for each [MapEntry] of the iterable.
-  /// ```dart
-  /// final planets = <int, String>{1: 'Mercury', 2: 'Venus',
-  ///   3: 'Earth', 4: 'Mars'};
-  /// final gasGiants = <int, String>{5: 'Jupiter', 6: 'Saturn'};
-  /// final iceGiants = <int, String>{7: 'Uranus', 8: 'Neptune'};
-  /// planets.addEntries(gasGiants.entries);
-  /// planets.addEntries(iceGiants.entries);
-  /// print(planets);
-  /// // {1: Mercury, 2: Venus, 3: Earth, 4: Mars, 5: Jupiter, 6: Saturn,
-  /// //  7: Uranus, 8: Neptune}
-  /// ```
-  static void addEntries(
-          Map input, Iterable<MapEntry<dynamic, dynamic>> newEntries) =>
-      input.addEntries(
-        newEntries,
-      );
-
-  /// Updates the value for the provided [key].
-  ///
-  /// Returns the new value associated with the key.
-  ///
-  /// If the key is present, invokes [update] with the current value and stores
-  /// the new value in the map.
-  ///
-  /// If the key is not present and [ifAbsent] is provided, calls [ifAbsent]
-  /// and adds the key with the returned value to the map.
-  ///
-  /// If the key is not present, [ifAbsent] must be provided.
-  /// ```dart
-  /// final planetsFromSun = <int, String>{1: 'Mercury', 2: 'unknown',
-  ///   3: 'Earth'};
-  /// // Update value for known key value 2.
-  /// planetsFromSun.update(2, (value) => 'Venus');
-  /// print(planetsFromSun); // {1: Mercury, 2: Venus, 3: Earth}
-  ///
-  /// final largestPlanets = <int, String>{1: 'Jupiter', 2: 'Saturn',
-  ///   3: 'Neptune'};
-  /// // Key value 8 is missing from list, add it using [ifAbsent].
-  /// largestPlanets.update(8, (value) => 'New', ifAbsent: () => 'Mercury');
-  /// print(largestPlanets); // {1: Jupiter, 2: Saturn, 3: Neptune, 8: Mercury}
-  /// ```
-  static dynamic update(
-          Map input, dynamic key, dynamic Function(dynamic) update,
-          {dynamic Function()? ifAbsent}) =>
-      input.update(
-        key,
-        update,
-        ifAbsent: ifAbsent,
-      );
-
-  /// Updates all values.
-  ///
-  /// Iterates over all entries in the map and updates them with the result
-  /// of invoking [update].
-  /// ```dart
-  /// final terrestrial = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
-  /// terrestrial.updateAll((key, value) => value.toUpperCase());
-  /// print(terrestrial); // {1: MERCURY, 2: VENUS, 3: EARTH}
-  /// ```
-  static void updateAll(Map input, dynamic Function(dynamic, dynamic) update) =>
-      input.updateAll(
-        update,
-      );
-
-  /// Removes all entries of this map that satisfy the given [test].
-  /// ```dart
-  /// final terrestrial = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
-  /// terrestrial.removeWhere((key, value) => value.startsWith('E'));
-  /// print(terrestrial); // {1: Mercury, 2: Venus}
-  /// ```
-  static void removeWhere(Map input, bool Function(dynamic, dynamic) test) =>
-      input.removeWhere(
-        test,
-      );
-
-  /// Look up the value of [key], or add a new entry if it isn't there.
-  ///
-  /// Returns the value associated to [key], if there is one.
-  /// Otherwise calls [ifAbsent] to get a new value, associates [key] to
-  /// that value, and then returns the new value.
-  /// ```dart
-  /// final diameters = <num, String>{1.0: 'Earth'};
-  /// final otherDiameters = <double, String>{0.383: 'Mercury', 0.949: 'Venus'};
-  ///
-  /// for (final item in otherDiameters.entries) {
-  ///   diameters.putIfAbsent(item.key, () => item.value);
-  /// }
-  /// print(diameters); // {1.0: Earth, 0.383: Mercury, 0.949: Venus}
-  ///
-  /// // If the key already exists, the current value is returned.
-  /// final result = diameters.putIfAbsent(0.383, () => 'Random');
-  /// print(result); // Mercury
-  /// print(diameters); // {1.0: Earth, 0.383: Mercury, 0.949: Venus}
-  /// ```
-  /// Calling [ifAbsent] must not add or remove keys from the map.
-  static dynamic putIfAbsent(
-          Map input, dynamic key, dynamic Function() ifAbsent) =>
-      input.putIfAbsent(
-        key,
-        ifAbsent,
-      );
-
-  /// Adds all key/value pairs of [other] to this map.
-  ///
-  /// If a key of [other] is already in this map, its value is overwritten.
-  ///
-  /// The operation is equivalent to doing `this[key] = value` for each key
-  /// and associated value in other. It iterates over [other], which must
-  /// therefore not change during the iteration.
-  /// ```dart
-  /// final planets = <int, String>{1: 'Mercury', 2: 'Earth'};
-  /// planets.addAll({5: 'Jupiter', 6: 'Saturn'});
-  /// print(planets); // {1: Mercury, 2: Earth, 5: Jupiter, 6: Saturn}
-  /// ```
-  static void addAll(Map input, Map<dynamic, dynamic> other) => input.addAll(
-        other,
-      );
-
-  /// Removes [key] and its associated value, if present, from the map.
-  ///
-  /// Returns the value associated with `key` before it was removed.
-  /// Returns `null` if `key` was not in the map.
-  ///
-  /// Note that some maps allow `null` as a value,
-  /// so a returned `null` value doesn't always mean that the key was absent.
-  /// ```dart
-  /// final terrestrial = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
-  /// final removedValue = terrestrial.remove(2); // Venus
-  /// print(terrestrial); // {1: Mercury, 3: Earth}
-  /// ```
-  static dynamic remove(Map input, Object? key) => input.remove(
-        key,
-      );
-
-  /// Removes all entries from the map.
-  ///
-  /// After this, the map is empty.
-  /// ```dart
-  /// final planets = <int, String>{1: 'Mercury', 2: 'Venus', 3: 'Earth'};
-  /// planets.clear(); // {}
-  /// ```
-  static void clear(
-    Map input,
-  ) =>
-      input.clear();
-
-  /// Applies [action] to each key/value pair of the map.
-  ///
-  /// Calling `action` must not add or remove keys from the map.
-  /// ```dart
-  /// final planetsByMass = <num, String>{0.81: 'Venus', 1: 'Earth',
-  ///   0.11: 'Mars', 17.15: 'Neptune'};
-  ///
-  /// planetsByMass.forEach((key, value) {
-  ///   print('$key: $value');
-  ///   // 0.81: Venus
-  ///   // 1: Earth
-  ///   // 0.11: Mars
-  ///   // 17.15: Neptune
-  /// });
-  /// ```
-  static void forEach(Map input, void Function(dynamic, dynamic) action) =>
-      input.forEach(
-        action,
-      );
-}
-
 /// Num Sugar
 class SugarNum {
   SugarNum._();
@@ -2695,7 +2779,7 @@ class SugarNum {
   ///
   /// The result `r` of this operation satisfies:
   /// `this == (this ~/ other) * other + r`.
-  /// As a consequence, the remainder `r` has the same sign as the divider
+  /// As a consequence, the remainder `r` has the same sign as the dividend
   /// `this`.
   ///
   /// The result is an [int], as described by [int.remainder],
@@ -3037,11 +3121,10 @@ class SugarNum {
   /// [int.parse] without a radix).
   /// If that fails, it tries to parse the [input] as a double (similar to
   /// [double.parse]).
-  /// If that fails, too, it invokes [onError] with [input], and the result
-  /// of that invocation becomes the result of calling `parse`.
+  /// If that fails, too, it throws a [FormatException].
   ///
-  /// If no [onError] is supplied, it defaults to a function that throws a
-  /// [FormatException].
+  /// Rather than throwing and immediately catching the [FormatException],
+  /// instead use [tryParse] to handle a potential parsing error.
   ///
   /// For any number `n`, this function satisfies
   /// `identical(n, num.parse(n.toString()))` (except when `n` is a NaN `double`

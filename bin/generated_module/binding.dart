@@ -27,3 +27,4 @@ import 'package:fair_gallery/src/widget/frame_separate_widget.dart';
 import 'package:fair_gallery/src/widget/source_code_view_button.dart';
 import 'package:fair_gallery/src/widget/app_bar.dart';
 import 'package:fair_gallery/src/widget/listenable_scope.dart';
+import 'package:fair_gallery/src/utils/text/selection_area.dart';

@@ -25,8 +25,9 @@ import 'package:fair_gallery/src/generated_module/flutter.bindings.dart'
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
   // mock 的 fair_version ，把本地的配置传给它
-  fair_version.fairVersion = '3.2.0';
+  fair_version.fairVersion = '3.3.0';
   fair_version.flutterVersion = local_version.flutterVersion;
   fair_version.dartVersion = local_version.dartVersion;
   fair_version.widgetCount = local_version.widgetCount;

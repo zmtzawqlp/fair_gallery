@@ -1,14 +1,23 @@
-// flutterVersion = '3.3.9'
-// dartVersion = '2.18.5'
-// functionCount = 55
+// flutterVersion = '3.13.4'
+// dartVersion = '3.1.2'
+// functionCount = 50
 // ignore_for_file: deprecated_member_use, prefer_single_quotes, unused_element, unused_field, unused_import, unnecessary_import, implementation_imports, unused_shown_name, prefer_function_declarations_over_variables, void_checks, duplicate_import, no_duplicate_case_values
 import 'package:extended_text_library/extended_text_library.dart'
     as extended_text_library;
+import 'package:oktoast/src/core/toast.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:highlight/highlight.dart' show highlight, Node;
 import 'package:widget_with_codeview/widget_with_codeview.dart';
+import 'dart:math';
+import 'package:flutter/services.dart';
+import 'package:flutter_highlight/themes/atom-one-dark.dart';
+import 'package:flutter_highlight/themes/atom-one-light.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:selectable/selectable.dart';
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 import 'package:widget_with_codeview/src/source_code_view.dart';
 import 'package:string_scanner/string_scanner.dart';
 import 'package:widget_with_codeview/src/syntax_highlighter.dart';
@@ -18,7 +27,6 @@ import 'package:http_client_helper/http_client_helper.dart';
 import 'dart:async';
 import 'dart:ui' as ui show Codec;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:extended_image_library/src/extended_image_provider.dart';
 import 'package:flutter/widgets.dart' hide FileImage;
 import 'package:extended_image_library/src/platform.dart';
@@ -26,10 +34,9 @@ import 'dart:typed_data';
 import 'dart:ui' as ui show Codec, ImmutableBuffer;
 import 'package:extended_image_library/src/extended_resize_image_provider.dart';
 import 'package:flutter/painting.dart' hide imageCache;
-import 'package:flutter/painting.dart';
-import 'package:extended_image_library/src/_network_image_io.dart';
-import 'dart:math';
 import 'dart:ui';
+import 'package:flutter/painting.dart';
+import 'package:extended_image_library/src/network/network_image_io.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:extended_image_library/extended_image_library.dart';
@@ -46,13 +53,14 @@ import 'package:extended_image/src/border_painter.dart';
 import 'package:extended_image/src/gesture/gesture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Image;
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/semantics.dart';
 import 'package:extended_image/src/editor/editor.dart';
 import 'package:extended_image/src/gesture/slide_page.dart';
 import 'package:extended_image/src/gesture/slide_page_handler.dart';
 import 'package:extended_image/src/gesture/utils.dart';
 import 'package:extended_image/src/gesture/page_view/gesture_page_view.dart';
-import 'package:extended_image/src/gesture_detector/drag.dart';
+import 'package:extended_image/src/gesture_detector/official.dart';
 import 'dart:math' as math;
 import 'package:extended_image/src/gesture/page_view/rendering/sliver_fill.dart';
 import 'dart:ui' as ui show Image;
@@ -64,33 +72,18 @@ import 'package:extended_sliver/src/rendering.dart';
 import 'package:extended_text/extended_text.dart';
 import 'package:extended_text_library/src/special_text_span.dart';
 import 'package:extended_text_library/src/text_painter_helper.dart';
-import 'package:extended_text_library/extended_text_library.dart';
-import 'dart:ui' as ui show PlaceholderAlignment, ParagraphBuilder;
-import 'package:extended_text_library/src/special_inline_span_base.dart';
-import 'package:extended_text_library/src/extended_text_utils.dart';
-import 'dart:ui' as ui show PlaceholderAlignment;
+import 'package:extended_text_library/src/background_text_span.dart';
 import 'package:extended_text_library/src/extended_widget_span.dart';
-import 'dart:ui' as ui show PlaceholderAlignment, BoxWidthStyle, BoxHeightStyle;
-import 'package:extended_text_library/src/render_object/extended_text_selection_render_object.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:extended_text_library/src/special_inline_span_base.dart';
+import 'dart:ui' as ui show PlaceholderAlignment, ParagraphBuilder;
+import 'dart:ui' as ui show PlaceholderAlignment;
 import 'package:extended_text_library/src/extended_text_typedef.dart';
-import 'dart:collection';
-import 'dart:ui' as ui
-    show
-        Gradient,
-        Shader,
-        TextBox,
-        TextHeightBehavior,
-        BoxWidthStyle,
-        BoxHeightStyle;
-import 'package:extended_text/src/text_overflow_widget.dart';
-import 'dart:ui' as ui show TextHeightBehavior, BoxWidthStyle, BoxHeightStyle;
-import 'package:extended_text/src/extended_rich_text.dart';
-import 'package:extended_text/src/selection/extended_text_selection.dart';
-import 'package:extended_text/src/extended_render_paragraph.dart';
-import 'package:extended_text/src/selection/extended_text_selection_pointer_handler.dart';
-import 'package:extended_text/src/extended_text_typedef.dart';
+import 'package:extended_text_library/extended_text_library.dart';
+import 'package:extended_text/src/extended/rendering/paragraph.dart';
+import 'package:extended_text/src/extended/widgets/text_overflow_widget.dart';
+import 'package:extended_text/src/extended/widgets/rich_text.dart';
 import 'package:keframe/keframe.dart';
+import 'dart:collection';
 import 'dart:developer';
 import 'package:keframe/src/logcat.dart';
 import 'package:keframe/src/frame_separate_task.dart';
@@ -136,7 +129,7 @@ import 'package:sync_scroll_library/src/sync/sync_controller.dart';
 import 'package:sync_scroll_library/src/link/link_scroll_state.dart';
 import 'package:sync_scroll_library/src/sync/sync_scroll_state.dart';
 import 'package:sync_scroll_library/src/link/link_controller.dart';
-import 'package:flutter/physics.dart';
+import 'package:flutter/physics.dart' as physics;
 import 'package:sync_scroll_library/src/gesture/gesture_state_mixin.dart';
 import 'package:sync_scroll_library/sync_scroll_library.dart';
 import 'package:extended_tabs/src/tab_bar.dart';
@@ -185,43 +178,6 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef TextSelectionGestureDetectorBuilderCallback = CommonTextSelectionGestureDetectorBuilder Function({required ExtendedTextSelectionGestureDetectorBuilderDelegate delegate, required Function showToolbar, required Function hideToolbar, required Function? onTap, required BuildContext context, required Function? requestKeyboard})
-        // package:extended_text_library/src/selection/typedef.dart
-        case 'CommonTextSelectionGestureDetectorBuilder Function({required BuildContext context, required ExtendedTextSelectionGestureDetectorBuilderDelegate delegate, required Function hideToolbar, required Function? onTap, required Function? requestKeyboard, required Function showToolbar})':
-          CommonTextSelectionGestureDetectorBuilder Function(
-                  {required BuildContext context,
-                  required ExtendedTextSelectionGestureDetectorBuilderDelegate
-                      delegate,
-                  required Function hideToolbar,
-                  required Function? onTap,
-                  required Function? requestKeyboard,
-                  required Function showToolbar}) builder =
-              (
-                  {required BuildContext context,
-                  required ExtendedTextSelectionGestureDetectorBuilderDelegate
-                      delegate,
-                  required Function hideToolbar,
-                  required Function? onTap,
-                  required Function? requestKeyboard,
-                  required Function showToolbar}) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {
-                  'context': context,
-                  'delegate': delegate,
-                  'hideToolbar': hideToolbar,
-                  'onTap': onTap,
-                  'requestKeyboard': requestKeyboard,
-                  'showToolbar': showToolbar
-                },
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
         // typedef InitEditorConfigHandler = EditorConfig? Function(ExtendedImageState? state)
         // package:extended_image/src/typedef.dart
         case 'EditorConfig? Function(ExtendedImageState?)':
@@ -263,6 +219,18 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
                 {functionPaParameters[0]: p0},
                 parent: domain,
               ),
+            );
+          };
+          return builder;
+        // typedef TaskCallback<out T> = FutureOr<T> Function()
+        // package:flutter/src/scheduler/binding.dart
+        case 'FutureOr<Object> Function()':
+          FutureOr<Object> Function() builder = () {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              domain,
             );
           };
           return builder;
@@ -315,18 +283,6 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef TaskCallback<out T> = T Function()
-        // package:flutter/src/scheduler/binding.dart
-        case 'dynamic Function()':
-          dynamic Function() builder = () {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              domain,
-            );
-          };
-          return builder;
         // typedef LoadingMoreItemBuilder<in T> = Widget Function(BuildContext context, T item, int index)
         // package:loading_more_list/src/list_config/loading_more_list_config.dart
         case 'Widget Function(BuildContext, dynamic, int)':
@@ -358,6 +314,28 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
               context,
               FunctionDomain(
                 {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
+                parent: domain,
+              ),
+            );
+          };
+          return builder;
+        // typedef OKToastAnimationBuilder = Widget Function(BuildContext context, Widget child, AnimationController controller, double percent)
+        // package:oktoast/src/widget/animation/animation_builder.dart
+        case 'Widget Function(BuildContext, Widget, AnimationController, double)':
+          List functionPaParameters = FunctionDomain.pa(map);
+          Widget Function(BuildContext, Widget, AnimationController, double)
+              builder = (p0, p1, p2, p3) {
+            return pa0Value(
+              FunctionDomain.getBody(map),
+              methodMap,
+              context,
+              FunctionDomain(
+                {
+                  functionPaParameters[0]: p0,
+                  functionPaParameters[1]: p1,
+                  functionPaParameters[2]: p2,
+                  functionPaParameters[3]: p3
+                },
                 parent: domain,
               ),
             );
@@ -417,22 +395,6 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
               context,
               FunctionDomain(
                 {functionPaParameters[0]: p0, functionPaParameters[1]: p1},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef TextSelectionPointerHandlerWidgetBuilder = Widget Function(List<ExtendedTextSelectionState> state)
-        // package:extended_text/src/extended_text_typedef.dart
-        case 'Widget Function(List<ExtendedTextSelectionState>)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          Widget Function(List<ExtendedTextSelectionState>) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
                 parent: domain,
               ),
             );
@@ -645,29 +607,6 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef ShouldShowSelectionHandlesCallback = bool Function(SelectionChangedCause? cause, CommonTextSelectionGestureDetectorBuilder selectionGestureDetectorBuilder, TextEditingValue editingValue)
-        // package:extended_text_library/src/selection/typedef.dart
-        case 'bool Function(SelectionChangedCause?, CommonTextSelectionGestureDetectorBuilder, TextEditingValue)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          bool Function(
-              SelectionChangedCause?,
-              CommonTextSelectionGestureDetectorBuilder,
-              TextEditingValue) builder = (p0, p1, p2) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {
-                  functionPaParameters[0]: p0,
-                  functionPaParameters[1]: p1,
-                  functionPaParameters[2]: p2
-                },
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
         // typedef SlideEndHandler = bool? Function(Offset offset, {ExtendedImageSlidePageState state, ScaleEndDetails details})
         // package:extended_image/src/typedef.dart
         case 'bool? Function(Offset, {ScaleEndDetails details, ExtendedImageSlidePageState state})':
@@ -693,7 +632,7 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
           };
           return builder;
         // typedef ScrollIncrementCalculator = double Function(ScrollIncrementDetails details)
-        // package:flutter/src/widgets/scrollable.dart
+        // package:flutter/src/widgets/scrollable_helpers.dart
         case 'double Function(ScrollIncrementDetails)':
           List functionPaParameters = FunctionDomain.pa(map);
           double Function(ScrollIncrementDetails) builder = (p0) {
@@ -771,7 +710,7 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
           };
           return builder;
         // typedef SemanticIndexCallback = int? Function(Widget widget, int localIndex)
-        // package:flutter/src/widgets/sliver.dart
+        // package:flutter/src/widgets/scroll_delegate.dart
         case 'int? Function(Widget, int)':
           List functionPaParameters = FunctionDomain.pa(map);
           int? Function(Widget, int) builder = (p0, p1) {
@@ -786,8 +725,8 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef VoidCallback = void Function()
-        // dart:ui/platform_dispatcher.dart
+        // typedef GestureTapCallback = void Function()
+        // package:flutter/src/gestures/tap.dart
         case 'void Function()':
           void Function() builder = () {
             return pa0Value(
@@ -837,54 +776,6 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
                   functionPaParameters[2]: p2,
                   functionPaParameters[3]: p3
                 },
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef ValueChanged<in T> = void Function(T value)
-        // package:flutter/src/foundation/basic_types.dart
-        case 'void Function(DragEndDetails)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(DragEndDetails) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef ValueChanged<in T> = void Function(T value)
-        // package:flutter/src/foundation/basic_types.dart
-        case 'void Function(DragStartDetails)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(DragStartDetails) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
-                parent: domain,
-              ),
-            );
-          };
-          return builder;
-        // typedef ValueChanged<in T> = void Function(T value)
-        // package:flutter/src/foundation/basic_types.dart
-        case 'void Function(DragUpdateDetails)':
-          List functionPaParameters = FunctionDomain.pa(map);
-          void Function(DragUpdateDetails) builder = (p0) {
-            return pa0Value(
-              FunctionDomain.getBody(map),
-              methodMap,
-              context,
-              FunctionDomain(
-                {functionPaParameters[0]: p0},
                 parent: domain,
               ),
             );
@@ -1033,8 +924,8 @@ mixin PackagesFunctionDynamicWidgetBuilder on DynamicWidgetBuilder {
             );
           };
           return builder;
-        // typedef ScrollOffsetChanged = void Function(double offset)
-        // package:extended_sliver/src/rendering.dart
+        // typedef ValueChanged<in T> = void Function(T value)
+        // package:flutter/src/foundation/basic_types.dart
         case 'void Function(double)':
           List functionPaParameters = FunctionDomain.pa(map);
           void Function(double) builder = (p0) {

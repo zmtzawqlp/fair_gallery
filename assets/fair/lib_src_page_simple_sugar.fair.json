@@ -320,7 +320,7 @@
                                       "item"
                                     ]
                                   },
-                                  "tag": "Widget Function(int, Object?)",
+                                  "tag": "Widget Function(int, dynamic)",
                                   "rt": "Widget"
                                 }
                               ]
@@ -506,7 +506,7 @@
                                         "item"
                                       ]
                                     },
-                                    "tag": "Widget Function(int, Object?)",
+                                    "tag": "Widget Function(int, dynamic)",
                                     "rt": "Widget"
                                   }
                                 ]
@@ -529,5 +529,6 @@
       }
     }
   },
-  "methodMap": {}
+  "methodMap": {},
+  "digest": "ae8d97511d3e8d16ea8a8b37ed6b761b"
 }

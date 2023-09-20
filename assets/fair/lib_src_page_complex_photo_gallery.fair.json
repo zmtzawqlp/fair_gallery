@@ -53,146 +53,141 @@
                     "className": "SizeCacheWidget",
                     "na": {
                       "child": {
-                        "className": "ExtendedTextSelectionPointerHandler",
-                        "na": {
-                          "child": {
-                            "className": "LoadingMoreList",
-                            "pa": [
-                              {
-                                "className": "ListConfig",
+                        "className": "LoadingMoreList",
+                        "pa": [
+                          {
+                            "className": "ListConfig",
+                            "na": {
+                              "itemBuilder": "@(_itemBuilder)",
+                              "sourceList": {
+                                "className": "LoadingMoreRepository.onLoadData",
+                                "pa": [
+                                  "^(_repository)",
+                                  "@(_onLoadData)"
+                                ],
                                 "na": {
-                                  "itemBuilder": "@(_itemBuilder)",
-                                  "sourceList": {
-                                    "className": "LoadingMoreRepository.onLoadData",
-                                    "pa": [
-                                      "^(_repository)",
-                                      "@(_onLoadData)"
-                                    ],
-                                    "na": {
-                                      "maxLength": 300
-                                    }
-                                  },
-                                  "cacheExtent": {
-                                    "className": "SugarNum.toDouble",
+                                  "maxLength": 300
+                                }
+                              },
+                              "cacheExtent": {
+                                "className": "SugarNum.toDouble",
+                                "pa": [
+                                  {
+                                    "className": "SugarNum.multiplies",
                                     "pa": [
                                       {
-                                        "className": "SugarNum.multiplies",
+                                        "className": "Sugar.height",
                                         "pa": [
-                                          {
-                                            "className": "Sugar.height",
-                                            "pa": [
-                                              "^(context)"
-                                            ]
-                                          },
-                                          2
+                                          "^(context)"
                                         ]
-                                      }
+                                      },
+                                      2
                                     ]
-                                  },
-                                  "physics": {
-                                    "className": "BouncingScrollPhysics"
-                                  },
-                                  "indicatorBuilder": {
-                                    "className": "SugarCommon.loadingMoreIndicatorBuilder",
-                                    "pa": [
-                                      [
-                                        {
-                                          "className": "SugarSwitchCaseObj",
-                                          "na": {
-                                            "sugarCase": {
-                                              "className": "FairFunction",
-                                              "body": "#(IndicatorStatus.fullScreenBusying)",
-                                              "tag": "IndicatorStatus Function()",
-                                              "rt": "IndicatorStatus"
-                                            },
-                                            "reValue": {
-                                              "className": "FairFunction",
-                                              "body": {
-                                                "className": "Align",
-                                                "na": {
-                                                  "alignment": "#(Alignment.center)",
-                                                  "child": {
-                                                    "className": "Text",
-                                                    "pa": [
-                                                      "不要着急，正在加载中..."
-                                                    ]
-                                                  }
-                                                }
-                                              },
-                                              "tag": "Widget Function()",
-                                              "rt": "Widget"
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "className": "SugarSwitchCaseObj",
-                                          "na": {
-                                            "sugarCase": {
-                                              "className": "FairFunction",
-                                              "body": "#(IndicatorStatus.loadingMoreBusying)",
-                                              "tag": "IndicatorStatus Function()",
-                                              "rt": "IndicatorStatus"
-                                            },
-                                            "reValue": {
-                                              "className": "FairFunction",
-                                              "body": {
-                                                "className": "Container",
-                                                "na": {
-                                                  "height": 35.0,
-                                                  "alignment": "#(Alignment.center)",
-                                                  "child": {
-                                                    "className": "Text",
-                                                    "pa": [
-                                                      "不要拖了，正在加载更多..."
-                                                    ]
-                                                  }
-                                                }
-                                              },
-                                              "tag": "Widget Function()",
-                                              "rt": "Widget"
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "className": "SugarSwitchCaseObj",
-                                          "na": {
-                                            "sugarCase": {
-                                              "className": "FairFunction",
-                                              "body": "#(IndicatorStatus.noMoreLoad)",
-                                              "tag": "IndicatorStatus Function()",
-                                              "rt": "IndicatorStatus"
-                                            },
-                                            "reValue": {
-                                              "className": "FairFunction",
-                                              "body": {
-                                                "className": "Container",
-                                                "na": {
-                                                  "height": 35.0,
-                                                  "alignment": "#(Alignment.center)",
-                                                  "child": {
-                                                    "className": "Text",
-                                                    "pa": [
-                                                      "拖不动了，没有更多了！"
-                                                    ]
-                                                  }
-                                                }
-                                              },
-                                              "tag": "Widget Function()",
-                                              "rt": "Widget"
-                                            }
-                                          }
-                                        }
-                                      ]
-                                    ],
-                                    "na": {
-                                      "isSliver": false
-                                    }
                                   }
+                                ]
+                              },
+                              "physics": {
+                                "className": "BouncingScrollPhysics"
+                              },
+                              "indicatorBuilder": {
+                                "className": "SugarCommon.loadingMoreIndicatorBuilder",
+                                "pa": [
+                                  [
+                                    {
+                                      "className": "SugarSwitchCaseObj",
+                                      "na": {
+                                        "sugarCase": {
+                                          "className": "FairFunction",
+                                          "body": "#(IndicatorStatus.fullScreenBusying)",
+                                          "tag": "IndicatorStatus Function()",
+                                          "rt": "IndicatorStatus"
+                                        },
+                                        "reValue": {
+                                          "className": "FairFunction",
+                                          "body": {
+                                            "className": "Align",
+                                            "na": {
+                                              "alignment": "#(Alignment.center)",
+                                              "child": {
+                                                "className": "Text",
+                                                "pa": [
+                                                  "不要着急，正在加载中..."
+                                                ]
+                                              }
+                                            }
+                                          },
+                                          "tag": "Widget Function()",
+                                          "rt": "Widget"
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "className": "SugarSwitchCaseObj",
+                                      "na": {
+                                        "sugarCase": {
+                                          "className": "FairFunction",
+                                          "body": "#(IndicatorStatus.loadingMoreBusying)",
+                                          "tag": "IndicatorStatus Function()",
+                                          "rt": "IndicatorStatus"
+                                        },
+                                        "reValue": {
+                                          "className": "FairFunction",
+                                          "body": {
+                                            "className": "Container",
+                                            "na": {
+                                              "height": 35.0,
+                                              "alignment": "#(Alignment.center)",
+                                              "child": {
+                                                "className": "Text",
+                                                "pa": [
+                                                  "不要拖了，正在加载更多..."
+                                                ]
+                                              }
+                                            }
+                                          },
+                                          "tag": "Widget Function()",
+                                          "rt": "Widget"
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "className": "SugarSwitchCaseObj",
+                                      "na": {
+                                        "sugarCase": {
+                                          "className": "FairFunction",
+                                          "body": "#(IndicatorStatus.noMoreLoad)",
+                                          "tag": "IndicatorStatus Function()",
+                                          "rt": "IndicatorStatus"
+                                        },
+                                        "reValue": {
+                                          "className": "FairFunction",
+                                          "body": {
+                                            "className": "Container",
+                                            "na": {
+                                              "height": 35.0,
+                                              "alignment": "#(Alignment.center)",
+                                              "child": {
+                                                "className": "Text",
+                                                "pa": [
+                                                  "拖不动了，没有更多了！"
+                                                ]
+                                              }
+                                            }
+                                          },
+                                          "tag": "Widget Function()",
+                                          "rt": "Widget"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                ],
+                                "na": {
+                                  "isSliver": false
                                 }
                               }
-                            ]
+                            }
                           }
-                        }
+                        ]
                       }
                     }
                   }
@@ -259,5 +254,6 @@
     "_onRefresh": {
       "className": "_repository.refresh"
     }
-  }
+  },
+  "digest": "3c047c1944e0dea6a53e4c35d6d8684a"
 }

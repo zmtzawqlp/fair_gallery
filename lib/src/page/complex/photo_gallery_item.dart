@@ -10,8 +10,8 @@ import 'package:fair_gallery/assets.dart';
 import 'package:fair_gallery/src/plugin/fair_common_plugin.dart';
 import 'package:fair_gallery/src/sugar/common.dart';
 import 'package:fair_gallery/src/sugar/dart_core.dart';
-import 'package:fair_gallery/src/utils/text/my_extended_text_selection_controls.dart';
 import 'package:fair_gallery/src/utils/text/my_special_text_span_builder.dart';
+import 'package:fair_gallery/src/utils/text/selection_area.dart';
 import 'package:fair_gallery/src/widget/extended_fair_widget.dart';
 import 'package:fair_gallery/src/widget/share_data_widget.dart';
 import 'package:ff_annotation_route_library/ff_annotation_route_library.dart';
@@ -309,30 +309,30 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
           ),
         ),
         Padding(
-          child: ExtendedText(
-            _getContent(),
-            onSpecialTextTap: _onSpecialTextTap,
-            specialTextSpanBuilder: MySpecialTextSpanBuilder(),
-            style: const TextStyle(fontSize: 14, color: Colors.grey),
-            maxLines: 5,
-            overflowWidget: TextOverflowWidget(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const Text('\u2026 ',
-                      style: TextStyle(fontSize: 14, height: 1.2)),
-                  GestureDetector(
-                    child: const Text(
-                      '更多',
-                      style: TextStyle(fontSize: 14, height: 1.2),
-                    ),
-                    onTap: _onTextMoreTap,
-                  )
-                ],
+          child: CommonSelectionArea(
+            child: ExtendedText(
+              _getContent(),
+              onSpecialTextTap: _onSpecialTextTap,
+              specialTextSpanBuilder: MySpecialTextSpanBuilder(),
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
+              maxLines: 5,
+              overflowWidget: TextOverflowWidget(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const Text('\u2026 ',
+                        style: TextStyle(fontSize: 14, height: 1.2)),
+                    GestureDetector(
+                      child: const Text(
+                        '更多',
+                        style: TextStyle(fontSize: 14, height: 1.2),
+                      ),
+                      onTap: _onTextMoreTap,
+                    )
+                  ],
+                ),
               ),
             ),
-            selectionEnabled: true,
-            selectionControls: MyTextSelectionControls(),
           ),
           padding: const EdgeInsets.only(left: 11, right: 11, bottom: 11),
         ),
@@ -461,9 +461,9 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                         value: index,
                       ),
                       child: Hero(
-                        tag: '$imageItem',
+                        tag: imageItem,
                         child: ExtendedImage.network(
-                          '$imageItem',
+                          imageItem,
                           fit: BoxFit.cover,
                           loadStateChanged:
                               SugarCommon.onImageStateChanged((loadState) {
@@ -534,9 +534,9 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                           children: [
                             Positioned.fill(
                               child: Hero(
-                                tag: '$imageItem',
+                                tag: imageItem,
                                 child: ExtendedImage.network(
-                                  '$imageItem',
+                                  imageItem,
                                   fit: BoxFit.cover,
                                   loadStateChanged:
                                       SugarCommon.onImageStateChanged(
@@ -595,9 +595,9 @@ class _PhotoGalleryItemState extends State<PhotoGalleryItem> {
                           ],
                         ),
                     falseValue: () => Hero(
-                          tag: '$imageItem',
+                          tag: imageItem,
                           child: ExtendedImage.network(
-                            '$imageItem',
+                            imageItem,
                             fit: BoxFit.cover,
                             loadStateChanged:
                                 SugarCommon.onImageStateChanged((loadState) {

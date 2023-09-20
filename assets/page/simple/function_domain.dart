@@ -127,22 +127,22 @@ class _FunctionDomainDemoState extends State<FunctionDomainDemo> {
                 subtitle: Text(
                     '三方支持请参考 \'fair_gallery/lib/src/utils/dynamic_widget_builder.dart\' 中的实现。'),
               )),
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                   child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       '0.',
                     ),
-                    const SizedBox(width: 5),
+                    SizedBox(width: 5),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             '无入参回调，int,double,bool,String,Widget，以及它们的空类型和List类型，',
                           ),

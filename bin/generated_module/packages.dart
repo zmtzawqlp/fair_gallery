@@ -15,10 +15,23 @@ import '../util/utils.dart';
 // import 'package:flutter/animation.dart';
 Set<String> _imports = <String>{
   'import \'package:extended_text_library/extended_text_library.dart\' as extended_text_library;',
+  'import \'package:oktoast/src/core/toast.dart\';',
 };
 
 String _codes = '''
 int _kDefaultSemanticIndexCallback(Widget _, int localIndex) => localIndex;
+Widget _defaultBuildAnimation(
+  BuildContext context,
+  Widget child,
+  AnimationController controller,
+  double percent,
+) {
+  return Opacity(opacity: percent, child: child);
+}
+
+const Duration _defaultDuration = Duration(milliseconds: 2300);
+const Duration _defaultAnimDuration = Duration(milliseconds: 250);
+const Color _defaultBackgroundColor = Color(0xDD000000);
 ''';
 
 Map<String, String> _fixes = <String, String>{
@@ -77,7 +90,9 @@ void main(List<String> args) async {
     includedPaths: includedPaths,
     fileName: 'Packages',
     imports: _imports.join('\n'),
-    componentSkips: {},
+    componentSkips: {
+      'ExtendedNetworkImageProvider.httpClient',
+    },
     codes: _codes,
     fixes: _fixes,
     functionDomainImports: _imports.join('\n'),

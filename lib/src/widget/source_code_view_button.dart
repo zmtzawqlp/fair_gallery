@@ -17,8 +17,8 @@ class SourceCodeViewButton extends StatelessWidget {
         alignment: Alignment.center,
         color: const Color.fromARGB(1, 255, 255, 255),
         margin: const EdgeInsets.only(right: 12),
-        child: Row(
-          children: const [
+        child: const Row(
+          children: [
             Icon(Icons.code),
             SizedBox(
               width: 5,

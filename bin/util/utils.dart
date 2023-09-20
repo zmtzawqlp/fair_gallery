@@ -137,6 +137,7 @@ Future<void> getIncludedPaths({
   }
 
   includedPaths.add(filePath);
+
   final result = parseFile(
     path: filePath,
     featureSet: FeatureSet.latestLanguageVersion(),
@@ -206,6 +207,25 @@ Future<void> getIncludedPaths({
           fullName = fullName.replaceAll('$packageName/lib', packageName);
           imports.add('import \'package:$fullName\';');
         }
+      }
+    } else if (child is PartDirective) {
+      var uri = child.uri.toString();
+      // 去掉引号
+      uri = uri.substring(1, uri.length - 1);
+      var isDartSdk = uri.startsWith('dart:');
+      if (!isDartSdk && !uri.startsWith('package:')) {
+        var fullName =
+            path.normalize(path.absolute(path.dirname(filePath), uri));
+        await getIncludedPaths(
+          depth: depth,
+          includedPaths: includedPaths,
+          imports: imports,
+          filePath: fullName,
+          packageName: packageName,
+          packageRoot: packageRoot,
+          packageConfig: packageConfig,
+          projectDirectory: projectDirectory,
+        );
       }
     }
   }
