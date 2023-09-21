@@ -284,20 +284,22 @@ packages:
     source: git
     version: "1.8.0"
   fair_dart2dsl:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: fair_dart2dsl
-      sha256: a4e859678c0dcad711d688c0e82998fde5e75d2f5f5620d9b2c6d7426d22acbd
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: dart2dsl
+      ref: fixed
+      resolved-ref: dd3d814ed4f63f3b9d79c2472505296f1490215c
+      url: "https://github.com/zmtzawqlp/fair.git"
+    source: git
     version: "1.4.0"
   fair_dart2js:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: fair_dart2js
-      sha256: f9b14f1fc887866238fb0c446667611bcd8896f889cd18950ce4b3cd7a3cfad2
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: dart2js
+      ref: fixed
+      resolved-ref: dd3d814ed4f63f3b9d79c2472505296f1490215c
+      url: "https://github.com/zmtzawqlp/fair.git"
+    source: git
     version: "1.4.0"
   fair_version:
     dependency: "direct overridden"

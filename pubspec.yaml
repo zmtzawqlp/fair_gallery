@@ -92,20 +92,20 @@ dependency_overrides:
       url: https://github.com/zmtzawqlp/fair.git
       ref: fixed
       path: flutter_version/flutter_mock
-  # fair_dart2dsl:
-  #   git:
-  #     # url: https://github.com/wuba/Fair.git
-  #     # ref: fair-release-zmtzawqlp
-  #     url: https://github.com/zmtzawqlp/fair.git
-  #     ref: fixed
-  #     path: dart2dsl
-  # fair_dart2js:
-  #   git:
-  #     # url: https://github.com/wuba/Fair.git
-  #     # ref: fair-release-zmtzawqlp      
-  #     url: https://github.com/zmtzawqlp/fair.git
-  #     ref: fixed
-  #     path: dart2js      
+  fair_dart2dsl:
+    git:
+      # url: https://github.com/wuba/Fair.git
+      # ref: fair-release-zmtzawqlp
+      url: https://github.com/zmtzawqlp/fair.git
+      ref: fixed
+      path: dart2dsl
+  fair_dart2js:
+    git:
+      # url: https://github.com/wuba/Fair.git
+      # ref: fair-release-zmtzawqlp      
+      url: https://github.com/zmtzawqlp/fair.git
+      ref: fixed
+      path: dart2js      
   # 如果你是 3.3.0 以下的版本，需要 override collection
   # collection: 1.17.0
   watcher: 1.1.0
