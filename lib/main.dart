@@ -27,7 +27,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   // mock 的 fair_version ，把本地的配置传给它
-  fair_version.fairVersion = '3.3.0';
+  fair_version.fairVersion = '3.13.8';
   fair_version.flutterVersion = local_version.flutterVersion;
   fair_version.dartVersion = local_version.dartVersion;
   fair_version.widgetCount = local_version.widgetCount;
@@ -43,9 +43,20 @@ void main() {
         generated: FairAppGeneratedModule(),
         child: const MyApp(),
         delegate: FairDelegateBase.delegates,
-        dynamicWidgetBuilder: (proxyMirror, page, bound, {bundle}) =>
-            CustomDynamicWidgetBuilder(proxyMirror, page, bound,
-                bundle: bundle),
+        dynamicWidgetBuilder: [
+          (
+            proxyMirror,
+            page,
+            bound, {
+            bundle,
+          }) =>
+              CustomDynamicWidgetBuilder(
+                proxyMirror,
+                page,
+                bound,
+                bundle: bundle,
+              ),
+        ],
         bundleProvider: CustomFairBundleLoader(),
       ),
       plugins: <String, IFairPlugin>{'FairCommonPlugin': FairCommonPlugin()});

@@ -298,7 +298,10 @@
                         "^(context)",
                         "ValueNotifier"
                       ],
-                      "ta": "ValueNotifier<dynamic>"
+                      "ta": "ValueNotifier<dynamic>",
+                      "typeArgumentList": [
+                        "ValueNotifier"
+                      ]
                     },
                     "builder": {
                       "className": "FairFunction",
@@ -342,7 +345,10 @@
                                 "^(context)",
                                 "AnimationController"
                               ],
-                              "ta": "AnimationController"
+                              "ta": "AnimationController",
+                              "typeArgumentList": [
+                                "AnimationController"
+                              ]
                             },
                             "builder": {
                               "className": "FairFunction",
@@ -369,7 +375,10 @@
                                               "^(context)",
                                               "AnimationController"
                                             ],
-                                            "ta": "AnimationController"
+                                            "ta": "AnimationController",
+                                            "typeArgumentList": [
+                                              "AnimationController"
+                                            ]
                                           }
                                         ]
                                       },
@@ -457,7 +466,10 @@
                         "^(context)",
                         "TabController0"
                       ],
-                      "ta": "TabController"
+                      "ta": "TabController",
+                      "typeArgumentList": [
+                        "TabController"
+                      ]
                     }
                   }
                 },
@@ -473,7 +485,10 @@
                             "^(context)",
                             "TabController0"
                           ],
-                          "ta": "TabController"
+                          "ta": "TabController",
+                          "typeArgumentList": [
+                            "TabController"
+                          ]
                         },
                         "children": [
                           {
@@ -514,7 +529,10 @@
                                             "^(context)",
                                             "ScrollController"
                                           ],
-                                          "ta": "ScrollController"
+                                          "ta": "ScrollController",
+                                          "typeArgumentList": [
+                                            "ScrollController"
+                                          ]
                                         },
                                         "itemBuilder": {
                                           "className": "FairFunction",
@@ -618,7 +636,10 @@
                                         "^(context)",
                                         "TabController1"
                                       ],
-                                      "ta": "TabController"
+                                      "ta": "TabController",
+                                      "typeArgumentList": [
+                                        "TabController"
+                                      ]
                                     }
                                   }
                                 },
@@ -634,7 +655,10 @@
                                             "^(context)",
                                             "TabController1"
                                           ],
-                                          "ta": "TabController"
+                                          "ta": "TabController",
+                                          "typeArgumentList": [
+                                            "TabController"
+                                          ]
                                         },
                                         "children": [
                                           {

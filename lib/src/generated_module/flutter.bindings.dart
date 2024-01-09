@@ -1,5 +1,5 @@
-// flutterVersion = '3.13.4'
-// dartVersion = '3.1.2'
+// flutterVersion = '3.13.8'
+// dartVersion = '3.1.4'
 // widgetCount = 619
 // apiCount = 13403
 // ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors, invalid_use_of_visible_for_testing_member
@@ -796,8 +796,8 @@ class _DefaultSnapshotPainter implements SnapshotPainter {
   bool shouldRepaint(covariant _DefaultSnapshotPainter oldPainter) => false;
 }
 
-const String flutterVersion = '3.13.4';
-const String dartVersion = '3.1.2';
+const String flutterVersion = '3.13.8';
+const String dartVersion = '3.1.4';
 const int widgetCount = 619;
 const int apiCount = 13403;
 

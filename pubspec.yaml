@@ -86,23 +86,17 @@ dependency_overrides:
   analyzer: 5.6.0
   dart_style: 2.2.5
   fair_version:
-    git:
-      # url: https://github.com/wuba/Fair.git
-      # ref: fair-release-zmtzawqlp      
+    git:    
       url: https://github.com/zmtzawqlp/fair.git
       ref: fixed
       path: flutter_version/flutter_mock
   fair_dart2dsl:
     git:
-      # url: https://github.com/wuba/Fair.git
-      # ref: fair-release-zmtzawqlp
       url: https://github.com/zmtzawqlp/fair.git
       ref: fixed
       path: dart2dsl
   fair_dart2js:
-    git:
-      # url: https://github.com/wuba/Fair.git
-      # ref: fair-release-zmtzawqlp      
+    git:    
       url: https://github.com/zmtzawqlp/fair.git
       ref: fixed
       path: dart2js      
@@ -116,7 +110,9 @@ dependency_overrides:
   # fair_dart2dsl:
   #   path: ../Fair/dart2dsl
   # fair_dart2js:
-  #   path: ../Fair/dart2js           
+  #   path: ../Fair/dart2js
+  # fair_version:
+  #   path: ../Fair/flutter_version/flutter_mock                  
 # The following section is specific to Flutter packages.
 flutter:
 

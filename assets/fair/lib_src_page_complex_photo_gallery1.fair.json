@@ -1483,7 +1483,10 @@
                                                                           "rt": "void"
                                                                         }
                                                                       },
-                                                                      "ta": "bool?"
+                                                                      "ta": "bool?",
+                                                                      "typeArgumentList": [
+                                                                        "bool"
+                                                                      ]
                                                                     },
                                                                     "parameters": {
                                                                       "pa": [

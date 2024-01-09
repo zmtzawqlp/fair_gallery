@@ -1,5 +1,5 @@
-// flutterVersion = '3.13.4'
-// dartVersion = '3.1.2'
+// flutterVersion = '3.13.8'
+// dartVersion = '3.1.4'
 // widgetCount = 62
 // apiCount = 163
 // ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors, invalid_use_of_visible_for_testing_member
@@ -153,8 +153,8 @@ const Duration _defaultDuration = Duration(milliseconds: 2300);
 const Duration _defaultAnimDuration = Duration(milliseconds: 250);
 const Color _defaultBackgroundColor = Color(0xDD000000);
 
-const String flutterVersion = '3.13.4';
-const String dartVersion = '3.1.2';
+const String flutterVersion = '3.13.8';
+const String dartVersion = '3.1.4';
 const int widgetCount = 62;
 const int apiCount = 163;
 

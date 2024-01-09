@@ -1,5 +1,5 @@
-// flutterVersion = '3.13.4'
-// dartVersion = '3.1.2'
+// flutterVersion = '3.13.8'
+// dartVersion = '3.1.4'
 // widgetCount = 12
 // apiCount = 290
 // ignore_for_file: unused_import, unnecessary_import, implementation_imports, unused_shown_name, deprecated_member_use, prefer_single_quotes, unused_element, unused_field, duplicate_import, prefer_const_constructors, invalid_use_of_visible_for_testing_member
@@ -24,8 +24,8 @@ import 'package:fair_gallery/src/widget/listenable_scope.dart';
 import 'package:fair_gallery/src/utils/text/selection_area.dart';
 import 'package:fair/fair.dart';
 
-const String flutterVersion = '3.13.4';
-const String dartVersion = '3.1.2';
+const String flutterVersion = '3.13.8';
+const String dartVersion = '3.1.4';
 const int widgetCount = 12;
 const int apiCount = 290;
 

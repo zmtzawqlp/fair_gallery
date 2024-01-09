@@ -19,7 +19,10 @@
               "function": "@(_onRefresh)",
               "argument": "可以传一些参数过去，多个参数用数组"
             },
-            "ta": "void"
+            "ta": "void",
+            "typeArgumentList": [
+              "void"
+            ]
           },
           "tag": "Future<void> Function()",
           "rt": "Future<void>"
